@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>金牌农资用户注册</title>
+<title>不倒翁会员注册</title>
 
 <link href="../content/static/css/bootstrap/bootstrap.css"
 	rel="stylesheet">
