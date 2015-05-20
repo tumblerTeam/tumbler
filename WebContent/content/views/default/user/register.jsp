@@ -95,6 +95,21 @@
 								</div>
 							</div>
 							<div class="form-group">
+								<label for="inputPassword4" class="col-sm-2 control-label"><a
+									class="frred">*</a>手机</label>
+								<div class="col-sm-10">
+									<input id="mobile" name="mobile" type="text" size="25" class="inputBg" /><span style="color:#FF0000"> *</span> 
+        <input id="zphone" type="button" value=" 发送手机验证码 " onClick="get_mobile_code();">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword4" class="col-sm-2 control-label"><a
+									class="frred">*</a>验证码</label>
+								<div class="col-sm-10">
+									<input type="text" size="8" name="mobile_code" class="inputBg" />
+								</div>
+							</div>
+							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-10"
 									style="text-align: center;">
 									<button type="submit" class="btn btn-default">注册</button>
@@ -169,5 +184,52 @@
 			}
 		}
 	</script>
+		
+<script language="javascript">
+	function get_mobile_code(){
+		alert('../getDo?mobile='+jQuery.trim($('#mobile').val()));
+		$.ajax({
+			type : 'GET',
+			contentType : 'application/json',
+			url : '../verification/smsVerification?mobile='+jQuery.trim($('#mobile').val()),
+			dataType : 'json',
+			success : function(msg) {
+				if(msg.name=='提交成功'){
+					RemainTime();
+				}
+			}
+		});
+	};
+	var iTime = 59;
+	var Account;
+	function RemainTime(){
+		document.getElementById('zphone').disabled = true;
+		var iSecond,sSecond="",sTime="";
+		if (iTime >= 0){
+			iSecond = parseInt(iTime%60);
+			iMinute = parseInt(iTime/60)
+			if (iSecond >= 0){
+				if(iMinute>0){
+					sSecond = iMinute + "分" + iSecond + "秒";
+				}else{
+					sSecond = iSecond + "秒";
+				}
+			}
+			sTime=sSecond;
+			if(iTime==0){
+				clearTimeout(Account);
+				sTime='获取手机验证码';
+				iTime = 59;
+				document.getElementById('zphone').disabled = false;
+			}else{
+				Account = setTimeout("RemainTime()",1000);
+				iTime=iTime-1;
+			}
+		}else{
+			sTime='没有倒计时';
+		}
+		document.getElementById('zphone').value = sTime;
+	}
+</script>
 </body>
 </html>
