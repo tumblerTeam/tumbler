@@ -48,7 +48,7 @@
 							</div>
 							<div class="form-group">
 								<label for="inputPassword3" class="col-sm-2 control-label">密码</label>
-								<div class="col-sm-10">
+								<div class="col-sm-8">
 									<input type="password" name="password" class="form-control" id="inputPassword3">
 								</div>
 							</div>

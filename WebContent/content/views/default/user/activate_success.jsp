@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-    账号激活成功，点击这里去登录！
-  </body>
+    <a href="../login">账号激活成功，点击这里去登录！</a>
+</body>
 </html>
