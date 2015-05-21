@@ -20,7 +20,12 @@ public class UserService extends GenericService<User> implements IUserService {
 	}
 
 	@Override
-	public User getUser(String name) {
-		return userDao.getFirstRecord("loginName", name);
+	public User getUser(String mobile) {
+		return userDao.getFirstRecord("mobile", mobile);
+	}
+
+	@Override
+	public User getUserByEmail(String email) {
+		return userDao.getFirstRecord("email", email);
 	}
 }

@@ -37,7 +37,13 @@
 							<div class="form-group">
 								<label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
 								<div class="col-sm-10">
-									<input name="name" class="form-control" id="inputEmail3">
+									<c:if test="${param.page != null}">
+										<input type="hidden" name="page" value="${param.page }">
+									</c:if>
+									<c:if test="${param.page == null}">
+										<input type="hidden" name="page" value="${page }">
+									</c:if>
+									<input name="mobile" class="form-control" id="inputEmail3">
 								</div>
 							</div>
 							<div class="form-group">

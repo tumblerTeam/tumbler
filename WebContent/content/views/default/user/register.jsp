@@ -69,11 +69,28 @@
 							</div>
 							<div class="form-group">
 								<label for="inputEmail3" class="col-sm-2 control-label"><a
-									class="frred">*</a>用户名</label>
+									class="frred">*</a>昵称</label>
 								<div class="col-sm-10">
-									<input type="text" name="loginName" class="form-control"
+									<input type="text" name="userName" class="form-control"
 										id="inputEmail3" onblur="checkformname()"> <span
 										id="sname" class="frbule">输入至少2位用户名</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword4" class="col-sm-2 control-label"><a
+									class="frred">*</a>登录名</label>
+								<div class="col-sm-6">
+									<input id="mobile" class="form-control" name="mobile" placeholder="输入手机号码" type="text" size="25" /> 
+								</div>
+								<div class="col-sm-4">
+									<input class="form-control" id="zphone" type="button" value=" 发送手机验证码 " onClick="get_mobile_code();">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword4" class="col-sm-2 control-label"><a
+									class="frred">*</a>验证码</label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" size="8" name="mobile_code" class="inputBg" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -92,21 +109,6 @@
 									<input type="password" name="password" class="form-control"
 										id="inputPassword4" onblur="rcheckpwd()"><span
 										id="srpwd" class="frbule"> 请输入重复密码</span>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputPassword4" class="col-sm-2 control-label"><a
-									class="frred">*</a>手机</label>
-								<div class="col-sm-10">
-									<input id="mobile" name="mobile" type="text" size="25" class="inputBg" /><span style="color:#FF0000"> *</span> 
-        <input id="zphone" type="button" value=" 发送手机验证码 " onClick="get_mobile_code();">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputPassword4" class="col-sm-2 control-label"><a
-									class="frred">*</a>验证码</label>
-								<div class="col-sm-10">
-									<input type="text" size="8" name="mobile_code" class="inputBg" />
 								</div>
 							</div>
 							<div class="form-group">

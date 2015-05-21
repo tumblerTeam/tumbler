@@ -1,5 +1,11 @@
 package com.yc.entity.user;
 
+import java.beans.Transient;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -18,7 +24,7 @@ public class User {
 	private Integer id;
 
 	@Column(length = 32, unique = true, updatable = false)
-	private String loginName;
+	private String mobile;
 
 	@Column(length = 32)
 	private String password;
@@ -30,14 +36,44 @@ public class User {
 	private String email;
 	
 	@Column
+	private String validateCode;//邮箱激活码
+	
+	@Column
+	private Boolean  status;
+	
+	@Column
+	private String emailBindTime;
+	
+	@Column
 	@Enumerated(EnumType.STRING)
 	private Sex sex;
-
-	@Column
-	private String phone;
 	
 	@Column
 	private String birthday;
+
+	public String getEmailBindTime() {
+		return emailBindTime;
+	}
+
+	public void setEmailBindTime(String emailBindTime) {
+		this.emailBindTime = emailBindTime;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	public String getValidateCode() {
+		return validateCode;
+	}
+
+	public void setValidateCode(String validateCode) {
+		this.validateCode = validateCode;
+	}
 
 	public Integer getId() {
 		return id;
@@ -47,12 +83,12 @@ public class User {
 		this.id = id;
 	}
 
-	public String getLoginName() {
-		return loginName;
+	public String getMobile() {
+		return mobile;
 	}
 
-	public void setLoginName(String loginName) {
-		this.loginName = loginName;
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 
 	public String getPassword() {
@@ -87,14 +123,6 @@ public class User {
 		this.sex = sex;
 	}
 
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
 	public String getBirthday() {
 		return birthday;
 	}
@@ -103,5 +131,11 @@ public class User {
 		this.birthday = birthday;
 	}
 	
-
+	@Transient
+    public Date getLastActivateTime() throws ParseException {
+        Calendar cl = Calendar.getInstance();
+        cl.setTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(emailBindTime));
+        cl.add(Calendar.DATE , 2);
+        return cl.getTime();
+    }
 }

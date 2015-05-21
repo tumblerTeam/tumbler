@@ -10,9 +10,19 @@
 <meta name="description"
 	content="CSS3 Full Screen Vertical Scroller with jQuery animation fallback" />
 <meta name="viewport" content="width=device-width, user-scalable=no" />
-
+<script type="text/javascript"
+	src="content/static/js/lib/jquery.min.js"></script>
 </head>
 <body>
-
+<a href="#" onclick="hrefPage();">ddddd</a>
+<a href="#" onclick="page();">fffff</a>
+<script type="text/javascript">
+	function hrefPage(){
+		location.href = "login?page="+window.location.href;
+	}
+	function page(){
+		location.href = "../user/binding?action=register&id=1&email=251851509@qq.com";
+	}
+</script>
 </body>
 </html>
