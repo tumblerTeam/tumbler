@@ -47,7 +47,11 @@ public class UserController {
 			if (personnel.getPassword().equals(pwd.trim())) {
 				session.setAttribute("loginUser", personnel);
 				LOG.info("page============="+page);
-				return "redirect:"+page;
+				if (page.equals("")) {
+					return "redirect:/index";
+				}else{
+					return "redirect:"+page;
+				}
 			} else {
 				request.getSession().setAttribute("message", "nouser");
 				return "redirect:/login?page="+page;
