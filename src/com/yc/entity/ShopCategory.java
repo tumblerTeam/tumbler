@@ -62,6 +62,14 @@ public class ShopCategory {
 	@Column
 	private String russinaCategory;//商品类名;
 
+	public Boolean getIsForbidden() {
+		return isForbidden;
+	}
+
+	public void setIsForbidden(Boolean isForbidden) {
+		this.isForbidden = isForbidden;
+	}
+
 	public String getRussinaCategory() {
 		return russinaCategory;
 	}
