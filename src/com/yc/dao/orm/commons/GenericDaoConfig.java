@@ -20,6 +20,10 @@ import com.yc.entity.ShopCommoidty;
 import com.yc.entity.ShopCommoidtySpecs;
 import com.yc.entity.ShopReviews;
 import com.yc.entity.Specifications;
+import com.yc.entity.user.DepartAndPositions;
+import com.yc.entity.user.Department;
+import com.yc.entity.user.Personnel;
+import com.yc.entity.user.Positions;
 import com.yc.entity.user.User;
 
 @Configuration
@@ -96,6 +100,22 @@ public class GenericDaoConfig {
     @Bean 
     public GenericDao<OrderGroup> getOrderGroupDao() {
     	return new GenericDaoSupport<OrderGroup>(OrderGroup.class);
+    }
+    @Bean 
+    public GenericDao<DepartAndPositions> getDepartAndPositionsDao() {
+    	return new GenericDaoSupport<DepartAndPositions>(DepartAndPositions.class);
+    }
+    @Bean 
+    public GenericDao<Department> getDepartmentDao() {
+    	return new GenericDaoSupport<Department>(Department.class);
+    }
+    @Bean 
+    public GenericDao<Positions> getPositionsDao() {
+    	return new GenericDaoSupport<Positions>(Positions.class);
+    }
+    @Bean 
+    public GenericDao<Personnel> getPersonnelDao() {
+    	return new GenericDaoSupport<Personnel>(Personnel.class);
     }
    
 }
