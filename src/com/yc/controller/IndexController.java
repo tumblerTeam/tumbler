@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,9 +23,12 @@ public class IndexController {
 
  	@RequestMapping(value = "login", method = RequestMethod.GET)
     public ModelAndView homePage(String page,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
- 		ModelMap mode = new ModelMap();
- 		mode.put("page", page);
- 		return new ModelAndView("login", mode);
+ 		return new ModelAndView("personnel/login");
+    }
+ 	
+ 	@RequestMapping(value = "homePage", method = RequestMethod.GET)
+    public ModelAndView homePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+ 		return new ModelAndView("homePage", null);
     }
  	
 }

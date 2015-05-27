@@ -13,17 +13,23 @@ public class LoginFilter implements Filter {
 
     private boolean needLogin(HttpServletRequest request) {
         String uri = request.getRequestURI();
-        if (uri.contains("/management/")) {
-            return true;
+        if (uri.endsWith("homePage")) {
+            return false;
         }
-        return false;
+        if (uri.endsWith("login")) {
+        	return false;
+        }
+        if (uri.contains("static")) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse rsp, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpSession session = request.getSession();
-        if (session.getAttribute("loginUser") == null && needLogin(request)) {
+        if (session.getAttribute("loginPersonnle") == null && needLogin(request)) {
         	HttpServletResponse response = (HttpServletResponse) rsp;
         	response.sendRedirect(request.getContextPath()+"/login");
         	return;

@@ -14,6 +14,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+import com.yc.entity.Shop;
 
 @Entity
 @DiscriminatorValue("user")//用户
@@ -48,8 +52,20 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private Sex sex;
 	
+	@OneToOne
+	@JoinColumn(name = "shop_id")
+	private Shop shop;
+	
 	@Column
 	private String birthday;
+
+	public Shop getShop() {
+		return shop;
+	}
+
+	public void setShop(Shop shop) {
+		this.shop = shop;
+	}
 
 	public String getEmailBindTime() {
 		return emailBindTime;

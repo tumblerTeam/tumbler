@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta charset="utf-8">
-<title>不倒翁注册</title>
+<title>不倒翁后台员工注册</title>
 
 <link href="../content/static/css/bootstrap/bootstrap.css"
 	rel="stylesheet">
@@ -124,7 +123,7 @@
 	<script type="text/javascript">
 
 		function cancel() {
-			window.location.href = "../homePage";
+			window.location.href = "../login";
 		}
 		function checkformname() {
 			var fname = document.getElementById("inputEmail3");

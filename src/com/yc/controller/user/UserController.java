@@ -25,7 +25,6 @@ import com.yc.util.ServiceException;
 @RequestMapping("/user")
 public class UserController {
 
-	@SuppressWarnings("unused")
 	private static final Logger LOG = Logger.getLogger(UserController.class);
 
 	@Autowired

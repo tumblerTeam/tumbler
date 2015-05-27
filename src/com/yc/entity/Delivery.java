@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("delivery")
@@ -17,6 +18,20 @@ public class Delivery {
 	
 	@Column
 	private String deliveryName;
+	
+	@OneToOne(mappedBy = "delivery")
+	private OrderForm orderForm;
+	
+	@OneToOne(mappedBy = "delivery")
+	private Package packages;
+
+	public OrderForm getOrderForm() {
+		return orderForm;
+	}
+
+	public void setOrderForm(OrderForm orderForm) {
+		this.orderForm = orderForm;
+	}
 
 	public Integer getId() {
 		return id;

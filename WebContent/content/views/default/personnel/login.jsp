@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>不倒翁</title>
+<title>不倒翁后台管理登录</title>
 
 <link href="content/static/css/bootstrap/bootstrap.css" rel="stylesheet">
 
@@ -45,7 +45,7 @@
 							<div class="form-group">
 								<label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
 								<div class="col-sm-10">
-									<input name="name" class="form-control" id="inputEmail3">
+									<input name="loginName" class="form-control" id="inputEmail3">
 								</div>
 							</div>
 							<div class="form-group">

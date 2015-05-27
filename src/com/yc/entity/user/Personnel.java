@@ -1,6 +1,5 @@
 package com.yc.entity.user;
 
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -12,13 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
-import com.yc.entity.Commodity;
-import com.yc.entity.OrderForm;
 
 @Entity
 @DiscriminatorValue("personnel")//员工
@@ -53,16 +47,15 @@ public class Personnel {
 	private DepartAndPositions departAndPositions;//部门
 	
 	@Column
-	private String forbidden;
+	private Boolean forbidden = true;//是否禁用
 
-	@OneToMany(mappedBy = "storeOperator")
-    private List<Commodity> commOperators ;//仓库接收订单
+	public void setForbidden(Boolean forbidden) {
+		this.forbidden = forbidden;
+	}
 
-	@OneToMany(mappedBy = "purchase")
-    private List<Commodity> purchases ;//采购接收订单
-    
-    @OneToMany(mappedBy = "orderUser")
-	private List<OrderForm> orderForms;//用户订单
+	public Boolean getForbidden() {
+		return forbidden;
+	}
 
 	public DepartAndPositions getDepartAndPositions() {
 		return departAndPositions;
@@ -70,22 +63,6 @@ public class Personnel {
 
 	public void setDepartAndPositions(DepartAndPositions departAndPositions) {
 		this.departAndPositions = departAndPositions;
-	}
-	@JsonIgnore
-	public List<Commodity> getCommOperators() {
-		return commOperators;
-	}
-	@JsonIgnore
-	public List<Commodity> getPurchases() {
-		return purchases;
-	}
-	@JsonIgnore
-	public void setCommOperators(List<Commodity> commOperators) {
-		this.commOperators = commOperators;
-	}
-	@JsonIgnore
-	public void setPurchases(List<Commodity> purchases) {
-		this.purchases = purchases;
 	}
 
 	public Integer getId() {
@@ -142,22 +119,6 @@ public class Personnel {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-	@JsonIgnore
-	public List<OrderForm> getOrderForms() {
-		return orderForms;
-	}
-	@JsonIgnore
-	public void setOrderForms(List<OrderForm> orderForms) {
-		this.orderForms = orderForms;
-	}
-
-	public String getForbidden() {
-		return forbidden;
-	}
-
-	public void setForbidden(String forbidden) {
-		this.forbidden = forbidden;
 	}
 	
 }

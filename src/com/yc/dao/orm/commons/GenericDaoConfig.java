@@ -9,6 +9,7 @@ import com.yc.entity.CarCommoidty;
 import com.yc.entity.Collection;
 import com.yc.entity.Commodity;
 import com.yc.entity.Currency;
+import com.yc.entity.Delivery;
 import com.yc.entity.DeliveryAddress;
 import com.yc.entity.ImagePath;
 import com.yc.entity.OrderForm;
@@ -116,6 +117,10 @@ public class GenericDaoConfig {
     @Bean 
     public GenericDao<Personnel> getPersonnelDao() {
     	return new GenericDaoSupport<Personnel>(Personnel.class);
+    }
+    @Bean 
+    public GenericDao<Delivery> getDeliveryDao() {
+    	return new GenericDaoSupport<Delivery>(Delivery.class);
     }
    
 }
