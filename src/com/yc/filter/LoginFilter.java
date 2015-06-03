@@ -13,11 +13,8 @@ public class LoginFilter implements Filter {
 
     private boolean needLogin(HttpServletRequest request) {
         String uri = request.getRequestURI();
-        if (uri.endsWith("homePage")) {
-            return false;
-        }
         if (uri.endsWith("login")) {
-        	return false;
+            return false;
         }
         if (uri.contains("static")) {
             return false;
@@ -29,10 +26,13 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse rsp, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpSession session = request.getSession();
-        if (session.getAttribute("loginPersonnle") == null && needLogin(request)) {
-        	HttpServletResponse response = (HttpServletResponse) rsp;
-        	response.sendRedirect(request.getContextPath()+"/login");
-        	return;
+        String url = request.getRequestURI();
+        if(url.contains("/management/")){
+        	if (session.getAttribute("loginPersonnle") == null && needLogin(request)) {
+        		HttpServletResponse response = (HttpServletResponse) rsp;
+        		response.sendRedirect(request.getContextPath()+"/login");
+        		return;
+        	}
         }
         chain.doFilter(req, rsp);
     }

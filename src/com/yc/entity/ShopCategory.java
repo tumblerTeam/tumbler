@@ -1,7 +1,9 @@
 package com.yc.entity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -31,8 +33,6 @@ public class ShopCategory {
 	private String category;//商品类名;
 	@Column
 	private Boolean isForbidden = false;//是否禁用
-	@Column
-	private Integer level;//节点级别
 	
 	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.EAGER)
 	@JoinColumn(name = "parentLevel")
@@ -50,7 +50,7 @@ public class ShopCategory {
 	@OneToMany(mappedBy = "carCategory")
 	private List<CarCommoidty>  carCommoidties;//商品
 
-	@OneToMany(mappedBy = "shopCateg")
+	@ManyToMany(mappedBy = "shopCateges")
 	private List<Brand> brands;//品牌
 	
 	@OneToMany(mappedBy = "shopcategory")
@@ -147,14 +147,6 @@ public class ShopCategory {
 
 	public void setCategory(String category) {
 		this.category = category;
-	}
-
-	public Integer getLevel() {
-		return level;
-	}
-
-	public void setLevel(Integer level) {
-		this.level = level;
 	}
 
 	public List<Commodity> getCommodity() {

@@ -41,4 +41,9 @@ public class ShopCategoryService extends GenericService<ShopCategory> implements
 		return shopCategoryDao.getBy("parentLevel", categoryID);
 	}
 	
+	@Override
+	public List<ShopCategory> getAllByParent() {
+		StringBuffer hql = new StringBuffer(" from ShopCategory depart where depart.parentLevel.categoryID is null ");
+		return shopCategoryDao.find(hql.toString(), null, null);
+	}
 }

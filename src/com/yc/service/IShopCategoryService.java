@@ -31,5 +31,11 @@ public interface IShopCategoryService extends IGenericService<ShopCategory> {
 	 * @return
 	 */
 	List<ShopCategory> getAllByParentLevel(Integer categoryID);
+
+	/***
+	 * 查询所有一级节点类别
+	 * @return
+	 */
+	List<ShopCategory> getAllByParent();
 	
 }

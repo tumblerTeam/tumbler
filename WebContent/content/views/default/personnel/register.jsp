@@ -2,38 +2,41 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="utf-8">
+<% String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/"; %>
+<base href="<%=basePath%>">
 <title>不倒翁后台员工注册</title>
 
-<link href="../content/static/css/bootstrap/bootstrap.css"
+<link href="content/static/css/bootstrap/bootstrap.css"
 	rel="stylesheet">
 
 <link rel="apple-touch-icon-precomposed" sizes="144x144"
-	href="../content/static/img/apple-touch-icon-144-precomposed.png">
+	href="content/static/img/apple-touch-icon-144-precomposed.png">
 <link rel="apple-touch-icon-precomposed" sizes="114x114"
-	href="../content/static/img/apple-touch-icon-114-precomposed.png">
+	href="content/static/img/apple-touch-icon-114-precomposed.png">
 <link rel="apple-touch-icon-precomposed" sizes="72x72"
-	href="../content/static/img/apple-touch-icon-72-precomposed.png">
+	href="content/static/img/apple-touch-icon-72-precomposed.png">
 <link rel="apple-touch-icon-precomposed"
-	href="../content/static/img/apple-touch-icon-57-precomposed.png">
-<link rel="shortcut icon" href="../content/static/img/favicon.png">
+	href="content/static/img/apple-touch-icon-57-precomposed.png">
+<link rel="shortcut icon" href="content/static/img/favicon.png">
 
 <script type="text/javascript"
-	src="../content/static/js/lib/jquery.min.js"></script>
+	src="content/static/js/lib/jquery.min.js"></script>
 <script type="text/javascript"
-	src="../content/static/js/lib/bootstrap.min.js"></script>
-<script type="text/javascript" src="../content/static/js/lib/scripts.js"></script>
+	src="content/static/js/lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="content/static/js/lib/scripts.js"></script>
 
-<link href="../content/static/css/datetime/jquery-clockpicker.min.css"
+<link href="content/static/css/datetime/jquery-clockpicker.min.css"
 	rel="stylesheet">
-<link href="../content/static/css/datetime/jquery.datetimepicker.css"
+<link href="content/static/css/datetime/jquery.datetimepicker.css"
 	rel="stylesheet">
 <script type="text/javascript"
-	src="../content/static/js/datetime/bootstrap-clockpicker.min.js"></script>
+	src="content/static/js/datetime/bootstrap-clockpicker.min.js"></script>
 <script type="text/javascript"
-	src="../content/static/js/datetime/jquery.datetimepicker.js"></script>
+	src="content/static/js/datetime/jquery.datetimepicker.js"></script>
 <style>
 .frred {
 	color: #FF0000;
@@ -59,11 +62,10 @@
 				<div class="row clearfix">
 					<br> <br>
 				</div>
-
 				<div class="row clearfix">
 					<div class="col-md-3 column"></div>
 					<div class="col-md-6 column">
-						<form class="form-horizontal" action="../personnel/regist"
+						<form class="form-horizontal" action="personnel/regist"
 							method="POST">
 							<div class="form-group" style="text-align: center;">
 								<label><font style="font-size: 40px;">用户注册</font> </label> <br>
@@ -97,12 +99,36 @@
 								</div>
 							</div>
 							<div class="form-group">
-									<label for="inputPhone" class="col-sm-2 control-label">姓名</label>
+								<label for="inputPhone" class="col-sm-2 control-label">姓名</label>
+								<div class="col-sm-10">
+									<input type="tel" id="inputPatientName" name="userName"
+											class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPhone" class="col-sm-2 control-label">性别</label>
+								<div class="col-sm-10">
+								<input type="radio" id="inputSex" name="sex" value="Male"
+											checked="checked" class="audio">男&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio"
+											id="inputSex" name="sex" value="Female" class="audio">女
+											
+								</div>
+							</div>
+							<div class="form-group">
+									<label for="inputPhone" class="col-sm-2 control-label">电话</label>
 									<div class="col-sm-10">
-										<input type="tel" id="inputPatientName" name="userName"
+										<input type="tel" id="inputPatientName" name="phone"
 											class="form-control">
 									</div>
-								</div>
+							</div>
+							<div class="form-group">
+									<label for="inputPhone" class="col-sm-2 control-label">Email</label>
+									<div class="col-sm-10">
+										<input type="email" id="inputPatientName" name="email"
+											class="form-control">
+									</div>
+							</div>
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-10"
 									style="text-align: center;">
@@ -123,7 +149,7 @@
 	<script type="text/javascript">
 
 		function cancel() {
-			window.location.href = "../login";
+			window.location.href = "login";
 		}
 		function checkformname() {
 			var fname = document.getElementById("inputEmail3");

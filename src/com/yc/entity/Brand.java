@@ -2,14 +2,14 @@ package com.yc.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -35,9 +35,8 @@ public class Brand {
 	@OneToMany(mappedBy = "brand")
 	private List<ShopCommoidty> shopCommoidties;//品牌商品
 	
-	@ManyToOne
-	@JoinColumn(name = "shopCategory_id")
-	private ShopCategory shopCateg;//商品类别
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<ShopCategory> shopCateges;//商品类别
 
 	public List<ShopCommoidty> getShopCommoidties() {
 		return shopCommoidties;
@@ -47,12 +46,12 @@ public class Brand {
 		this.shopCommoidties = shopCommoidties;
 	}
 
-	public ShopCategory getShopCateg() {
-		return shopCateg;
+	public List<ShopCategory> getShopCateges() {
+		return shopCateges;
 	}
 
-	public void setShopCateg(ShopCategory shopCateg) {
-		this.shopCateg = shopCateg;
+	public void setShopCateges(List<ShopCategory> shopCateges) {
+		this.shopCateges = shopCateges;
 	}
 
 	public Integer getBrandID() {

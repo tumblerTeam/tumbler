@@ -8,8 +8,6 @@ import org.springframework.stereotype.Component;
 
 import com.yc.dao.orm.commons.GenericDao;
 import com.yc.entity.user.DepartAndPositions;
-import com.yc.entity.user.Department;
-import com.yc.entity.user.Positions;
 import com.yc.service.IDepartAndPositionsService;
 
 @Component
