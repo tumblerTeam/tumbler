@@ -40,8 +40,8 @@ public class ShopService extends GenericService<Shop> implements IShopService {
 	}
 	
 	@Override
-	public List<Shop> getShopForManage() {
-		String hql = " from Shop where isPermit = 1";
+	public List<Shop> getShopForManage(boolean b) {
+		String hql = " from Shop where isPermit = "+(b?1:0)+" and blacklist.id is null";
 		return shopDao.find(hql.toString(), null, null);
 	}
 }

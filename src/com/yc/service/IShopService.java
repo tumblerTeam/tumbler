@@ -23,7 +23,8 @@ public interface IShopService extends IGenericService<Shop> {
 
 	/***
 	 * 查询所有允许开店的商家
+	 * @param b 已经开店或者正申请开店
 	 * @return
 	 */
-	List<Shop> getShopForManage();
+	List<Shop> getShopForManage(boolean b);
 }

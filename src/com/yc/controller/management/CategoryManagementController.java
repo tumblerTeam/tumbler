@@ -47,6 +47,14 @@ public class CategoryManagementController {
 	@Autowired
 	IShopCommoidtyService shopCommoidtyService;
 	
+	/**
+	 * 查询类别
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "sortList", method = RequestMethod.GET)
 	public ModelAndView sortList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<ShopCategory> list = categoryService.getAllByParent();
@@ -54,7 +62,18 @@ public class CategoryManagementController {
 		mode.put("treeList1", list);
 		return new ModelAndView("management/sortList", mode);
 	}
-	
+	/**
+	 * 添加类别
+	 * @param page
+	 * @param departmentID 类别ID
+	 * @param departmentname 类别名称
+	 * @param describes 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "addOrUpdateDep", method = RequestMethod.POST)
 	public String addOrUpdateDep(String page, Integer departmentID, String departmentname, String describes, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ShopCategory department = categoryService.findById(departmentID);
@@ -73,7 +92,16 @@ public class CategoryManagementController {
 		}
 		return department;
 	}
-	
+	/**
+	 * 通过类别ID查询类别
+	 * @param id 类别ID
+	 * @param page sortList or orther
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "getAgriculturalsSort", method = RequestMethod.GET)
 	public ModelAndView getAgriculturalsSort(Integer id, String page, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ShopCategory department = categoryService.findById(id);
@@ -87,7 +115,16 @@ public class CategoryManagementController {
 			return new ModelAndView("management/addProducts", mode);
 		}
 	}
-	
+	/**
+	 * 更新类别
+	 * @param departmentId 类别ID
+	 * @param departmentname 类别名称
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "updateDepartmen", method = RequestMethod.POST)
 	public String updateDepartmen(Integer departmentId, String departmentname,  HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ShopCategory department = categoryService.findById(departmentId);
@@ -103,7 +140,15 @@ public class CategoryManagementController {
 		department = categoryService.update(department);
 		return department;
 	}
-	
+	/**
+	 * 类别禁用
+	 * @param departmentId
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "deleteDepartmen", method = RequestMethod.POST)
 	public String deleteDepartmen(Integer departmentId, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ShopCategory department = categoryService.findById(departmentId);
@@ -126,7 +171,14 @@ public class CategoryManagementController {
 		department.setIsForbidden(!department.getIsForbidden());
 		categoryService.update(department);
 	}
-	
+	/**
+	 * 品牌展示
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "brandList", method = RequestMethod.GET)
 	public ModelAndView brandList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Brand> list = brandService.getAll();
@@ -136,7 +188,15 @@ public class CategoryManagementController {
 		mode.put("list", list);
 		return new ModelAndView("management/brandList",mode);
 	}
-	
+	/**
+	 * 通过类别ID，查询类别，
+	 * @param cateID
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "getCateByCateID", method = RequestMethod.GET)
 	public ModelAndView getCateByCateID(Integer cateID, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ShopCategory cate = categoryService.findById(cateID);
@@ -146,7 +206,16 @@ public class CategoryManagementController {
 		mode.put("shopCategory", cate);
 		return new ModelAndView("management/brandList",mode);
 	}
-
+	/**
+	 * 根据类别ID，品牌ID查询品牌和类别，用于展示品牌和类别
+	 * @param cateID 类别ID
+	 * @param brandID 品牌ID
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "getBrandByCateID", method = RequestMethod.GET)
 	public ModelAndView getBrandByCateID(Integer cateID,Integer brandID,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Brand brand = brandService.findById(brandID);
@@ -158,7 +227,17 @@ public class CategoryManagementController {
 		mode.put("shopCategory", cate);
 		return new ModelAndView("management/brandList",mode);
 	}
-	
+	/**
+	 * 添加品牌 POST
+	 * @param sendFile 上传文件
+	 * @param categoryID 类别ID
+	 * @param brandName 品牌名称
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "addBrand", method = RequestMethod.POST)
 	public String addBrand(@RequestParam("sendFile") MultipartFile sendFile,Integer categoryID,String brandName,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ShopCategory cate = categoryService.findById(categoryID);
@@ -205,7 +284,18 @@ public class CategoryManagementController {
 		}
 		return "redirect:/management/getCateByCateID?cateID="+categoryID;
 	}
-	
+	/**
+	 * 更新品牌
+	 * @param sendFile 上传的文件
+	 * @param categoryID 类别ID
+	 * @param brandID 品牌ID
+	 * @param brandName 品牌名称
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "updateBrand", method = RequestMethod.POST)
 	public String updateBrand(@RequestParam("sendFile") MultipartFile sendFile,Integer categoryID,Integer brandID, String brandName,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (brandID !=null && !brandID.equals("")) {
@@ -243,6 +333,16 @@ public class CategoryManagementController {
 		}
 		return "redirect:/management/getBrandByCateID?cateID="+categoryID+"&brandID="+brandID;
 	}
+	/**
+	 * 删除类别下的品牌，并删除品牌与商品的关联关系
+	 * @param categoryID 类别ID
+	 * @param brandID 品牌ID
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "deleteBrand", method = RequestMethod.GET)
 	public String deleteBrand(Integer categoryID,Integer brandID,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ShopCategory cate = categoryService.findById(categoryID);
@@ -279,7 +379,14 @@ public class CategoryManagementController {
 		}
 		return "redirect:/management/getBrandByCateID?cateID="+categoryID+"&brandID="+brandID;
 	}
-	
+	/**
+	 * 规格展示
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "specManage", method = RequestMethod.GET)
 	public ModelAndView specManage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ModelMap mode = new ModelMap();
@@ -287,21 +394,46 @@ public class CategoryManagementController {
 		mode.put("list", list);
 		return new ModelAndView("management/specManage",mode);
 	}
-	
+	/**
+	 * 规格添加GET
+	 * @param page add
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "addSpec", method = RequestMethod.GET)
 	public ModelAndView addSpec(String page,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ModelMap mode = new ModelMap();
 		mode.put("page", page);
 		return new ModelAndView("management/addSpec",mode);
 	}
-	
+	/**
+	 * 规格添加 POST
+	 * @param spec 规格属性
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "specAdd", method = RequestMethod.POST)
 	public String specAdd(Specifications spec, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		spec.setAttribute(spec.getAttribute().replace("，", ","));
 		specificationsService.save(spec);
 		return "redirect:/management/specManage";
 	}
-	
+	/**
+	 * 通过规格ID查找规格,为规格更新做准备
+	 * @param page update
+	 * @param id 规格ID
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "updateSpec", method = RequestMethod.GET)
 	public ModelAndView updateSpec(String page,Integer id, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ModelMap mode = new ModelMap();
@@ -310,7 +442,15 @@ public class CategoryManagementController {
 		mode.put("spec", spec);
 		return new ModelAndView("management/addSpec",mode);
 	}
-	
+	/**
+	 * 更行规格属性,整体更新
+	 * @param spec
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "updateSpec", method = RequestMethod.POST)
 	public String updateSpecs(Specifications spec, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Specifications specs = specificationsService.findById(spec.getId());
@@ -321,7 +461,14 @@ public class CategoryManagementController {
 		}
 		return "redirect:/management/specManage";
 	}
-	
+	/**
+	 * 展示所有类别属性和规格，为规格分配准备
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "specDivide", method = RequestMethod.GET)
 	public ModelAndView specDivide(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Specifications> list = specificationsService.getAll();
@@ -331,7 +478,15 @@ public class CategoryManagementController {
 		mode.put("list", list);
 		return new ModelAndView("management/specDivide",mode);
 	}
-	
+	/**
+	 * 通过类别ID查找类别，进行规格分配
+	 * @param cateID
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "getCateByID", method = RequestMethod.GET)
 	public ModelAndView getCateByID(Integer cateID, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ShopCategory cate = categoryService.findById(cateID);
@@ -346,14 +501,20 @@ public class CategoryManagementController {
 		return new ModelAndView("management/specDivide",mode);
 	}
 	
-	@SuppressWarnings("unused")
+	/**
+	 * 规格属性与分类绑定
+	 * @param categoryID
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "divideSpec", method = RequestMethod.POST)
 	public String divideSpec(Integer categoryID, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ShopCategory cate = categoryService.findById(categoryID);
 		List<Specifications> cateSpec = cate.getSpecifications();
 		String[] specs = request.getParameterValues("specs");
-		List<Specifications> specList = null;
-		List<ShopCategory> cateList = null;
 		if (cateSpec == null || cateSpec.size() == 0) {
 			notCateAdd(cate, specs);
 		}else{
@@ -366,9 +527,13 @@ public class CategoryManagementController {
 		}
 		return "redirect:/management/getCateByID?cateID="+categoryID;
 	}
-
+	
+	/**
+	 * 删除有属性类别
+	 * @param cate
+	 * @param specss
+	 */
 	private void haveCateDel(ShopCategory cate, List<Specifications> specss) {
-		boolean isok = specss.removeAll(cate.getSpecifications());
 		for (int i = 0; i < specss.size(); i++) {
 			Specifications spe = specss.get(i);
 			List<ShopCategory> cates = spe.getShopCategories();
@@ -383,20 +548,32 @@ public class CategoryManagementController {
 		cate = categoryService.update(cate);
 	}
 
+	/**
+	 * 分配规格
+	 * @param cate
+	 * @param cateSpec
+	 * @param specs
+	 * @param specss
+	 * @param lengths 
+	 */
 	private void haveCateOrther(ShopCategory cate, List<Specifications> cateSpec, String[] specs, List<Specifications> specss) {
-		for (int i = 0; i < cateSpec.size(); i++) {
+		List<Specifications> cateSpec2 = new ArrayList<Specifications>();
+		for ( int m = 0; m<cateSpec.size(); m++){
+			   cateSpec2.add(cateSpec.get(m));
+		}
+		for (int i = 0; i < cateSpec2.size(); i++) {
 			boolean isok = true;
 			for (int j = 0; j < specs.length; j++) {
 				Specifications spec = specificationsService.findById(Integer.parseInt(specs[j]));
 				if (spec != null) {
-					if(cateSpec.get(i).getId() == spec.getId()){
+					if(cateSpec2.get(i).getId() == spec.getId()){
 						isok = false;
 					}
 				}
 			}
 			if (isok) {
 				for (int j = 0; j < specss.size(); j++) {
-					if(specss.get(j).getId() == cateSpec.get(i).getId()){
+					if(specss.get(j).getId() == cateSpec2.get(i).getId()){
 						Specifications spe = specss.get(j);
 						List<ShopCategory> specate = spe.getShopCategories();
 						for (int k = 0; k < specate.size(); k++) {
@@ -407,7 +584,7 @@ public class CategoryManagementController {
 						specificationsService.update(spe);
 					}
 				}
-				cate.getSpecifications().remove(cateSpec.get(i)); 
+				cate.getSpecifications().remove(cateSpec2.get(i)); 
 				cate = categoryService.update(cate);
 			}
 		}
@@ -437,6 +614,11 @@ public class CategoryManagementController {
 		}
 	}
 
+	/**
+	 * 类别属性没有规格，新添加
+	 * @param cate
+	 * @param specs
+	 */
 	private void notCateAdd(ShopCategory cate, String[] specs) {
 		List<Specifications> specList;
 		List<ShopCategory> cateList;
