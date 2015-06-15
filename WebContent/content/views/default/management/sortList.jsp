@@ -89,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="col-sm-8">
 							<input id="departmentID" name="departmentID" value="${shopCategory.categoryID }" type="hidden">
 								<input name="departmentname" class="form-control"
-									value="${shopCategory.category }"> <br>
+									value="${shopCategory.category }" > <br>
 							</div>
 						</div>
 						<div class="form-group">

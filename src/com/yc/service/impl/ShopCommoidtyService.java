@@ -42,13 +42,16 @@ public class ShopCommoidtyService extends GenericService<ShopCommoidty> implemen
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ShopCommoidty> getAllByShopCategoryID(Integer id,String page) {
+	public List<ShopCommoidty> getAllByShopCategoryID(Integer id,String page,int one ,int last) {
 		StringBuffer hql = new StringBuffer("SELECT shc.* FROM ShopCommoidty shc JOIN Shop shop ON shop.id = shc.shop_id WHERE (shc.blacklist_id IS NULL AND shop.blacklist_id IS NULL AND shc.shelves = 1 ) AND shc.shop_id IS NOT NULL AND shc.shopCategory_id ="+id);
 		if (page.equals("brand")) {
 			hql.append(" and shc.brand_id is not null");
 		}
 		if (page.equals("special")) {
 			hql.append(" and shc.isSpecial = 1");
+		}
+		if(one !=-1 && last != -1){
+			hql.append(" LIMIT "+one+","+last+"");
 		}
 		Query query = shopCommoidtyDao.getEntityManager().createNativeQuery(hql.toString(), ShopCommoidty.class);
 		List<ShopCommoidty> list = query.getResultList();
@@ -200,5 +203,17 @@ public class ShopCommoidtyService extends GenericService<ShopCommoidty> implemen
 		StringBuffer hql = new StringBuffer(" select * from ShopCommoidty comm left join ShopCategory c ON comm.shopcategory_id = c.categoryID left join Brand b on b.brandID = comm.brand_id where comm.commoidtyName like '%"+content+"%' or c.category like '%"+content+"%' or b.brandName like '%"+content+"%'");
 		Query query = shopCommoidtyDao.getEntityManager().createNativeQuery(hql.toString(), ShopCommoidty.class);
 		return query.getResultList();		
+	}
+
+	@Override
+	public List<ShopCommoidty> getAllByFamousManorID(Integer id, int i) {
+		StringBuffer hql=new StringBuffer("SELECT * FROM shopcommoidty WHERE shopcommoidty.famousManorAndShop.id="+id);
+		if(i != -1){
+			hql.append(" LIMIT 0,"+i);
+		}
+		Query query = shopCommoidtyDao.getEntityManager().createNativeQuery(hql.toString(), ShopCommoidty.class);
+		@SuppressWarnings("unchecked")
+		List<ShopCommoidty> list = query.getResultList();
+		return list;
 	}
 }

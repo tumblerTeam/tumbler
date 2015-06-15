@@ -46,4 +46,10 @@ public class ShopCategoryService extends GenericService<ShopCategory> implements
 		StringBuffer hql = new StringBuffer(" from ShopCategory depart where depart.parentLevel.categoryID is null ");
 		return shopCategoryDao.find(hql.toString(), null, null);
 	}
+	
+	@Override
+	public List<ShopCategory> getAllByType(int i) {
+		StringBuffer hql = new StringBuffer(" from ShopCategory cate where cate.categoryID = "+i);
+		return shopCategoryDao.find(hql.toString(), null,1,8);
+	}
 }

@@ -37,5 +37,12 @@ public interface IShopCategoryService extends IGenericService<ShopCategory> {
 	 * @return
 	 */
 	List<ShopCategory> getAllByParent();
+
+	/**
+	 * 根据类型查类别
+	 * @param i
+	 * @return
+	 */
+	List<ShopCategory> getAllByType(int i);
 	
 }

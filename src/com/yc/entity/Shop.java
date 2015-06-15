@@ -71,6 +71,9 @@ public class Shop {
 	private Boolean isPermit = false;//是否许可开店
 	
 	@Column
+	private Ratings ratings;//店铺等级
+	
+	@Column
 	private String createDate;//开店日期
 	
 	@OneToMany(mappedBy = "belongTo")
@@ -89,6 +92,25 @@ public class Shop {
 	@Column
 	private String russinaShopName ;
 	
+	@OneToMany(mappedBy = "shop")
+	private List<FamousManorAndShop> manorAndShops;
+	
+	public List<FamousManorAndShop> getManorAndShops() {
+		return manorAndShops;
+	}
+
+	public void setManorAndShops(List<FamousManorAndShop> manorAndShops) {
+		this.manorAndShops = manorAndShops;
+	}
+
+	public Ratings getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(Ratings ratings) {
+		this.ratings = ratings;
+	}
+
 	public String getRussinaShopName() {
 		return russinaShopName;
 	}

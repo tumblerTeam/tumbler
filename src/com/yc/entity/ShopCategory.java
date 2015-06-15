@@ -1,9 +1,7 @@
 package com.yc.entity;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -49,6 +47,9 @@ public class ShopCategory {
 	
 	@OneToMany(mappedBy = "carCategory")
 	private List<CarCommoidty>  carCommoidties;//商品
+	
+	@OneToMany(mappedBy = "shopCategory")
+	private List<FamousManorAndShop> manorAndShops;
 
 	@ManyToMany(mappedBy = "shopCateges")
 	private List<Brand> brands;//品牌
@@ -61,6 +62,14 @@ public class ShopCategory {
 	
 	@Column
 	private String russinaCategory;//商品类名;
+
+	public List<FamousManorAndShop> getManorAndShops() {
+		return manorAndShops;
+	}
+
+	public void setManorAndShops(List<FamousManorAndShop> manorAndShops) {
+		this.manorAndShops = manorAndShops;
+	}
 
 	public Boolean getIsForbidden() {
 		return isForbidden;

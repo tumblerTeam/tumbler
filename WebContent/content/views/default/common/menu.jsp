@@ -53,11 +53,28 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<a class="panel-title" data-toggle="collapse"
-					data-parent="#panel-864199" href="#panel-element-540275">新闻管理</a>
+					data-parent="#panel-864199" href="#panel-element-5402721">名庄管理</a>
+			</div>
+			<div id="panel-element-5402721" class="panel-collapse collapse">
+				<div class="panel-body">
+					<a href="management/famousManorList">名庄列表</a>
+				</div>
+				<div class="panel-body">
+					<a href="management/manorJurisdiction">权限分配</a>
+				</div>
+				<div class="panel-body">
+					<a href="management/jurisdictionMaintenance">权限维护</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<a class="panel-title" data-toggle="collapse"
+					data-parent="#panel-864199" href="#panel-element-540275">新闻活动管理</a>
 			</div>
 			<div id="panel-element-540275" class="panel-collapse collapse">
 				<div class="panel-body">
-					<a href="management/news">新闻发布</a>
+					<a href="management/news">新闻活动发布</a>
 				</div>
 			</div>
 		</div>

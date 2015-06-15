@@ -27,4 +27,10 @@ public interface IShopService extends IGenericService<Shop> {
 	 * @return
 	 */
 	List<Shop> getShopForManage(boolean b);
+
+	/**
+	 * 查询所有没有开通名庄特卖接口的店家
+	 * @return
+	 */
+	List<Shop> getShopForNotManor();
 }

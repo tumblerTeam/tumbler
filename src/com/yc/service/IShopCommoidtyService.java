@@ -29,7 +29,7 @@ public interface IShopCommoidtyService extends IGenericService<ShopCommoidty> {
 	 * @param page page=brand 查询品牌商品 page=special 查询折扣商品
 	 * @return
 	 */
-	List<ShopCommoidty> getAllByShopCategoryID(Integer id, String page);
+	List<ShopCommoidty> getAllByShopCategoryID(Integer id, String page,int one ,int last);
 
 	/***
 	 * 通过 规格、价格区段、类别ID、品牌ID查询商品
@@ -97,5 +97,13 @@ public interface IShopCommoidtyService extends IGenericService<ShopCommoidty> {
 	 * @return
 	 */
 	List<ShopCommoidty> searchShopComm(String content);
+
+	/**
+	 * 通过名庄ID和显示个数查询名庄商品
+	 * @param id 名庄ID
+	 * @param i 显示个数
+	 * @return
+	 */
+	List<ShopCommoidty> getAllByFamousManorID(Integer id, int i);
 
 }
