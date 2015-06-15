@@ -1,0 +1,29 @@
+.sidebar{
+	position:fixed;	
+	display:block;
+	width:100px;
+	height:156px;
+	right:0%;
+	top:15%
+}
+.car{
+	background:url(../images/cart_03.jpg) no-repeat;
+	width:100px;
+	height:50px;
+	position:relative;
+	margin:0px;
+}
+.bar{
+	background:url(../images/bar01.jpg) no-repeat;
+	width:100px;
+	height:50px;
+	position:relative;
+	margin-top:3px;	
+}
+.cs{
+	background:url(../images/cs.jpg) no-repeat;
+	width:100px;
+	height:50px;
+	position:relative;	
+	margin-top:3px;	
+}

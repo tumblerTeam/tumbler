@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.yc.entity.user.DepartAndPositions;
+
 @Entity
 @DiscriminatorValue("shopCommoidty")//商品表
 public class ShopCommoidty {
@@ -84,7 +86,6 @@ public class ShopCommoidty {
 	@Column
 	private String describes;//描述
 
-
 	@OneToOne
 	@JoinColumn(name = "blacklist_id")
 	private Blacklist blacklist;
@@ -99,6 +100,18 @@ public class ShopCommoidty {
 	@Column
 	private String russinaDescribes;
 	
+	@ManyToOne
+	@JoinColumn(name = "famAndShop_id")
+	private FamousManorAndShop famousManorAndShop;//名庄
+	
+	public FamousManorAndShop getFamousManorAndShop() {
+		return famousManorAndShop;
+	}
+
+	public void setFamousManorAndShop(FamousManorAndShop famousManorAndShop) {
+		this.famousManorAndShop = famousManorAndShop;
+	}
+
 	public String getRussinaCommoidtyName() {
 		return russinaCommoidtyName;
 	}

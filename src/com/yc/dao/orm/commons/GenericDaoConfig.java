@@ -11,7 +11,10 @@ import com.yc.entity.Commodity;
 import com.yc.entity.Currency;
 import com.yc.entity.Delivery;
 import com.yc.entity.DeliveryAddress;
+import com.yc.entity.FamousManor;
+import com.yc.entity.FamousManorAndShop;
 import com.yc.entity.ImagePath;
+import com.yc.entity.News;
 import com.yc.entity.OrderForm;
 import com.yc.entity.OrderGroup;
 import com.yc.entity.Shop;
@@ -122,5 +125,16 @@ public class GenericDaoConfig {
     public GenericDao<Delivery> getDeliveryDao() {
     	return new GenericDaoSupport<Delivery>(Delivery.class);
     }
-   
+    @Bean
+    public GenericDao<News> getNewsDao() {
+    	return new GenericDaoSupport<News>(News.class);
+    }
+    @Bean
+    public GenericDao<FamousManor> getFamousManorDao() {
+    	return new GenericDaoSupport<FamousManor>(FamousManor.class);
+    }
+    @Bean
+    public GenericDao<FamousManorAndShop> getFamousManorAndShopDao() {
+    	return new GenericDaoSupport<FamousManorAndShop>(FamousManorAndShop.class);
+    }
 }
