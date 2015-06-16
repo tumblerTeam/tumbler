@@ -76,6 +76,12 @@
 				<div class="panel-body">
 					<a href="management/news">新闻活动发布</a>
 				</div>
+				<div class="panel-body">
+					<a href="management/advertiseDistribution">广告位管理</a>
+				</div>
+				<div class="panel-body">
+					<a href="management/advertisement">广告位分配</a>
+				</div>
 			</div>
 		</div>
 	</div>

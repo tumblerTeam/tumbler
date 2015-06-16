@@ -3,6 +3,8 @@ package com.yc.dao.orm.commons;
 
 import org.springframework.context.annotation.*;
 
+import com.yc.entity.AdvertiseDistribution;
+import com.yc.entity.Advertisement;
 import com.yc.entity.Blacklist;
 import com.yc.entity.Brand;
 import com.yc.entity.CarCommoidty;
@@ -136,5 +138,13 @@ public class GenericDaoConfig {
     @Bean
     public GenericDao<FamousManorAndShop> getFamousManorAndShopDao() {
     	return new GenericDaoSupport<FamousManorAndShop>(FamousManorAndShop.class);
+    }
+    @Bean
+    public GenericDao<AdvertiseDistribution> getAdvertiseDistributionDao() {
+    	return new GenericDaoSupport<AdvertiseDistribution>(AdvertiseDistribution.class);
+    }
+    @Bean
+    public GenericDao<Advertisement> getAdvertisementDao() {
+    	return new GenericDaoSupport<Advertisement>(Advertisement.class);
     }
 }
