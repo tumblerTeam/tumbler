@@ -35,7 +35,7 @@ public class FamousManorAndShop {
 	private String endDate;
 	
 	@OneToMany(mappedBy = "famousManorAndShop")
-	private List<ShopCommoidty> shopCommoidties;
+	private List<ShopCommodity> shopCommoidties;
 	
 	@ManyToOne
 	@JoinColumn(name = "shopCategory_id")
@@ -89,11 +89,11 @@ public class FamousManorAndShop {
 		this.endDate = endDate;
 	}
 
-	public List<ShopCommoidty> getShopCommoidties() {
+	public List<ShopCommodity> getShopCommoidties() {
 		return shopCommoidties;
 	}
 
-	public void setShopCommoidties(List<ShopCommoidty> shopCommoidties) {
+	public void setShopCommoidties(List<ShopCommodity> shopCommoidties) {
 		this.shopCommoidties = shopCommoidties;
 	}
 }

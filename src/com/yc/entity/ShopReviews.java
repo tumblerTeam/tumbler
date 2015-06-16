@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-import com.yc.entity.user.User;
+import com.yc.entity.user.AppUser;
 
 //评论
 @Entity
@@ -35,11 +35,11 @@ public class ShopReviews {
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private  User user;
+	private  AppUser user;
 	
 	@ManyToOne
 	@JoinColumn(name = "shopcomm_id")
-	private  ShopCommoidty shopscommodity;
+	private  ShopCommodity shopscommodity;
 	
 	@Column
 	@Enumerated(EnumType.STRING)
@@ -66,16 +66,16 @@ public class ShopReviews {
 	public void setReviewsdate(String reviewsdate){
 		this.reviewsdate = reviewsdate;
 	}
-	public User getUser() {
+	public AppUser getUser() {
 		return user;
 	}
-	public void setUser(User user) {
+	public void setUser(AppUser user) {
 		this.user = user;
 	}
-	public ShopCommoidty getShopscommodity() {
+	public ShopCommodity getShopscommodity() {
 		return shopscommodity;
 	}
-	public void setShopscommodity(ShopCommoidty shopscommodity) {
+	public void setShopscommodity(ShopCommodity shopscommodity) {
 		this.shopscommodity = shopscommodity;
 	}
 	public Integer getId() {

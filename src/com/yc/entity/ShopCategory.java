@@ -43,7 +43,7 @@ public class ShopCategory {
 	private List<Shop>  shops;//商店
 	
 	@OneToMany(mappedBy = "shopCategory")
-	private List<ShopCommoidty>  shopCommoidties;//商品
+	private List<ShopCommodity>  shopCommoidties;//商品
 	
 	@OneToMany(mappedBy = "carCategory")
 	private List<CarCommoidty>  carCommoidties;//商品
@@ -127,11 +127,11 @@ public class ShopCategory {
 		this.shops = shops;
 	}
 	
-	public List<ShopCommoidty> getShopCommoidties() {
+	public List<ShopCommodity> getShopCommoidties() {
 		return shopCommoidties;
 	}
 	
-	public void setShopCommoidties(List<ShopCommoidty> shopCommoidties) {
+	public void setShopCommoidties(List<ShopCommodity> shopCommoidties) {
 		this.shopCommoidties = shopCommoidties;
 	}
 	

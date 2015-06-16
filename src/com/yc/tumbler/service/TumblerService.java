@@ -8,8 +8,8 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.yc.entity.user.User;
-import com.yc.service.IUserService;
+import com.yc.entity.user.AppUser;
+import com.yc.service.IAppUserService;
 import com.yc.util.MD5Util;
 import com.yc.util.TumblerUtil;
 
@@ -19,7 +19,7 @@ public class TumblerService {
 	private static final Logger LOG = Logger.getLogger(TumblerService.class);
 	
 	@Autowired
-	IUserService userService;
+	IAppUserService userService;
 	
 	/**
 	 * 处理邮件，发送激活码
@@ -27,7 +27,7 @@ public class TumblerService {
 	 * @param user 绑定用户
 	 * @throws Exception
 	 */
-	public void processregister(String email, User user) throws Exception{
+	public void processregister(String email, AppUser user) throws Exception{
         user.setValidateCode(MD5Util.encode2hex(email));
         user.setEmail(email);
         user.setEmailBindTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
@@ -60,7 +60,7 @@ public class TumblerService {
 	 */
     public void processActivate(String email , String validateCode)throws Exception{  
          //数据访问层，通过email获取用户信息
-        User user=userService.getUserByEmail(email);
+        AppUser user=userService.getUserByEmail(email);
         //验证用户是否存在 
         if(user!=null) {  
             //验证用户激活状态  

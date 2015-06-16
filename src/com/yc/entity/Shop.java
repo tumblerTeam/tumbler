@@ -17,7 +17,7 @@ import javax.persistence.OneToOne;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-import com.yc.entity.user.User;
+import com.yc.entity.user.AppUser;
 
 @Entity
 @DiscriminatorValue("shop")//商店
@@ -77,13 +77,13 @@ public class Shop {
 	private String createDate;//开店日期
 	
 	@OneToMany(mappedBy = "belongTo")
-	private List<ShopCommoidty> shopCommoidties;//店铺商品
+	private List<ShopCommodity> shopCommoidties;//店铺商品
 	
 	@OneToMany(mappedBy = "carbelongTo")
 	private List<CarCommoidty> carCommoidties;//店铺商品
 	
 	@OneToOne(mappedBy = "shop")
-	private User user;
+	private AppUser user;
 	
 	@OneToOne
 	@JoinColumn(name = "blacklist_id")
@@ -159,11 +159,11 @@ public class Shop {
 		this.shopCat = shopCat;
 	}
 
-	public User getUser() {
+	public AppUser getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(AppUser user) {
 		this.user = user;
 	}
 
@@ -207,11 +207,11 @@ public class Shop {
 		this.shopType = shopType;
 	}
 
-	public List<ShopCommoidty> getShopCommoidties() {
+	public List<ShopCommodity> getShopCommoidties() {
 		return shopCommoidties;
 	}
 
-	public void setShopCommoidties(List<ShopCommoidty> shopCommoidties) {
+	public void setShopCommoidties(List<ShopCommodity> shopCommoidties) {
 		this.shopCommoidties = shopCommoidties;
 	}
 

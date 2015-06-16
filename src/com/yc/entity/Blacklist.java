@@ -32,7 +32,7 @@ public class Blacklist {
 	private Shop shop;
 	
 	@OneToOne(mappedBy = "blacklist")
-	private ShopCommoidty commoidty;
+	private ShopCommodity commoidty;
 	
 	public Shop getShop() {
 		return shop;
@@ -42,11 +42,11 @@ public class Blacklist {
 		this.shop = shop;
 	}
 
-	public ShopCommoidty getCommoidty() {
+	public ShopCommodity getCommoidty() {
 		return commoidty;
 	}
 
-	public void setCommoidty(ShopCommoidty commoidty) {
+	public void setCommoidty(ShopCommodity commoidty) {
 		this.commoidty = commoidty;
 	}
 

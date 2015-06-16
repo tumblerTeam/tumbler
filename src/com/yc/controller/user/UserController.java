@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.yc.entity.user.User;
-import com.yc.service.IUserService;
+import com.yc.entity.user.AppUser;
+import com.yc.service.IAppUserService;
 import com.yc.tumbler.service.TumblerService;
 import com.yc.util.ServiceException;
 
@@ -28,7 +28,7 @@ public class UserController {
 	private static final Logger LOG = Logger.getLogger(UserController.class);
 
 	@Autowired
-	IUserService userService;
+	IAppUserService userService;
 
 	@Resource
 	TumblerService tumblerService;
@@ -38,7 +38,7 @@ public class UserController {
 		String name = request.getParameter("mobile");
 		String pwd = request.getParameter("password");
 		HttpSession session = request.getSession();
-		User personnel = userService.getUser(name);
+		AppUser personnel = userService.getUser(name);
 		if (personnel == null) {
 			request.getSession().setAttribute("message", "nouser");
 			return "redirect:/login?page="+page;
@@ -70,7 +70,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "regist", method = RequestMethod.POST)
-	public String registing(User personnel, String mobile_code, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String registing(AppUser personnel, String mobile_code, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		Object session_code = session.getAttribute("mobile_code");
 		if (session_code != null) {
@@ -88,7 +88,7 @@ public class UserController {
 		System.out.println("-----r----" + action);
 		ModelAndView mav = new ModelAndView();
 		if ("register".equals(action)) {
-			User user = userService.findById(Integer.parseInt(request.getParameter("id")));
+			AppUser user = userService.findById(Integer.parseInt(request.getParameter("id")));
 			// 注册
 			String email = request.getParameter("email");
 			tumblerService.processregister(email, user);// 发邮箱激活

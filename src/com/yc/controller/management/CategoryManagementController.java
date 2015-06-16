@@ -21,11 +21,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.yc.entity.Brand;
 import com.yc.entity.ShopCategory;
-import com.yc.entity.ShopCommoidty;
+import com.yc.entity.ShopCommodity;
 import com.yc.entity.Specifications;
 import com.yc.service.IBrandService;
 import com.yc.service.IShopCategoryService;
-import com.yc.service.IShopCommoidtyService;
+import com.yc.service.IShopCommodityService;
 import com.yc.service.ISpecificationsService;
 
 //类别管理
@@ -45,7 +45,7 @@ public class CategoryManagementController {
 	ISpecificationsService specificationsService;
 	
 	@Autowired
-	IShopCommoidtyService shopCommoidtyService;
+	IShopCommodityService shopCommoidtyService;
 	
 	/**
 	 * 查询类别
@@ -348,10 +348,10 @@ public class CategoryManagementController {
 		ShopCategory cate = categoryService.findById(categoryID);
 		Brand brand = brandService.findById(brandID);
 		if (brand != null) {
-			List<ShopCommoidty> list = brand.getShopCommoidties();
+			List<ShopCommodity> list = brand.getShopCommoidties();
 			if (list.size()>0) {
 				for (int i = 0; i < list.size(); i++) {
-					ShopCommoidty shopComm = list.get(i);
+					ShopCommodity shopComm = list.get(i);
 					shopComm.setBrand(null);
 					shopCommoidtyService.update(shopComm);
 				}

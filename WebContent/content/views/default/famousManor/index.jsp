@@ -50,7 +50,7 @@
 <div class="content">
   <div class="title"><b>名庄特卖</b><font> Chateau Sale</font></div>
   <c:forEach items="${maps }" var="map" >
-  <c:if test="${map.value !=null}">
+  <c:if test="${fn:length(map.value)>0}">
   <div class="box">
 	<div class="bander">
     	<a href="${fn:split(map.key, '<|>')[0] }"><img src="${fn:split(map.key, '<|>')[1] }"></a>
@@ -78,131 +78,12 @@
 											pattern="##.##" minFractionDigits="2">
 										</fmt:formatNumber>
 									</c:if></div></a>
-	        <a href="#"><div class="price2">￥${hong.unitPrice}</div></a>
+	        <a href="#"><div class="price2">￥${val.unitPrice}</div></a>
 	    </div>
     </c:forEach>
     </c:if>
   </c:forEach>
-  <div class="box">
-	<div class="bander">
-    	<a href="#"><img src="content/static/img/band2_03.jpg"></a>
-        <a href="#"><div class="bander_zi">奔富酒庄的故事就是一部欧洲人一名澳洲分都有成功的历史，反映了澳洲过去二百年的发展。有荒芜的大陆成为现在稳站世界舞台的先进国家。创办人克里斯多夫.洛神.奔富医生一百六十多年期来到澳洲，开始了葡萄酒传奇之路</div></a>
-    </div>
-   <div class="bander_class" style="border-top:none; border-left:none;">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡萄酒</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-     <div class="bander_class" style="border-top:none;">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡萄酒</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-     <div class="bander_class" style="border-top:none; ">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡..</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-    <div class="bander_class" style=" border-left:none;">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name" style="margin-left:20px;">奔富寇兰山西拉子解伯纳红葡..</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-    <div class="bander_class">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡萄酒</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-     <div class="bander_class">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡萄酒</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-     <div class="bander_class">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡萄酒</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-    <div class="bander_class">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡萄酒</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-     <div class="bander_class" style="width:203px;">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡..</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-  </div>
-  <div class="box">
-	<div class="bander">
-    	<a href="#"><img src="content/static/img/band1_03.jpg"></a>
-        <a href="#"><div class="bander_zi">拉菲位于法国梅多克地区，占地达178公顷的葡萄酒庄园。改庄出产的葡萄酒是享誉世界的波多尔葡萄酒之一。拉菲位于法国梅多克地区，占地达178公顷的葡萄酒庄园。改庄出产的葡萄酒是享誉世界的波多尔葡萄酒之一。拉菲位于法国梅多克地区，占地达178公顷的葡萄酒庄园。改庄出产的葡萄酒是享誉世界的波多尔葡萄酒之一。</div></a>
-    </div>
-    <div class="bander_class" style="border-top:none; border-left:none;">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡萄酒</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-     <div class="bander_class" style="border-top:none;">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡萄酒</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-     <div class="bander_class" style="border-top:none; ">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡..</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-    <div class="bander_class" style=" border-left:none;">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name" style="margin-left:20px;">奔富寇兰山西拉子解伯纳红葡..</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-    <div class="bander_class">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡萄酒</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-     <div class="bander_class">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡萄酒</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-     <div class="bander_class">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡萄酒</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-    <div class="bander_class">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡萄酒</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-     <div class="bander_class" style="width:203px;">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡..</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-  </div>
+  
 </div>
 <jsp:include page="../frontDesk/foot.jsp" />
 </body>

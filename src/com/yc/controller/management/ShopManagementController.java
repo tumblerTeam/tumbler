@@ -22,12 +22,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.yc.entity.Blacklist;
 import com.yc.entity.BlacklistType;
 import com.yc.entity.Shop;
-import com.yc.entity.ShopCommoidty;
-import com.yc.entity.user.User;
+import com.yc.entity.ShopCommodity;
+import com.yc.entity.user.AppUser;
+import com.yc.entity.user.AppUser;
+import com.yc.service.IAppUserService;
 import com.yc.service.IBlacklistService;
-import com.yc.service.IShopCommoidtyService;
+import com.yc.service.IShopCommodityService;
 import com.yc.service.IShopService;
-import com.yc.service.IUserService;
+import com.yc.service.IAppUserService;
 
 //商家管理
 @Controller
@@ -43,10 +45,10 @@ public class ShopManagementController {
 	IBlacklistService blacklistService;
 	
 	@Autowired
-	IShopCommoidtyService shopCommoidtyService;
+	IShopCommodityService shopCommoidtyService;
 	
 	@Autowired
-	IUserService userService;
+	IAppUserService userService;
 	
 	/**
 	 * 后台登录首页
@@ -139,7 +141,7 @@ public class ShopManagementController {
 					shopService.update(shop);
 				}
 			} else {
-				ShopCommoidty commoidty = shopCommoidtyService.findById(id);
+				ShopCommodity commoidty = shopCommoidtyService.findById(id);
 				if (commoidty != null) {
 					Blacklist black = new Blacklist();
 					black.setReasons(reasons);
@@ -185,7 +187,7 @@ public class ShopManagementController {
 	 */
 	@RequestMapping(value = "updateIsPermit", method = RequestMethod.GET)
 	public String updateIsPermit(Integer id, String isPermit, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User user = userService.findById(id);
+		AppUser user = userService.findById(id);
 		if (user.getShop() != null) {
 			Shop shop = user.getShop();
 			shop.setIsPermit(Boolean.valueOf(isPermit));
@@ -231,7 +233,7 @@ public class ShopManagementController {
 			blacklistService.delete(blacklist.getId());
 			return "redirect:/management/blacklistStores";
 		} else {
-			ShopCommoidty commoid = blacklist.getCommoidty();
+			ShopCommodity commoid = blacklist.getCommoidty();
 			if (commoid != null) {
 				commoid.setBlacklist(null);
 				shopCommoidtyService.update(commoid);

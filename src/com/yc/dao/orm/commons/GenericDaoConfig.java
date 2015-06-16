@@ -20,7 +20,7 @@ import com.yc.entity.OrderGroup;
 import com.yc.entity.Shop;
 import com.yc.entity.ShopCategory;
 import com.yc.entity.ShopCommImage;
-import com.yc.entity.ShopCommoidty;
+import com.yc.entity.ShopCommodity;
 import com.yc.entity.ShopCommoidtySpecs;
 import com.yc.entity.ShopReviews;
 import com.yc.entity.Specifications;
@@ -28,14 +28,14 @@ import com.yc.entity.user.DepartAndPositions;
 import com.yc.entity.user.Department;
 import com.yc.entity.user.Personnel;
 import com.yc.entity.user.Positions;
-import com.yc.entity.user.User;
+import com.yc.entity.user.AppUser;
 
 @Configuration
 public class GenericDaoConfig {
 
     @Bean
-    public GenericDao<User> getUserDao() {
-        return new GenericDaoSupport<User>(User.class);
+    public GenericDao<AppUser> getUserDao() {
+        return new GenericDaoSupport<AppUser>(AppUser.class);
     }
     @Bean
     public GenericDao<Blacklist> getBlacklistDao() {
@@ -86,8 +86,8 @@ public class GenericDaoConfig {
     	return new GenericDaoSupport<ShopCommImage>(ShopCommImage.class);
     }
     @Bean
-    public GenericDao<ShopCommoidty> getShopCommoidtyDao() {
-    	return new GenericDaoSupport<ShopCommoidty>(ShopCommoidty.class);
+    public GenericDao<ShopCommodity> getShopCommoidtyDao() {
+    	return new GenericDaoSupport<ShopCommodity>(ShopCommodity.class);
     }
     @Bean
     public GenericDao<ShopCommoidtySpecs> getShopCommoidtySpecsDao() {
