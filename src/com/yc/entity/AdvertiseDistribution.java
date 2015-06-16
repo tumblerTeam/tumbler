@@ -5,8 +5,6 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,8 +19,10 @@ public class AdvertiseDistribution {
 	private Integer adverDisId;
 	
 	@Column
-	@Enumerated(EnumType.STRING)
-	private AdvertisementPage whichPage;//广告所在页面
+	private String  whichPage;//广告所在页面
+	
+	@Column
+	private String lAndW;//宽高
 	
 	@Column
 	private Integer position;//位置
@@ -33,6 +33,14 @@ public class AdvertiseDistribution {
 	@OneToMany(mappedBy = "adverDistribution")
 	private List<Advertisement> advertisementList;
 
+	public String getlAndW() {
+		return lAndW;
+	}
+
+	public void setlAndW(String lAndW) {
+		this.lAndW = lAndW;
+	}
+
 	public Integer getId() {
 		return adverDisId;
 	}
@@ -40,15 +48,22 @@ public class AdvertiseDistribution {
 	public void setId(Integer adverDisId) {
 		this.adverDisId = adverDisId;
 	}
+	public Integer getAdverDisId() {
+		return adverDisId;
+	}
 
-	public AdvertisementPage getWhichPage() {
+	public void setAdverDisId(Integer adverDisId) {
+		this.adverDisId = adverDisId;
+	}
+
+	public String getWhichPage() {
 		return whichPage;
 	}
 
-	public void setWhichPage(AdvertisementPage whichPage) {
+	public void setWhichPage(String whichPage) {
 		this.whichPage = whichPage;
 	}
-	
+
 	public Integer getPosition() {
 		return position;
 	}

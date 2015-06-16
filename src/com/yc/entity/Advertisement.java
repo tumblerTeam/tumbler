@@ -21,17 +21,17 @@ public class Advertisement {
 	private String imagePath;//路径
 	
 	@Column
+	private String link;//链接
+	
+	@Column
 	private String title;
 	
 	@Column
 	private Float unitPrice; 
 	
 	@Column
-	private Float specialPrice; 
+	private Float specialPrice;
 	
-	@Column
-	private String link;//链接
-
 	@Column
 	private int expenditure;//支出
 	
