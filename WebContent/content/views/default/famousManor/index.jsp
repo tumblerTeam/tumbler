@@ -50,10 +50,11 @@
 <div class="content">
   <div class="title"><b>名庄特卖</b><font> Chateau Sale</font></div>
   <c:forEach items="${maps }" var="map" >
+  <c:if test="${map.value !=null}">
   <div class="box">
 	<div class="bander">
-    	<a href="${fn:split(map.keys, '<|>')[0] }"><img src="${fn:split(map.keys, '<|>')[1] }"></a>
-        <a href="${fn:split(map.keys, '<|>')[0] }"><div class="bander_zi">${fn:split(map.keys, '<|>')[2] }</div></a>
+    	<a href="${fn:split(map.key, '<|>')[0] }"><img src="${fn:split(map.key, '<|>')[1] }"></a>
+        <a href="${fn:split(map.key, '<|>')[0] }"><div class="bander_zi">${fn:split(map.key, '<|>')[2] }</div></a>
     </div>
     <c:forEach items="${map.value }" var="val" varStatus="loop">
     	<c:if test="${loop.index <2 }">
@@ -63,60 +64,24 @@
 	    	<div class="bander_class" >
 	    </c:if>
 	    	<a href="#"><img src="${val.shopCommImages[0] }" /></a>
-	        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡萄酒</div></a>
-	        <a href="#"><div class="price1">￥96</div></a>
-	        <a href="#"><div class="price2">￥155</div></a>
+	        <a href="#"><div class="name">${val.commoidtyName }</div></a>
+	        <a href="#"><div class="price1"><span>¥
+									<c:if test="${!val.isSpecial }">
+										<fmt:formatNumber
+											value="${val.unitPrice}"
+											pattern="##.##" minFractionDigits="2">
+										</fmt:formatNumber>
+									</c:if>
+									<c:if test="${val.isSpecial }">
+										<fmt:formatNumber
+											value="${val.unitPrice * val.special}"
+											pattern="##.##" minFractionDigits="2">
+										</fmt:formatNumber>
+									</c:if></div></a>
+	        <a href="#"><div class="price2">￥${hong.unitPrice}</div></a>
 	    </div>
     </c:forEach>
-     <div class="bander_class" style="border-top:none;">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡萄酒</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-     <div class="bander_class" style="border-top:none; ">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡..</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-    <div class="bander_class" style=" border-left:none;">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name" style="margin-left:20px;">奔富寇兰山西拉子解伯纳红葡..</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-    <div class="bander_class">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡萄酒</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-     <div class="bander_class">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡萄酒</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-     <div class="bander_class">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡萄酒</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-    <div class="bander_class">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡萄酒</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-     <div class="bander_class" style="width:203px;">
-    	<a href="#"><img src="content/static/img/jiu1_03.jpg" /></a>
-        <a href="#"><div class="name">奔富寇兰山西拉子解伯纳红葡..</div></a>
-        <a href="#"><div class="price1">￥96</div></a>
-        <a href="#"><div class="price2">￥155</div></a>
-    </div>
-  </div>
+    </c:if>
   </c:forEach>
   <div class="box">
 	<div class="bander">

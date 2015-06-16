@@ -13,8 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import com.yc.entity.user.DepartAndPositions;
-
 @Entity
 @DiscriminatorValue("shopCommoidty")//商品表
 public class ShopCommoidty {

@@ -207,7 +207,7 @@ public class ShopCommoidtyService extends GenericService<ShopCommoidty> implemen
 
 	@Override
 	public List<ShopCommoidty> getAllByFamousManorID(Integer id, int i) {
-		StringBuffer hql=new StringBuffer("SELECT * FROM shopcommoidty WHERE shopcommoidty.famousManorAndShop.id="+id);
+		StringBuffer hql=new StringBuffer("SELECT shopcommoidty.*  FROM shopcommoidty LEFT JOIN famousmanorandshop fms ON fms.id =  shopcommoidty.famAndShop_id  WHERE  fms.famousManor_id ="+id);
 		if(i != -1){
 			hql.append(" LIMIT 0,"+i);
 		}
