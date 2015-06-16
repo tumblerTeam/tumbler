@@ -21,14 +21,14 @@ import com.yc.entity.Shop;
 
 @Entity
 @DiscriminatorValue("user")//用户
-public class User {
+public class AppUser {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
 	@Column(length = 32, unique = true, updatable = false)
-	private String mobile;
+	private String phone;
 
 	@Column(length = 32)
 	private String password;
@@ -99,12 +99,12 @@ public class User {
 		this.id = id;
 	}
 
-	public String getMobile() {
-		return mobile;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public String getPassword() {

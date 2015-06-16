@@ -18,11 +18,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.yc.entity.FamousManor;
 import com.yc.entity.News;
 import com.yc.entity.ShopCategory;
-import com.yc.entity.ShopCommoidty;
+import com.yc.entity.ShopCommodity;
 import com.yc.service.IFamousManorService;
 import com.yc.service.INewsService;
 import com.yc.service.IShopCategoryService;
-import com.yc.service.IShopCommoidtyService;
+import com.yc.service.IShopCommodityService;
 
 @Controller
 @RequestMapping("/")
@@ -38,7 +38,7 @@ public class IndexController {
 	IFamousManorService famousManorService;
 	
 	@Autowired
-	IShopCommoidtyService shopCommoidtyService;
+	IShopCommodityService shopCommoidtyService;
 	
     @RequestMapping(value = "index", method = RequestMethod.GET)
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -46,10 +46,10 @@ public class IndexController {
     	List<News> news = newService.getNewsByIsThrough(true);
     	//改，以后 top 8
     	List<FamousManor> famouss =  famousManorService.getAll();
-    	List<ShopCommoidty> hongjiu = shopCommoidtyService.getAllByShopCategoryID(1, new String(), 0, 6);
-    	List<ShopCommoidty> baijiu = shopCommoidtyService.getAllByShopCategoryID(2, new String(), 0, 6);
-    	List<ShopCommoidty> pijiu = shopCommoidtyService.getAllByShopCategoryID(3, new String(), 0, 6);
-    	List<ShopCommoidty> yangjiu = shopCommoidtyService.getAllByShopCategoryID(4, new String(), 0, 6);
+    	List<ShopCommodity> hongjiu = shopCommoidtyService.getAllByShopCategoryID(1, new String(), 0, 6);
+    	List<ShopCommodity> baijiu = shopCommoidtyService.getAllByShopCategoryID(2, new String(), 0, 6);
+    	List<ShopCommodity> pijiu = shopCommoidtyService.getAllByShopCategoryID(3, new String(), 0, 6);
+    	List<ShopCommodity> yangjiu = shopCommoidtyService.getAllByShopCategoryID(4, new String(), 0, 6);
     	ModelMap mode = new ModelMap();
     	mode.put("categories", list);
     	mode.put("hongjiu", hongjiu);

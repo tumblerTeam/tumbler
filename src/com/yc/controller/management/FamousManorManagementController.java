@@ -25,11 +25,11 @@ import com.yc.entity.FamousManor;
 import com.yc.entity.FamousManorAndShop;
 import com.yc.entity.Shop;
 import com.yc.entity.ShopCategory;
-import com.yc.entity.ShopCommoidty;
+import com.yc.entity.ShopCommodity;
 import com.yc.service.IFamousManorAndShopService;
 import com.yc.service.IFamousManorService;
 import com.yc.service.IShopCategoryService;
-import com.yc.service.IShopCommoidtyService;
+import com.yc.service.IShopCommodityService;
 import com.yc.service.IShopService;
 
 //名庄管理
@@ -46,7 +46,7 @@ public class FamousManorManagementController {
 	IShopService shopService;
 
 	@Autowired
-	IShopCommoidtyService shopCommoidtyService;
+	IShopCommodityService shopCommoidtyService;
 
 	@Autowired
 	IShopCategoryService shopCategoryService;
@@ -228,10 +228,10 @@ public class FamousManorManagementController {
 			for (int i = 0; i < depAndPos.size(); i++) {
 				FamousManorAndShop depAndPoss = depAndPos.get(i);
 				System.out.println("depAndPoss====="+depAndPoss.getId());
-				List<ShopCommoidty> shopCommoidties = depAndPoss.getShopCommoidties();
+				List<ShopCommodity> shopCommoidties = depAndPoss.getShopCommoidties();
 				if (shopCommoidties != null && shopCommoidties.size() > 0) {
 					for (int k = 0; k < shopCommoidties.size(); k++) {
-						ShopCommoidty shopCommoidty = shopCommoidties.get(k);
+						ShopCommodity shopCommoidty = shopCommoidties.get(k);
 						shopCommoidty.setFamousManorAndShop(null);
 						shopCommoidtyService.update(shopCommoidty);
 					}

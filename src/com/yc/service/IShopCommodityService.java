@@ -3,16 +3,16 @@ package com.yc.service;
 import java.util.List;
 import java.util.Map;
 
-import com.yc.entity.ShopCommoidty;
+import com.yc.entity.ShopCommodity;
 
-public interface IShopCommoidtyService extends IGenericService<ShopCommoidty> {
+public interface IShopCommodityService extends IGenericService<ShopCommodity> {
 
 	/***
 	 * 通过商家ID查找该商家商品
 	 * @param id 商家ID
 	 * @return
 	 */
-	List<ShopCommoidty> getAllByShop(Integer id);
+	List<ShopCommodity> getAllByShop(Integer id);
 
 	/***
 	 * 通过boolean条件和商家ID查询该商家商品
@@ -21,7 +21,7 @@ public interface IShopCommoidtyService extends IGenericService<ShopCommoidty> {
 	 * @param shopID 商家ID
 	 * @return
 	 */
-	List<ShopCommoidty> getAllByCondition(String condition, boolean isTrue, Integer shopID);
+	List<ShopCommodity> getAllByCondition(String condition, boolean isTrue, Integer shopID);
 
 	/***
 	 * 通过商品类别ID和page查询商家商品
@@ -29,7 +29,7 @@ public interface IShopCommoidtyService extends IGenericService<ShopCommoidty> {
 	 * @param page page=brand 查询品牌商品 page=special 查询折扣商品
 	 * @return
 	 */
-	List<ShopCommoidty> getAllByShopCategoryID(Integer id, String page,int one ,int last);
+	List<ShopCommodity> getAllByShopCategoryID(Integer id, String page,int one ,int last);
 
 	/***
 	 * 通过 规格、价格区段、类别ID、品牌ID查询商品
@@ -37,7 +37,7 @@ public interface IShopCommoidtyService extends IGenericService<ShopCommoidty> {
 	 * @param page special 折扣商品查询  brand品牌商品查询
 	 * @return
 	 */
-	List<ShopCommoidty> getAllByParams(Map<String, Object> map, String page);
+	List<ShopCommodity> getAllByParams(Map<String, Object> map, String page);
 
 	/***
 	 * 通过商品名称、商家ID查询商品
@@ -45,7 +45,7 @@ public interface IShopCommoidtyService extends IGenericService<ShopCommoidty> {
 	 * @param shopID 商家ID
 	 * @return
 	 */
-	List<ShopCommoidty> getAllByNameAndShop(String commoName, Integer shopID);
+	List<ShopCommodity> getAllByNameAndShop(String commoName, Integer shopID);
 
 	/***
 	 * 通过商品货号、商家ID查询商品
@@ -53,7 +53,7 @@ public interface IShopCommoidtyService extends IGenericService<ShopCommoidty> {
 	 * @param id 商家ID
 	 * @return
 	 */
-	ShopCommoidty getAllByCommItemAndShop(String commItem, Integer id);
+	ShopCommodity getAllByCommItemAndShop(String commItem, Integer id);
 
 	/***
 	 * 通过商品规格查询商品的规格
@@ -67,7 +67,7 @@ public interface IShopCommoidtyService extends IGenericService<ShopCommoidty> {
 	 * @param map commoidtyName商品名称、commItem商品货号、commCode商品编码
 	 * @return
 	 */
-	List<ShopCommoidty> getAllByParamsForBlack(Map<String, Object> map);
+	List<ShopCommodity> getAllByParamsForBlack(Map<String, Object> map);
 	
 	/***
 	 * 通过商品折扣、类别ID查询商品
@@ -75,28 +75,28 @@ public interface IShopCommoidtyService extends IGenericService<ShopCommoidty> {
 	 * @param flag 是否折扣
 	 * @return
 	 */
-	List<ShopCommoidty> getShopCommByCateAndIsspecial(Integer CateId, Boolean flag);
+	List<ShopCommodity> getShopCommByCateAndIsspecial(Integer CateId, Boolean flag);
 
 	/***
 	 * 通过商品类别Id查询品牌商品
 	 * @param id 类别ID id<=1 查询所有品牌商品 id>1 查询类别下的所有品牌商品
 	 * @return
 	 */
-	List<ShopCommoidty> getShopCommByCateAndBrand(Integer id);
+	List<ShopCommodity> getShopCommByCateAndBrand(Integer id);
 
 	/***
 	 * 通过品牌ID查询品牌商品
 	 * @param id 品牌ID
 	 * @return
 	 */
-	List<ShopCommoidty> getShopCommByBrandId(Integer id);
+	List<ShopCommodity> getShopCommByBrandId(Integer id);
 	
 	/***
 	 * 通过商品名称或者商品类别名称或者品牌名称模糊查询商品，用于搜索栏
 	 * @param content 商品名称 or 商品类别名称 or 品牌名称
 	 * @return
 	 */
-	List<ShopCommoidty> searchShopComm(String content);
+	List<ShopCommodity> searchShopComm(String content);
 
 	/**
 	 * 通过名庄ID和显示个数查询名庄商品
@@ -104,6 +104,6 @@ public interface IShopCommoidtyService extends IGenericService<ShopCommoidty> {
 	 * @param i 显示个数
 	 * @return
 	 */
-	List<ShopCommoidty> getAllByFamousManorID(Integer id, int i);
+	List<ShopCommodity> getAllByFamousManorID(Integer id, int i);
 
 }

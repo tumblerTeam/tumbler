@@ -19,7 +19,7 @@ public class ShopCommoidtySpecs {
 	
 	@ManyToOne
 	@JoinColumn(name = "shopComm_id")
-	private ShopCommoidty shopCommSpecs;
+	private ShopCommodity shopCommSpecs;
 	
 	@Column
 	private String commSpec;//规格【，颜色-红色，尺寸-12L,】
@@ -46,11 +46,11 @@ public class ShopCommoidtySpecs {
 		this.id = id;
 	}
 
-	public ShopCommoidty getShopCommSpecs() {
+	public ShopCommodity getShopCommSpecs() {
 		return shopCommSpecs;
 	}
 
-	public void setShopCommSpecs(ShopCommoidty shopCommSpecs) {
+	public void setShopCommSpecs(ShopCommodity shopCommSpecs) {
 		this.shopCommSpecs = shopCommSpecs;
 	}
 

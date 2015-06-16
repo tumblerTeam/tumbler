@@ -20,10 +20,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.yc.controller.user.UserController;
 import com.yc.entity.FamousManor;
 import com.yc.entity.ShopCategory;
-import com.yc.entity.ShopCommoidty;
+import com.yc.entity.ShopCommodity;
 import com.yc.service.IFamousManorService;
 import com.yc.service.IShopCategoryService;
-import com.yc.service.IShopCommoidtyService;
+import com.yc.service.IShopCommodityService;
 
 @Controller
 @RequestMapping("/famousManor")
@@ -38,18 +38,18 @@ public class FamousManorController {
 	IShopCategoryService categoryService;
 	
 	@Autowired
-	IShopCommoidtyService shopCommoidtyService;
+	IShopCommodityService shopCommoidtyService;
 	
 	@RequestMapping(value = "index", method = RequestMethod.GET)
 	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ModelMap mode = new ModelMap();
 		List<ShopCategory> list = categoryService.getAllByParent();
 		List<FamousManor> famousManors = famousManorService.getAll();
-		Map<String, List<ShopCommoidty>> map = new HashMap<String, List<ShopCommoidty>>();
+		Map<String, List<ShopCommodity>> map = new HashMap<String, List<ShopCommodity>>();
 		for (int i = 0; i < famousManors.size(); i++) {
 			FamousManor famousManor = famousManors.get(i);
 			if (famousManor != null) {
-				List<ShopCommoidty> commoidty = shopCommoidtyService.getAllByFamousManorID(famousManor.getId(),9); 
+				List<ShopCommodity> commoidty = shopCommoidtyService.getAllByFamousManorID(famousManor.getId(),9); 
 				map.put(famousManor.getId()+"<|>"+famousManor.getLogoPath()+"<|>"+famousManor.getDescribes(), commoidty);
 			}
 		}

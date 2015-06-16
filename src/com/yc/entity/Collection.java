@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import com.yc.entity.user.User;
+import com.yc.entity.user.AppUser;
 //收藏
 @Entity
 @DiscriminatorValue("collection")
@@ -20,25 +20,25 @@ public class Collection {
 	
 	@OneToOne
 	@JoinColumn(name = "shopComm_commCode")
-	private ShopCommoidty shopCommoidty;
+	private ShopCommodity shopCommoidty;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private User user;
+	private AppUser user;
 
-	public User getUser() {
+	public AppUser getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(AppUser user) {
 		this.user = user;
 	}
 
-	public ShopCommoidty getShopCommoidty() {
+	public ShopCommodity getShopCommoidty() {
 		return shopCommoidty;
 	}
 
-	public void setShopCommoidty(ShopCommoidty shopCommoidty) {
+	public void setShopCommoidty(ShopCommodity shopCommoidty) {
 		this.shopCommoidty = shopCommoidty;
 	}
 

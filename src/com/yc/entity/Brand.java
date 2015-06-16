@@ -33,16 +33,16 @@ public class Brand {
 	private Boolean isIndex;//是否品牌首页
 	
 	@OneToMany(mappedBy = "brand")
-	private List<ShopCommoidty> shopCommoidties;//品牌商品
+	private List<ShopCommodity> shopCommoidties;//品牌商品
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<ShopCategory> shopCateges;//商品类别
 
-	public List<ShopCommoidty> getShopCommoidties() {
+	public List<ShopCommodity> getShopCommoidties() {
 		return shopCommoidties;
 	}
 
-	public void setShopCommoidties(List<ShopCommoidty> shopCommoidties) {
+	public void setShopCommoidties(List<ShopCommodity> shopCommoidties) {
 		this.shopCommoidties = shopCommoidties;
 	}
 

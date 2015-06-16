@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("shopCommoidty")//商品表
-public class ShopCommoidty {
+public class ShopCommodity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer commCode;//商品编码
@@ -37,6 +37,9 @@ public class ShopCommoidty {
 	
 	@Column
 	private Float  unitPrice =0f;//单价
+	
+	@Column
+	private Float  groupPrice =0f;//团购单价
 	
 	@Column
 	private Integer stock = 1 ;//库存总数量
@@ -61,7 +64,7 @@ public class ShopCommoidty {
 	private  Boolean iscChoice = false;//是否精品
 	
 	@Column
-	private  Boolean auction =false;//是否拍卖
+	private  Boolean auction =false;//是否团购
 	
 	@ManyToOne
 	@JoinColumn(name = "shopCategory_id")
@@ -98,6 +101,14 @@ public class ShopCommoidty {
 	@Column
 	private String russinaDescribes;
 	
+	public Float getGroupPrice() {
+		return groupPrice;
+	}
+
+	public void setGroupPrice(Float groupPrice) {
+		this.groupPrice = groupPrice;
+	}
+
 	@ManyToOne
 	@JoinColumn(name = "famAndShop_id")
 	private FamousManorAndShop famousManorAndShop;//名庄

@@ -23,7 +23,7 @@ public class ShopCommImage {
 	
 	@ManyToOne
 	@JoinColumn(name = "shopCommoidty_id")
-	private ShopCommoidty shopCommoidty;
+	private ShopCommodity shopCommoidty;
 
 	public Integer getImageID() {
 		return imageID;
@@ -41,11 +41,11 @@ public class ShopCommImage {
 		this.imagePath = imagePath;
 	}
 
-	public ShopCommoidty getShopCommoidty() {
+	public ShopCommodity getShopCommoidty() {
 		return shopCommoidty;
 	}
 
-	public void setShopCommoidty(ShopCommoidty shopCommoidty) {
+	public void setShopCommoidty(ShopCommodity shopCommoidty) {
 		this.shopCommoidty = shopCommoidty;
 	}
 }

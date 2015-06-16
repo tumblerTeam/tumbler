@@ -34,7 +34,7 @@ public class Currency {
 	private CarCommoidty carcommodity;
 	
 	@OneToOne(mappedBy = "currency")
-	private ShopCommoidty shopCommoidty;
+	private ShopCommodity shopCommoidty;
 
 	public Commodity getCommodity() {
 		return commodity;
@@ -52,11 +52,11 @@ public class Currency {
 		this.carcommodity = carcommodity;
 	}
 
-	public ShopCommoidty getShopCommoidty() {
+	public ShopCommodity getShopCommoidty() {
 		return shopCommoidty;
 	}
 
-	public void setShopCommoidty(ShopCommoidty shopCommoidty) {
+	public void setShopCommoidty(ShopCommodity shopCommoidty) {
 		this.shopCommoidty = shopCommoidty;
 	}
 
