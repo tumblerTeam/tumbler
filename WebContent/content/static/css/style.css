@@ -114,7 +114,7 @@ p {
 }
 .search .text {
 	width: 392px;
-	height: 30px; font-size:14px;
+	height: 30px; font-size:
 	border: 1px solid #901531;
 }
 .search img {
@@ -122,6 +122,11 @@ p {
 	position: absolute;
 }
 .search span{ margin-left:15px; font-size:12px;}
+.search .box{ width:250px; height:250px; border:1px #ededed solid; position:absolute; margin-top:-20px; background-color:#fff;}
+
+
+
+
 /*微信扫码*/
 .wx {
 	width: 270px;
@@ -243,7 +248,9 @@ p {
 	margin-bottom: 10px;
 	margin-top: 20px;
 	margin-left: 14px;
+	
 }
+
 
 /*酒品样式*/
 .main_box {
@@ -672,6 +679,7 @@ p {
 .foot {
 	width: 100%;
 	height: auto;
+	position:relative;
 	background: #FFF;
 	float: left;
 }
@@ -849,6 +857,10 @@ p {
 	margin: 5px 15px;
 }
 /*品牌专区*/
+.content .all1{ width:100%; height:700px;}
+.content .title1{ width:100%; height:50px; }
+.content .title1 .z1{ float:left; margin-top:15px; margin-left:15px;}
+.content .title1 .z2{ float:right;margin-top:30px; margin-right:15px; font-size:14px;}
 .content .img {
 	margin: 0px;
 	border: 1px #ccc solid;
@@ -871,7 +883,7 @@ p {
 	opacity: 0.8;
 	filter: alpha(opacity=80);
 	position: relative;
-	top: -62px;
+	top: -60px;
 	color: #FFF;
 	font-size: 24px;
 	text-align: center;
@@ -1784,11 +1796,29 @@ border：1px #eee solid;
 }
 /*品牌详情*/
 .bander_class_all{ width:1200px; height:auto; margin:0px auto; margin-top:10px;}
-.bander_class_all .top{ width:1200px; height:300px; border:1px red solid;}
 
+.bander_class_all .top{ width:1200px; height:auto; margin-bottom:50px;}
 .bander_class_all .top h2{ background-color:#ededed; padding:5px;}
-.bander_class_all .top .nav1{ width:100%; height:30px; border-bottom:1px #ccc solid;}
-.bander_class_all .top .nav1 ul li{ list-style-type:none; float:left; display:inline-block; margin:5px 0px 0px 25px;}
+.bander_class_all .top .nav1{ width:100%; height:40px; border-top:1px #ccc solid; margin:0px auto;}
+.bander_class_all .top .nav1 .list{ width:100%; height:80px; border:1px red solid;}
+.bander_class_all .top .nav1 ul li{ list-style-type:none; float:left; display:inline-block; margin:10px 0px 0px 35px;}
+.bander_class_all .top .gd{ width:250px; height:30px; border:1px #ccc solid; text-align:center; line-height:30px;margin:0px auto;background-color:#fff; margin-top:-2px; border-top:none; cursor:pointer;}
+.bander_class_all .top a:hover{ color:red;}
+.bander_class_all .top a:hover .gd{ border-color:red;}
+.bander_class_all .top .big{ width100%; height:30px; border-top:1px #ccc solid; margin:0px auto;}
+.bander_class_all .top .nav2{ width:100%; height:auto; border-top:1px #ccc solid; margin:0px auto;}
+.bander_class_all .top .nav2 .list{ width:80%; height:auto;}
+.bander_class_all .top .nav2 ul li{ list-style-type:none; float:left; display:inline-block; margin:10px 0px 0px 35px;}
+.bander_class_all .top .nav2 .right_gd{ float:right; width:80px; height:50px; margin-top:-45px; margin-left:750px; transition:all 0.7s;  margin-right:50px; line-height:50px; cursor:pointer;}
+.bander_class_all .top .nav2 .small{ width:20px; height:20px; border:1px #ccc solid; float:right; margin:-35px 70px 0px 0px; background:url(../images/gd.png); background-position:2px 2px;}
+.bander_class_all .top .navgd{ width:100%; height:40px; border-top:1px #ccc solid; margin:0px auto;}
+.bander_class_all .top .navgd .list{ width:100%; height:80px; border:1px red solid;}
+.bander_class_all .top .navgd ul li{ list-style-type:none; float:left; display:inline-block; margin:10px 0px 0px 35px;}
+
+
+.lired:hover .right_gd{
+	color:red;
+	}
 
 .bander_class_all .buttom{ width:1200px;height:1400px;}
 .bander_class_all .buttom .left_ad{ width:230px; height:auto; float:left; margin-top:10px; }
@@ -1826,8 +1856,11 @@ border：1px #eee solid;
 .bander_class_all .buttom .center{ width:960px; height:auto; float:right; margin-top:10px;}
 .bander_class_all .buttom .center .order{ width:100%; height:30px; margin:10px 0px 0px 0px; background-color:#ccc;}
 .bander_class_all .buttom .center .order ul li{ list-style-type:none; display:inline-block; float:left; border:1px #ededed solid; width:100px; height:30px; text-align:center; line-height:30px;}
-.bander_class_all .buttom .center .jiu{ width:960px; height:auto; border-right:1px #ededed solid; position:absolute;}
-.bander_class_all .buttom .center .jiu ul li{ list-style-type:none; display:inline-block; float:left;  width:240px; height:300px; box-sizing:border-box;}
+.bander_class_all .buttom .center .order ul li .jiage{ width:100px; height:60px; background-color:#ededed; position:absolute; z-index:999; font-size:12px; line-height:25px; display:none;}
+/*.bander_class_all .buttom .center .order ul li a:hover{ background-color:#a40c59;}*/
+
+.bander_class_all .buttom .center .jiu{ width:960px; height:auto; border-right:1px #ededed solid;}
+.bander_class_all .buttom .center .jiu ul li{ list-style-type:none; display:inline-block; float:left;  width:240px; height:auto; box-sizing:border-box;}
 .bander_class_all .buttom .center .jiu .pro {
 	border: 1px #ededed solid;
 	width: 240px;
@@ -1911,8 +1944,8 @@ border：1px #eee solid;
 	color: #444;
 }
 
-.bander_class_all .last{ width:100%; height:410px;  }
-.bander_class_all .last .tuijian{ width:1180px; height:35px; background-color:#ededed; margin:0px; margin-top:20px; line-height:35px; padding-left:20px; }
+.bander_class_all .last{ width:100%;height: AUTO; display: NONE;}
+.bander_class_all .last .tuijian{ width:1180px; height:35px; background-color:#ededed; margin:0px; margin-top:20px;position:absolute; line-height:35px; padding-left:20px; }
 .bander_class_all .last .tuijain_class ul{ padding-left:0px; margin-left:100px; }
 .bander_class_all .last .tuijain_class ul li{ width:200px; height:315px; list-style-type:none; float:left; display:inline-block; margin:20px;background-color:#fff;} 
 .bander_class_all .last .tuijain_class ul li img{ margin:20px; margin-left:35px;}

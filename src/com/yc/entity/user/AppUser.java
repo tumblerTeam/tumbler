@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -15,9 +16,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 import com.yc.entity.Shop;
+import com.yc.entity.ShopCommodity;
 
 @Entity
 @DiscriminatorValue("user")//用户
@@ -58,6 +61,17 @@ public class AppUser {
 	
 	@Column
 	private String birthday;
+	
+	@ManyToMany(mappedBy = "users")
+	private List<ShopCommodity> activityCommodities;//商品类别
+
+	public List<ShopCommodity> getActivityCommodities() {
+		return activityCommodities;
+	}
+
+	public void setActivityCommodities(List<ShopCommodity> activityCommodities) {
+		this.activityCommodities = activityCommodities;
+	}
 
 	public Shop getShop() {
 		return shop;

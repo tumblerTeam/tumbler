@@ -88,7 +88,7 @@
 										<c:if test="${fn:length(shop.manorAndShops) >0 }">已开通</c:if>
 										<c:if test="${fn:length(shop.manorAndShops) == 0}">未开通</c:if>
 									</td>
-									<td><button onclick="onBlick('management/openManor?id=${shop.id}');">权限开通</button></td>
+									<td><button onclick="onBlick('openManor?id=${shop.id}');">权限开通</button></td>
 									</tr>
 								</tbody>
 							</c:forEach>
@@ -98,6 +98,7 @@
 			</div>
 			<script type="text/javascript">
 				function onBlick(url){
+					alert(url);
 					location.href = url;
 				}
 			</script>

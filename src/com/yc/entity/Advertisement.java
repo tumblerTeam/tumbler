@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("advertisement")//广告
@@ -18,25 +19,16 @@ public class Advertisement {
 	private Integer id;
 	
 	@Column
-	private String imagePath;//路径
-	
-	@Column
 	private String link;//链接
 	
-	@Column
-	private String title;
+	@OneToOne(mappedBy = "advertisement" )
+	private ShopCommodity commodity;;
 	
 	@Column
-	private Float unitPrice; 
+	private Float expenditure;//支出
 	
 	@Column
-	private Float specialPrice;
-	
-	@Column
-	private int expenditure;//支出
-	
-	@Column
-	private int income;//收入
+	private Float income;//收入
 	
 	@Column
 	private String startDate;//开始日期
@@ -46,7 +38,7 @@ public class Advertisement {
 	
 	@ManyToOne
 	@JoinColumn( name = "adverDistribution_id" )
-	private AdvertiseDistribution adverDistribution;//广告分配
+	private AdvertiseDistribution adverDistribution;//广告分布
 
 	public Integer getId() {
 		return id;
@@ -56,14 +48,14 @@ public class Advertisement {
 		this.id = id;
 	}
 
-	public String getImagePath() {
-		return imagePath;
+	public ShopCommodity getCommodity() {
+		return commodity;
 	}
 
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
+	public void setCommodity(ShopCommodity commodity) {
+		this.commodity = commodity;
 	}
-	
+
 	public String getLink() {
 		return link;
 	}
@@ -79,20 +71,20 @@ public class Advertisement {
 	public void setAdverDistribution(AdvertiseDistribution adverDistribution) {
 		this.adverDistribution = adverDistribution;
 	}
-	
-	public int getExpenditure() {
+
+	public Float getExpenditure() {
 		return expenditure;
 	}
 
-	public void setExpenditure(int expenditure) {
+	public void setExpenditure(Float expenditure) {
 		this.expenditure = expenditure;
 	}
 
-	public int getIncome() {
+	public Float getIncome() {
 		return income;
 	}
 
-	public void setIncome(int income) {
+	public void setIncome(Float income) {
 		this.income = income;
 	}
 

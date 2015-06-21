@@ -41,14 +41,14 @@ public class ShopService extends GenericService<Shop> implements IShopService {
 	
 	@Override
 	public List<Shop> getShopForManage(boolean b) {
-		String hql = " from Shop where isPermit = "+(b?1:0)+" and blacklist.id is null";
+		StringBuffer hql = new StringBuffer(" from Shop where isPermit = "+(b?1:0)+" and blacklist.id is null");
 		return shopDao.find(hql.toString(), null, null);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Shop> getShopForNotManor() {
-		String hql = "SELECT * FROM shop WHERE ID NOT IN ( SELECT famousmanorandshop.shop_id FROM famousmanorandshop LEFT JOIN shop ON shop.id = famousmanorandshop.shop_id) AND isPermit = 1 AND shop.blacklist_id IS NULL";
+	public List<Shop> getShopManorByBool(boolean b) {
+		StringBuffer hql = new StringBuffer("SELECT * FROM shop WHERE ID "+(b?"IN":"NOT IN")+" ( SELECT famousmanorandshop.shop_id FROM famousmanorandshop LEFT JOIN shop ON shop.id = famousmanorandshop.shop_id) AND isPermit = 1 AND shop.blacklist_id IS NULL");
 		return shopDao.getEntityManager().createNativeQuery(hql.toString(), Shop.class).getResultList();
 	}
 }

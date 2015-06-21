@@ -55,7 +55,7 @@ var _hmt = _hmt || [];
 <!--导航内容-->
 <div class="nav">
 	<div class="nav_box">
-    	<div class="nav_btn"><a href="#">全部商品分类</a>
+    	<div class="nav_btn" id="fen"><a href="#">全部商品分类</a>
         </div>
         <div class="nav_list">
             <a href="index" style="padding-left:30px; color:#a40c59">首页</a>

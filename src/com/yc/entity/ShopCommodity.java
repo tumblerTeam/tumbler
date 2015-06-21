@@ -2,6 +2,7 @@ package com.yc.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -9,12 +10,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+import com.yc.entity.user.AppUser;
+
 @Entity
 @DiscriminatorValue("shopCommoidty")//商品表
+@JsonIgnoreProperties(value={"buyCar","carCategory","shop","currency","personnel","shopCommodity"})
 public class ShopCommodity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,8 +37,21 @@ public class ShopCommodity {
 	@Column
 	private String supplier ;//供应商
 	
-	@OneToMany(mappedBy = "shopCommSpecs")
-	private List<ShopCommoidtySpecs> commsPecs;
+	@Column
+	private Integer amountDeal; 
+	
+	@OneToOne(mappedBy = "shopCommSpecs")
+	private ShopCommoditySpecs commsPecs;
+	
+	@OneToMany(mappedBy = "shopCommodity")
+	private List<Commodity> commodity; 
+	
+	@OneToMany(mappedBy = "shopCommodity")
+	private List<CarCommodity> carCommodities ; 
+	
+	@ManyToOne
+	@JoinColumn(name = "activity_id")
+	private Activity activity;
 	
 	@Column
 	private Integer proportion = 1;//显示比例
@@ -85,6 +106,9 @@ public class ShopCommodity {
 	private List<ShopCommImage> shopCommImages;//商品照片
 	
 	@Column
+	private String actityImage;//广告照片
+	
+	@Column
 	private String describes;//描述
 
 	@OneToOne
@@ -101,6 +125,71 @@ public class ShopCommodity {
 	@Column
 	private String russinaDescribes;
 	
+	@Column
+	private Integer salesVolume = 0; //销量
+	
+	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
+	@JoinTable(name = "AppUser_shopCommodity",   
+     joinColumns ={@JoinColumn(name = "shopCommodity_ID", referencedColumnName = "commCode") },   
+     inverseJoinColumns = { @JoinColumn(name = "appUser_ID", referencedColumnName = "id") })  
+	private List<AppUser> users  ;//团购商品的用户集合
+	
+	@OneToOne
+	@JoinColumn(name="advertisement_id")
+	private Advertisement advertisement;//广告
+	
+	@ManyToOne
+	@JoinColumn(name = "famousManor_id")
+	private FamousManor famousManor;//名庄
+	
+	public List<AppUser> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<AppUser> users) {
+		this.users = users;
+	}
+
+	public Integer getSalesVolume() {
+		return salesVolume;
+	}
+
+	public void setSalesVolume(Integer salesVolume) {
+		this.salesVolume = salesVolume;
+	}
+
+	public List<Commodity> getCommodity() {
+		return commodity;
+	}
+
+	public void setCommodity(List<Commodity> commodity) {
+		this.commodity = commodity;
+	}
+
+	public List<CarCommodity> getCarCommodities() {
+		return carCommodities;
+	}
+
+	public void setCarCommodities(List<CarCommodity> carCommodities) {
+		this.carCommodities = carCommodities;
+	}
+
+	public String getActityImage() {
+		return actityImage;
+	}
+
+	public void setActityImage(String actityImage) {
+		this.actityImage = actityImage;
+	}
+
+	public Advertisement getAdvertisement() {
+		return advertisement;
+	}
+
+	public void setAdvertisement(Advertisement advertisement) {
+		this.advertisement = advertisement;
+	}
+
 	public Float getGroupPrice() {
 		return groupPrice;
 	}
@@ -109,16 +198,12 @@ public class ShopCommodity {
 		this.groupPrice = groupPrice;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "famAndShop_id")
-	private FamousManorAndShop famousManorAndShop;//名庄
-	
-	public FamousManorAndShop getFamousManorAndShop() {
-		return famousManorAndShop;
+	public FamousManor getFamousManor() {
+		return famousManor;
 	}
 
-	public void setFamousManorAndShop(FamousManorAndShop famousManorAndShop) {
-		this.famousManorAndShop = famousManorAndShop;
+	public void setFamousManor(FamousManor famousManor) {
+		this.famousManor = famousManor;
 	}
 
 	public String getRussinaCommoidtyName() {
@@ -169,13 +254,30 @@ public class ShopCommodity {
 		this.stock = stock;
 	}
 
-	public List<ShopCommoidtySpecs> getCommsPecs() {
+	public Integer getAmountDeal() {
+		return amountDeal;
+	}
+
+	public void setAmountDeal(Integer amountDeal) {
+		this.amountDeal = amountDeal;
+	}
+
+	public ShopCommoditySpecs getCommsPecs() {
 		return commsPecs;
 	}
-  
-	public void setCommsPecs(List<ShopCommoidtySpecs> commsPecs) {
+
+	public void setCommsPecs(ShopCommoditySpecs commsPecs) {
 		this.commsPecs = commsPecs;
 	}
+
+	public Activity getActivity() {
+		return activity;
+	}
+
+	public void setActivity(Activity activity) {
+		this.activity = activity;
+	}
+
 	public Currency getCurrency() {
 		return currency;
 	}

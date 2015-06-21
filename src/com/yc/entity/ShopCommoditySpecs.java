@@ -7,36 +7,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
-@DiscriminatorValue("shopcommoidtyspecs")//商品表
-public class ShopCommoidtySpecs {
+@DiscriminatorValue("shopcommoidtyspecs")//商品规格表
+public class ShopCommoditySpecs {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "shopComm_id")
 	private ShopCommodity shopCommSpecs;
 	
 	@Column
 	private String commSpec;//规格【，颜色-红色，尺寸-12L,】
-	
-	@Column
-	private Integer stock = 1 ;//库存数量
-	
-	@Column
-	private Float  unitPrice =0f;//单价
-
-	public Float getUnitPrice() {
-		return unitPrice;
-	}
-
-	public void setUnitPrice(Float unitPrice) {
-		this.unitPrice = unitPrice;
-	}
 
 	public Integer getId() {
 		return id;
@@ -62,12 +48,4 @@ public class ShopCommoidtySpecs {
 		this.commSpec = commSpec;
 	}
 
-	public Integer getStock() {
-		return stock;
-	}
-
-	public void setStock(Integer stock) {
-		this.stock = stock;
-	}
-	
 }

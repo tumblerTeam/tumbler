@@ -27,6 +27,8 @@ public interface IShopCommodityService extends IGenericService<ShopCommodity> {
 	 * 通过商品类别ID和page查询商家商品
 	 * @param id 类别ID
 	 * @param page page=brand 查询品牌商品 page=special 查询折扣商品
+	 * @param one  起始位置
+	 * @param last 结束位置
 	 * @return
 	 */
 	List<ShopCommodity> getAllByShopCategoryID(Integer id, String page,int one ,int last);
@@ -105,5 +107,20 @@ public interface IShopCommodityService extends IGenericService<ShopCommodity> {
 	 * @return
 	 */
 	List<ShopCommodity> getAllByFamousManorID(Integer id, int i);
+
+	/**
+	 * 通过店铺ID查询该商铺下所有名庄产品
+	 * @param id  店铺ID
+	 * @return
+	 */
+	List<ShopCommodity> getFamousCommodityByShop(Integer id);
+
+	/***
+	 * 通过 规格、价格区段、一级类别ID、品牌ID查询商品
+	 * @param map specs %,xx,%@%,xx,%规格、  money xxx@xxx价格区间段、 id 一级类别ID、 brand (xxx,xxx) 品牌ID
+	 * @param page special 折扣商品查询  brand品牌商品查询
+	 * @return
+	 */
+	List<ShopCommodity> getAllByParamsForParent(Map<String, Object> map, String string);
 
 }
