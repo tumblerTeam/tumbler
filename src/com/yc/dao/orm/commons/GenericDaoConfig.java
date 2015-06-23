@@ -11,7 +11,7 @@ import com.yc.entity.AdvertiseDistribution;
 import com.yc.entity.Advertisement;
 import com.yc.entity.Blacklist;
 import com.yc.entity.Brand;
-import com.yc.entity.CarCommoidty;
+import com.yc.entity.CarCommodity;
 import com.yc.entity.Collection;
 import com.yc.entity.Commodity;
 import com.yc.entity.Currency;
@@ -51,8 +51,8 @@ public class GenericDaoConfig {
     	return new GenericDaoSupport<Brand>(Brand.class);
     }
     @Bean
-    public GenericDao<CarCommoidty> getCarCommoidtyDao() {
-    	return new GenericDaoSupport<CarCommoidty>(CarCommoidty.class);
+    public GenericDao<CarCommodity> getCarCommoidtyDao() {
+    	return new GenericDaoSupport<CarCommodity>(CarCommodity.class);
     }
     @Bean
     public GenericDao<Collection> getCollectionDao() {

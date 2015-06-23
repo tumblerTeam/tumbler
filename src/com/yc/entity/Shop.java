@@ -86,7 +86,7 @@ public class Shop {
 	private List<ShopCommodity> shopCommoidties;//店铺商品
 	
 	@OneToMany(mappedBy = "carbelongTo")
-	private List<CarCommoidty> carCommoidties;//店铺商品
+	private List<CarCommodity> carCommoidties;//店铺商品
 	
 	@OneToOne(mappedBy = "shop")
 	private AppUser user;
@@ -160,11 +160,11 @@ public class Shop {
 		this.blacklist = blacklist;
 	}
 
-	public List<CarCommoidty> getCarCommoidties() {
+	public List<CarCommodity> getCarCommoidties() {
 		return carCommoidties;
 	}
 
-	public void setCarCommoidties(List<CarCommoidty> carCommoidties) {
+	public void setCarCommoidties(List<CarCommodity> carCommoidties) {
 		this.carCommoidties = carCommoidties;
 	}
 
