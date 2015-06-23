@@ -43,7 +43,7 @@ public class SearchController {
 	@Autowired
 	IFamousManorService famousManorService;
 
-	@RequestMapping(value = "result", method ={RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(value = "result", method =RequestMethod.GET)
 	public ModelAndView result(String brand, Integer cateid, Integer id, String famousid, String spec, String params,String orderByPice, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ModelMap mode = new ModelMap();
 		System.out.println("brand"+brand+"cateid"+cateid+"id"+id+"famousid"+famousid+"spec"+spec+"params"+params);
@@ -73,11 +73,45 @@ public class SearchController {
 		return extOther(cateid,id, params, mode,orderByPice);
 	}
 
+	@SuppressWarnings("unused")
 	private ModelAndView extOther(Integer cateid,Integer id, String params, ModelMap mode, String orderByPice) {
+		System.out.println("id============"+id);
 		ShopCategory cate = shopCategService.findById(id);
 		List<ShopCategory> shopcates = new ArrayList<ShopCategory>();
 		String strs = "";
+		mode.put("id", id);
+		mode.put("cateid", cateid);
+		mode.put("params", params);
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (orderByPice == null) {
+			map.put("orderByPice", null);
+			map.put("orderByXiao", null);
+		} else {
+			if(orderByPice.split("-")[0].equals("orderByPice")){
+				map.put("orderByPice", orderByPice.split("-")[1]);
+			}
+			if(orderByPice.split("-")[0].equals("orderByXiao")){
+				map.put("orderByXiao", orderByPice.split("-")[1]);
+			}
+		}
+		if (id == null) {
+			map.put("cateid", cateid);
+			map = getMap(params, map);
+			List<ShopCommodity> lists = shopCommService.getAllByParamsForParent(map, new String());
+			mode.put("list", lists);
+		} else {
+			map.put("cateid", id);
+			map = getMap(params, map);
+			List<ShopCommodity> lists = shopCommService.getAllByParams(map, new String());
+			mode.put("list", lists);
+		}
 		if (cate != null) {
+			if (cate.getParentLevel().getParentLevel().getCategoryID() == 1) {
+				List<FamousManor> famousManors =  famousManorService.getAll();
+				mode.put("famousManors", famousManors);
+			}
+			mode.put("brands", cate.getParentLevel().getParentLevel().getBrands());
+			mode.put("specifications", cate.getParentLevel().getParentLevel().getSpecifications());
 			shopcates.add(cate);
 			while (cate.getParentLevel() != null) {
 				cate = shopCategService.findById(cate.getParentLevel().getCategoryID());
@@ -92,14 +126,9 @@ public class SearchController {
 				}
 				strs = strs + shopcates.get(i).getCategoryID() + "-" + shopcates.get(i).getCategory() + "|";
 			}
-			if (cate.getParentLevel().getParentLevel().getCategoryID() == 1) {
-				List<FamousManor> famousManors =  famousManorService.getAll();
-				mode.put("famousManors", famousManors);
-			}
 			mode.put("cate", cate);
+			System.out.println("strs======="+strs);
 			mode.put("nvabar", strs.substring(0, strs.length() - 1));
-			mode.put("brands", cate.getParentLevel().getParentLevel().getBrands());
-			mode.put("specifications", cate.getParentLevel().getParentLevel().getSpecifications());
 		}else{
 			ShopCategory cateParp = shopCategService.findById(cateid);
 			shopcates.add(cateParp);
@@ -126,31 +155,6 @@ public class SearchController {
 		}
 		shopcates = shopCategService.getAll();
 		mode.put("shopCategories", shopcates);
-		mode.put("id", id);
-		mode.put("cateid", cateid);
-		mode.put("params", params);
-		Map<String, Object> map = new HashMap<String, Object>();
-		if (id == null) {
-			map.put("cateid", null);
-		} else {
-			map.put("cateid", id);
-		}
-
-		if (orderByPice == null) {
-			map.put("orderByPice", null);
-			map.put("orderByXiao", null);
-		} else {
-			if(orderByPice.split("-")[0].equals("orderByPice")){
-				map.put("orderByPice", orderByPice.split("-")[1]);
-			}
-			if(orderByPice.split("-")[0].equals("orderByXiao")){
-				map.put("orderByXiao", orderByPice.split("-")[1]);
-			}
-		}
-		map = getMap(params, map);
-		List<ShopCommodity> lists = shopCommService.getAllByParams(map, new String());
-		mode.put("list", lists);
-
 		return new ModelAndView("search/result", mode);
 	}
 
@@ -236,6 +240,10 @@ public class SearchController {
 		mode.put("specifications", cate.getSpecifications());
 		String strs = "";
 		shopcates.add(cate);
+		if (cate.getCategoryID() == 1) {
+			List<FamousManor> famousManors =  famousManorService.getAll();
+			mode.put("famousManors", famousManors);
+		}
 		while (cate.getParentLevel() != null) {
 			cate = shopCategService.findById(cate.getParentLevel().getCategoryID());
 			if (cate != null) {
@@ -247,10 +255,6 @@ public class SearchController {
 				cate = shopcates.get(i);
 			}
 			strs = strs + shopcates.get(i).getCategoryID() + "-" + shopcates.get(i).getCategory() + "|";
-		}
-		if (cate.getCategoryID() == 1) {
-			List<FamousManor> famousManors =  famousManorService.getAll();
-			mode.put("famousManors", famousManors);
 		}
 		shopcates = shopCategService.getAll();
 		mode.put("shopCategories", shopcates);

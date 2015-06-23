@@ -1,5 +1,7 @@
 package com.yc.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,4 +20,9 @@ public class CollectionService extends GenericService<Collection> implements ICo
 		return collectionDao;
 	}
 
+	@Override
+	public List<Collection> getAllByUser(Integer id) {
+		return collectionDao.getBy("user.id", id);
+	}
+	
 }

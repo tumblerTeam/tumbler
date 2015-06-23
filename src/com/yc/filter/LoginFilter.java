@@ -21,7 +21,15 @@ public class LoginFilter implements Filter {
         }
         return true;
     }
-
+    
+    private boolean needLoginUser(HttpServletRequest request){
+    	String uri = request.getRequestURI();
+    	if (uri.contains("/personalCenter")||uri.contains("/perscentBonuses")||uri.contains("/collection")) {
+            return true;
+        }
+    	return false;
+    }
+    
     @Override
     public void doFilter(ServletRequest req, ServletResponse rsp, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
@@ -31,6 +39,20 @@ public class LoginFilter implements Filter {
         	if (session.getAttribute("loginPersonnle") == null && needLogin(request)) {
         		HttpServletResponse response = (HttpServletResponse) rsp;
         		response.sendRedirect(request.getContextPath()+"/login");
+        		return;
+        	}
+        }
+        if (url.contains("/user/")) {
+        	if (session.getAttribute("loginUser") == null && needLoginUser(request)) {
+        		session.removeAttribute("loginPage");
+        		HttpServletResponse response = (HttpServletResponse) rsp;
+        		String param = "";
+        		if(request.getQueryString() != null){
+        			param = "?"+request.getQueryString();
+        		}
+        		String page =request.getScheme() + "://"+ request.getServerName() + ":" + request.getServerPort() +request.getRequestURI()+ param;
+        		session.setAttribute("loginPage", page);
+        		response.sendRedirect(request.getContextPath()+"/user/regist");
         		return;
         	}
         }

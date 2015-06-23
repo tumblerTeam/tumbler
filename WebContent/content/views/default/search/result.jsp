@@ -34,6 +34,7 @@
 <!--更多分类-->
 <script type="text/ecmascript">
 	
+	
 	var boolean=true;
 	function f1(){
 		var gd=document.getElementsByClassName("navgd");
@@ -73,8 +74,10 @@
 			pp2.style.borderColor="#ccc";
 		}
 
+
 </script>
 <script type="text/ecmascript">
+	
 	
 	
 	function f6(){
@@ -135,6 +138,7 @@
 			}
 
 
+
 </script>
 </head>
 <body>
@@ -188,7 +192,8 @@
 												+ "</a> ";
 									}
 								} else {
-									$guige = $guige + "> <a href='#'>"
+									$guige = $guige
+											+ "> <a href='javascript:void(0);'>"
 											+ str[j].split("-")[1] + "</a> ";
 								}
 								if (j == str.length - 1) {
@@ -313,57 +318,68 @@
 						<c:forEach items="${attrs }" var="attr">
 							<c:choose>
 								<c:when test="${attr == '黑色'}">
-									<li><a href="javascript:void(0);" rel="nofollow" class="black" title="黑色"><span
+									<li><a href="javascript:void(0);" rel="nofollow"
+										class="black" title="黑色"><span
 											onclick="searchs('${attr}','${spec.specificatName }');"
 											style="background-color: #000;"></span><b></b></a></li>
 								</c:when>
 								<c:when test="${attr == '灰色'}">
-									<li><a href="javascript:void(0);" rel="nofollow" class="black" title="灰色"><span
+									<li><a href="javascript:void(0);" rel="nofollow"
+										class="black" title="灰色"><span
 											onclick="searchs('${attr}','${spec.specificatName }');"
 											style="background-color: #999;"></span><b></b></a></li>
 								</c:when>
 								<c:when test="${attr == '白色'}">
-									<li><a href="javascript:void(0);" rel="nofollow" class="black" title="白色"><span
+									<li><a href="javascript:void(0);" rel="nofollow"
+										class="black" title="白色"><span
 											onclick="searchs('${attr}','${spec.specificatName }');"
 											style="background-color: #fff;"></span><b></b></a></li>
 								</c:when>
 								<c:when test="${attr == '粉色'}">
-									<li><a href="javascript:void(0);" rel="nofollow" class="black" title="粉色"><span
+									<li><a href="javascript:void(0);" rel="nofollow"
+										class="black" title="粉色"><span
 											onclick="searchs('${attr}','${spec.specificatName }');"
 											style="background-color: #fdd;"></span><b></b></a></li>
 								</c:when>
 								<c:when test="${attr == '红色'}">
-									<li><a href="javascript:void(0);" rel="nofollow" class="black" title="红色"><span
+									<li><a href="javascript:void(0);" rel="nofollow"
+										class="black" title="红色"><span
 											onclick="searchs('${attr}','${spec.specificatName }');"
 											style="background-color: #f00;"></span><b></b></a></li>
 								</c:when>
 								<c:when test="${attr == '玫红色'}">
-									<li><a href="javascript:void(0);" rel="nofollow" class="black" title="玫红色"><span
+									<li><a href="javascript:void(0);" rel="nofollow"
+										class="black" title="玫红色"><span
 											onclick="searchs('${attr}','${spec.specificatName }');"
 											style="background-color: #f08;"></span><b></b></a></li>
 								</c:when>
 								<c:when test="${attr == '紫色'}">
-									<li><a href="javascript:void(0);" rel="nofollow" class="black" title="紫色"><span
+									<li><a href="javascript:void(0);" rel="nofollow"
+										class="black" title="紫色"><span
 											onclick="searchs('${attr}','${spec.specificatName }');"
 											style="background-color: #a2e;"></span><b></b></a></li>
 								</c:when>
 								<c:when test="${attr == '蓝色'}">
-									<li><a href="javascript:void(0);" rel="nofollow" class="black" title="蓝色"><span
+									<li><a href="javascript:void(0);" rel="nofollow"
+										class="black" title="蓝色"><span
 											onclick="searchs('${attr}','${spec.specificatName }');"
 											style="background-color: #18f;"></span><b></b></a></li>
 								</c:when>
 								<c:when test="${attr == '绿色'}">
-									<li><a href="javascript:void(0);" rel="nofollow" class="black" title="绿色"><span
+									<li><a href="javascript:void(0);" rel="nofollow"
+										class="black" title="绿色"><span
 											onclick="searchs('${attr}','${spec.specificatName }');"
 											style="background-color: #0b2;"></span><b></b></a></li>
 								</c:when>
 								<c:when test="${attr == '橙色'}">
-									<li><a href="javascript:void(0);" rel="nofollow" class="black" title="橙色"><span
+									<li><a href="javascript:void(0);" rel="nofollow"
+										class="black" title="橙色"><span
 											onclick="searchs('${attr}','${spec.specificatName }');"
 											style="background-color: #f80;"></span><b></b></a></li>
 								</c:when>
 								<c:when test="${attr == '驼色'}">
-									<li><a href="javascript:void(0);" rel="nofollow" class="black" title="驼色"><span
+									<li><a href="javascript:void(0);" rel="nofollow"
+										class="black" title="驼色"><span
 											onclick="searchs('${attr}','${spec.specificatName }');"
 											style="background-color: #b97;"></span><b></b></a></li>
 								</c:when>
@@ -395,14 +411,14 @@
 			<a><div class="gd" id="btn" onClick="f1()">更多选项</div></a>
 		</div>
 	</div>
-	<form action="search/result" id="paramForm" method="post">
+	<form action="search/result" id="paramForm" method="get">
 		<input id="params" name="params" type="hidden" value="${params }" />
-		<input id="orderByPice"
-			name="orderByPice" type="hidden" value="${orderByPice }" /> <input
-			id="haoping" name="haoping" type="hidden" value="${haoping }" /> <input
-			id="id" name="id" type="hidden" value="${id }" /> <input id="cateid"
-			name="cateid" type="hidden" value="${cateid }" /> <input id="page"
-			name="page" type="hidden" value="${page }" /> 
+		<input id="orderByPice" name="orderByPice" type="hidden"
+			value="${orderByPice }" /> <input id="haoping" name="haoping"
+			type="hidden" value="${haoping }" /> <input id="id" name="id"
+			type="hidden" value="${id }" /> <input id="cateid" name="cateid"
+			type="hidden" value="${cateid }" /> <input id="page" name="page"
+			type="hidden" value="${page }" />
 	</form>
 	<script type="text/javascript">
 		function searchMoney() {
@@ -667,7 +683,7 @@
 										</div>
 									</div>
 								</div>
-							</li>
+						</li>
 						</a>
 					</c:forEach>
 				</ul>

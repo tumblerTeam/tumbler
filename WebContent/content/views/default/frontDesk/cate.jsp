@@ -5,7 +5,7 @@
 		<div class="menu_left" style="display:none;" id="fen_class">
 		<c:forEach items="${categories }" var="category">
 			<div class="list">
-            	<h2><a href="javascript:void(0);">${category.category }</a></h2>
+            	<h2><a href="search/result?cateid=${category.categoryID }">${category.category }</a></h2>
             		<div class="list_con">
             		<c:forEach items="${category.brands }" var="brand">
 	                	<a href="search/result?cateid=${category.categoryID }&brand=brand-${brand.brandID }">${brand.brandName }</a>

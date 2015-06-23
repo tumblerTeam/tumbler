@@ -17,8 +17,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.yc.entity.Collection;
+import com.yc.entity.OrderForm;
 import com.yc.entity.Shop;
 import com.yc.entity.ShopCommodity;
 
@@ -64,6 +67,28 @@ public class AppUser {
 	
 	@ManyToMany(mappedBy = "users")
 	private List<ShopCommodity> activityCommodities;//商品类别
+	
+	@OneToMany(mappedBy = "user")
+	private List<Collection> collections;//商品类别
+	
+	@OneToMany(mappedBy = "orderUser")
+	private List<OrderForm> orderForms;//商品类别
+
+	public List<OrderForm> getOrderForms() {
+		return orderForms;
+	}
+
+	public void setOrderForms(List<OrderForm> orderForms) {
+		this.orderForms = orderForms;
+	}
+
+	public List<Collection> getCollections() {
+		return collections;
+	}
+
+	public void setCollections(List<Collection> collections) {
+		this.collections = collections;
+	}
 
 	public List<ShopCommodity> getActivityCommodities() {
 		return activityCommodities;

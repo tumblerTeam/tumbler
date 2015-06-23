@@ -8,9 +8,7 @@
 <head>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <base href="<%=basePath%>" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -28,34 +26,35 @@
 	<!--顶部内容-->
 	<jsp:include page="frontDesk/header.jsp" />
 	<!--banner-->
-<div class="banner">
-	<div class="menu_nav">
-		<div class="menu_left">
-		<c:forEach items="${categories }" var="category">
-			<div class="list">
-            	<h2><a href="search/result?cateid=${category.categoryID }">${category.category }</a></h2>
-            		<div class="list_con">
-            		<c:forEach items="${category.brands }" var="brand">
-	                	<a href="search/result?cateid=${category.categoryID }&brand=brand-${brand.brandID }">${brand.brandName }</a>
-            		</c:forEach>
-	                </div>
-            </div>
-		</c:forEach>
+	<div class="banner">
+		<div class="menu_nav">
+			<div class="menu_left">
+				<c:forEach items="${categories }" var="category">
+					<div class="list">
+						<h2>
+							<a href="search/result?cateid=${category.categoryID }">${category.category }</a>
+						</h2>
+						<div class="list_con">
+							<c:forEach items="${category.brands }" var="brand">
+								<a
+									href="search/result?cateid=${category.categoryID }&brand=brand-${brand.brandID }">${brand.brandName }</a>
+							</c:forEach>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
 		</div>
+
+		<!--banner内容-->
+		<div class="banner_box"></div>
 	</div>
-    
-    <!--banner内容-->
-    <div class="banner_box">
-    	
-    </div>
-</div>
 	<!--酒品内容-->
 	<div class="main_box">
 		<div class="main">
 			<div class="left">
 				<ul class="tab_menu">
 					<li><a href="javascript:void(0);">
-						<h3>名庄特卖</h3>
+							<h3>名庄特卖</h3>
 					</a></li>
 					<li>
 						<h3>每日精选</h3>
@@ -129,7 +128,8 @@
 						<c:if test="${loop.index<5 }">
 							<c:choose>
 								<c:when test="${loop.index%2==0 }">
-									<li><a href="search/result?cateid=1&famousid=famousid-${famous.id }">${famous.manorName }</a></li>
+									<li><a
+										href="search/result?cateid=1&famousid=famousid-${famous.id }">${famous.manorName }</a></li>
 								</c:when>
 								<c:otherwise>
 									<li class="site-nav-pipe">|</li>
@@ -154,7 +154,8 @@
 								<li>
 							</c:otherwise>
 						</c:choose>
-						<a href="search/result?cateid=1&famousid=famousid-${famous.id }"><img src="${famous.logoPath }" />
+						<a href="search/result?cateid=1&famousid=famousid-${famous.id }"><img
+							src="${famous.logoPath }" />
 							<h1>
 								<span style="margin-right: 0.5em"></span>${famous.manorName }
 							</h1></a>
@@ -209,41 +210,38 @@
 					</ul>
 				</div>
 				<div class="jg2">
-					<a href="javascript:void(0);"><img src="content/static/img/jg_banner.jpg" /></a>
+					<a href="javascript:void(0);"><img
+						src="content/static/img/jg_banner.jpg" /></a>
 				</div>
 				<ul class="jg3">
 					<c:forEach var="hong" items="${hongjiu }" varStatus="loop">
-					<c:if test="${loop.index == 5 }">
-						<li style="margin: 0px; width: 200px;">
-					</c:if>
-					<c:if test="${loop.index != 5 }">
-						<li >
-					</c:if>
+						<c:if test="${loop.index == 5 }">
+							<li style="margin: 0px; width: 200px;">
+						</c:if>
+						<c:if test="${loop.index != 5 }">
+							<li>
+						</c:if>
 						<div class="p_img">
-							<a href="javascript:void(0);"><img src="${hong.shopCommImages[0].imagePath }" /></a>
+							<a href="javascript:void(0);"><img
+								src="${hong.shopCommImages[0].imagePath }" /></a>
 						</div>
 						<div class="p_name">
 							<div class="p_name_text">
 								<a href="javascript:void(0);">
-									<p>${hong.commoidtyName }</p> <span>¥
-									<c:if test="${!hong.isSpecial }">
-										<fmt:formatNumber
-											value="${hong.unitPrice}"
-											pattern="##.##" minFractionDigits="2">
-										</fmt:formatNumber>
-									</c:if>
-									<c:if test="${hong.isSpecial }">
-										<fmt:formatNumber
-											value="${hong.unitPrice * hong.special}"
-											pattern="##.##" minFractionDigits="2">
-										</fmt:formatNumber>
-									</c:if>
-									/<del
-											style="color: #b0b0b0;">${hong.unitPrice}</del></span>
+									<p>${hong.commoidtyName }</p> <span>¥ <c:if
+											test="${!hong.isSpecial }">
+											<fmt:formatNumber value="${hong.unitPrice}" pattern="##.##"
+												minFractionDigits="2">
+											</fmt:formatNumber>
+										</c:if> <c:if test="${hong.isSpecial }">
+											<fmt:formatNumber value="${hong.unitPrice * hong.special}"
+												pattern="##.##" minFractionDigits="2">
+											</fmt:formatNumber>
+										</c:if> /<del style="color: #b0b0b0;">${hong.unitPrice}</del></span>
 								</a>
 							</div>
 						</div>
-					</li>
+						</li>
 					</c:forEach>
 				</ul>
 			</div>
@@ -288,41 +286,38 @@
 					</ul>
 				</div>
 				<div class="jg2">
-					<a href="javascript:void(0);"><img src="content/static/img/jg_banner2.jpg" /></a>
+					<a href="javascript:void(0);"><img
+						src="content/static/img/jg_banner2.jpg" /></a>
 				</div>
 				<ul class="jg3">
 					<c:forEach var="bai" items="${baijiu }" varStatus="loop">
-					<c:if test="${loop.index == 5 }">
-						<li style="margin: 0px; width: 200px;">
-					</c:if>
-					<c:if test="${loop.index != 5 }">
-						<li >
-					</c:if>
+						<c:if test="${loop.index == 5 }">
+							<li style="margin: 0px; width: 200px;">
+						</c:if>
+						<c:if test="${loop.index != 5 }">
+							<li>
+						</c:if>
 						<div class="p_img">
-							<a href="javascript:void(0);"><img src="${bai.shopCommImages[0].imagePath }" /></a>
+							<a href="javascript:void(0);"><img
+								src="${bai.shopCommImages[0].imagePath }" /></a>
 						</div>
 						<div class="p_name">
 							<div class="p_name_text">
 								<a href="javascript:void(0);">
-									<p>${bai.commoidtyName }</p> <span>¥
-									<c:if test="${!bai.isSpecial }">
-										<fmt:formatNumber
-											value="${bai.unitPrice}"
-											pattern="##.##" minFractionDigits="2">
-										</fmt:formatNumber>
-									</c:if>
-									<c:if test="${bai.isSpecial }">
-										<fmt:formatNumber
-											value="${bai.unitPrice * bai.special}"
-											pattern="##.##" minFractionDigits="2">
-										</fmt:formatNumber>
-									</c:if>
-									/<del
-											style="color: #b0b0b0;">${bai.unitPrice}</del></span>
+									<p>${bai.commoidtyName }</p> <span>¥ <c:if
+											test="${!bai.isSpecial }">
+											<fmt:formatNumber value="${bai.unitPrice}" pattern="##.##"
+												minFractionDigits="2">
+											</fmt:formatNumber>
+										</c:if> <c:if test="${bai.isSpecial }">
+											<fmt:formatNumber value="${bai.unitPrice * bai.special}"
+												pattern="##.##" minFractionDigits="2">
+											</fmt:formatNumber>
+										</c:if> /<del style="color: #b0b0b0;">${bai.unitPrice}</del></span>
 								</a>
 							</div>
 						</div>
-					</li>
+						</li>
 					</c:forEach>
 				</ul>
 			</div>
@@ -366,41 +361,38 @@
 					</ul>
 				</div>
 				<div class="jg2">
-					<a href="javascript:void(0);"><img src="content/static/img/yjg_banner.jpg" /></a>
+					<a href="javascript:void(0);"><img
+						src="content/static/img/yjg_banner.jpg" /></a>
 				</div>
 				<ul class="jg3">
 					<c:forEach var="yang" items="${yangjiu }" varStatus="loop">
-					<c:if test="${loop.index == 5 }">
-						<li style="margin: 0px; width: 200px;">
-					</c:if>
-					<c:if test="${loop.index != 5 }">
-						<li >
-					</c:if>
+						<c:if test="${loop.index == 5 }">
+							<li style="margin: 0px; width: 200px;">
+						</c:if>
+						<c:if test="${loop.index != 5 }">
+							<li>
+						</c:if>
 						<div class="p_img">
-							<a href="javascript:void(0);"><img src="${yang.shopCommImages[0].imagePath }" /></a>
+							<a href="javascript:void(0);"><img
+								src="${yang.shopCommImages[0].imagePath }" /></a>
 						</div>
 						<div class="p_name">
 							<div class="p_name_text">
 								<a href="javascript:void(0);">
-									<p>${yang.commoidtyName }</p> <span>¥
-									<c:if test="${!yang.isSpecial }">
-										<fmt:formatNumber
-											value="${yang.unitPrice}"
-											pattern="##.##" minFractionDigits="2">
-										</fmt:formatNumber>
-									</c:if>
-									<c:if test="${yang.isSpecial }">
-										<fmt:formatNumber
-											value="${yang.unitPrice * yang.special}"
-											pattern="##.##" minFractionDigits="2">
-										</fmt:formatNumber>
-									</c:if>
-									/<del
-											style="color: #b0b0b0;">${yang.unitPrice}</del></span>
+									<p>${yang.commoidtyName }</p> <span>¥ <c:if
+											test="${!yang.isSpecial }">
+											<fmt:formatNumber value="${yang.unitPrice}" pattern="##.##"
+												minFractionDigits="2">
+											</fmt:formatNumber>
+										</c:if> <c:if test="${yang.isSpecial }">
+											<fmt:formatNumber value="${yang.unitPrice * yang.special}"
+												pattern="##.##" minFractionDigits="2">
+											</fmt:formatNumber>
+										</c:if> /<del style="color: #b0b0b0;">${yang.unitPrice}</del></span>
 								</a>
 							</div>
 						</div>
-					</li>
+						</li>
 					</c:forEach>
 				</ul>
 			</div>
@@ -443,41 +435,38 @@
 					</ul>
 				</div>
 				<div class="jg2">
-					<a href="javascript:void(0);"><img src="content/static/img/jg_banner2.jpg" /></a>
+					<a href="javascript:void(0);"><img
+						src="content/static/img/jg_banner2.jpg" /></a>
 				</div>
 				<ul class="jg3">
 					<c:forEach var="pi" items="${pijiu }" varStatus="loop">
-					<c:if test="${loop.index == 5 }">
-						<li style="margin: 0px; width: 200px;">
-					</c:if>
-					<c:if test="${loop.index != 5 }">
-						<li >
-					</c:if>
+						<c:if test="${loop.index == 5 }">
+							<li style="margin: 0px; width: 200px;">
+						</c:if>
+						<c:if test="${loop.index != 5 }">
+							<li>
+						</c:if>
 						<div class="p_img">
-							<a href="javascript:void(0);"><img src="${pi.shopCommImages[0].imagePath }" /></a>
+							<a href="javascript:void(0);"><img
+								src="${pi.shopCommImages[0].imagePath }" /></a>
 						</div>
 						<div class="p_name">
 							<div class="p_name_text">
 								<a href="javascript:void(0);">
-									<p>${pi.commoidtyName }</p> <span>¥
-									<c:if test="${!pi.isSpecial }">
-										<fmt:formatNumber
-											value="${pi.unitPrice}"
-											pattern="##.##" minFractionDigits="2">
-										</fmt:formatNumber>
-									</c:if>
-									<c:if test="${pi.isSpecial }">
-										<fmt:formatNumber
-											value="${pi.unitPrice * pi.special}"
-											pattern="##.##" minFractionDigits="2">
-										</fmt:formatNumber>
-									</c:if>
-									/<del
-											style="color: #b0b0b0;">${pi.unitPrice}</del></span>
+									<p>${pi.commoidtyName }</p> <span>¥ <c:if
+											test="${!pi.isSpecial }">
+											<fmt:formatNumber value="${pi.unitPrice}" pattern="##.##"
+												minFractionDigits="2">
+											</fmt:formatNumber>
+										</c:if> <c:if test="${pi.isSpecial }">
+											<fmt:formatNumber value="${pi.unitPrice * pi.special}"
+												pattern="##.##" minFractionDigits="2">
+											</fmt:formatNumber>
+										</c:if> /<del style="color: #b0b0b0;">${pi.unitPrice}</del></span>
 								</a>
 							</div>
 						</div>
-					</li>
+						</li>
 					</c:forEach>
 				</ul>
 			</div>
@@ -485,7 +474,8 @@
 
 		<!--banner2-->
 		<div class="banner2">
-			<a href="javascript:void(0);"><img src="content/static/img/banner3.jpg" /></a>
+			<a href="javascript:void(0);"><img
+				src="content/static/img/banner3.jpg" /></a>
 		</div>
 
 
@@ -516,7 +506,8 @@
 					</ul>
 				</div>
 				<div class="jg2">
-					<a href="javascript:void(0);"><img src="content/static/img/ot_banner.jpg" /></a>
+					<a href="javascript:void(0);"><img
+						src="content/static/img/ot_banner.jpg" /></a>
 				</div>
 				<ul class="jg3">
 					<li>
@@ -616,23 +607,6 @@
 		</div>
 	</div>
 	<!--脚部-->
-	<script type="text/javascript">
-		// Popup window code
-		function popupWindow(url) {
-			window
-					.open(
-							url,
-							'popUpWindow',
-							'height=700,width=1000,left=90,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
-		}
-		// 	reloadData();
-		// 	function reloadData() {
-		// 		setTimeout(function() {
-		// 			window.location.reload();
-		// 		}, 1000);
-		// 	}
-	</script>
-
 	<jsp:include page="frontDesk/foot.jsp" />
 </body>
 </html>

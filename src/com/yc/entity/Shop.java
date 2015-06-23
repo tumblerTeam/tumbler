@@ -31,6 +31,12 @@ public class Shop {
 	@Column
 	private String shopName;//店名
 	
+	@Column
+	private String shopLogo;//logo路径
+	
+	@Column
+	private String linkURL;
+	
 	@ManyToOne
 	@JoinColumn(name = "shopCategory_id")
 	private ShopCategory shopCat;//店铺类型
@@ -85,6 +91,9 @@ public class Shop {
 	@OneToOne(mappedBy = "shop")
 	private AppUser user;
 	
+	@OneToOne(mappedBy = "shop")
+	private Collection collection;
+	
 	@OneToOne
 	@JoinColumn(name = "blacklist_id")
 	private Blacklist blacklist;
@@ -95,6 +104,30 @@ public class Shop {
 	@OneToMany(mappedBy = "shop")
 	private List<FamousManorAndShop> manorAndShops;
 	
+	public Collection getCollection() {
+		return collection;
+	}
+
+	public void setCollection(Collection collection) {
+		this.collection = collection;
+	}
+
+	public String getLinkURL() {
+		return linkURL;
+	}
+
+	public void setLinkURL(String linkURL) {
+		this.linkURL = linkURL;
+	}
+
+	public String getShopLogo() {
+		return shopLogo;
+	}
+
+	public void setShopLogo(String shopLogo) {
+		this.shopLogo = shopLogo;
+	}
+
 	public List<FamousManorAndShop> getManorAndShops() {
 		return manorAndShops;
 	}

@@ -91,8 +91,10 @@ public class OrderFormService extends GenericService<OrderForm> implements IOrde
 		if (map.get("orderStatus") != null) {
 			if (map.get("orderStatus").equals("wanjie")) {
 				hql.append(" and o.orderstatus in('"+OrderStatus.completionTransaction+"','"+OrderStatus.consigneeSigning+"')");
-			}else{
+			}else if(map.get("orderStatus").equals("weiwanjie")){
 				hql.append(" and o.orderstatus not in ('"+OrderStatus.completionTransaction+"','"+OrderStatus.consigneeSigning+"')");
+			}else {
+				hql.append(" and o.orderstatus in ('"+OrderStatus.valueOf(map.get("orderStatus").toString())+"')");
 			}
 		}
 		if (map.get("orderDate") != null) {

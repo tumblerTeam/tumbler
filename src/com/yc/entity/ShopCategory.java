@@ -32,7 +32,7 @@ public class ShopCategory {
 	@Column
 	private Boolean isForbidden = false;//是否禁用
 	
-	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch= FetchType.EAGER)
 	@JoinColumn(name = "parentLevel")
 	private ShopCategory parentLevel;//父节点；
 	
