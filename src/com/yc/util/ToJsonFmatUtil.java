@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,9 +25,12 @@ import com.yc.entity.ShopCommodity;
 import com.yc.entity.user.AppUser;
 import com.yc.service.IAdvertisementDistributionService;
 import com.yc.service.IAdvertisementService;
+import com.yc.service.IBuyCarService;
+import com.yc.service.ICarCommodityService;
 import com.yc.service.ICollectionService;
 import com.yc.service.IShopCommodityService;
 import com.yc.service.IShopService;
+import com.yc.tumbler.service.ServiceTools;
 
 @Controller
 @RequestMapping("/toJsonFmatUtil")
@@ -43,9 +47,18 @@ public class ToJsonFmatUtil {
 
 	@Autowired
 	ICollectionService collectionService;
-	
+
 	@Autowired
 	IShopService shopService;
+	
+	@Autowired
+	ICarCommodityService carCommodityService;
+
+	@Autowired
+	IBuyCarService buyCarService;
+	
+	@Resource
+	ServiceTools serviceTools; 
 
 	// 获得所选页面的广告位
 	@RequestMapping(value = "getAdverPositions", method = RequestMethod.GET)
@@ -85,170 +98,79 @@ public class ToJsonFmatUtil {
 	// 加入收藏
 	@RequestMapping(value = "addCollection", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> addCollection(Integer commID, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public Map<String, Object> addCollection(Integer commID, Integer shopID, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ModelMap mode = new ModelMap();
 		AppUser user = (AppUser) request.getSession().getAttribute("loginUser");
 		if (user == null) {
 			mode.put("success", "nouser");
 		} else {
-			ShopCommodity shopComm = shopCommService.findById(commID);
+			ShopCommodity shopComm = null;
 			Shop shop = null;
-			List<Collection> collections = collectionService.getAll();
 			int i;
-			for (i = 0; i < collections.size(); i++) {
-				if (collections.get(i).getShopCommoidty().getCommCode() == commID) {
-					mode.put("success", "existed");
-					break;
-				}else{
-					 shop = shopService.findById(commID);
-					if (shop != null) {
-						if (collections.get(i).getShop().getId() == commID) {
-							mode.put("success", "existed");
-							break;
-						}
+			List<Collection> collections = null;
+			if (commID != null) {
+				shopComm = shopCommService.findById(commID);
+				collections = collectionService.getAllByUser(user.getId());
+				for (i = 0; i < collections.size(); i++) {
+					if (collections.get(i).getShopCommodity() != null && collections.get(i).getShopCommodity().getCommCode() == commID) {
+						mode.put("success", "existed");
+						break;
 					}
 				}
-			}
-			if (i >= collections.size()) {
-				Collection collection = new Collection();
-				if (shopComm != null) {
-					collection.setShopCommoidty(shopComm);
+				if (i >= collections.size()) {
+					Collection collection = new Collection();
+					collection.setShopCommodity(shopComm);
 					collection.setUser(user);
 					collectionService.save(collection);
 					mode.put("success", "true");
 				}
-				if(shop != null){
-					collection.setShop(shop);
-					collection.setUser(user);
-					collection.setCollectionType(CollectionType.shop);
-					collectionService.save(collection);
-					mode.put("success", "true");
+			}
+			if (shopID != null) {
+				collections = collectionService.getAllByUser(user.getId());
+				shop = shopService.findById(shopID);
+				for (i = 0; i < collections.size(); i++) {
+					if (collections.get(i).getShop() != null && collections.get(i).getShop().getId() == shopID) {
+						mode.put("success", "existed");
+						break;
+					}
+				}
+				if (i >= collections.size()) {
+					Collection collection = new Collection();
+					if (shop != null) {
+						collection.setShop(shop);
+						collection.setUser(user);
+						collection.setCollectionType(CollectionType.shop);
+						collectionService.save(collection);
+						mode.put("success", "true");
+					}
 				}
 			}
 		}
 		return mode;
 	}
-
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "buyCat", method = RequestMethod.GET)
+	
+	/**
+	 * 加入购物车
+	 * 
+	 * @param shopCommId
+	 *            商品id
+	 * @param userName
+	 *            用户名
+	 * @return 是否加入成功
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "addBuyCar", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> buyCat(Integer commID, Integer buyAmount, Float fare, HttpServletRequest request) throws ServletException, IOException {
+	public Map<String, Object> addBuyCar(Integer shopCommId, Integer buyAmount, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ModelMap mode = new ModelMap();
-//		HttpSession session = request.getSession();
-//		AppUser user = (AppUser) session.getAttribute("loginUser");
-//		ShopCommodity comm = shopCommService.findById(commID);
-//		if (comm != null) {
-//			CarCommoidty carcomm = new CarCommoidty();
-//			carcomm.setCommCode(comm.getCommCode());
-//			carcomm.setCommoidtyName(comm.getCommoidtyName());
-//			carcomm.setCommItem(comm.getCommItem());
-//			carcomm.setSupplier(comm.getSupplier());
-//			carcomm.setProportion(comm.getProportion());
-//			carcomm.setUnitPrice(comm.getUnitPrice());
-//			carcomm.setStock(comm.getStock());
-//			carcomm.setProbablyWeight(comm.getProbablyWeight());
-//			carcomm.setShelves(comm.getShelves());
-//			carcomm.setIsSpecial(comm.getIsSpecial());
-//			carcomm.setSpecial(comm.getSpecial());
-//			carcomm.setCurrency(comm.getCurrency());
-//			carcomm.setIscChoice(comm.getIscChoice());
-//			carcomm.setAuction(comm.getAuction());
-//			carcomm.setCarCategory(comm.getShopCategory());
-//			carcomm.setBrand(comm.getBrand());
-//			carcomm.setCarbelongTo(comm.getBelongTo());
-//			carcomm.setDescribes(comm.getDescribes());
-//			carcomm.setFare(fare);
-//			carcomm = carCommoidtyService.save(carcomm);
-//			if (user == null) {
-//				BuyCarSession buyCat = new BuyCarSession();
-//				buyCat.setBuyAmount(buyAmount);
-//				buyCat.setShopCommoidty(carcomm);
-//				buyCat.setSpecs(params + ",");
-//				List<BuyCarSession> list = (List<BuyCarSession>) session.getAttribute("buyCates");
-//				if (list != null) {
-//					for (BuyCarSession buyCatSession : list) {
-//						boolean isok = true;
-//						if (buyCatSession.getShopCommoidty().getCommoidtyName().equals(carcomm.getCommoidtyName())) {
-//							String[] buycat1 = buyCatSession.getSpecs().split(",");
-//							String[] guige = new String[buycat1.length];
-//							String[] buycat2 = params.split(",");
-//							for (int i = 0; i < buycat1.length; i++) {
-//								for (int j = 0; j < buycat2.length; j++) {
-//									if (buycat1[i].equals(buycat2[j])) {
-//										guige[i] = "t";
-//									}
-//								}
-//								if (guige[i] == null || guige[i].equals("")) {
-//									guige[i] = "f";
-//								}
-//							}
-//							for (int i = 0; i < guige.length; i++) {
-//								if (guige[i].equals("f")) {
-//									isok = false;
-//								}
-//							}
-//						} else {
-//							isok = false;
-//						}
-//						if (isok) {
-//							buyCat.setBuyAmount(buyCatSession.getBuyAmount() + buyAmount);
-//						}
-//					}
-//					list.add(buyCat);
-//				} else {
-//					list = new ArrayList<BuyCarSession>();
-//					list.add(buyCat);
-//				}
-//				session.setAttribute("buyCates", list);
-//			} else {
-//				System.out.println("  carcomm ==" + carcomm);
-//				BuyCar cat = new BuyCar();
-//				cat.setBuyAmount(buyAmount);
-//				cat.setCatUser(user);
-//				cat.setShopCommoidty(carcomm);
-//				cat.setSpecs(params + ",");
-//				List<BuyCar> list = buyCarService.getBuyCatByUser(user.getId());
-//				boolean bool = true;
-//				if (list != null && list.size() > 0) {
-//					for (BuyCat buyCat : list) {
-//						boolean isok = true;
-//						if (buyCat.getShopCommoidty().getCommoidtyName().equals(carcomm.getCommoidtyName())) {
-//							String[] buycat1 = buyCat.getSpecs().split(",");
-//							String[] guige = new String[buycat1.length];
-//							String[] buycat2 = params.split(",");
-//							for (int i = 0; i < buycat1.length; i++) {
-//								for (int j = 0; j < buycat2.length; j++) {
-//									if (buycat1[i].equals(buycat2[j])) {
-//										guige[i] = "t";
-//									}
-//								}
-//								if (guige[i] == null || guige[i].equals("")) {
-//									guige[i] = "f";
-//								}
-//							}
-//							for (int i = 0; i < guige.length; i++) {
-//								if (guige[i].equals("f")) {
-//									isok = false;
-//								}
-//							}
-//						} else {
-//							isok = false;
-//						}
-//						if (isok) {
-//							buyCat.setBuyAmount(buyCat.getBuyAmount() + buyAmount);
-//							buyCatService.update(buyCat);
-//							bool = false;
-//						}
-//					}
-//					if (bool) {
-//						buyCatService.save(cat);
-//					}
-//				} else {
-//					buyCatService.save(cat);
-//				}
-//			}
-//		}
-		mode.put("success", "true");
+		AppUser user = (AppUser) request.getSession().getAttribute("loginUser");
+		if (user == null) {
+			mode.put("message", "nouser");
+		} else {
+			mode = serviceTools.addCarCommodity(buyAmount, shopCommId, mode, user);
+		}
 		return mode;
 	}
+
 }

@@ -42,7 +42,7 @@
 					<c:forEach items="${collections }" var="collection">
 						<c:if test="${collection.collectionType == 'commodity' }">
 							<li><img
-								src="${collection.shopCommoidty.shopCommImages[0].imagePath }" />
+								src="${collection.shopCommodity.shopCommImages[0].imagePath }" />
 								<div class="mask">
 									<div class="name">
 										<c:if
@@ -52,24 +52,26 @@
 									</div>
 									<div class="price1">
 										￥
-										<c:if test="${collection.shopCommoidty.isSpecial }">
+										<c:if test="${collection.shopCommodity.isSpecial }">
 											<fmt:formatNumber
-												value="${collection.shopCommoidty.unitPrice * collection.shopCommoidty.special  }"
+												value="${collection.shopCommodity.unitPrice * collection.shopCommodity.special  }"
 												pattern="##.##" minFractionDigits="2"></fmt:formatNumber>
 										</c:if>
-										<c:if test="${!collection.shopCommoidty.isSpecial }">
-											<fmt:formatNumber value="${collection.shopCommoidty.unitPrice }"
+										<c:if test="${!collection.shopCommodity.isSpecial }">
+											<fmt:formatNumber
+												value="${collection.shopCommodity.unitPrice }"
 												pattern="##.##" minFractionDigits="2">
 											</fmt:formatNumber>
 										</c:if>
 										/
 									</div>
-									<div class="price2">￥${collection.shopCommoidty.unitPrice }</div>
-									<div class="time">${fn:split(fn:substring(collection.shopCommoidty.commsPecs.commSpec,fn:indexOf(collection.shopCommoidty.commsPecs.commSpec,',年份'),fn:indexOf(collection.shopCommoidty.commsPecs.commSpec,'年,')),'-')[1]}年</div>
+									<div class="price2">￥${collection.shopCommodity.unitPrice }</div>
+									<div class="time">${fn:split(fn:substring(collection.shopCommodity.commsPecs.commSpec,fn:indexOf(collection.shopCommodity.commsPecs.commSpec,',年份'),fn:indexOf(collection.shopCommodity.commsPecs.commSpec,'年,')),'-')[1]}年</div>
 									<div class="btn1">
 										<img src="content/static/images/sc.png" />
 									</div>
-									<div class="btn2">取消收藏</div>
+									<a href="user/deleteCollection?collectionID=${collection.id }"><div
+											class="btn2">取消收藏</div></a>
 								</div></li>
 						</c:if>
 					</c:forEach>
@@ -79,7 +81,8 @@
 				<ul>
 					<c:forEach items="${collections }" var="collection">
 						<c:if test="${collection.collectionType == 'shop' }">
-							<li style="height: 270px;"><img src="${collection.shopCommoidty.belongTo.shopLogo }" />
+							<li style="height: 270px;"><img
+								src="${collection.shopCommodity.belongTo.shopLogo }" />
 								<div class="mask">
 									<div class="name">
 										<c:if
@@ -88,8 +91,10 @@
 											test="${fn:length(collection.shopCommodity.belongTo.shopName)>7}">${fn:substring(collection.shopCommodity.belongTo.shopName, 0, 7)}...</c:if>
 									</div>
 
-									<a href="businesses.html"><div class="btn3">进入店铺</div></a> <a
-										href="#"><div class="btn2">取消收藏</div></a>
+									<a href="${collection.shopCommodity.belongTo.linkURL}"><div
+											class="btn3">进入店铺</div></a> <a
+										href="user/deleteCollection?collectionID=${collection.id }"><div
+											class="btn2">取消收藏</div></a>
 								</div></li>
 						</c:if>
 					</c:forEach>

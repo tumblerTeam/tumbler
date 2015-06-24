@@ -11,6 +11,7 @@ import com.yc.entity.AdvertiseDistribution;
 import com.yc.entity.Advertisement;
 import com.yc.entity.Blacklist;
 import com.yc.entity.Brand;
+import com.yc.entity.BuyCar;
 import com.yc.entity.CarCommodity;
 import com.yc.entity.Collection;
 import com.yc.entity.Commodity;
@@ -161,5 +162,9 @@ public class GenericDaoConfig {
     @Bean
     public GenericDao<AddressDivision> getAddressDivisionDao() {
     	return new GenericDaoSupport<AddressDivision>(AddressDivision.class);
+    }
+    @Bean
+    public GenericDao<BuyCar> getBuyCarDao() {
+    	return new GenericDaoSupport<BuyCar>(BuyCar.class);
     }
 }

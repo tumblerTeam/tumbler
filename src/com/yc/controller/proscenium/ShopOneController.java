@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yc.entity.BuyCar;
+import com.yc.entity.CarCommodity;
+import com.yc.entity.Shop;
 import com.yc.entity.ShopCategory;
 import com.yc.entity.ShopCommodity;
 import com.yc.entity.ShopCommoditySpecs;
@@ -24,6 +27,8 @@ import com.yc.entity.ShopReviews;
 import com.yc.entity.user.AppUser;
 import com.yc.service.IAppUserService;
 import com.yc.service.IBrandService;
+import com.yc.service.IBuyCarService;
+import com.yc.service.ICarCommodityService;
 import com.yc.service.ICommodityService;
 import com.yc.service.ICurrencyService;
 import com.yc.service.IOrderFormService;
@@ -76,6 +81,12 @@ public class ShopOneController {
 	@Autowired
 	IOrderFormService orderFormService;
 
+	@Autowired
+	ICarCommodityService carCommodityService;
+
+	@Autowired
+	IBuyCarService buyCarService;
+
 	// 购物Item
 	@RequestMapping(value = "shopItem", method = RequestMethod.GET)
 	public ModelAndView shopItem(Integer commID, Integer category, Integer shopID, String commoName, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -125,10 +136,11 @@ public class ShopOneController {
 			}
 		}
 		List<ShopCategory> list = shopCategService.getAllByParent();
-    	mode.put("categories", list);
+		mode.put("categories", list);
 		mode.put("map", map);
 		AppUser user = (AppUser) request.getSession().getAttribute("loginUser");
 		mode.put("user", user);
 		return new ModelAndView("reception/shopItem", mode);
 	}
+
 }

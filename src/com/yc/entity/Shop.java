@@ -85,7 +85,7 @@ public class Shop {
 	@OneToMany(mappedBy = "belongTo")
 	private List<ShopCommodity> shopCommoidties;//店铺商品
 	
-	@OneToMany(mappedBy = "carbelongTo")
+	@OneToMany(mappedBy = "shop")
 	private List<CarCommodity> carCommoidties;//店铺商品
 	
 	@OneToOne(mappedBy = "shop")

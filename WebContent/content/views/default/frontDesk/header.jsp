@@ -72,7 +72,7 @@
 								style="margin-left: 20px; margin-top: 8px;">退出账号</div></a>
 					</div></li>
 			</c:if>
-			<li class="nav5"><a href="#">购物车<img
+			<li class="nav5"><a href="user/reCarCommodity">购物车<img
 					src="content/static/images/header_icon1.png" /></a></li>
 		</ul>
 	</div>

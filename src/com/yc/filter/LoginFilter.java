@@ -24,7 +24,7 @@ public class LoginFilter implements Filter {
     
     private boolean needLoginUser(HttpServletRequest request){
     	String uri = request.getRequestURI();
-    	if (uri.contains("/personalCenter")||uri.contains("/perscentBonuses")||uri.contains("/collection")) {
+    	if (uri.contains("/personalCenter")||uri.contains("/perscentBonuses")||uri.contains("/collection") || uri.contains("/buyCommodity") || uri.contains("/reCarCommodity")) {
             return true;
         }
     	return false;
@@ -42,7 +42,7 @@ public class LoginFilter implements Filter {
         		return;
         	}
         }
-        if (url.contains("/user/")) {
+        if (url.contains("/user/") || url.contains("/proscenium/")) {
         	if (session.getAttribute("loginUser") == null && needLoginUser(request)) {
         		session.removeAttribute("loginPage");
         		HttpServletResponse response = (HttpServletResponse) rsp;

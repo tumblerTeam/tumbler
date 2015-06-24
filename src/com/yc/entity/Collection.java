@@ -23,7 +23,7 @@ public class Collection {
 	
 	@OneToOne
 	@JoinColumn(name = "shopComm_commCode")
-	private ShopCommodity shopCommoidty;
+	private ShopCommodity shopCommodity;
 	
 	@OneToOne
 	@JoinColumn(name = "shop_id")
@@ -61,12 +61,12 @@ public class Collection {
 		this.user = user;
 	}
 
-	public ShopCommodity getShopCommoidty() {
-		return shopCommoidty;
+	public ShopCommodity getShopCommodity() {
+		return shopCommodity;
 	}
 
-	public void setShopCommoidty(ShopCommodity shopCommoidty) {
-		this.shopCommoidty = shopCommoidty;
+	public void setShopCommodity(ShopCommodity shopCommodity) {
+		this.shopCommodity = shopCommodity;
 	}
 
 	public Integer getId() {
