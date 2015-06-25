@@ -103,6 +103,16 @@
     
    <div class="bar">
    </div>
-   <div class="cs" onclick="popupWindow('http://webim.qiao.baidu.com//im/index?siteid=6901645&ucid=10598660');" >
+   <div class="cs" onclick="popupWin('http://webim.qiao.baidu.com//im/index?siteid=6901645&ucid=10598660');" >
    </div>
 </div>
+<script type="text/javascript">
+		// Popup window code
+		function popupWin(url) {
+			window
+					.open(
+							url,
+							'popUpWindow',
+							'height=700,width=1000,left=90,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
+		}
+</script>

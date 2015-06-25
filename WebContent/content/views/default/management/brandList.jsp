@@ -112,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								logo照片</label>
 							<div class="col-sm-8">
 								<input name="sendFile" type="file" size="40" maxlength="40" class="form-control" onchange="PreviewImage(this);">
-								图片大小&nbsp;&nbsp;<font color="red">220X220</font>
+								图片大小&nbsp;&nbsp;<font color="red">120x70</font>
 								<br>
 							</div>
 						</div>
@@ -179,7 +179,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		}
 	   function detect(){
-			var ok=imgExceedSize(220,220);
+			var ok=imgExceedSize(120,70);
 			if(ok){
 				document.IUpload.reset();
 			}else{
@@ -194,7 +194,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		function updateDepartmen(){
 			if (document.IUpload.sendFile.value != "") {
-				var ok=imgExceedSize(220,220);
+				var ok=imgExceedSize(120,70);
 				if(ok){
 	 				document.IUpload.reset();
 	 			}else{

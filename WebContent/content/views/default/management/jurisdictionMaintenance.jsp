@@ -68,7 +68,7 @@
 									<th style="text-align: center;">权限关闭</th>
 								</tr>
 							</thead>
-							<c:forEach var="mainter" items="${list }" varStatus="loop">
+							<c:forEach var="shop" items="${list }" varStatus="loop">
 								<tbody>
 									<c:choose>
 										<c:when test="${loop.index%2==0 }">
@@ -78,19 +78,19 @@
 											<tr class="success">
 										</c:otherwise>
 									</c:choose>
-									<td align="center">${mainter.shop.shopName }</td>
+									<td align="center">${shop.shopName }</td>
 									<td>
-										<c:if test="${mainter.shop.ratings == 'oneLevel' }">一级</c:if>
-										<c:if test="${mainter.shop.ratings == 'twoLevel' }">二级</c:if>
-										<c:if test="${mainter.shop.ratings == 'threeLevel' }">三级</c:if>
-										<c:if test="${mainter.shop.ratings == 'fourLevel' }">四级</c:if>
+										<c:if test="${shop.ratings == 'oneLevel' }">一级</c:if>
+										<c:if test="${shop.ratings == 'twoLevel' }">二级</c:if>
+										<c:if test="${shop.ratings == 'threeLevel' }">三级</c:if>
+										<c:if test="${shop.ratings == 'fourLevel' }">四级</c:if>
 									</td>
-									<td>${mainter.startDate }</td>
+									<td>${shop.manorAndShops[0].startDate }</td>
 									<td>
-										<c:if test="${mainter.endDate == '-1' }">----</c:if>
-										<c:if test="${mainter.endDate != '-1' }">${mainter.endDate }</c:if>
+										<c:if test="${shop.manorAndShops[0].endDate == '-1' }">----</c:if>
+										<c:if test="${shop.manorAndShops[0].endDate != '-1' }">${shop.manorAndShops[0].endDate }</c:if>
 									</td>
-									<td><button onclick="onBlick('management/closeManor?id=${mainter.shop.id}');">权限关闭</button></td>
+									<td><button onclick="onBlick('closeManor?id=${shop.id}');">权限关闭</button></td>
 									</tr>
 								</tbody>
 							</c:forEach>

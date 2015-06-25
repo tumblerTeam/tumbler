@@ -1,5 +1,7 @@
 package com.yc.entity;
 
+
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -10,10 +12,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import com.yc.entity.user.Personnel;
 
 @Entity
-@DiscriminatorValue("carcommoidty")//购物车商品
+@DiscriminatorValue("carcommoidty")//购物车商品.
+@JsonIgnoreProperties(value={"buyCar","carCategory","shop","currency","personnel","shopCommodity"})
 public class CarCommodity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,7 +45,10 @@ public class CarCommodity {
 	private ShopCategory carCategory;//商品类别表
 	
 	@Column
-	private float price;//出售价格
+	private float price;//总金额
+	
+	@Column
+	private float unitPrice;//出售价格
 	
 	@Column
 	private Integer amount;//购买数量
@@ -51,6 +59,7 @@ public class CarCommodity {
 	@ManyToOne
 	@JoinColumn(name = "personnel_id")
 	private Personnel personnel;//价格变动操作员
+	
 
 	public Integer getId() {
 		return id;
@@ -92,6 +101,7 @@ public class CarCommodity {
 		this.amount = amount;
 	}
 
+
 	public String getChangePriceDate() {
 		return changePriceDate;
 	}
@@ -130,6 +140,14 @@ public class CarCommodity {
 
 	public void setCarCategory(ShopCategory carCategory) {
 		this.carCategory = carCategory;
+	}
+
+	public float getUnitPrice() {
+		return unitPrice;
+	}
+
+	public void setUnitPrice(float unitPrice) {
+		this.unitPrice = unitPrice;
 	}
 	
 }

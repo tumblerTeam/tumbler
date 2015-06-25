@@ -2,6 +2,7 @@ package com.yc.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -70,9 +71,6 @@ public class OrderForm {
 	
 	@Column
 	private String paymentTime;// 付款时间
-
-	@OneToMany(mappedBy = "orderform")
-	private List<ImagePath> imagePaths;
 	
 	@Column
 	private Float deliveryMoney;//运输费
@@ -181,20 +179,12 @@ public class OrderForm {
 		this.commodities = commodities;
 	}
 
-	public List<ImagePath> getImagePaths() {
-		return imagePaths;
-	}
-
 	public AppUser getOrderUser() {
 		return orderUser;
 	}
 
 	public void setOrderUser(AppUser orderUser) {
 		this.orderUser = orderUser;
-	}
-
-	public void setImagePaths(List<ImagePath> imagePaths) {
-		this.imagePaths = imagePaths;
 	}
 
 }

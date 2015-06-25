@@ -31,6 +31,12 @@ public class Shop {
 	@Column
 	private String shopName;//店名
 	
+	@Column
+	private String shopLogo;//logo路径
+	
+	@Column
+	private String linkURL;
+	
 	@ManyToOne
 	@JoinColumn(name = "shopCategory_id")
 	private ShopCategory shopCat;//店铺类型
@@ -136,11 +142,14 @@ public class Shop {
 	@OneToMany(mappedBy = "belongTo")
 	private List<ShopCommodity> shopCommoidties;//店铺商品
 	
-	@OneToMany(mappedBy = "carbelongTo")
-	private List<CarCommoidty> carCommoidties;//店铺商品
+	@OneToMany(mappedBy = "shop")
+	private List<CarCommodity> carCommoidties;//店铺商品
 	
 	@OneToOne(mappedBy = "shop")
 	private AppUser user;
+	
+	@OneToOne(mappedBy = "shop")
+	private Collection collection;
 	
 	@OneToOne
 	@JoinColumn(name = "blacklist_id")
@@ -151,13 +160,141 @@ public class Shop {
 
 	@OneToMany(mappedBy = "shop")
 	private List<FamousManorAndShop> manorAndShops;//名庄
-	
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getShopName() {
+		return shopName;
+	}
+
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+
+	public String getShopLogo() {
+		return shopLogo;
+	}
+
+	public void setShopLogo(String shopLogo) {
+		this.shopLogo = shopLogo;
+	}
+
+	public String getLinkURL() {
+		return linkURL;
+	}
+
+	public void setLinkURL(String linkURL) {
+		this.linkURL = linkURL;
+	}
+
+	public ShopCategory getShopCat() {
+		return shopCat;
+	}
+
+	public void setShopCat(ShopCategory shopCat) {
+		this.shopCat = shopCat;
+	}
+
 	public String getComName() {
 		return comName;
 	}
 
 	public void setComName(String comName) {
 		this.comName = comName;
+	}
+
+	public String getJuridicalPerson() {
+		return juridicalPerson;
+	}
+
+	public void setJuridicalPerson(String juridicalPerson) {
+		this.juridicalPerson = juridicalPerson;
+	}
+
+	public String getPrivatePerson() {
+		return privatePerson;
+	}
+
+	public void setPrivatePerson(String privatePerson) {
+		this.privatePerson = privatePerson;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getIdCard() {
+		return idCard;
+	}
+
+	public void setIdCard(String idCard) {
+		this.idCard = idCard;
+	}
+
+	public String getJuridicalCard() {
+		return juridicalCard;
+	}
+
+	public void setJuridicalCard(String juridicalCard) {
+		this.juridicalCard = juridicalCard;
+	}
+
+	public String getJuridicalCardUrl() {
+		return juridicalCardUrl;
+	}
+
+	public void setJuridicalCardUrl(String juridicalCardUrl) {
+		this.juridicalCardUrl = juridicalCardUrl;
+	}
+
+	public String getIdCardUrl() {
+		return idCardUrl;
+	}
+
+	public void setIdCardUrl(String idCardUrl) {
+		this.idCardUrl = idCardUrl;
+	}
+
+	public String getFoodCriLisUrl() {
+		return foodCriLisUrl;
+	}
+
+	public void setFoodCriLisUrl(String foodCriLisUrl) {
+		this.foodCriLisUrl = foodCriLisUrl;
+	}
+
+	public String getTaxRegUrl() {
+		return taxRegUrl;
+	}
+
+	public void setTaxRegUrl(String taxRegUrl) {
+		this.taxRegUrl = taxRegUrl;
+	}
+
+	public String getBusinesslisUrl() {
+		return businesslisUrl;
+	}
+
+	public void setBusinesslisUrl(String businesslisUrl) {
+		this.businesslisUrl = businesslisUrl;
 	}
 
 	public String getAuthorizeUrl() {
@@ -224,188 +361,12 @@ public class Shop {
 		RetailRecordRegUrl = retailRecordRegUrl;
 	}
 
-	public String getFoodCriLisUrl() {
-		return foodCriLisUrl;
-	}
-
-	public void setFoodCriLisUrl(String foodCriLisUrl) {
-		this.foodCriLisUrl = foodCriLisUrl;
-	}
-
-	public String getJuridicalCardUrl() {
-		return juridicalCardUrl;
-	}
-
-	public void setJuridicalCardUrl(String juridicalCardUrl) {
-		this.juridicalCardUrl = juridicalCardUrl;
-	}
-
-	public String getIdCardUrl() {
-		return idCardUrl;
-	}
-
-	public void setIdCardUrl(String idCardUrl) {
-		this.idCardUrl = idCardUrl;
-	}
-
-	public String getBusinesslisUrl() {
-		return businesslisUrl;
-	}
-
-	public void setBusinesslisUrl(String businesslisUrl) {
-		this.businesslisUrl = businesslisUrl;
-	}
-
-	public String getTaxRegUrl() {
-		return taxRegUrl;
-	}
-
-	public void setTaxRegUrl(String taxRegUrl) {
-		this.taxRegUrl = taxRegUrl;
-	}
-
-	public String getJuridicalCard() {
-		return juridicalCard;
-	}
-
-	public void setJuridicalCard(String juridicalCard) {
-		this.juridicalCard = juridicalCard;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getPrivatePerson() {
-		return privatePerson;
-	}
-
-	public void setPrivatePerson(String privatePerson) {
-		this.privatePerson = privatePerson;
-	}
-
-	public String getSex() {
-		return sex;
-	}
-
-	public void setSex(String sex) {
-		this.sex = sex;
-	}
-
-	public String getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(String birthday) {
-		this.birthday = birthday;
-	}
-
-	public List<FamousManorAndShop> getManorAndShops() {
-		return manorAndShops;
-	}
-
-	public void setManorAndShops(List<FamousManorAndShop> manorAndShops) {
-		this.manorAndShops = manorAndShops;
-	}
-
-	public Ratings getRatings() {
-		return ratings;
-	}
-
-	public void setRatings(Ratings ratings) {
-		this.ratings = ratings;
-	}
-
-	public String getRussinaShopName() {
-		return russinaShopName;
-	}
-
-	public void setRussinaShopName(String russinaShopName) {
-		this.russinaShopName = russinaShopName;
-	}
-
-	public Blacklist getBlacklist() {
-		return blacklist;
-	}
-
-	public void setBlacklist(Blacklist blacklist) {
-		this.blacklist = blacklist;
-	}
-
-	public List<CarCommoidty> getCarCommoidties() {
-		return carCommoidties;
-	}
-
-	public void setCarCommoidties(List<CarCommoidty> carCommoidties) {
-		this.carCommoidties = carCommoidties;
-	}
-
-	public String getMoney() {
-		return money;
-	}
-
-	public void setMoney(String money) {
-		this.money = money;
-	}
-
-	public String getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
-	}
-
-	public ShopCategory getShopCat() {
-		return shopCat;
-	}
-
-	public void setShopCat(ShopCategory shopCat) {
-		this.shopCat = shopCat;
-	}
-
-	public AppUser getUser() {
-		return user;
-	}
-
-	public void setUser(AppUser user) {
-		this.user = user;
-	}
-
 	public String getPayPwd() {
 		return payPwd;
 	}
 
 	public void setPayPwd(String payPwd) {
 		this.payPwd = payPwd;
-	}
-
-	public String getJuridicalPerson() {
-		return juridicalPerson;
-	}
-
-	public void setJuridicalPerson(String juridicalPerson) {
-		this.juridicalPerson = juridicalPerson;
-	}
-
-	public String getIdCard() {
-		return idCard;
-	}
-
-	public void setIdCard(String idCard) {
-		this.idCard = idCard;
-	}
-
-	public Possession getPossession() {
-		return possession;
-	}
-
-	public void setPossession(Possession possession) {
-		this.possession = possession;
 	}
 
 	public ShopType getShopType() {
@@ -416,28 +377,20 @@ public class Shop {
 		this.shopType = shopType;
 	}
 
-	public List<ShopCommodity> getShopCommoidties() {
-		return shopCommoidties;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setShopCommoidties(List<ShopCommodity> shopCommoidties) {
-		this.shopCommoidties = shopCommoidties;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
-	public Integer getId() {
-		return id;
+	public Possession getPossession() {
+		return possession;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getShopName() {
-		return shopName;
-	}
-
-	public void setShopName(String shopName) {
-		this.shopName = shopName;
+	public void setPossession(Possession possession) {
+		this.possession = possession;
 	}
 
 	public String getBlank() {
@@ -446,6 +399,14 @@ public class Shop {
 
 	public void setBlank(String blank) {
 		this.blank = blank;
+	}
+
+	public String getMoney() {
+		return money;
+	}
+
+	public void setMoney(String money) {
+		this.money = money;
 	}
 
 	public String getBlankAccount() {
@@ -480,4 +441,76 @@ public class Shop {
 		this.isPermit = isPermit;
 	}
 
+	public Ratings getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(Ratings ratings) {
+		this.ratings = ratings;
+	}
+
+	public String getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
+
+	public List<ShopCommodity> getShopCommoidties() {
+		return shopCommoidties;
+	}
+
+	public void setShopCommoidties(List<ShopCommodity> shopCommoidties) {
+		this.shopCommoidties = shopCommoidties;
+	}
+
+	public List<CarCommodity> getCarCommoidties() {
+		return carCommoidties;
+	}
+
+	public void setCarCommoidties(List<CarCommodity> carCommoidties) {
+		this.carCommoidties = carCommoidties;
+	}
+
+	public AppUser getUser() {
+		return user;
+	}
+
+	public void setUser(AppUser user) {
+		this.user = user;
+	}
+
+	public Collection getCollection() {
+		return collection;
+	}
+
+	public void setCollection(Collection collection) {
+		this.collection = collection;
+	}
+
+	public Blacklist getBlacklist() {
+		return blacklist;
+	}
+
+	public void setBlacklist(Blacklist blacklist) {
+		this.blacklist = blacklist;
+	}
+
+	public String getRussinaShopName() {
+		return russinaShopName;
+	}
+
+	public void setRussinaShopName(String russinaShopName) {
+		this.russinaShopName = russinaShopName;
+	}
+
+	public List<FamousManorAndShop> getManorAndShops() {
+		return manorAndShops;
+	}
+
+	public void setManorAndShops(List<FamousManorAndShop> manorAndShops) {
+		this.manorAndShops = manorAndShops;
+	}
+	
 }

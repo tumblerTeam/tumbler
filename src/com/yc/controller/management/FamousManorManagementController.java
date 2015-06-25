@@ -168,12 +168,12 @@ public class FamousManorManagementController {
 	 */
 	@RequestMapping(value = "manorJurisdiction", method = RequestMethod.GET)
 	public ModelAndView manorJurisdiction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Shop> list = shopService.getShopForNotManor();
+		List<Shop> list = shopService.getShopManorByBool(false);
 		ModelMap mode = new ModelMap();
 		mode.put("list", list);
 		return new ModelAndView("management/manorJurisdiction", mode);
 	}
-
+	
 	/**
 	 * 店铺名庄接口开启
 	 * 
@@ -189,6 +189,7 @@ public class FamousManorManagementController {
 		Shop shop = shopService.findById(id);
 		List<FamousManor> famousManors = famousManorService.getAll();
 		ShopCategory cate = shopCategoryService.findById(1);
+		List<FamousManorAndShop> list = new ArrayList<FamousManorAndShop>();
 		for (int i = 0; i < famousManors.size(); i++) {
 			FamousManor famousManor = famousManors.get(i);
 			List<FamousManorAndShop> famAndShop = famousManor.getFamousManorAndShops();
@@ -202,40 +203,43 @@ public class FamousManorManagementController {
 			fmas.setEndDate(-1+"");
 			fmas.setFamousManor(famousManor);
 			fmas = manorAndShopService.save(fmas);
+			list.add(fmas);
+			famAndShop.add(fmas);
+			famousManorService.update(famousManor);
 		}
+		shop.setManorAndShops(list);
+		shopService.update(shop);
 		return "redirect:/management/manorJurisdiction";
 	}
 	
 	@RequestMapping(value = "jurisdictionMaintenance", method = RequestMethod.GET)
 	public ModelAndView jurisdictionMaintenance( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ModelMap mode = new ModelMap();
-		List<FamousManorAndShop> list = manorAndShopService.getAll();
+		List<Shop> list = shopService.getShopManorByBool(true);
 		mode.put("list", list);
 		return new ModelAndView("management/jurisdictionMaintenance", mode);
 	}
 	
 	@RequestMapping(value = "closeManor", method = RequestMethod.GET)
 	public String closeManor(Integer id, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("ID==="+id);
 		Shop shop = shopService.findById(id);
 		getNode(shop);
+//		return null;
 		return "redirect:/management/jurisdictionMaintenance";
 	}
 	private void getNode(Shop department) {
 		List<FamousManorAndShop> depAndPos = department.getManorAndShops();
-		System.out.println("depAndPos======="+depAndPos.size());
 		if (depAndPos != null && depAndPos.size() > 0) {
-			for (int i = 0; i < depAndPos.size(); i++) {
-				FamousManorAndShop depAndPoss = depAndPos.get(i);
-				System.out.println("depAndPoss====="+depAndPoss.getId());
-				List<ShopCommodity> shopCommoidties = depAndPoss.getShopCommoidties();
-				if (shopCommoidties != null && shopCommoidties.size() > 0) {
-					for (int k = 0; k < shopCommoidties.size(); k++) {
-						ShopCommodity shopCommoidty = shopCommoidties.get(k);
-						shopCommoidty.setFamousManorAndShop(null);
-						shopCommoidtyService.update(shopCommoidty);
-					}
+			List<ShopCommodity> shopCommoidties = shopCommoidtyService.getFamousCommodityByShop(department.getId());
+			if (shopCommoidties != null && shopCommoidties.size() > 0) {
+				for (int k = 0; k < shopCommoidties.size(); k++) {
+					ShopCommodity shopCommoidty = shopCommoidties.get(k);
+					shopCommoidty.setFamousManor(null);
+					shopCommoidtyService.update(shopCommoidty);
 				}
+			}
+			for (int i = 0; i < depAndPos.size(); i++) { 
+				FamousManorAndShop depAndPoss = depAndPos.get(i);
 				manorAndShopService.delete(depAndPoss.getId());
 			}
 		}

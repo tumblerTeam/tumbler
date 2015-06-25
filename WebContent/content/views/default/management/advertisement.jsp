@@ -55,8 +55,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">
-					广告列表 <a href="javascript:void(0);"
-						onclick="popupwindow('management/showAddAdvertisement');"> <span
+					广告列表 <a href="management/showAddAdvertisement"> <span
 						class="badge navbar-right" id="add"><font >添加&nbsp;&nbsp;+</font></span></a>
 				</h3>
 			</div>
@@ -67,13 +66,11 @@
 						<tr>
 							<th>所在页面</th>
 							<th>所在位置</th>
-							<th>广告标题</th>
-							<th>原价</th>
-							<th>活动价</th>
+							<th>参与商品</th>
 							<th>图片</th>
 							<th>链接</th>
-							<th>收入</th>
 							<th>支出</th>
+							<th>收入</th>
 							<th>起始时间</th>
 							<th>持续时间(天)</th>
 							<th>是否到期</th>
@@ -94,14 +91,12 @@
 							</c:choose>
 							<td>${advertisement.adverDistribution.whichPage}</td>
 							<td>${advertisement.adverDistribution.position}</td>
-							<td>${advertisement.title}</td>
-							<td>${advertisement.unitPrice}</td>
-							<td>${advertisement.specialPrice}</td>
+							<td>${advertisement.commodity.commoidtyName}</td>
+							<td><img alt="" src="${advertisement.commodity.actityImage}"></td>
 							<td>${advertisement.link}</td>
-							<td>${advertisement.imagePath}</td>
 							<td>${advertisement.expenditure}</td>
 							<td>${advertisement.income}</td>
-							<td>${advertisement.startDate}&nbsp;&nbsp;&nbsp;${loop.index }
+							<td>${advertisement.startDate}&nbsp;&nbsp;&nbsp;
 								<input id="startDate${loop.index }" type="hidden"
 								value="${advertisement.startDate}">
 							</td>
@@ -111,7 +106,7 @@
 							<td id="between${loop.index }"></td>
 							<td>
 								<button class="btn btn-default"
-									onclick="popupwindow('management/showUpdateAdvertisement?id=${advertisement.id}');">修改</button>
+									onclick="forPage('management/showUpdateAdvertisement?id=${advertisement.id}');">修改</button>
 								<button type="button" class="btn btn-default"
 									onclick="deleteAdvertisementById('${advertisement.id}');">删除</button>
 							</td>
@@ -123,6 +118,9 @@
 	</div>
 	<jsp:include page='../common/footer.jsp' />
 	<script type="text/javascript">
+		function forPage(obj){
+			location.href = obj;
+		}
 		$(document).ready(function() {
 			var len = "${count}";
 			var nowDate = new Date();
@@ -132,12 +130,16 @@
 				startDate = startDate.valueOf();
 				startDate = new Date(startDate);
 				var a = (nowDate - startDate);
-				var b = 24 * 60 * 60 * 1000;
-				var between = Math.ceil(a / b) - during;
-				if (between >= 0) {
-					$('#between' + i).html("广告时间已过");
-				} else {
-					$('#between' + i).html(Math.ceil(a / b) + "天");
+				if(a<0){
+					$('#between' + i).html(0 + "天");
+				}else{
+					var b = 24 * 60 * 60 * 1000;
+					var between = Math.ceil(a / b) - during;
+					if (between >= 0) {
+						$('#between' + i).html("广告时间已过");
+					} else {
+						$('#between' + i).html(Math.ceil(a / b) + "天");
+					}
 				}
 			}
 		})

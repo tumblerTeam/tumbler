@@ -21,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.yc.entity.AdvertiseDistribution;
 import com.yc.entity.AdvertisementPage;
-import com.yc.entity.CarCommoidty;
 import com.yc.entity.Collection;
 import com.yc.entity.ShopCategory;
 import com.yc.entity.Specifications;
@@ -30,7 +29,7 @@ import com.yc.entity.user.Personnel;
 import com.yc.entity.user.Positions;
 import com.yc.service.IAdvertisementDistributionService;
 import com.yc.service.IAdvertisementService;
-import com.yc.service.ICarCommoidtyService;
+import com.yc.service.ICarCommodityService;
 import com.yc.service.ICollectionService;
 import com.yc.service.ICommodityService;
 import com.yc.service.IDepartAndPositionsService;
@@ -47,7 +46,7 @@ public class GetShopCategory {
 	
 	
 	@Autowired
-	ICarCommoidtyService carCommoidtyService;
+	ICarCommodityService carCommoidtyService;
 	
 	@Autowired
 	IDepartAndPositionsService departAndPositionsService;

@@ -89,6 +89,5 @@ public class TumblerService {
         } else {
             throw new ServiceException("该邮箱未注册（邮箱地址不存在）！");  
         }  
-
     }
 }
