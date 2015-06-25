@@ -100,6 +100,10 @@ public class ShopCommodity {
 	
 	@Column
 	private String russinaDescribes;
+
+	@ManyToOne
+	@JoinColumn(name = "famAndShop_id")
+	private FamousManorAndShop famousManorAndShop;//名庄
 	
 	public Float getGroupPrice() {
 		return groupPrice;
@@ -108,10 +112,6 @@ public class ShopCommodity {
 	public void setGroupPrice(Float groupPrice) {
 		this.groupPrice = groupPrice;
 	}
-
-	@ManyToOne
-	@JoinColumn(name = "famAndShop_id")
-	private FamousManorAndShop famousManorAndShop;//名庄
 	
 	public FamousManorAndShop getFamousManorAndShop() {
 		return famousManorAndShop;

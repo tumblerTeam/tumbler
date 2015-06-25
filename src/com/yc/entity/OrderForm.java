@@ -34,6 +34,7 @@ public class OrderForm {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private AppUser orderUser;
+	
 
 	@OneToOne
 	@JoinColumn(name = "address_id")
@@ -75,6 +76,14 @@ public class OrderForm {
 	
 	@Column
 	private Float deliveryMoney;//运输费
+
+	public OrderGroup getOrderGroup() {
+		return orderGroup;
+	}
+
+	public void setOrderGroup(OrderGroup orderGroup) {
+		this.orderGroup = orderGroup;
+	}
 
 	public String getOrderTime() {
 		return orderTime;

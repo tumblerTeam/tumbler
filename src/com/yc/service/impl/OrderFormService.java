@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import com.yc.dao.orm.commons.GenericDao;
 import com.yc.entity.OrderForm;
 import com.yc.entity.OrderStatus;
+import com.yc.entity.Shop;
 import com.yc.service.IOrderFormService;
 
 @Component
@@ -51,7 +52,7 @@ public class OrderFormService extends GenericService<OrderForm> implements IOrde
 	
 	@Override
 	public List<OrderForm> getAllByOrderStatus(String orderStatus) {
-		String hql = " from OrderForm c where c.orderstatus in ("+orderStatus+")";
+		String hql = " from OrderForm c where c.orderstatus = '"+orderStatus+"'";
 		return orderFormDao.find(hql, null, null);
 	}
 
@@ -278,4 +279,46 @@ public class OrderFormService extends GenericService<OrderForm> implements IOrde
 		List<OrderForm> list =  query.getResultList();
 		return list;
 	}
+
+	@Override
+	public List<OrderForm> getShopOrderByShop(Shop shop) {
+		return null;
+	}
+
+	@Override
+	public List<OrderForm> getAllRefundByStatus(Map<String, Object> map,
+			Integer shopID) {
+		StringBuffer hql = new StringBuffer("select DISTINCT o.* from OrderForm o right join Commodity com on com.orderform_id = o.orderFormID  where com.seller_name = "+shopID);
+		
+		if (map.get("orderStatusRefunding") != null) {
+			hql.append(" and o.orderstatus = '" + map.get("orderStatusRefunding") + "'");
+		}if (map.get("orderStatusRefundSuccess") != null) {
+			hql.append(" or o.orderstatus = '" + map.get("orderStatusRefundSuccess") + "'");
+		}if (map.get("orderStatusRefundfail") != null) {
+			hql.append(" or o.orderstatus = '" + map.get("orderStatusRefundfail") + "'");
+		}
+		orderFormDao.getEntityManager().clear();
+		Query query =  orderFormDao.getEntityManager().createNativeQuery(hql.toString(), OrderForm.class);
+		@SuppressWarnings("unchecked")
+		List<OrderForm> list =  query.getResultList();
+		return list;
+	}
+
+	@Override
+	public List<OrderForm> getAllRefundByStatusUID(Map<String, Object> map,
+			Integer userID) {
+		StringBuffer hql = new StringBuffer("select DISTINCT o.* from OrderForm o right join Commodity com on com.orderform_id = o.orderFormID  where o.user_id = "+userID);
+		if (map.get("orderStatusRefunding") != null) {
+			hql.append(" and o.orderstatus = '" + map.get("orderStatusRefunding") + "'");
+		}if (map.get("orderStatusRefundSuccess") != null) {
+			hql.append(" or o.orderstatus = '" + map.get("orderStatusRefundSuccess") + "'");
+		}if (map.get("orderStatusRefundfail") != null) {
+			hql.append(" or o.orderstatus = '" + map.get("orderStatusRefundfail") + "'");
+		}
+		Query query =  orderFormDao.getEntityManager().createNativeQuery(hql.toString(), OrderForm.class);
+		@SuppressWarnings("unchecked")
+		List<OrderForm> list =  query.getResultList();
+		return list;
+	}
+
 }

@@ -1,5 +1,5 @@
 package com.yc.entity;
 
 public enum AdvertisementPage {
-	homePage
+	homePage, innerPage, detailPage, carPage, elecProductionPage, myOfficePage, brandPage
 }

@@ -36,17 +36,74 @@ public class Shop {
 	private ShopCategory shopCat;//店铺类型
 	
 	@Column
+	private String comName;//企业名称
+	
+	@Column
 	private String juridicalPerson;//法人
+	
+	@Column
+	private String privatePerson;//个人
+	
+	@Column
+	private String sex;//性别
+	
+	@Column
+	private String birthday; //生日
 	
 	@Column
 	private String idCard;//身份证
 	
+	@Column
+	private String juridicalCard; //法人身份证
+
+	@Column
+	private String juridicalCardUrl; //法人身份证url
+	
+	@Column
+	private String idCardUrl; //身份证url
+	
+	@Column
+	private String foodCriLisUrl; //食品流通许可证url
+
+	@Column
+	private String taxRegUrl; //税务登记url
+	
+	@Column
+	private String businesslisUrl; //营业执照url
+	
+	@Column
+	private String authorizeUrl; //授权委托书url
+	
+	@Column
+	private String proRunPermitCardUrl; //生产经营许可证Url
+	
+	@Column
+	private String qsIdentityUrl; //QS认证Url
+	
+	@Column
+	private String alcoholMultiPermitUrl; //自治区酒类批发许可证Url
+	
+	@Column
+	private String alcoholSellContractUrl;//酒类经销合同Url
+	
+	@Column
+	private String sellAuthorizeUrl;//经销授权书Url
+	
+	@Column
+	private String alcoholRunPermitUrl;//酒类经营许可证url
+	
+	@Column
+	private String RetailRecordRegUrl;//零售备案登记证Url
+		
 	@Column
 	private String payPwd;//支付密码；
 	
 	@Column
 	@Enumerated(EnumType.STRING)
 	private ShopType shopType;//性质
+	
+	@Column
+	private String address; //地区
 	
 	@Column
 	@Enumerated(EnumType.STRING)
@@ -91,10 +148,162 @@ public class Shop {
 	
 	@Column
 	private String russinaShopName ;
-	
+
 	@OneToMany(mappedBy = "shop")
-	private List<FamousManorAndShop> manorAndShops;
+	private List<FamousManorAndShop> manorAndShops;//名庄
 	
+	public String getComName() {
+		return comName;
+	}
+
+	public void setComName(String comName) {
+		this.comName = comName;
+	}
+
+	public String getAuthorizeUrl() {
+		return authorizeUrl;
+	}
+
+	public void setAuthorizeUrl(String authorizeUrl) {
+		this.authorizeUrl = authorizeUrl;
+	}
+
+	public String getProRunPermitCardUrl() {
+		return proRunPermitCardUrl;
+	}
+
+	public void setProRunPermitCardUrl(String proRunPermitCardUrl) {
+		this.proRunPermitCardUrl = proRunPermitCardUrl;
+	}
+
+	public String getQsIdentityUrl() {
+		return qsIdentityUrl;
+	}
+
+	public void setQsIdentityUrl(String qsIdentityUrl) {
+		this.qsIdentityUrl = qsIdentityUrl;
+	}
+
+	public String getAlcoholMultiPermitUrl() {
+		return alcoholMultiPermitUrl;
+	}
+
+	public void setAlcoholMultiPermitUrl(String alcoholMultiPermitUrl) {
+		this.alcoholMultiPermitUrl = alcoholMultiPermitUrl;
+	}
+
+	public String getAlcoholSellContractUrl() {
+		return alcoholSellContractUrl;
+	}
+
+	public void setAlcoholSellContractUrl(String alcoholSellContractUrl) {
+		this.alcoholSellContractUrl = alcoholSellContractUrl;
+	}
+
+	public String getSellAuthorizeUrl() {
+		return sellAuthorizeUrl;
+	}
+
+	public void setSellAuthorizeUrl(String sellAuthorizeUrl) {
+		this.sellAuthorizeUrl = sellAuthorizeUrl;
+	}
+
+	public String getAlcoholRunPermitUrl() {
+		return alcoholRunPermitUrl;
+	}
+
+	public void setAlcoholRunPermitUrl(String alcoholRunPermitUrl) {
+		this.alcoholRunPermitUrl = alcoholRunPermitUrl;
+	}
+
+	public String getRetailRecordRegUrl() {
+		return RetailRecordRegUrl;
+	}
+
+	public void setRetailRecordRegUrl(String retailRecordRegUrl) {
+		RetailRecordRegUrl = retailRecordRegUrl;
+	}
+
+	public String getFoodCriLisUrl() {
+		return foodCriLisUrl;
+	}
+
+	public void setFoodCriLisUrl(String foodCriLisUrl) {
+		this.foodCriLisUrl = foodCriLisUrl;
+	}
+
+	public String getJuridicalCardUrl() {
+		return juridicalCardUrl;
+	}
+
+	public void setJuridicalCardUrl(String juridicalCardUrl) {
+		this.juridicalCardUrl = juridicalCardUrl;
+	}
+
+	public String getIdCardUrl() {
+		return idCardUrl;
+	}
+
+	public void setIdCardUrl(String idCardUrl) {
+		this.idCardUrl = idCardUrl;
+	}
+
+	public String getBusinesslisUrl() {
+		return businesslisUrl;
+	}
+
+	public void setBusinesslisUrl(String businesslisUrl) {
+		this.businesslisUrl = businesslisUrl;
+	}
+
+	public String getTaxRegUrl() {
+		return taxRegUrl;
+	}
+
+	public void setTaxRegUrl(String taxRegUrl) {
+		this.taxRegUrl = taxRegUrl;
+	}
+
+	public String getJuridicalCard() {
+		return juridicalCard;
+	}
+
+	public void setJuridicalCard(String juridicalCard) {
+		this.juridicalCard = juridicalCard;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPrivatePerson() {
+		return privatePerson;
+	}
+
+	public void setPrivatePerson(String privatePerson) {
+		this.privatePerson = privatePerson;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
 	public List<FamousManorAndShop> getManorAndShops() {
 		return manorAndShops;
 	}

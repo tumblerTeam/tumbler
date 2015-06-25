@@ -3,6 +3,7 @@ package com.yc.dao.orm.commons;
 
 import org.springframework.context.annotation.*;
 
+import com.yc.entity.Address;
 import com.yc.entity.AdvertiseDistribution;
 import com.yc.entity.Advertisement;
 import com.yc.entity.Blacklist;
@@ -19,6 +20,7 @@ import com.yc.entity.ImagePath;
 import com.yc.entity.News;
 import com.yc.entity.OrderForm;
 import com.yc.entity.OrderGroup;
+import com.yc.entity.Package;
 import com.yc.entity.Shop;
 import com.yc.entity.ShopCategory;
 import com.yc.entity.ShopCommImage;
@@ -146,5 +148,14 @@ public class GenericDaoConfig {
     @Bean
     public GenericDao<Advertisement> getAdvertisementDao() {
     	return new GenericDaoSupport<Advertisement>(Advertisement.class);
+    }
+    @Bean
+    public GenericDao<Package> getPackageDao() {
+    	return new GenericDaoSupport<Package>(Package.class);
+    }
+    
+    @Bean
+    public GenericDao<Address> getAddressDao() {
+    	return new GenericDaoSupport<Address>(Address.class);
     }
 }

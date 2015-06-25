@@ -1,10 +1,10 @@
 package com.yc.entity.user;
 
-import java.beans.Transient;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -15,9 +15,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
+import com.yc.entity.DeliveryAddress;
 import com.yc.entity.Shop;
+import com.yc.entity.ShopCommoidtySpecs;
 
 @Entity
 @DiscriminatorValue("user")//用户
