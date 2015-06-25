@@ -37,10 +37,6 @@ public class OrderForm {
 	private AppUser orderUser;
 
 	@OneToOne
-	@JoinColumn(name = "address_id")
-	private DeliveryAddress address;//交付地址
-
-	@OneToOne
 	@JoinColumn(name = "delivery_id")
 	private Delivery delivery;
 	
@@ -50,10 +46,6 @@ public class OrderForm {
 
 	@Column
 	private String changeStatusDate;// 状态改变日期
-
-	@ManyToOne
-	@JoinColumn(name = "package_id")
-	private Package packAge;
 
 	@ManyToOne
 	@JoinColumn(name = "orderGroup_id")
@@ -70,10 +62,10 @@ public class OrderForm {
 	
 	@Column
 	private String paymentTime;// 付款时间
-	
-	@Column
-	private Float deliveryMoney;//运输费
 
+	@Column
+	private String sendDate;//发货日期
+	
 	public String getOrderTime() {
 		return orderTime;
 	}
@@ -88,14 +80,6 @@ public class OrderForm {
 
 	public void setPaymentTime(String paymentTime) {
 		this.paymentTime = paymentTime;
-	}
-
-	public Float getDeliveryMoney() {
-		return deliveryMoney;
-	}
-
-	public void setDeliveryMoney(Float deliveryMoney) {
-		this.deliveryMoney = deliveryMoney;
 	}
 
 	public OrderStatus getOrderstatus() {
@@ -122,28 +106,12 @@ public class OrderForm {
 		this.orderDate = orderDate;
 	}
 
-	public Package getPackAge() {
-		return packAge;
-	}
-
-	public void setPackAge(Package packAge) {
-		this.packAge = packAge;
-	}
-
 	public Delivery getDelivery() {
 		return delivery;
 	}
 
 	public void setDelivery(Delivery delivery) {
 		this.delivery = delivery;
-	}
-
-	public DeliveryAddress getAddress() {
-		return address;
-	}
-
-	public void setAddress(DeliveryAddress address) {
-		this.address = address;
 	}
 
 	public String getChangeStatusDate() {

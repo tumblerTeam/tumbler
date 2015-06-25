@@ -3,7 +3,7 @@
 body {
 	margin: 0 auto;
 	padding:0px;
-	background: #f6f6f6;
+	background: #fff;
 }
 a {
 	text-decoration: none;
@@ -62,8 +62,8 @@ img {
 /*订单信息*/
 .shop_content .center hr{margin-top:0px; border-color:#A40C59;}
 .shop_content .center .address{ width:100%; height:auto; }
-.shop_content .center .address p{ margin-left:15px;}
-.shop_content .center .address .xiugai{ width:150px; height:40px; background-color:#A40C59; border-radius:3px; color:#fff; text-align:center; font-size:18px; line-height:40px; margin-left:15px; font-weight:600;cursor:pointer;}
+.shop_content .center .address p{ margin-left:15px; line-height:30px;}
+.shop_content .center .address .xiugai{ width:150px; height:40px; background-color:#A40C59; border-radius:3px; color:#fff; text-align:center; font-size:18px; line-height:40px; margin-left:15px; font-weight:600;cursor:pointer; margin-top:15px;}
 
 .shop_content .center .new_address{width:100%; height:auto;}
 .shop_content .center .new_address .new{ margin-left:15px; font-size:18px;}
@@ -79,7 +79,7 @@ img {
 .shop_content .center .way .first .border1{ float:left; width:240px; height:25px; border:1px solid #A40C59; padding-left:15px; line-height:25px;}
 .shop_content .center .way .second { width:70%; height:100px; margin-left:85px; margin-bottom:50px;}
 .shop_content .center .way .second .time{ margin-top:25px;}
-.shop_content .center .way .second .border ul li{ width:400px; height:25px; border:1px solid #A40C59; list-style-type:none; margin-top:10px; padding-left:15px; line-height:25px; margin-left:40px;}
+.shop_content .center .way .second .border ul li{ width:400px; height:25px; border:1px solid #A40C59; list-style-type:none; margin-top:10px; padding-left:15px; line-height:25px; margin-left:40px; cursor:pointer;}
 .shop_content .center .way .second .border ul{ margin-top:0px;}
 
 .shop_content .center .list{ width:100%; height:auto; margin-top:30px; padding-left:0px; padding-right:0px;}
@@ -91,9 +91,9 @@ img {
 .shop_content .center .pay .pay_class .card .yh1{width:180px; height:50px; border:1px #ccc solid; float:left; background-color:#fff;}
 .shop_content .center .pay .pay_class .card .yh1 img{ margin:5px 0px 0px 18px;} 
 .shop_content .center .pay .pay_class .card .yh2{width:180px; height:50px; border:1px #ccc solid; float:right;background-color:#fff; cursor:pointer;}
-.shop_content .center .pay .pay_class .card .yh2 p{ margin-left:15px; }
+.shop_content .center .pay .pay_class .card .yh2 p{ margin-left:18px; margin-top:15px; }
 
-.shop_content .center .pay .pay_class .pay-box .bank{ width:80px; height:30px; background-color:#fff; margin-top:20px; float:left; display:inline; cursor:pointer; text-align:center; line-height:25px; border:1px #ccc solid; box-sizing:border-box;}
+.shop_content .center .pay .pay_class .pay-box .bank{ width:80px; height:30px;  margin-top:20px; background-color:#ccc; float:left; display:inline; cursor:pointer; text-align:center; line-height:25px; border-left:1px #ededed solid; box-sizing:border-box;}
 .shop_content .center .pay .pay_class .pay-box ul{ background-color:#fff;}
 .shop_content .center .pay .pay_class .pay-box ul li input{margin-top:15px; position:absolute; margin-right:20px;}
 .shop_content .center .pay .pay_class .pay-box ul li img{margin-left:20px; margin-right:20px;}
@@ -103,7 +103,7 @@ img {
 .shop_content .center .pay .pay_class .pay-box .b2 ul li{ float:left; display:inline; margin-top:10px; margin-left:10px;}
 .shop_content .center .pay .pay_class .pay-box .b3 ul{ border:1px #ccc solid; width:700px; height:80px; margin-top:50px; margin-left:25px;}
 .shop_content .center .pay .pay_class .pay-box .b3 ul li{ float:left; display:inline; margin-top:10px; margin-left:10px;}
-.shop_content .center .pay .pay_class .pay-box .submit{  width:110px; height:35px; border-radius:5px; color:#FFF; background-color:#A40C59;line-height:35px; text-align:center; font-size:14px; cursor:pointer; margin-bottom:50PX; }
+.shop_content .center .pay .pay_class .pay-box .submit{  width:110px; height:35px; border-radius:5px; color:#FFF; background-color:#A40C59;line-height:35px; text-align:center; font-size:14px; cursor:pointer; margin-bottom:50PX; margin-top:15px; }
 
 /*.shop_content .center .jiesuan{ width:100%; height:500px; border:1px red solid; margin-top:30px;}
 .shop_content .center .jiesuan .class{ width:100%; height:200px; border:1px red solid; margin-top:30px;}*/
@@ -122,18 +122,8 @@ img {
 /*提交成功*/
 .shop_content .success{ width:350px; height:300px; margin-left:37.5%; margin-top:40px;}
 .shop_content .success .zi{ color:#a40c59; font-size:28px; text-align:center; margin-top:15px; margin-bottom:40px; font-weight:700;}
+.shop_content .success p{ line-height:30px; margin-left:25px;}
 .shop_content .success .btn{ width:80px; height:30px; background-color:#a40c59; border-radius:3px; text-align:center; line-height:30px; color:#fff; margin-left:100px;}
 .shop_content .success .btn1{ width:120px; height:30px;float:left; background-color:#a40c59; border-radius:3px; text-align:center; line-height:30px; color:#fff; margin-left:80px; margin-top:20px;}
-
-
-
-
-
-
-
-
-
-
-
 
 
