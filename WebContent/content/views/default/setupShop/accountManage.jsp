@@ -211,7 +211,7 @@
 									<li style="width: 240px;">${a.street}</li>
 									<li>${a.toEmail }</li>
 									<li>${a.phone }</li>
-									<li style="width: 150px;"><a href="">修改 |</a> <a>删除 |</a> <a>设为默认</a>
+									<li style="width: 150px;"><a href="">修改 |</a> <a href="proscenium/delAddress?aid="${a.id}>删除 |</a> <a>设为默认</a>
 									</li>
 								</ul>
 							</c:forEach>
