@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.yc.entity.Address;
 import com.yc.entity.BuyCar;
 import com.yc.entity.CarCommodity;
+import com.yc.entity.DeliveryAddress;
 import com.yc.entity.ShopCategory;
 import com.yc.entity.user.AppUser;
 import com.yc.service.IAddressService;
@@ -158,6 +159,9 @@ public class BuyCarController {
 	@RequestMapping(value = "orderGenerate", method = RequestMethod.POST)
 	public ModelAndView orderGenerate(String ids,String shouhuoTime,String xunshufangshi,Float yunfei, HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException, ParseException{
 		String[] carIds = ids.split(",");
+		ModelMap mode = new ModelMap();
+		AppUser user = (AppUser)request.getSession().getAttribute("loginUser");
+		DeliveryAddress delivery = new DeliveryAddress();
 		
 		return null;
 	}
