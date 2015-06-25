@@ -32,7 +32,7 @@ public class ShopCategory {
 	@Column
 	private Boolean isForbidden = false;//是否禁用
 	
-	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch= FetchType.EAGER)
 	@JoinColumn(name = "parentLevel")
 	private ShopCategory parentLevel;//父节点；
 	
@@ -46,7 +46,7 @@ public class ShopCategory {
 	private List<ShopCommodity>  shopCommoidties;//商品
 	
 	@OneToMany(mappedBy = "carCategory")
-	private List<CarCommoidty>  carCommoidties;//商品
+	private List<CarCommodity>  carCommoidties;//商品
 	
 	@OneToMany(mappedBy = "shopCategory")
 	private List<FamousManorAndShop> manorAndShops;
@@ -87,11 +87,11 @@ public class ShopCategory {
 		this.russinaCategory = russinaCategory;
 	}
 
-	public List<CarCommoidty> getCarCommoidties() {
+	public List<CarCommodity> getCarCommoidties() {
 		return carCommoidties;
 	}
 
-	public void setCarCommoidties(List<CarCommoidty> carCommoidties) {
+	public void setCarCommoidties(List<CarCommodity> carCommoidties) {
 		this.carCommoidties = carCommoidties;
 	}
 

@@ -28,8 +28,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.yc.entity.Address;
 import com.yc.entity.Brand;
 import com.yc.entity.Currency;
-import com.yc.entity.Delivery;
-import com.yc.entity.DeliveryAddress;
 import com.yc.entity.FamousManor;
 import com.yc.entity.OrderForm;
 import com.yc.entity.OrderStatus;
@@ -38,18 +36,19 @@ import com.yc.entity.Shop;
 import com.yc.entity.ShopCategory;
 import com.yc.entity.ShopCommImage;
 import com.yc.entity.ShopCommodity;
+import com.yc.entity.ShopCommoditySpecs;
 import com.yc.entity.ShopReviews;
 import com.yc.entity.ShopType;
 import com.yc.entity.user.AppUser;
-import com.yc.model.AdvertisementManager;
 import com.yc.service.IAddressService;
 import com.yc.service.IAdvertisementDistributionService;
 import com.yc.service.IAdvertisementService;
 import com.yc.service.IAppUserService;
 import com.yc.service.IBrandService;
+import com.yc.service.IBuyCarService;
+import com.yc.service.ICarCommodityService;
 import com.yc.service.ICommodityService;
 import com.yc.service.ICurrencyService;
-import com.yc.service.IDeliveryAddressService;
 import com.yc.service.IFamousManorService;
 import com.yc.service.IOrderFormService;
 import com.yc.service.IPackageService;
@@ -71,12 +70,12 @@ public class ShopOneController {
 
 	@Autowired
 	IShopCommodityService shopCommService;// 商品
-	
+
 	@Autowired
 	IShopCommoidtySpecsService commoidtySpecsService;
-	
+
 	@Autowired
-	IShopReviewsService shopReviewsService;//评论
+	IShopReviewsService shopReviewsService;// 评论
 
 	@Autowired
 	IShopCategoryService shopCategService;// 类别
@@ -86,7 +85,7 @@ public class ShopOneController {
 
 	@Autowired
 	IBrandService brandService;// 品牌
-	
+
 	@Autowired
 	IPackageService packageService; // 包裹
 	
@@ -98,18 +97,19 @@ public class ShopOneController {
 	
 	@Autowired
 	IShopCommImageService shopCommImageService;
-	
+
 	@Autowired
 	IAppUserService userService;
-	
+
 	@Autowired
 	ICurrencyService currencyService;
-	
+
 	@Autowired
 	ICommodityService commodityService;
-	
+
 	@Autowired
 	IShopCommodityService shopCommodityService;
+	
 	@Autowired
 	IOrderFormService orderFormService;
 	
@@ -914,87 +914,6 @@ public class ShopOneController {
 //		return new ModelAndView();
 //	}
 	//填写开店信息：
-	@RequestMapping(value = "setupShop", method = RequestMethod.GET)
-	public ModelAndView setupShop(HttpServletRequest request, HttpServletResponse response){
-		AppUser appuser = (AppUser) request.getSession().getAttribute("loginUser");
-		ModelMap mode = new ModelMap();
-		//得到所有商品类别：
-		mode = getShopCategory(mode);
-		String shopName = request.getParameter("shopName");
-		if (appuser == null) {
-			AdvertisementManager advertisementManager = new AdvertisementManager();
-	 		mode.putAll(advertisementManager.getLoginPageAdvertisements(adverDistributionService,advertisementService));
-			return new ModelAndView("user/login", mode);
-		}else{
-			mode.put("appuser", appuser);
-			//通过用户ID得到商家是否开店：
-			Shop shop = shopService.getShopByUser(appuser.getId());
-			//在店面不是空的情况下
-			if (shop != null) {
-				//更新原来的店面：
-				if (shopName != null && !shopName.equals("")) {
-					shop.setShopName(shopName);
-					shopService.update(shop);
-				}
-				//true：可开店
-				if (shop.getIsPermit()) {
-					//得到商家的所有订单信息：
-					List<OrderForm> orderForms = orderFormService.getShopOrderByShop(shop);
-					int count = 0;
-					for ( int i = 0; i < orderForms.size(); i++ )
-					{
-						DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-						Date payDate = null;
-						try {
-							payDate = format.parse(orderForms.get(i).getPaymentDate());
-						} catch (ParseException e) {
-							e.printStackTrace();
-						}
-						Date curDate = new Date();
-						double betweenDays = Math.ceil((curDate.getTime() - payDate.getTime()) / (3600 * 24 * 1000));
-
-						if ( betweenDays < 30 ) {
-							count++;
-						}
-					}
-										
-					Integer waitDeliveryCount = orderFormService.getShopOrderByStatusAndShop("'"+OrderStatus.waitDelivery+"'",shop.getId());
-					Integer waitPaymentCount = orderFormService.getShopOrderByStatusAndShop("'"+OrderStatus.waitPayment+"'",shop.getId());
-					Integer refundOrderFormCount = orderFormService.getShopOrderByStatusAndShop("'"+OrderStatus.refundOrderForm+"'",shop.getId());
-					Integer reviewCount = shopReviewsService.getReviewsByShop(shop.getId()).size();
-					
-					mode.put("waitPaymentCount", waitPaymentCount);
-					mode.put("refundOrderFormCount", refundOrderFormCount);
-					mode.put("waitDeliveryCount", waitDeliveryCount);
-					mode.put("reviewCount", reviewCount);
-					mode.put("recent", count);
-					mode.put("shop", shop);					
-					return new ModelAndView("reception/myShop", mode);
-				}
-				AdvertisementManager advertisementManager = new AdvertisementManager();
-		 		mode.putAll(advertisementManager.getLoginPageAdvertisements(adverDistributionService,advertisementService));
-				return new ModelAndView("reception/setUpShop", mode);
-			}else {
-				if (null != shopName && !shopName.equals("")) {
-					shop = new Shop();
-					shop.setShopName(shopName);
-					shop.setCreateDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-					shop = shopService.save(shop);
-					appuser.setShop(shop);
-					userService.update(appuser);
-				} else {
-					shop = new Shop();
-					shop.setCreateDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-					shop = shopService.save(shop);
-					appuser.setShop(shop);
-					userService.update(appuser);
-				}
-				AdvertisementManager advertisementManager = new AdvertisementManager();
-		 		mode.putAll(advertisementManager.getLoginPageAdvertisements(adverDistributionService,advertisementService));
-				return new ModelAndView("reception/setUpShop", mode);
-			}
-		}
-	}
 	
 	//得到所有商品类别表
 	private ModelMap getShopCategory(ModelMap mode) {
@@ -1002,4 +921,67 @@ public class ShopOneController {
 		mode.put("shopCategories", list);
 		return mode;
 	}
+
+	@Autowired
+	ICarCommodityService carCommodityService;
+
+	@Autowired
+	IBuyCarService buyCarService;
+
+	// 购物Item
+	@RequestMapping(value = "shopItem", method = RequestMethod.GET)
+	public ModelAndView shopItem(Integer commID, Integer category, Integer shopID, String commoName, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ModelMap mode = new ModelMap();
+		ShopCategory cate = shopCategService.findById(category);
+		List<ShopReviews> reviewslist = shopReviewsService.getAllBycommCode(commID);
+		mode.put("reviewslist", reviewslist);
+		List<ShopCategory> shopcates = new ArrayList<ShopCategory>();
+		shopcates.add(cate);
+		mode.put("specifications", cate.getSpecifications());
+		String strs = "";
+		while (cate.getParentLevel() != null) {
+			cate = shopCategService.findById(cate.getParentLevel().getCategoryID());
+			if (cate != null) {
+				shopcates.add(cate);
+			}
+		}
+		for (int i = shopcates.size() - 1; i >= 0; i--) {
+			strs = strs + shopcates.get(i).getCategoryID() + "-" + shopcates.get(i).getCategory() + "|";
+		}
+		List<ShopCategory> shopcategories = shopCategService.getAll();
+		mode.put("shopCategories", shopcategories);
+		mode.put("nvabar", strs.substring(0, strs.length() - 1));
+		ShopCommodity shopCommoidty = shopCommService.findById(commID);
+		Map<String, List<String>> map = new HashMap<String, List<String>>();
+		List<String> specStrs = null;
+		mode.put("shopCommoidty", shopCommoidty);
+		ShopCommoditySpecs shopSpecs = shopCommoidty.getCommsPecs();
+		if (shopSpecs != null) {
+			String spec = shopSpecs.getCommSpec();
+			String[] specs = spec.split(",");
+			if (specs.length > 0) {
+				for (int i = 0; i < specs.length; i++) {
+					if (!specs[i].equals("")) {
+						if (map.containsKey(specs[i].split("-")[0])) {
+							specStrs = map.get(specs[i].split("-")[0]);
+							if (!specStrs.contains(specs[i].split("-")[1])) {
+								specStrs.add(specs[i].split("-")[1]);
+							}
+						} else {
+							specStrs = new ArrayList<String>();
+							specStrs.add(specs[i].split("-")[1]);
+							map.put(specs[i].split("-")[0], specStrs);
+						}
+					}
+				}
+			}
+		}
+		List<ShopCategory> list = shopCategService.getAllByParent();
+		mode.put("categories", list);
+		mode.put("map", map);
+		AppUser user = (AppUser) request.getSession().getAttribute("loginUser");
+		mode.put("user", user);
+		return new ModelAndView("reception/shopItem", mode);
+	}
+
 }

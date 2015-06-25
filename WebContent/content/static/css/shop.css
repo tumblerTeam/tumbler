@@ -1,0 +1,579 @@
+/*面包屑导航*/
+.breadCrumb{
+	width:100%;
+	height:30px;
+	background: #e8e8e8;
+	line-height: 30px;
+	color: #666;
+}
+.breadCrumb .con{
+	width:1190px;	
+	margin:0 auto;
+	padding-left:10px;
+	font-size:12px;
+}
+/*主体样式*/
+.content{
+	width:100%;	
+	height:auto;
+}
+.shop_main{
+	width:1200px;
+	height:auto;	
+	margin:0 auto;
+	margin-top:30px;
+	position:relative;
+}
+/*商品购买*/
+.preview{
+	width:950px;
+	height:500px;
+	margin:0px;
+	float:left;
+}
+/*左侧商品图片*/
+.shop_left{
+	width:400px;
+	height:350px;
+	
+	float:left;
+	float:left;
+}
+
+/*商品购买项*/
+.shop_right{
+	width:530px;
+	padding-left:20px;
+	height:400px;
+	float:right;
+}
+.shop_show{
+	position:relative;	
+	width:100%;
+}
+.shop_show .name{
+	padding: 15px 30px 20px 0;	
+}
+.shop_show .name h1{
+	line-height: 1.5em;
+	overflow: hidden;
+	font-weight: 700;
+	font-family: arial,"microsoft yahei";
+	font-size: 18px;
+	color: #333;
+}	
+.shop_show .name h2{
+	font-size: 14px;
+	color:#666;	
+	font-family: arial,"宋体";
+	line-height: 1.5em;
+}
+.shop_show .name h3{
+	font-family: arial,"microsoft yahei";
+	color: #e3393c;
+	font-size: 14px;
+	line-height: 20px;
+	word-break: break-all;	
+}
+
+
+.shop_show .summary{
+	position:relative;
+	width:100%;
+}
+.shop_show .summary .s_box{
+	width:100%;	
+	height:120px;
+	background:#f7f7f7;
+}
+.box_left{
+	width:250px;
+	float:left;	
+	padding-top:20px;
+	padding-left:20px;
+}
+.jy{
+	width:120px;	
+}
+.jy .jy_price{
+	color:#666;	
+	font: 14px/1.5 Arial;
+	float:left;
+}
+.jy .jy_value{
+	color:#666;	
+	font: 14px/1.5 Arial;
+	float:left;
+}
+.s{
+	margin-top:30px;
+	width:auto;	
+}
+.s .s_price{
+	color:#901531;	
+	font: 18px/1.5 Arial;
+	float:left;
+}
+.s .s_value{
+	color:#901531;	
+	font: 18px/1.5 Arial;
+	float:left;
+}
+.amount{
+	width:300px;
+	height:auto;
+	margin-top:70px;
+}
+.amount span{
+	float:left;	
+	font: 14px/1.5 Arial;
+	color:#000;		
+	margin-right:10px;
+}
+.tb-text{
+	float:left;
+	width:18px;
+	height:18px;
+	text-align:center;	
+}
+.reduce{
+	float: left;
+	width: 20px;
+	height: 20px;
+	border: 1px solid #ccc;
+	line-height: 20px;
+	padding: 0;
+	vertical-align: top;
+	text-align: center;
+	background-color: #ededed;	
+	font-size:18px;
+}
+.add{
+	float: left;
+	width: 20px;
+	height: 20px;
+	border: 1px solid #ccc;
+	line-height: 20px;
+	padding: 0;
+	vertical-align: top;
+	text-align: center;
+	background-color: #ededed;	
+	font-size:18px;
+}
+.summary .s_service{
+		
+}
+.ps{
+	padding-top: 6px;
+	padding-bottom: 6px;
+	margin-top:30px;
+}
+.ps span{
+	float:left;	
+	font: 12px/150% Arial,Verdana,"\5b8b\4f53";
+	color: #666;
+}
+.ps .text{
+	float:left;
+	font: 12px/150% Arial,Verdana,"\5b8b\4f53";
+	color: #666;
+	position: relative;
+	height: 20px;
+	background: #fff;
+	border: 1px solid #CECBCE;
+	padding: 0 20px 0 4px;
+	line-height: 20px;
+	overflow: hidden;
+}
+.fw{
+	padding-top: 6px;
+	padding-bottom: 6px;
+	margin-top:10px;
+}
+.fw span{
+	float:left;	
+	font: 12px/150% Arial,Verdana,"\5b8b\4f53";
+	color: #666;
+	word-spacing:1em;
+}
+.fw_p{
+	float:left;
+	font: 12px/150% Arial,Verdana,"\5b8b\4f53";
+	color: #666;
+	position: relative;
+	height: 20px;
+	line-height: 20px;
+	overflow: hidden;
+}
+.choose{
+	padding-top: 17px;
+	clear: both;
+	overflow: hidden;
+	height: 30px;	
+}
+.choose a{
+	width: 100px;
+	height: 30px;
+	background: #901531;
+	line-height: 30px;
+	text-align: center;
+	display: block;
+	color: #fff;
+	font-size: 14px;
+	font-weight: bold;
+	float: left;
+	margin-right: 50px;
+	cursor: pointer;
+	font-family: "Microsoft Yahei";
+}
+.choose .box a{
+	width: 100px;
+	height: 30px;
+	background: #901531;
+	line-height: 30px;
+	text-align: center;
+	display: block;
+	color: #fff;
+	margin-top:-20px;
+	font-size: 14px;
+	font-weight: bold;
+	float: left;
+	margin-right: 50px;
+	cursor: pointer;
+	font-family: "Microsoft Yahei";
+}
+
+.box_right{
+	width:120px;
+	float:right;
+	margin-top:20px;
+	padding-right:20px;
+	padding-left:20px;
+	border-left: 1px solid #505257;
+}
+.box_right .comment{
+	color:#333;	
+	font: 12px/1.5 Arial;
+	font-family:arial,"微软雅黑";		
+}
+.box_right .workoff{
+	color:#333;	
+	font: 12px/1.5 Arial;		
+	margin-top:10px;
+	font-family:arial,"微软雅黑";
+}
+.box_right .collection{
+	font: 14px/1.5 Arial;
+	margin-top:20px;
+}
+.box_right .collection a{
+	color:#901531;	
+}
+.box_right .collection img{
+	margin-right:5px;	
+}
+
+/*右侧推荐*/
+.shop_sort{
+	width:230px;	
+	height:500px;
+	float:right;
+	background:#fff;
+	box-sizing:border-box;
+	padding:0 20px;
+}
+.brand_logo{
+	padding: 10px 0;
+	overflow: hidden;
+	border-bottom: solid 1px #eee;	
+}
+.brand_logo a{
+	display:block;
+	text-align:center;	
+}
+.brand_logo a img{
+	height:70px;
+	margin:0 auto;	
+}
+.brand_seller{
+	padding: 15px 16px 15px 9px;
+	position: relative;
+	overflow: hidden;
+	line-height: 20px;
+}
+.brand_seller a{
+	height: 20px;
+	color: #005aa0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	vertical-align: middle;
+	font-size: 12px;	
+	display: inline-block;	
+}
+.customer_service{
+	float: left;
+	width:100%;
+	border-bottom: 1px solid #eee;
+}
+.customer_service .item{
+	float: left;	
+	width:100%;
+	margin-left:9px;
+	margin-bottom:16px;
+}
+.customer_service .item a{
+	background:#901531;	
+	width: 86px;
+	height: 15px;
+	margin-right: 4px;
+	float: left;
+	overflow: hidden;
+	padding:5px 0;
+	text-align:center;
+	border-radius: 2px;
+	font-size:12px;
+	color:#fff;
+}
+.shop_enter{
+	height: 24px;
+	padding-left: 9px;
+	padding-bottom: 20px;	
+}
+.shop_enter a{
+	margin-top:20px;
+	margin-left:5px;
+	padding: 0 12px;
+	display: inline-block;
+	border: 1px solid #ddd;
+	border-radius: 2px;
+	text-align: center;	
+	color: #333;
+	background: -webkit-gradient(linear,0 0,0 100%,from(#f7f7f7),to(#f2f2f2));
+	font: 12px/150% Arial,Verdana,"\5b8b\4f53";
+	height: 22px;
+	line-height: 22px;
+	overflow: hidden;
+}
+
+
+/*商品参数详情*/
+.shop_desc{	
+	float:left;
+	width:950px;
+	height:auto;
+	margin-top:30px;
+}
+.desc_tt{
+	position: relative;
+	height: 40px;
+	line-height: 40px;
+	background-color: #eee;
+	overflow: visible;	
+}
+.desc_tab1{
+	background: #901531;	
+	color: #fff;
+	padding: 0 18px;
+	height: 40px;
+	line-height: 40px;
+	float: left;
+	display: inline;
+	cursor: pointer;
+	font-size: 14px;
+	font-family: "Microsoft Yahei";
+}
+.desc_tab1 a{
+	color:#fff;	
+}
+.desc_tab2{	
+	color: #333;
+	padding: 0 18px;
+	height: 40px;
+	line-height: 40px;
+	float: left;
+	display: inline;
+	cursor: pointer;
+	font-size: 14px;
+	font-family: "Microsoft Yahei";
+}
+.desc_tab2 a{
+	color:#333;	
+}
+.minicart{
+	width: 110px;
+	height:40px;
+	position: absolute;
+	z-index: 2;
+	right: 0px;
+	top: 0px;
+}
+.minicart_btn{
+	margin:10px 0;	
+	height:20px;
+	line-height:20px;
+	text-align:center;
+	font-size: 14px;
+	cursor: pointer;
+	background:url(../images/minicart.png) no-repeat;
+}
+.desc_main{
+	clear: both;
+	overflow: hidden;
+	width:950px;
+	height:auto;
+}
+.parameter_list{
+	clear: both;
+	margin-bottom: 40px;
+	border: 1px solid #e6e6e6;
+	border-top: 0;
+}
+.shop_name{
+	padding: 10px 50px 5px;
+	border-top: 1px solid #e6e6e6;
+	height: 20px;
+	line-height: 20px;
+	font: 12px/1.5 tahoma,arial,"\5b8b\4f53";
+	color: #404040;	
+}
+.detail_list{
+	width:100%;
+	padding: 0 50px 20px;
+	text-indent: 0;
+	overflow:hidden;
+}
+.detail_list li{
+	display: inline;
+	float: left;
+	width: 260px;
+	height: 18px;
+	overflow: hidden;
+	margin: 10px 15px 0 0;
+	line-height: 18px;
+	vertical-align: top;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	color: #666;
+	font-size:12px;	
+}
+
+.shop_banner{
+	width:948px;	
+	border:#ddd solid 1px;
+	padding-bottom:20px;
+}
+.shop_banner img{
+	width:900px;	
+	
+}
+
+
+/*评价*/
+.eval{
+	width: 948px;	
+	height:auto;
+	border:#ddd solid 1px;
+	margin-top: 10px;
+	overflow: hidden;
+}
+.eval_tt{
+	width: 950px;
+	height: 40px;
+	background: #ddd;
+	clear: both;	
+}
+.eval_tt li{
+	padding: 0 18px;
+	height: 40px;
+	line-height: 40px;
+	margin: 0 2px;
+	float: left;
+	display: inline;
+	cursor: pointer;
+	font-size: 14px;
+	font-family: "Microsoft Yahei";
+}
+.eval_list{
+	width: 100%;
+	height:100%;		
+}
+.comments-item{
+	padding: 20px;
+	border-bottom:#ddd solid 1px;
+	overflow:hidden;
+}
+.comments-item li{
+	width: 300px;
+	float: left;
+	display: inline-block;	
+	height: 100px;
+	line-height: 40px;
+	text-align:center;
+	font-size:12px;	
+}
+
+/*商品右侧推荐*/
+.shop_recommend{
+	margin-top:30px;
+	width:230px;	
+	height:900px;
+	float:right;
+	background:#fff;
+}
+.mt{
+	border: 1px solid #ddd;		
+	height: 28px;
+	line-height: 28px;
+	width:228px;
+}
+.mt h2{
+	font-weight: 400;
+	padding-left:8px;
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #666;
+}
+.mc{
+	border: 1px solid #ddd;
+	border-top: none;	
+}
+.mc ul{
+	padding: 0 8px;
+	overflow: hidden;
+	zoom: 1;
+}
+
+.mc ul li{
+	border-top: none;	
+	padding: 8px 0;
+	border-top: 1px dotted #DEDEDE;
+}
+.mc_img{
+	text-align: center;
+	padding: 5px 0;	
+	overflow: hidden;
+}
+.mc_img img{
+	width:160px;	
+	height:160px;
+	vertical-align: middle;
+}
+.mc_name{
+	word-break: break-all;
+	word-wrap: break-word;	
+}
+.mc_name a{
+	color: #666;
+	text-decoration: none;	
+	font: 12px/150% Arial,Verdana,"\5b8b\4f53";
+}
+.mc_price{
+	text-align: center;	
+	overflow: hidden;
+}
+.mc_price .mc_1{
+	color: #E4393C;
+	font: 12px/150% Arial,Verdana,"\5b8b\4f53";	
+	font-weight: bold;
+}

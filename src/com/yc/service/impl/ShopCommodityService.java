@@ -62,7 +62,11 @@ public class ShopCommodityService extends GenericService<ShopCommodity> implemen
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ShopCommodity> getAllByParams(Map<String, Object> map,String page ) {
-		StringBuffer hql = new StringBuffer("select shc.* from ShopCommodity shc JOIN Shop shop ON shop.id = shc.shop_id right join ShopCommoditySpecs sp on shc.commCode = sp.shopComm_id where (shc.blacklist_id IS NULL AND shop.blacklist_id IS NULL AND shc.shelves = 1 ) and shc.shelves = 1 ");
+		StringBuffer hql = new StringBuffer("select DISTINCT shc.* from ShopCommodity shc JOIN Shop shop ON shop.id = shc.shop_id LEFT join ShopCommoditySpecs sp on shc.commCode = sp.shopComm_id ");
+//		if(map.get("haoping") != null && !map.get("haoping").equals("")){
+//			hql.append(" left join ShopReviews shopReviews on shopReviews.shopcomm_id = shc.commCode");
+//		}
+		hql.append(" where (shc.blacklist_id IS NULL AND shop.blacklist_id IS NULL AND shc.shelves = 1 ) and shc.shelves = 1");
 		if (page.equals("special")) {
 			hql.append(" and shc.isSpecial = 1");
 		}
@@ -82,19 +86,87 @@ public class ShopCommodityService extends GenericService<ShopCommodity> implemen
 		}
 		if (map.get("money") != null && !map.get("money").equals("")) {
 			if (!map.get("money").toString().split("@")[0].equals("")) {
-				hql = hql.append(" and ("+map.get("money").toString().split("@")[0]+" is null or shc.unitPrice >= "+map.get("money").toString().split("@")[0]+")");
+				 hql.append(" and ("+map.get("money").toString().split("@")[0]+" is null or shc.unitPrice >= "+map.get("money").toString().split("@")[0]+")");
 			}
 			if (!map.get("money").toString().split("@")[1].equals("")) {
-				hql = hql.append(" and ("+map.get("money").toString().split("@")[1]+" is null or shc.unitPrice < "+map.get("money").toString().split("@")[1]+")");
+				hql.append(" and ("+map.get("money").toString().split("@")[1]+" is null or shc.unitPrice < "+map.get("money").toString().split("@")[1]+")");
 			}
 		}
-		if (map.get("id") != null && !map.get("id").equals("")) {
-			hql = hql.append(" and ("+map.get("id")+" is null or shc.shopCategory_id = "+map.get("id")+")");
+		if (map.get("cateid") != null && !map.get("cateid").equals("")) {
+			 hql.append(" and shc.shopCategory_id = "+map.get("cateid"));
 		}
 		if (map.get("brand") != null && !map.get("brand").equals("")) {
-			hql = hql.append(" and (shc.brand_id in "+map.get("brand")+")");
+			 hql.append(" and (shc.brand_id in "+map.get("brand")+")");
+		}
+		if (map.get("famousids") != null && !map.get("famousids").equals("")) {
+			 hql.append(" and (shc.famousManor_id in "+map.get("famousids")+")");
+		}
+		if(map.get("orderByXiao") != null || map.get("orderByPice") != null || map.get("haoping") != null){
+			hql.append(" order by "); 
+		}
+		if (map.get("orderByXiao") != null && !map.get("orderByXiao").equals("")) {
+			hql.append(" salesVolume  "+map.get("orderByXiao"));
+		}
+		if (map.get("orderByPice") != null && !map.get("orderByPice").equals("")) {
+			hql.append(" unitPrice  "+map.get("orderByPice"));
 		}
 		Query query = ShopCommodityDao.getEntityManager().createNativeQuery(hql.toString(), ShopCommodity.class);
+		List<ShopCommodity> list = query.getResultList();
+		return list;
+	}
+
+	@Override
+	public List<ShopCommodity> getAllByParamsForParent(Map<String, Object> map, String page) {
+		StringBuffer hql = new StringBuffer("select DISTINCT shc.* from ShopCommodity shc JOIN Shop shop ON shop.id = shc.shop_id LEFT join ShopCommoditySpecs sp on shc.commCode = sp.shopComm_id ");
+//		if(map.get("haoping") != null && !map.get("haoping").equals("")){
+//			hql.append(" left join ShopReviews shopReviews on shopReviews.shopcomm_id = shc.commCode");
+//		}
+		hql.append(" where  (shc.blacklist_id IS NULL AND shop.blacklist_id IS NULL AND shc.shelves = 1 ) and shc.shelves = 1");
+		if (map.get("cateid") != null && !map.get("cateid").equals("")) {
+			 hql.append(" and shc.shopCategory_id IN (SELECT cate.categoryID FROM shopcategory cate WHERE cate.parentLevel IN ( SELECT cate2.categoryID FROM shopcategory cate2 WHERE cate2.parentLevel = "+map.get("cateid")+"))");
+		}
+		if (page.equals("special")) {
+			hql.append(" and shc.isSpecial = 1");
+		}
+		if (page.equals("brand")) {
+			hql.append(" and shc.brand_id is not null");
+		}
+		String[] spec = null;
+		if (map.get("specs") != null && !map.get("specs").equals("")) {
+			if (map.get("specs").toString().contains("@")) {
+				spec =map.get("specs").toString().split("@");
+				for (int i = 0; i < spec.length; i++) {
+					hql.append(" and ('"+spec[i]+"' is null or sp.commSpec like '"+spec[i]+"') ");
+				}
+			}else{
+				hql.append(" and ('"+map.get("specs")+"' is null or sp.commSpec like '"+map.get("specs")+"') ");
+			}
+		}
+		if (map.get("money") != null && !map.get("money").equals("")) {
+			if (!map.get("money").toString().split("@")[0].equals("")) {
+				 hql.append(" and ("+map.get("money").toString().split("@")[0]+" is null or shc.unitPrice >= "+map.get("money").toString().split("@")[0]+")");
+			}
+			if (!map.get("money").toString().split("@")[1].equals("")) {
+				hql.append(" and ("+map.get("money").toString().split("@")[1]+" is null or shc.unitPrice < "+map.get("money").toString().split("@")[1]+")");
+			}
+		}
+		if (map.get("brand") != null && !map.get("brand").equals("")) {
+			 hql.append(" and (shc.brand_id in "+map.get("brand")+")");
+		}
+		if (map.get("famousids") != null && !map.get("famousids").equals("")) {
+			 hql.append(" and (shc.famousManor_id in "+map.get("famousids")+")");
+		}
+		if(map.get("orderByXiao") != null || map.get("orderByPice") != null || map.get("haoping") != null){
+			hql.append(" order by "); 
+		}
+		if (map.get("orderByXiao") != null && !map.get("orderByXiao").equals("")) {
+			hql.append(" salesVolume  "+map.get("orderByXiao"));
+		}
+		if (map.get("orderByPice") != null && !map.get("orderByPice").equals("")) {
+			hql.append(" unitPrice  "+map.get("orderByPice"));
+		}
+		Query query = ShopCommodityDao.getEntityManager().createNativeQuery(hql.toString(), ShopCommodity.class);
+		@SuppressWarnings("unchecked")
 		List<ShopCommodity> list = query.getResultList();
 		return list;
 	}
@@ -215,5 +287,11 @@ public class ShopCommodityService extends GenericService<ShopCommodity> implemen
 		@SuppressWarnings("unchecked")
 		List<ShopCommodity> list = query.getResultList();
 		return list;
+	}
+	
+	@Override
+	public List<ShopCommodity> getFamousCommodityByShop(Integer id) {
+		StringBuffer hql=new StringBuffer(" from ShopCommodity shopComm where shopComm.famousManor.id is not null and shopComm.belongTo.id = "+id);
+		return ShopCommodityDao.find(hql.toString(), null, null);
 	}
 }

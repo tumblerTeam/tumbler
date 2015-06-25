@@ -1,7 +1,10 @@
 package com.yc.entity;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,11 +23,35 @@ public class Collection {
 	
 	@OneToOne
 	@JoinColumn(name = "shopComm_commCode")
-	private ShopCommodity shopCommoidty;
+	private ShopCommodity shopCommodity;
+	
+	@OneToOne
+	@JoinColumn(name = "shop_id")
+	private Shop shop;
+	
+	@Column
+	@Enumerated(EnumType.STRING)
+	private CollectionType  collectionType = CollectionType.commodity;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private AppUser user;
+
+	public Shop getShop() {
+		return shop;
+	}
+
+	public void setShop(Shop shop) {
+		this.shop = shop;
+	}
+
+	public CollectionType getCollectionType() {
+		return collectionType;
+	}
+
+	public void setCollectionType(CollectionType collectionType) {
+		this.collectionType = collectionType;
+	}
 
 	public AppUser getUser() {
 		return user;
@@ -34,12 +61,12 @@ public class Collection {
 		this.user = user;
 	}
 
-	public ShopCommodity getShopCommoidty() {
-		return shopCommoidty;
+	public ShopCommodity getShopCommodity() {
+		return shopCommodity;
 	}
 
-	public void setShopCommoidty(ShopCommodity shopCommoidty) {
-		this.shopCommoidty = shopCommoidty;
+	public void setShopCommodity(ShopCommodity shopCommodity) {
+		this.shopCommodity = shopCommodity;
 	}
 
 	public Integer getId() {

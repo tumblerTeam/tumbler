@@ -24,12 +24,10 @@ import com.yc.entity.BlacklistType;
 import com.yc.entity.Shop;
 import com.yc.entity.ShopCommodity;
 import com.yc.entity.user.AppUser;
-import com.yc.entity.user.AppUser;
 import com.yc.service.IAppUserService;
 import com.yc.service.IBlacklistService;
 import com.yc.service.IShopCommodityService;
 import com.yc.service.IShopService;
-import com.yc.service.IAppUserService;
 
 //商家管理
 @Controller

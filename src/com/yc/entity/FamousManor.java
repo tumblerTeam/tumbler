@@ -36,6 +36,9 @@ public class FamousManor {
 	@OneToMany(mappedBy = "famousManor")
 	private List<FamousManorAndShop> famousManorAndShops;
 	
+	@OneToMany(mappedBy = "famousManor")
+	private List<ShopCommodity> shopCommoidties;
+	
 	public String getTitle() {
 		return title;
 	}

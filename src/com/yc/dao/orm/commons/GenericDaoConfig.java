@@ -4,11 +4,15 @@ package com.yc.dao.orm.commons;
 import org.springframework.context.annotation.*;
 
 import com.yc.entity.Address;
+import com.yc.entity.Activity;
+import com.yc.entity.ActivityStyle;
+import com.yc.entity.AddressDivision;
 import com.yc.entity.AdvertiseDistribution;
 import com.yc.entity.Advertisement;
 import com.yc.entity.Blacklist;
 import com.yc.entity.Brand;
-import com.yc.entity.CarCommoidty;
+import com.yc.entity.BuyCar;
+import com.yc.entity.CarCommodity;
 import com.yc.entity.Collection;
 import com.yc.entity.Commodity;
 import com.yc.entity.Currency;
@@ -16,7 +20,6 @@ import com.yc.entity.Delivery;
 import com.yc.entity.DeliveryAddress;
 import com.yc.entity.FamousManor;
 import com.yc.entity.FamousManorAndShop;
-import com.yc.entity.ImagePath;
 import com.yc.entity.News;
 import com.yc.entity.OrderForm;
 import com.yc.entity.OrderGroup;
@@ -25,7 +28,7 @@ import com.yc.entity.Shop;
 import com.yc.entity.ShopCategory;
 import com.yc.entity.ShopCommImage;
 import com.yc.entity.ShopCommodity;
-import com.yc.entity.ShopCommoidtySpecs;
+import com.yc.entity.ShopCommoditySpecs;
 import com.yc.entity.ShopReviews;
 import com.yc.entity.Specifications;
 import com.yc.entity.user.DepartAndPositions;
@@ -50,8 +53,8 @@ public class GenericDaoConfig {
     	return new GenericDaoSupport<Brand>(Brand.class);
     }
     @Bean
-    public GenericDao<CarCommoidty> getCarCommoidtyDao() {
-    	return new GenericDaoSupport<CarCommoidty>(CarCommoidty.class);
+    public GenericDao<CarCommodity> getCarCommoidtyDao() {
+    	return new GenericDaoSupport<CarCommodity>(CarCommodity.class);
     }
     @Bean
     public GenericDao<Collection> getCollectionDao() {
@@ -68,10 +71,6 @@ public class GenericDaoConfig {
     @Bean
     public GenericDao<DeliveryAddress> getDeliveryAddressDao() {
     	return new GenericDaoSupport<DeliveryAddress>(DeliveryAddress.class);
-    }
-    @Bean
-    public GenericDao<ImagePath> getImagePathDao() {
-    	return new GenericDaoSupport<ImagePath>(ImagePath.class);
     }
     @Bean
     public GenericDao<OrderForm> getOrderFormDao() {
@@ -94,8 +93,8 @@ public class GenericDaoConfig {
     	return new GenericDaoSupport<ShopCommodity>(ShopCommodity.class);
     }
     @Bean
-    public GenericDao<ShopCommoidtySpecs> getShopCommoidtySpecsDao() {
-    	return new GenericDaoSupport<ShopCommoidtySpecs>(ShopCommoidtySpecs.class);
+    public GenericDao<ShopCommoditySpecs> getShopCommoidtySpecsDao() {
+    	return new GenericDaoSupport<ShopCommoditySpecs>(ShopCommoditySpecs.class);
     }
     @Bean
     public GenericDao<ShopReviews> getShopReviewsDao() {
@@ -154,8 +153,23 @@ public class GenericDaoConfig {
     	return new GenericDaoSupport<Package>(Package.class);
     }
     
+    public GenericDao<Activity> getActivityDao() {
+    	return new GenericDaoSupport<Activity>(Activity.class);
+    }
+    @Bean
+    public GenericDao<ActivityStyle> getActivityStyleDao() {
+    	return new GenericDaoSupport<ActivityStyle>(ActivityStyle.class);
+    }
     @Bean
     public GenericDao<Address> getAddressDao() {
     	return new GenericDaoSupport<Address>(Address.class);
+    }
+    @Bean
+    public GenericDao<AddressDivision> getAddressDivisionDao() {
+    	return new GenericDaoSupport<AddressDivision>(AddressDivision.class);
+    }
+    @Bean
+    public GenericDao<BuyCar> getBuyCarDao() {
+    	return new GenericDaoSupport<BuyCar>(BuyCar.class);
     }
 }

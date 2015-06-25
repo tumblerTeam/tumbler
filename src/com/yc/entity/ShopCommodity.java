@@ -2,6 +2,7 @@ package com.yc.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -9,9 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import com.yc.entity.user.AppUser;
 
 @Entity
 @DiscriminatorValue("shopCommoidty")//商品表
@@ -27,19 +31,28 @@ public class ShopCommodity {
 	private String commItem;// 货号
 	
 	@Column
+	private Integer salesVolume; //销量
+	
+	@Column
 	private String supplier ;//供应商
 	
-	@OneToMany(mappedBy = "shopCommSpecs")
-	private List<ShopCommoidtySpecs> commsPecs;
+	@OneToOne(mappedBy = "shopCommSpecs")
+	private ShopCommoditySpecs commsPecs;
+	
+	@OneToMany(mappedBy = "shopCommodity")
+	private List<Commodity> commodities;
 	
 	@Column
 	private Integer proportion = 1;//显示比例
 	
 	@Column
-	private Float  unitPrice =0f;//单价
+	private Float unitPrice =0f;//单价
 	
 	@Column
-	private Float  groupPrice =0f;//团购单价
+	private Float specialPrice =0f;//活动价
+	
+	@Column
+	private Boolean isAcitvity=false;//是否参加活动
 	
 	@Column
 	private Integer stock = 1 ;//库存总数量
@@ -51,7 +64,7 @@ public class ShopCommodity {
 	private Boolean shelves =true;//是否上架
 	
 	@Column
-	private Boolean isSpecial =false;//是否折扣
+	private Boolean isSpecial=false;//是否折扣
 	
 	@Column
 	private Float  special  = 1f;//打几折
@@ -64,11 +77,15 @@ public class ShopCommodity {
 	private  Boolean iscChoice = false;//是否精品
 	
 	@Column
-	private  Boolean auction =false;//是否团购
+	private  Boolean auction =false;//是否拍卖
 	
 	@ManyToOne
 	@JoinColumn(name = "shopCategory_id")
 	private ShopCategory shopCategory;//商品类别表
+	
+	@ManyToOne
+	@JoinColumn(name = "famousManor_id")
+	private FamousManor famousManor;//名庄
 	
 	@ManyToOne
 	@JoinColumn(name = "brand_id")
@@ -78,7 +95,7 @@ public class ShopCommodity {
 	@JoinColumn(name = "shop_id")
 	private Shop belongTo;//商品所属店面
 	
-	@OneToOne(mappedBy = "shopCommoidty" )
+	@OneToOne(mappedBy = "shopCommodity" )
 	private Collection collection;
 
 	@OneToMany(mappedBy = "shopCommoidty")
@@ -86,6 +103,9 @@ public class ShopCommodity {
 	
 	@Column
 	private String describes;//描述
+	
+	@Column
+	private Integer activityAmount;//参加活动的数目
 
 	@OneToOne
 	@JoinColumn(name = "blacklist_id")
@@ -105,20 +125,66 @@ public class ShopCommodity {
 	@JoinColumn(name = "famAndShop_id")
 	private FamousManorAndShop famousManorAndShop;//名庄
 	
-	public Float getGroupPrice() {
-		return groupPrice;
+	@OneToMany(mappedBy = "shopCommodity")
+	private List<CarCommodity> carCommodities  ;//购物车商品
+	
+	@ManyToOne
+	@JoinColumn(name="activity_id")
+	private Activity activity;//活动
+	
+	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
+	@JoinTable(name = "AppUser_shopCommodity",   
+     joinColumns ={@JoinColumn(name = "shopCommodity_ID", referencedColumnName = "commCode") },   
+     inverseJoinColumns = { @JoinColumn(name = "appUser_ID", referencedColumnName = "id") })  
+	private List<AppUser> users  ;//团购商品的用户集合
+	
+	@Column
+	private String link;
+	
+	@ManyToOne
+	@JoinColumn(name="advertisement_id")
+	private Advertisement advertisement;//广告
+	
+	@Column
+	private String actityImage;
+	
+	public FamousManor getFamousManor() {
+		return famousManor;
 	}
 
-	public void setGroupPrice(Float groupPrice) {
-		this.groupPrice = groupPrice;
+	public void setFamousManor(FamousManor famousManor) {
+		this.famousManor = famousManor;
 	}
-	
+
+	public String getActityImage() {
+		return actityImage;
+	}
+
+	public void setActityImage(String actityImage) {
+		this.actityImage = actityImage;
+	}
+
+	public Integer getSalesVolume() {
+		return salesVolume;
+	}
+
+	public void setSalesVolume(Integer salesVolume) {
+		this.salesVolume = salesVolume;
+	}
+
 	public FamousManorAndShop getFamousManorAndShop() {
 		return famousManorAndShop;
 	}
 
 	public void setFamousManorAndShop(FamousManorAndShop famousManorAndShop) {
 		this.famousManorAndShop = famousManorAndShop;
+	}
+	
+	public List<CarCommodity> getCarCommodities() {
+		return carCommodities;
+	}
+	public void setCarCommodities(List<CarCommodity> carCommodities) {
+		this.carCommodities = carCommodities;
 	}
 
 	public String getRussinaCommoidtyName() {
@@ -168,14 +234,15 @@ public class ShopCommodity {
 	public void setStock(Integer stock) {
 		this.stock = stock;
 	}
-
-	public List<ShopCommoidtySpecs> getCommsPecs() {
+     
+	public ShopCommoditySpecs getCommsPecs() {
 		return commsPecs;
 	}
-  
-	public void setCommsPecs(List<ShopCommoidtySpecs> commsPecs) {
+
+	public void setCommsPecs(ShopCommoditySpecs commsPecs) {
 		this.commsPecs = commsPecs;
 	}
+
 	public Currency getCurrency() {
 		return currency;
 	}
@@ -318,5 +385,68 @@ public class ShopCommodity {
 	public void setCollection(Collection collection) {
 		this.collection = collection;
 	}
-	
+
+	public Float getSpecialPrice() {
+		return specialPrice;
+	}
+
+	public void setSpecialPrice(Float specialPrice) {
+		this.specialPrice = specialPrice;
+	}
+
+	public Boolean getIsAcitvity() {
+		return isAcitvity;
+	}
+
+	public void setIsAcitvity(Boolean isAcitvity) {
+		this.isAcitvity = isAcitvity;
+	}
+
+	public Activity getActivity() {
+		return activity;
+	}
+
+	public void setActivity(Activity activity) {
+		this.activity = activity;
+	}
+
+	public Integer getActivityAmount() {
+		return activityAmount;
+	}
+
+	public void setActivityAmount(Integer activityAmount) {
+		this.activityAmount = activityAmount;
+	}
+
+	public List<AppUser> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<AppUser> users) {
+		this.users = users;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
+	public List<Commodity> getCommodities() {
+		return commodities;
+	}
+
+	public void setCommodities(List<Commodity> commodities) {
+		this.commodities = commodities;
+	}
+
+	public Advertisement getAdvertisement() {
+		return advertisement;
+	}
+
+	public void setAdvertisement(Advertisement advertisement) {
+		this.advertisement = advertisement;
+	}
 }

@@ -1,5 +1,6 @@
 package com.yc.controller.management;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,15 +16,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yc.entity.AdvertiseDistribution;
 import com.yc.entity.Advertisement;
 import com.yc.entity.AnnounType;
 import com.yc.entity.News;
+import com.yc.entity.ShopCommodity;
 import com.yc.service.IAdvertisementDistributionService;
 import com.yc.service.IAdvertisementService;
 import com.yc.service.INewsService;
+import com.yc.service.IShopCommodityService;
 
 //公告管理
 @Controller
@@ -40,6 +45,9 @@ public class AnnounManageController {
 	
 	@Autowired
 	IAdvertisementService advertisementService;
+	
+	@Autowired
+	IShopCommodityService shopCommodityService;
 
 	/**
 	 * 查看所有公告
@@ -214,5 +222,153 @@ public class AnnounManageController {
 		List<Advertisement> advertisements = advertisementService.getAll();
 		mode.put("adverlist", advertisements);
 		return new ModelAndView("management/advertisement", mode);
+	}
+	
+
+	@RequestMapping(value = "deleteAdvertisement", method = RequestMethod.GET)
+	public String deleteAdvertisement(Integer id, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Advertisement advertisement = advertisementService.findById(id);
+		if (advertisement != null) {
+			ShopCommodity commodity = advertisement.getCommodity();
+			if(commodity != null){
+				commodity.setActityImage(null);
+				commodity.setAdvertisement(null);
+				shopCommodityService.update(commodity);
+			}
+		}
+		advertisementService.delete(id);
+		return "redirect:/management/advertisement";
+	}
+	
+	@RequestMapping(value = "showAddAdvertisement", method = RequestMethod.GET)
+	public ModelAndView showAddAdvertisement(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		ModelMap mode = new ModelMap();		
+		List<String> list = distributionService.getDistinctWhichPage();	
+		mode.put("list", list);
+		mode.put("method", "add");
+		
+		return new ModelAndView("management/addAdvertisement", mode);
+	}
+	
+	@RequestMapping(value = "showUpdateAdvertisement", method = RequestMethod.GET)
+	public ModelAndView showUpdateAdvertisement(Integer id,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ModelMap mode = new ModelMap();		
+		Advertisement advertisement = advertisementService.findById(id);
+		List<String> list = distributionService.getDistinctWhichPage();
+		mode.put("list", list);
+		mode.put("method", "update");
+		mode.put("advertisement", advertisement);
+		return new ModelAndView("management/addAdvertisement", mode);
+	}
+	
+	@RequestMapping(value = "addAdvertisement", method = RequestMethod.POST)
+	public String addAdvertisement(@RequestParam("imagePath") MultipartFile imagePath,Integer commID, String link, Float expenditure, Float income, 
+			String startDate, Integer during, String whichPage, Integer position,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ShopCommodity shopCommodity = shopCommodityService.findById(commID);
+		if(shopCommodity.getAdvertisement() == null){
+			AdvertiseDistribution advertiseDistribution = distributionService.findByWhichPageAndPosition(whichPage,position);	
+			if(advertiseDistribution != null){
+				List<Advertisement> advertisements = advertiseDistribution.getAdvertisementList();
+				if(advertisements.size()<=advertiseDistribution.getNum()){
+					String name = imagePath.getOriginalFilename();
+					String pathDir = "content/static/img/actityImage/";
+					if (!name.equals("")) {
+						String logoRealPathDir = request.getSession().getServletContext().getRealPath(pathDir);
+						File file1 = new File(logoRealPathDir);
+						if (!file1.exists())
+							file1.mkdirs();
+						File file = new File(logoRealPathDir, name);
+						if (file.getParentFile() == null)
+							file.mkdirs();
+						imagePath.transferTo(file);
+						Advertisement advertisement = new Advertisement();
+						if ( expenditure != null ) {
+							advertisement.setExpenditure(expenditure);
+						}
+						if ( income != null ) {
+							advertisement.setIncome(income);
+						}
+						if ( during != null ) {
+							advertisement.setDuring(during);
+						}
+						advertisement.setLink(link);		
+						advertisement.setStartDate(startDate);		
+						advertisement.setAdverDistribution(advertiseDistribution);
+						advertisement = advertisementService.save(advertisement);
+						shopCommodity.setActityImage(pathDir+name);
+						shopCommodity.setAdvertisement(advertisement);
+						shopCommodity = shopCommodityService.update(shopCommodity);
+						advertisement.setCommodity(shopCommodity);
+						advertisements.add(advertisement);
+					}
+				}
+				advertiseDistribution.setAdvertisementList(advertisements);
+				distributionService.update(advertiseDistribution);
+			}
+		}
+		return "redirect:/management/advertisement";
+	}
+	
+	@RequestMapping(value = "updateAdvertisement", method = RequestMethod.POST)
+	public String updateAdvertisement(@RequestParam("imagePath") MultipartFile imagePath,Integer id,Integer commID, String link, Float expenditure, Float income, 
+			String startDate, Integer during, String whichPage, Integer position,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		AdvertiseDistribution advertiseDistribution = distributionService.findByWhichPageAndPosition(whichPage,position);	
+		if(advertiseDistribution != null){
+			List<Advertisement> advertisements = advertiseDistribution.getAdvertisementList();
+			if(advertisements.size()<=advertiseDistribution.getNum()){
+				String name = imagePath.getOriginalFilename();
+				String pathDir = "content/static/img/actityImage/";
+				if (!name.equals("")) {
+					Advertisement advertisement = advertisementService.findById(id);
+					if(advertisement != null){
+						String logoRealPathDir = request.getSession().getServletContext().getRealPath(pathDir);
+						File file1 = new File(logoRealPathDir);
+						if (!file1.exists())
+							file1.mkdirs();
+						File file = new File(logoRealPathDir, name);
+						if (file.getParentFile() == null)
+							file.mkdirs();
+						imagePath.transferTo(file);
+						if(commID != null && !commID.equals("")){
+							if(advertisement.getCommodity().getCommCode() == commID){
+								ShopCommodity commodity = advertisement.getCommodity();
+								if(commodity !=null){
+									commodity.setActityImage(pathDir+name);
+									shopCommodityService.update(commodity);
+								}
+							}else{
+								ShopCommodity commodity = advertisement.getCommodity();
+								commodity.setActityImage(null);
+								commodity.setAdvertisement(null);
+								shopCommodityService.update(commodity);
+								commodity = shopCommodityService.findById(commID);
+								commodity.setActityImage(pathDir+name);
+								commodity.setAdvertisement(advertisement);
+								commodity = shopCommodityService.update(commodity);
+								advertisement.setCommodity(commodity); 
+							}
+						}
+						if ( expenditure != null ) {
+							advertisement.setExpenditure(expenditure);
+						}
+						if ( income != null ) {
+							advertisement.setIncome(income);
+						}
+						if ( during != null ) {
+							advertisement.setDuring(during);
+						}
+						advertisement.setLink(link);		
+						advertisement.setStartDate(startDate);		
+						advertisement.setAdverDistribution(advertiseDistribution);
+						advertisement = advertisementService.update(advertisement);
+						advertisements.add(advertisement);
+					}
+				}
+			}
+			advertiseDistribution.setAdvertisementList(advertisements);
+			distributionService.update(advertiseDistribution);
+		}
+		return "redirect:/management/advertisement";
+
 	}
 }
