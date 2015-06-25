@@ -69,13 +69,13 @@
 						<li style="text-align: center; line-height: 100px;">￥<fmt:formatNumber
 								value="${carCommodity.shopCommodity.unitPrice }" pattern="##.##"
 								minFractionDigits="2"></fmt:formatNumber></li>
-						<li style="width: 160px"><a href="#"><img
+						<li style="width: 160px"><a href="javascript:void(0);"><img
 								src="content/static/images/jianhao.png"
 								style="float: left; margin-top: 45px; margin-left: 30px; margin-right: 5px;" /></a>
 							<form style="float: left;">
 								<input style="width: 50px; margin-top: 42px" id="amount${loop.index }" onchange="onchangeAmount(this,${loop.index });"
 									value="${carCommodity.amount }" />
-							</form> <a href="#"><img src="content/static/images/jiahao.png"
+							</form> <a href="javascript:void(0);"><img src="content/static/images/jiahao.png"
 								style="float: left; margin-top: 45px; margin-left: 5px;" /></a></li>
 						<li style="text-align: center; line-height: 100px;">￥<fmt:formatNumber
 								value="${carCommodity.unitPrice }" pattern="##.##"
@@ -113,17 +113,24 @@
 				<a href="javascript:void(0);" onclick="orderConfirm();"><div class="btn">去结算</div></a>
 			</div>
 		</div>
+		<form action="user/orderConfirm" id="formConfirm" method="post">
+			<input type="hidden" name="params" id="params" value=""/>
+		</form>
 		<script type="text/javascript">
 			function orderConfirm(){
 				var nums = "";
 				 $("input[name='select']").each(function(){
 					 if(this.checked){
 						 var num = $(this).val().split(',')[0];
-						 alert($('#amount'+$(this).val().split(',')[1]).val());
-						 nums = nums + num + ",";
+						 nums = nums + num + "-" + $('#amount'+$(this).val().split(',')[1]).val()+",";
 					 }
 				 });
-				 
+				 $('#params').val(nums);
+				 if($('#params').val() != ''){
+					 $('#formConfirm').submit();
+				 }else{
+					 alert('您还没有选择商品呢！');
+				 }
 			}
 			$("#allselect").click(function(){
 			    if(this.checked){
@@ -149,11 +156,8 @@
 			});
 			function onclickCheck(obj){
 				var zhong = $('#zhongjinge').val();
-				alert(zhong);
 				var num = obj.value.split(',')[1];
 				if(obj.checked){
-					alert(num);
-					alert($('#price'+num).val());
 				    zhong = parseFloat(zhong) + parseFloat($('#price'+num).val());
 				}else{
 		            zhong = parseFloat(zhong) - parseFloat($('#price'+num).val());
@@ -162,26 +166,20 @@
 			    $('#zong').html("￥"+zhong.toFixed(2));
 			}
 
-			$(function() {
-				 $("input[name='select'][checked]").each(function(){
-			           alert($(this).val());
-			      });
-			});
 			function onchangeAmount(obj,index){
 				var price = $('#unitPrice'+index).val();
 				var num = obj.value;
 				$('#price'+index).val(parseFloat(price)*num);
 				var pri = parseFloat(price)*num;
 				$('#displayPrice'+index).html("￥"+pri.toFixed(2));
-				var zhong = $('#zhongjinge').val();
+				shuaxin();
+			}
+			function shuaxin(){
+				var zhong = 0;
 				$("input[name='select']").each(function(){
-					var num = this.val().split(',')[1];
-					alert(num);
 					if(this.checked){
-						alert($('#price'+num).val());
-					    zhong = parseFloat(zhong) + parseFloat($('#price'+num).val());
-					}else{
-			            zhong = parseFloat(zhong) - parseFloat($('#price'+num).val());
+						var num = $(this).val().split(',')[1];
+						zhong = parseFloat(zhong) + parseFloat($('#price'+num).val());
 					}
 		        });
 				$('#zhongjinge').val(zhong);

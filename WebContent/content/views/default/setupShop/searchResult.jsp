@@ -126,7 +126,6 @@ function setTab(name,m,n){
     </div>
 </div>
 <!--脚部-->
-<jsp:include page="setupShopCommons/footer.jsp"/>
-
+<jsp:include page="../frontDesk/foot.jsp"/>
 </body>
 </html>

@@ -16,7 +16,7 @@
             <div class="text">
             	<form>
                 	<input type="search" class="box" name="search1" />
-                    <input type="image" class="img" src="content/static/img/search_text.jpg" name="image" />
+                    <input type="image" class="img" src="content/static/images/search_text.jpg" name="image" />
                 </form>
             </div>
         </div>
@@ -34,13 +34,13 @@
         </div>
         <div class="left_nav">
         		<div class="box">
-                	<h4 onClick="f1(this,son1)"><img src="content/static/img/zk.png"/><span>店铺管理</span></h4>
+                	<h4 onClick="f1(this,son1)"><img src="content/static/images/zk.png"/><span>店铺管理</span></h4>
                     <ul id="son1">
                     	<li><a href="proscenium/openShop">我要开店</a></li>
                     </ul>
                 </div>
                 <div class="box">
-                	<h4 onClick="f1(this,son2)"><img src="content/static/img/zk.png"/><span>交易管理</span></h4>
+                	<h4 onClick="f1(this,son2)"><img src="content/static/images/zk.png"/><span>交易管理</span></h4>
                     <ul  id="son2">
                     	<li><a href="proscenium/soldComm">已卖出的商品</a></li>
                         <li><a href="proscenium/evaluationManage">评价管理</a></li>
@@ -49,7 +49,7 @@
                 </div>
                
                 <div class="box">
-                	<h4 onClick="f1(this,son4)"><img src="content/static/img/zk.png"/><span>商品管理</span></h4>
+                	<h4 onClick="f1(this,son4)"><img src="content/static/images/zk.png"/><span>商品管理</span></h4>
                     <ul  id="son4">
                     	<li><a href="proscenium/releaseCommoidty">发布商品</a></li>
                         <li><a href="proscenium/chushou?flag=1">出售中的商品</a></li>

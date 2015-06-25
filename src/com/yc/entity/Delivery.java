@@ -6,10 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-
-import com.yc.entity.user.AppUser;
 
 @Entity
 @DiscriminatorValue("delivery")
@@ -20,13 +18,56 @@ public class Delivery {
 	private Integer id;
 	
 	@Column
-	private String deliveryName;
+	private String deliveryName;//运输方式  EMS 圆通  顺风 
 	
 	@OneToOne(mappedBy = "delivery")
 	private OrderForm orderForm;
 	
-	@OneToOne(mappedBy = "delivery")
-	private Package packages;
+	@OneToOne
+	@JoinColumn(name = "address_id")
+	private DeliveryAddress address;//交付地址
+
+	@Column
+	private Float deliveryMoney;//运输费
+	
+	@Column
+	private String endorse;//背书
+	
+	@Column(unique=true)
+	private String packAgeTpek;
+
+	public DeliveryAddress getAddress() {
+		return address;
+	}
+
+	public void setAddress(DeliveryAddress address) {
+		this.address = address;
+	}
+
+	public Float getDeliveryMoney() {
+		return deliveryMoney;
+	}
+
+	public void setDeliveryMoney(Float deliveryMoney) {
+		this.deliveryMoney = deliveryMoney;
+	}
+
+	public String getPackAgeTpek() {
+		return packAgeTpek;
+	}
+
+	public void setPackAgeTpek(String packAgeTpek) {
+		this.packAgeTpek = packAgeTpek;
+	}
+
+	public String getEndorse() {
+		return endorse;
+	}
+
+	public void setEndorse(String endorse) {
+		this.endorse = endorse;
+	}
+
 	public OrderForm getOrderForm() {
 		return orderForm;
 	}

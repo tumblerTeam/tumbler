@@ -23,7 +23,6 @@ import com.yc.entity.FamousManorAndShop;
 import com.yc.entity.News;
 import com.yc.entity.OrderForm;
 import com.yc.entity.OrderGroup;
-import com.yc.entity.Package;
 import com.yc.entity.Shop;
 import com.yc.entity.ShopCategory;
 import com.yc.entity.ShopCommImage;
@@ -152,7 +151,7 @@ public class GenericDaoConfig {
     public GenericDao<Package> getPackageDao() {
     	return new GenericDaoSupport<Package>(Package.class);
     }
-    
+    @Bean
     public GenericDao<Activity> getActivityDao() {
     	return new GenericDaoSupport<Activity>(Activity.class);
     }

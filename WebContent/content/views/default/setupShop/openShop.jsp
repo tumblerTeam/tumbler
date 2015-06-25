@@ -45,7 +45,7 @@
             	<ul>
                 	<li>
                     	<div class="box_class">
-                            <img src="content/static/img/b1.png" />
+                            <img src="content/static/images/b1.png" />
                             <div>
                                 <p>开店类型选择</p>
                                 <p style="color:#ccc;">个人店铺 企业店铺</p>
@@ -54,7 +54,7 @@
                     </li>
                     <li>
                     	<div class="box_class" style="width:240px;">
-                            <img src="content/static/img/b2.png"  style="margin-left:0px;" />
+                            <img src="content/static/images/b2.png"  style="margin-left:0px;" />
                             <div style="margin-right:0px;">
                                 <p>申请开店认证</p>
                                 <p style="color:#ccc;">需提供认证相关资料，等待审核通过</p>
@@ -63,7 +63,7 @@
                     </li>
                     <li style="border-right:none;">
                     	<div class="box_class">
-                            <img src="content/static/img/b3.png" />
+                            <img src="content/static/images/b3.png" />
                             <div>
                                 <p>创建开店成功</p>
                                 <p style="color:#ccc;">店铺开通后完善店铺信息</p>
@@ -77,7 +77,7 @@
                 <a href="guize.html"><div class="xx1">开店规则必看>></div></a>
                 <ul>
                 	<li>
-                    	<img src="content/static/img/geren.png" /> 
+                    	<img src="content/static/images/geren.png" /> 
                         <div  class="box1">
                         	<h4>个人店铺权益</h4>
                              <hr style="border-style:dashed; border-color:#666;" />
@@ -88,7 +88,7 @@
                         <a href="proscenium/open_geren"><div class="btn">个人开店</div></a>
                     </li>
                     <li>
-                    	<img src="content/static/img/qiye.png" />
+                    	<img src="content/static/images/qiye.png" />
                          <div  class="box1">
                          	<h4>企业店铺权益</h4>
                             <hr style="border-style:dashed; border-color:#666;" />
@@ -106,7 +106,7 @@
     </div>
 </div>
 <!-- 页脚部分 -->
-<jsp:include page="setupShopCommons/footer.jsp"/>
+<jsp:include page="../frontDesk/foot.jsp"/>
 
 </body>
 </html>

@@ -2,9 +2,7 @@ package com.yc.controller.proscenium;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -31,7 +29,6 @@ import com.yc.entity.Currency;
 import com.yc.entity.FamousManor;
 import com.yc.entity.OrderForm;
 import com.yc.entity.OrderStatus;
-import com.yc.entity.Package;
 import com.yc.entity.Shop;
 import com.yc.entity.ShopCategory;
 import com.yc.entity.ShopCommImage;
@@ -51,7 +48,6 @@ import com.yc.service.ICommodityService;
 import com.yc.service.ICurrencyService;
 import com.yc.service.IFamousManorService;
 import com.yc.service.IOrderFormService;
-import com.yc.service.IPackageService;
 import com.yc.service.IShopCategoryService;
 import com.yc.service.IShopCommImageService;
 import com.yc.service.IShopCommodityService;
@@ -87,9 +83,6 @@ public class ShopOneController {
 	IBrandService brandService;// 品牌
 
 	@Autowired
-	IPackageService packageService; // 包裹
-	
-	@Autowired
 	IShopReviewsService reviewsService; //评论
 	
 	@Autowired
@@ -121,6 +114,12 @@ public class ShopOneController {
 	
 	@Autowired
 	IFamousManorService famousManorService; //名庄
+	
+	@Autowired
+	ICarCommodityService carCommodityService;
+
+	@Autowired
+	IBuyCarService buyCarService;
 	
 	//免费开店
 	@RequestMapping("openShop")
@@ -493,18 +492,10 @@ public class ShopOneController {
 		String totalWeight = req.getParameter("totalWeight");
 		String grossWeight = req.getParameter("grossWeight");
 		String transportFee = req.getParameter("transportFee");
-		Package package1 = new com.yc.entity.Package();
-		package1.setPackageCode(packageCode);
-		package1.setTotalWeight(Double.parseDouble(totalWeight));
-		package1.setGrossWeight(Double.parseDouble(grossWeight));
-		package1.setTransportFee(Float.parseFloat(transportFee));
 		//创建日期：
 		Date date = new Date();
-		package1.setSendDate(date.toLocaleString());
-		packageService.save(package1);
 		OrderForm orderForm = orderFormService.findById(orderFormID);
 		orderForm.setOrderstatus(OrderStatus.transitGoods);
-		orderForm.setPackAge(package1);
 		orderFormService.update(orderForm);
 		return new ModelAndView("setupShop/deliveryComm",mode);
 	}
@@ -974,12 +965,6 @@ public class ShopOneController {
 		mode.put("shopCategories", list);
 		return mode;
 	}
-
-	@Autowired
-	ICarCommodityService carCommodityService;
-
-	@Autowired
-	IBuyCarService buyCarService;
 
 	// 购物Item
 	@RequestMapping(value = "shopItem", method = RequestMethod.GET)

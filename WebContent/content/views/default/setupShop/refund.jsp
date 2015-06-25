@@ -141,7 +141,7 @@ function setTab(name,m,n){
 </div>
 
 <!--脚部-->
-<jsp:include page="setupShopCommons/footer.jsp"/>
+<jsp:include page="../frontDesk/foot.jsp"/>
 <script type="text/javascript"> 
 function setTab(name,m,n){ 
 		for( var i=1;i<=n;i++){ 
