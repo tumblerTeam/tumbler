@@ -659,7 +659,60 @@ public class ShopOneController {
 		
 		return new ModelAndView("redirect:accountManage",mode);
 	}
-	
+	//修改一条收货信息
+	@RequestMapping("modAddress")
+	public ModelAndView modAddress(HttpServletRequest req){
+		ModelMap mode = new ModelMap();
+		/**
+		 * 以下两句为模拟shop，表示已经存在shop对象。
+		 */
+		Shop shop = shopService.findById(1);
+		req.getSession().setAttribute("shop", shop);
+		mode.put("shop", shop);
+		Integer aid = Integer.parseInt(req.getParameter("aid"));
+		Address address = addressService.findById(aid);
+		String toName = req.getParameter("toName");
+		String toEmail = req.getParameter("toEmail");
+		String street = req.getParameter("street");
+		String phone = req.getParameter("phone");
+		String province = req.getParameter("province");
+		String city = req.getParameter("city");
+		String area = req.getParameter("area");
+		String defaults = req.getParameter("default");
+		address.setToEmail(toEmail);
+		address.setToName(toName);
+		address.setStreet(street);
+		address.setPhone(phone);
+		address.setProvience(province);
+		address.setCity(city);
+		address.setDistrict(area);
+		if (defaults!=null) {
+			address.setTheDefault(true);
+		}else {
+			address.setTheDefault(false);
+		}
+		address.setUser(shop.getUser());
+		addressService.save(address);
+		List<Address> addresses = addressService.getAll();
+		mode.put("addresses", addresses);
+		return new ModelAndView("redirect:accountManage",mode);
+	}
+	//删除一条收货地址信息
+	@RequestMapping("delAddress")
+	public ModelAndView delAddress(HttpServletRequest req){
+		ModelMap mode = new ModelMap();
+		/**
+		 * 以下两句为模拟shop，表示已经存在shop对象。
+		 */
+		Shop shop = shopService.findById(1);
+		req.getSession().setAttribute("shop", shop);
+		mode.put("shop", shop);
+		Integer aid = Integer.parseInt(req.getParameter("aid"));
+		addressService.delete(aid);
+		List<Address> addresses = addressService.getAll();
+		mode.put("addresses", addresses);
+		return new ModelAndView("redirect:accountManage",mode);
+	}
 	//1.填写个人开店个人信息
 	@RequestMapping("setupPeronShop")
 	public String setupPeronShop(@RequestParam MultipartFile [] myfile ,HttpServletRequest req , HttpServletResponse resp) throws IOException{
