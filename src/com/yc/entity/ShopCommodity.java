@@ -120,13 +120,13 @@ public class ShopCommodity {
 	
 	@Column
 	private String russinaDescribes;
-	
-	@OneToMany(mappedBy = "shopCommodity")
-	private List<CarCommodity> carCommodities  ;//购物车商品
-	
+
 	@ManyToOne
 	@JoinColumn(name = "famAndShop_id")
 	private FamousManorAndShop famousManorAndShop;//名庄
+	
+	@OneToMany(mappedBy = "shopCommodity")
+	private List<CarCommodity> carCommodities  ;//购物车商品
 	
 	@ManyToOne
 	@JoinColumn(name="activity_id")

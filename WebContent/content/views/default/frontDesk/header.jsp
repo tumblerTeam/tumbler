@@ -49,7 +49,7 @@
 <div class="header">
 	<div class="header_box">
 		<ul class="header_nav">
-			<li class="nav1"><a href="#"><img
+			<li class="nav1"><a href="proscenium/openShop"><img
 					src="content/static/images/header_hot.jpg" />免费开店</a></li>
 			<li class="nav2"><a href="javascript:void(0);" onclick="harf();">快速注册</a>
 			</li>

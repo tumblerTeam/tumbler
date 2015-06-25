@@ -3,9 +3,9 @@ package com.yc.dao.orm.commons;
 
 import org.springframework.context.annotation.*;
 
+import com.yc.entity.Address;
 import com.yc.entity.Activity;
 import com.yc.entity.ActivityStyle;
-import com.yc.entity.Address;
 import com.yc.entity.AddressDivision;
 import com.yc.entity.AdvertiseDistribution;
 import com.yc.entity.Advertisement;
@@ -146,6 +146,10 @@ public class GenericDaoConfig {
     @Bean
     public GenericDao<Advertisement> getAdvertisementDao() {
     	return new GenericDaoSupport<Advertisement>(Advertisement.class);
+    }
+    @Bean
+    public GenericDao<Package> getPackageDao() {
+    	return new GenericDaoSupport<Package>(Package.class);
     }
     @Bean
     public GenericDao<Activity> getActivityDao() {

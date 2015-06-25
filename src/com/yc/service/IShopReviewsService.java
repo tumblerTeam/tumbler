@@ -19,5 +19,14 @@ public interface IShopReviewsService extends IGenericService<ShopReviews> {
 	 * @return
 	 */
 	public List<ShopReviews> getReviewsByShop(Integer id);
+	
+	/**
+	 * 通过用户ID查询商家对用户的所有评论
+	 */
+	public List<ShopReviews> getReviewsByUser(Integer id);
+	/**
+	 * 得到从最近一周、一个月、6个月、6个月前,好评、中评、差评
+	 */
+	public Integer[] getReviewsByDate(Integer weeks,Integer month,Integer shopID);
 
 }
