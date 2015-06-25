@@ -194,10 +194,10 @@
 										value="a59566c1-83f0-4a93-a0ca-c95e0d0ebb45" />
 									<div class="item item-fore1">
 										<label for="mobile" class="login-label name-label"></label> <input
-											id="mobile" type="text" class="itxt" name="phone"
+											id="mobile1" type="text" class="itxt" name="phone"
 											tabindex="1" autocomplete="off" placeholder="登录名：请输入手机号"
-											onblur="checkformname();" /> <span class="clear-btn"
-											id="sname"></span>
+											onblur="checkformname1();" /> <span class="clear-btn"
+											id="sname1"></span>
 									</div>
 									<input type="hidden" name="page" value="${page }">
 									<div class="item item-fore1" style="width: 150px;">
@@ -327,19 +327,41 @@
 				}
 			}
 		}
-		function get_mobile_code() {
-			$.ajax({
-				type : 'GET',
-				contentType : 'application/json',
-				url : 'verification/smsVerification?mobile='
-						+ jQuery.trim($('#mobile').val()),
-				dataType : 'json',
-				success : function(msg) {
-					if (msg.name == '提交成功') {
-						RemainTime();
-					}
+		var iosk = false;
+		function checkformname1() {
+			var fname = document.getElementById("mobile1");
+			var ftname = document.getElementById("sname1");
+			if (fname.value == "" || fname.value.length != 11) {
+				ftname.className = "frred";
+				fname.focus();
+				ftname.innerHTML = "× 请输入11位手机号";
+			} else {
+				if (!/^[+|-]?\d+\.?\d*$/.test(fname.value) && fname.value != '') {
+					ftname.className = "frred";
+					fname.focus();
+					ftname.innerHTML = "x 手机号不可用!";
+				} else {
+					ftname.className = "fgren";
+					ftname.innerHTML = "√用户名可用!";
+					iosk = true;
 				}
-			});
+			}
+		}
+		function get_mobile_code() {
+			if(iosk == true){
+				$.ajax({
+					type : 'GET',
+					contentType : 'application/json',
+					url : 'verification/smsVerification?mobile='
+							+ jQuery.trim($('#mobile1').val()),
+					dataType : 'json',
+					success : function(msg) {
+						if (msg.name == '提交成功') {
+							RemainTime();
+						}
+					}
+				});
+			}
 		}
 		var iTime = 59;
 		var Account;
