@@ -24,7 +24,9 @@ public class LoginFilter implements Filter {
 
 	private boolean needLoginUser(HttpServletRequest request) {
 		String uri = request.getRequestURI();
-		if (uri.contains("/personalCenter") || uri.contains("/perscentBonuses") || uri.contains("/collection") || uri.contains("/buyCommodity") || uri.contains("/reCarCommodity") || uri.contains("/orderConfirm") || uri.contains("/orderGenerate")) {
+		if (uri.contains("/personalCenter") || uri.contains("/perscentBonuses") || uri.contains("/collection") 
+				|| uri.contains("/buyCommodity") || uri.contains("/reCarCommodity") || uri.contains("/orderConfirm") 
+				|| uri.contains("/orderGenerate")) {
 			return true;
 		}
 		return false;

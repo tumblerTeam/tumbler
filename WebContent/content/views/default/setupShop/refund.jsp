@@ -96,7 +96,7 @@ function setTab(name,m,n){
 	                      		<!--后期改 显示的是订单编号 -->
 	                      		<li>${o.orderFormID}</li>
 	                      		<c:forEach items="${o.commodities}" var="c">
-	                      			<li style="width:200px;">${c.nameOfGoods}</li>                           
+	                      			<li style="width:200px;">${c.shopCommodity.commoidtyName }</li>                           
 	                          	<li>${c.seller.shopName}</li> 
 	                           <li>${c.money}</li>
 	                           <!-- 退款金额后期改 -->
@@ -117,7 +117,7 @@ function setTab(name,m,n){
                       		<!--后期改 显示的是订单编号 -->
                       		<li>${o.orderFormID}</li>
                       		<c:forEach items="${o.commodities}" var="c">
-                      			<li style="width:200px;">${c.nameOfGoods}</li>                           
+                      			<li style="width:200px;">${c.shopCommodity.commoidtyName }</li>                           
                           	<li>${c.seller.shopName}</li> 
                            <li>${c.money}</li>
                            <!-- 退款金额后期改 -->
