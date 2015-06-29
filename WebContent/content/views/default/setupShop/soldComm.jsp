@@ -117,7 +117,7 @@ function setTab(name,m,n){
 		                		<c:forEach items="${o.commodities }" var="c">
 	                			<li style="width:250px; line-height:20px; text-align:left; float:left;">
 	                            <img src="images/quan.jpg" width="50px" height="40px" style="margin-left:15px;"/>
-	                            <div style="float:right; margin-right:20px;">${c.commItem }<br />${c.nameOfGoods }</div>
+	                            <div style="float:right; margin-right:20px;">${c.shopCommodity.commoidtyName }<br />1</div>
 		                        </li>
 		                        <li style="width:100px;">￥${c.price}</li>
 	                        	<li>${c.quantity }</li>
