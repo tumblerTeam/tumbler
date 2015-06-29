@@ -104,4 +104,10 @@ public interface IOrderFormService extends IGenericService<OrderForm>{
 	 * 通过 用户ID 查询退款订单：退款中的订单orderStatusRefunding、退款成功orderStatusRefundSuccess，退款失败orderStatusRefundfail
 	 */
 	List<OrderForm> getAllRefundByStatusUID(Map<String, Object> map,Integer userID);
+	
+	/**
+	 * 查询最新订单
+	 * @return
+	 */
+	OrderForm searchNewst();
 }

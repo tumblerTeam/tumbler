@@ -1,0 +1,391 @@
+.content {
+	width: 100%;
+	height:auto;
+	margin: 0px;
+	padding-bottom: 50px;
+	padding-top:30px;
+	position: relative;
+
+}
+.jw_box{
+	width:1200px;	
+	height:475px;
+	margin:0 auto;
+}
+.jw_box ul{
+	width:1198px;
+	height:473px;
+	border:1px solid #E6E6E6;
+}
+.list1{
+	width:439px;	
+	height:235px;
+	float:left;
+	border-right:1px solid #E6E6E6;
+	border-bottom:1px solid#E6E6E6;
+	overflow:hidden;
+}
+.list2{
+	width:219px;	
+	height:235px;
+	float:left;
+	border-right:1px solid #E6E6E6;
+	border-bottom:1px solid#E6E6E6;
+	overflow:hidden;
+	position:relative;
+	cursor:pointer;
+}
+.jw_box h2{
+	font-size: 14px;
+	color: #333;
+	width: 140px;
+	line-height: 22px;
+	height: 22px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	position:absolute;
+	margin-left:10px;
+}
+.jw_box span{
+	font-size: 12px;
+	color: #666;
+	line-height: 22px;
+	height: 22px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;	
+	position:absolute;
+	margin-left:10px;
+	margin-top:33px;
+}
+.jw_box p{
+	font-size: 18px;
+	font-weight: bold;
+	color: #901531;
+	padding-top: 5px;
+	width:60px;
+	position:absolute;
+	margin-left:10px;
+	margin-top:60px;			
+}
+.list2 img {
+	width:auto;	
+	height:220px;
+	margin-top:10px;
+	margin-left:136px;
+}
+
+.list3{
+	width:219px;	
+	height:235px;
+	float:left;
+	border-bottom:1px solid#E6E6E6;
+	overflow:hidden;
+}
+.list3 img {
+	width:auto;	
+	height:220px;
+	margin-top:10px;
+	margin-left:136px;
+}
+/*热销推荐*/
+.list4{
+	width:318px;	
+	height:473px;
+	float:right;
+	border-left:1px solid #E6E6E6;
+	overflow:hidden;
+	text-align:left;
+	line-height: 30px;
+	font-size:16px;
+}
+.sale_top{
+	height:442px;	
+	width:318px;
+}
+.top_1{
+	width: 278px;
+	height: 109px;
+	overflow: hidden;
+	padding: 5px 10px 5px 30px;
+	position: relative;
+	border-bottom:1px solid #E6E6E6;	
+}
+.img-1{
+	float: left;
+	display: inline;
+	text-align: center;	
+	padding: 10px 0px 0px 5px;	
+}
+.img-1 img{
+	height: 100px;	
+}
+.num{
+	font-size: 20px;
+	color: #901531;
+	position: absolute;
+	width: 10px;
+	height: 20px;
+	top: 0px;
+	left: 10px;	
+}
+.sale_p{
+	float: right;
+	display: inline;
+	width: 180px;	
+	
+}
+.sale_p em{
+	color: #666;
+	width: 180px;
+	height: 20px;
+	overflow: hidden;
+	margin: 5px auto;	
+}
+.sale_p em a{
+	color: #666;
+	text-decoration: none;
+	cursor: pointer;
+	font-size:12px;
+	line-height:20px;
+}
+.sale_p i{
+	display: block;
+	color: #000;
+	line-height: 20px;
+	font-style: normal;	
+	font-size:12px;
+	margin-top:5px;
+}
+.sale_p b{
+	display: block;
+	color: #040002;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 26px;
+	margin-top:5px;	
+}
+.sale_p span{
+	display: inline-block;
+	color: #901531;
+	font-weight: bold;
+	margin-top:5px;
+	margin-left:0px;	
+}
+.top_2{
+	width: 278px;
+	height: 109px;
+	overflow: hidden;
+	padding: 5px 10px 5px 30px;
+	position: relative;	
+	border-bottom:1px solid #E6E6E6;	
+}
+.top_3{
+	width: 278px;
+	height: 109px;
+	overflow: hidden;
+	padding: 5px 10px 5px 30px;
+	position: relative;	
+	border-bottom:1px solid #E6E6E6;
+}
+.top_4{
+	width: 308px;
+	height: 30px;
+	line-height: 30px;
+	padding: 5px 10px 5px 0px;
+	border-bottom:1px solid #E6E6E6;	
+}
+.top_4 em{
+	display: inline-block;
+	color: #999;
+	font-size: 16px;
+	margin:0px;
+	padding: 0px 16px;
+	float: left;	
+}
+.top_4 a{
+	color: #666;
+	width: 180px;
+	height: 30px;
+	line-height: 30px;
+	overflow: hidden;
+	font-size:12px;	
+}
+.top_5{
+	width: 308px;
+	height: 30px;
+	line-height: 30px;
+	padding: 5px 10px 5px 0px;
+	border-bottom:1px solid #E6E6E6;	
+}
+.top_5 em{
+	display: inline-block;
+	color: #999;
+	font-size: 16px;
+	margin:0px;
+	padding: 0px 16px;
+	float: left;	
+}
+.top_5 a{
+	color: #666;
+	width: 180px;
+	height: 30px;
+	line-height: 30px;
+	overflow: hidden;
+	font-size:12px;	
+	overflow:hidden;
+}
+.list5{
+	width:219px;	
+	height:236px;
+	float:left;
+	border-right:1px solid #E6E6E6;	
+	overflow:hidden;	
+}
+.list5 img {
+	width:auto;	
+	height:220px;
+	margin-top:10px;
+	margin-left:136px;
+}
+
+.list6{
+	width:219px;	
+	height:236px;
+	float:left;
+	border-right:1px solid #E6E6E6;
+	overflow:hidden;		
+}
+.list6 img {
+	width:auto;	
+	height:220px;
+	margin-top:10px;
+	margin-left:136px;
+}
+
+.list7{
+	width:219px;	
+	height:236px;
+	float:left;
+	border-right:1px solid #E6E6E6;	
+	overflow:hidden;	
+}
+.list7 img {
+	width:auto;	
+	height:220px;
+	margin-top:10px;
+	margin-left:136px;
+}
+.list8{
+	width:218px;	
+	height:236px;
+	float:left;	
+	overflow:hidden;	
+}
+.list8 img {
+	width:auto;	
+	height:220px;
+	margin-top:10px;
+	margin-left:136px;
+}
+
+
+/*品牌LOGO*/
+.brand_logo{
+	width:1200px;	
+	height:70px;
+	margin:0 auto;
+	margin-top:30px;
+}
+.brand_logo ul{
+	width:100%;
+	height:100%;
+}
+.brand_logo ul li{
+	width:119px;
+	height:68px;
+	border-left:1px solid #e6e6e6;
+	border-top:1px solid #e6e6e6;
+	border-bottom:1px solid #e6e6e6;
+	float:left;
+}
+/*推荐商品列表*/
+.mn_list{
+	width:1200px;
+	height:700px;	
+	padding: 15px 0 0 0;
+	margin:0 auto;
+	margin-top:30px;
+	background: #f6f6f6;
+}
+.mn_tt{
+	height: 30px;
+	line-height: 15px;
+	clear: both;
+	overflow: hidden;
+	font-family: "Microsoft Yahei";
+} 
+
+.mn_list dl{
+	float: left;
+	display: inline;
+	margin: 0 0 15px 10px;
+	width: 214px;
+	padding: 6px;
+	border: 1px solid #e9e9e9;
+	background:#fff;	
+}
+.mn_list dl dt{
+	overflow: hidden;
+	margin-bottom: 15px;
+	position: relative;
+	height: 220px;
+}
+.mn_img img{
+	height: 190px;
+	margin-bottom: 30px;		
+}
+.mn_list dl dd h2{
+	width: 214px;
+	height: 20px;
+	display: block;
+	color: #666;
+	overflow: hidden;
+	line-height: 20px;
+	font-size: 14px;	
+}
+.price b{
+	color: #901531;
+	font-size: 20px;
+	padding-right: 15px;
+	font-weight: bold;	
+}
+.price i{
+	color: #999;
+	font-size: 14px;
+	text-decoration: line-through;		
+}
+.evaluate{
+	overflow: hidden;	
+}
+.evaluate span{
+	display: block;
+	color: #333;
+	font-size: 12px;
+	margin-bottom: 5px;
+	float: left;
+	margin-top: 10px;	
+}
+.sc{
+	display: block;
+	background:url(../images/sc.png) no-repeat;
+	height: 30px;
+	line-height: 30px;
+	width: 40px;
+	float: right;
+}
+
+
+
+

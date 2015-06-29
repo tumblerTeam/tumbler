@@ -2,6 +2,7 @@ package com.yc.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -34,9 +35,8 @@ public class OrderForm {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private AppUser orderUser;
-	
 
-	@OneToOne
+	@OneToOne(cascade={CascadeType.MERGE,CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinColumn(name = "delivery_id")
 	private Delivery delivery;
 	

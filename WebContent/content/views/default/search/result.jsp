@@ -16,11 +16,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>不倒翁</title>
 <script type="text/javascript" src="content/static/js/lib/jquery.min.js"></script>
+<script type="text/javascript"
+	src="content/static/js/lib/jquery-1.11.1.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="content/static/css/style.css" />
 <link rel="stylesheet" type="text/css"
 	href="content/static/css/right.css" />
 <link rel="stylesheet" type="text/css" href="content/static/css/jw.css" />
+
+<script type="text/javascript" src="content/static/js/tumbler/lrtk.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#jg").click(function() {
@@ -35,48 +39,64 @@
 <script type="text/ecmascript">
 	
 	
-	var boolean=true;
-	function f1(){
-		var gd=document.getElementsByClassName("navgd");
-		var btn=document.getElementById("btn");	
-		if(boolean==true){
-			for (var i = 0; i < gd.length; i++) {
-				gd[i].style.display="block";
+	
+	
+	
+	
+var boolean=true;
+	function fddd(){
+	var gd=document.getElementsByClassName("disdiv");
+	var btn=document.getElementById("btn");	
+	if(boolean==true){
+		for(var i=0;i<gd.length;i++){
+		gd.item(i).style.display="block";
+		gd.item(i).style.display="block";
+		}
+		btn.innerHTML="收起";
+		boolean=false;
+		}else if(boolean==false){
+			for(var i=0;i<gd.length;i++){
+		gd.item(i).style.display="none";
+		gd.item(i).style.display="none";
+		}
+			btn.innerHTML="更多选项";	
+			boolean=true;
 			}
-			btn.innerHTML="收起";
-			boolean=false;
-			}else if(boolean==false){
-				for (var i = 0; i < gd.length; i++) {
-					gd[i].style.display="none";
-				}
-				btn.innerHTML="更多选项";	
-				boolean=true;
-				}
-		}
-		function f2(){
-		var div2=document.getElementById("big");
-		div2.style.borderColor="red";
-		}
-		function f3(){
-		var div2=document.getElementById("big");
-		div2.style.borderColor="#ccc";
-		}
-		function f4(){
-			var pp1=document.getElementById("pp1");
-			var pp2=document.getElementById("pp2");
-			pp1.style.color="red";
-			pp2.style.borderColor="red";
-		}
-		function f5(){
-			var pp1=document.getElementById("pp1");
-			var pp2=document.getElementById("pp2");
-			pp1.style.color="#000";
-			pp2.style.borderColor="#ccc";
-		}
+	}
+	function f2(){
+	var div2=document.getElementById("big");
+	div2.style.borderColor="red";
+	}
+	function f3(){
+	var div2=document.getElementById("big");
+	div2.style.borderColor="#ccc";
+	}
+	function f4(){
+		var pp1=document.getElementById("pp1");
+		var pp2=document.getElementById("pp2");
+		pp1.style.color="red";
+		pp2.style.borderColor="red";
+	}
+	function f5(){
+		var pp1=document.getElementById("pp1");
+		var pp2=document.getElementById("pp2");
+		pp1.style.color="#000";
+		pp2.style.borderColor="#ccc";
+	}
+
+
+
+
 
 
 </script>
 <script type="text/ecmascript">
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -90,7 +110,7 @@
 			pp1.innerHTML="收起";
 			bdiv.style.transition="all 0.1s";
 			bdiv.style.border="2px solid #ccc";
-			pp2.style.background="url(images/gd2.png)";
+			pp2.style.background="url(content/static/images/gd2.png)";
 			pp2.style.backgroundPosition="2px 2px";
 			boolean=false;
 			}else{
@@ -139,6 +159,8 @@
 
 
 
+
+
 </script>
 </head>
 <body>
@@ -148,7 +170,7 @@
 	<!--品牌详情-->
 	<div class="breadCrumb"
 		style="background-color: #E8E8E8; height: 30px; line-height: 30px; width: 100%; margin-top: 10px;">
-		<div class="con" style="width: 1200px; margin: 0px auto;" id="navbar">
+		<div class="con" id="csspan" style="width: 1200px; margin: 0px auto;">
 			<a href="index">首页</a>
 		</div>
 	</div>
@@ -245,10 +267,25 @@
 						type="button" onclick="searchMoney();" value="确定" /></li>
 				</ul>
 			</div>
+			<c:forEach var="cate1" items="${cate.children }">
+				<c:if test="${not empty cate1.children }">
+					<div class="nav2">
+						<span style="margin: 10px 100px 0px 15px; float: left;">${cate1.category }：</span>
+						<div class="lista">
+							<ul style="float: left;">
+								<c:forEach items="${cate1.children }" var="cate2">
+									<li><a href="javascript:void(0);" rel="nofollow"
+										class="black" onclick="cate2Click('${cate2.categoryID }');">${cate2.category }</a></li>
+								</c:forEach>
+							</ul>
+						</div>
+					</div>
+				</c:if>
+			</c:forEach>
 			<c:if test="${not empty famousManors }">
 				<div class="nav2" id="nav7">
 					<span style="margin: 10px 100px 0px 15px; float: left;">名庄：</span>
-					<div class="list">
+					<div class="lista">
 						<ul style="float: left;">
 							<c:forEach items="${famousManors }" var="famous" varStatus="loop">
 								<c:if test="${loop.index < 4 }">
@@ -276,7 +313,7 @@
 			</c:if>
 			<div class="nav2" id="nav2">
 				<span style="margin: 10px 100px 0px 15px; float: left;">品牌：</span>
-				<div class="list">
+				<div class="lista">
 					<ul style="float: left;">
 						<c:forEach items="${brands }" var="brand" varStatus="loop">
 							<c:if test="${loop.index < 4 }">
@@ -311,7 +348,7 @@
 								<ul style="float: left;">
 						</c:if>
 						<c:if test="${loop.index > 0 }">
-							<div class="navgd" style="display: none;">
+							<div class="disdiv" style="display: none;">
 								<span style="margin: 10px 100px 0px 15px; float: left;">${spec.specificatName }：</span>
 								<ul style="float: left;">
 						</c:if>
@@ -388,12 +425,12 @@
 					</c:when>
 					<c:otherwise>
 						<c:if test="${loop.index == 0 }">
-							<div class="nav1">
+							<div class="disdiv" id="gd">
 								<span style="margin: 10px 100px 0px 15px; float: left;">${spec.specificatName }：</span>
 								<ul style="float: left;">
 						</c:if>
 						<c:if test="${loop.index > 0 }">
-							<div class="navgd" style="display: none;">
+							<div class="disdiv" style="display: none;">
 								<span style="margin: 10px 100px 0px 15px; float: left;">${spec.specificatName }：</span>
 								<ul style="float: left;">
 						</c:if>
@@ -407,13 +444,75 @@
 				</ul>
 		</div>
 		</c:forEach>
+		<div class="disdiv" style="display: none;">
+			<span style="margin: 10px 100px 0px 15px; float: left;">年份：</span>
+			<ul>
+				<li><a href="javascript:void(0);" rel="nofollow" class="black"
+					title="1850-1900" onclick="searchs('1850@1900','particularYear');">1850年-1900年</a></li>
+				<li><a href="javascript:void(0);" rel="nofollow" class="black"
+					title="1901-1950" onclick="searchs('1901@1950','particularYear');">1901年-1950年</a></li>
+				<li><a href="javascript:void(0);" rel="nofollow" class="black"
+					title="1951-2000" onclick="searchs('1951@2000','particularYear');">1951年-2000年</a></li>
+				<li><a href="javascript:void(0);" rel="nofollow" class="black"
+					title="2001-2015" onclick="searchs('2001@2015','particularYear');">2001年-2015年</a></li>
+			</ul>
+		</div>
+		<div class="disdiv" style="display: none;">
+			<span style="margin: 10px 100px 0px 15px; float: left;">度数：</span>
+			<ul>
+				<c:if test="${cate.categoryID == 1 }">
+					<li><a href="javascript:void(0);" rel="nofollow" class="black"
+						title="7-10" onclick="searchs('7@10','alcoholicStrength');">7-10</a></li>
+					<li><a href="javascript:void(0);" rel="nofollow" class="black"
+						title="11-15" onclick="searchs('11@15','alcoholicStrength');">11-15</a></li>
+					<li><a href="javascript:void(0);" rel="nofollow" class="black"
+						title="16-20" onclick="searchs('16@20','alcoholicStrength');">16-20</a></li>
+					<li><a href="javascript:void(0);" rel="nofollow" class="black"
+						title="21-25" onclick="searchs('21@25','alcoholicStrength');">21-25</a></li>
+				</c:if>
+				<c:if test="${cate.categoryID == 2 }">
+					<li><a href="javascript:void(0);" rel="nofollow" class="black"
+						title="28-38" onclick="searchs('28@38','alcoholicStrength');">28-38</a></li>
+					<li><a href="javascript:void(0);" rel="nofollow" class="black"
+						title="39-48" onclick="searchs('39@48','alcoholicStrength');">39-48</a></li>
+					<li><a href="javascript:void(0);" rel="nofollow" class="black"
+						title="49-60" onclick="searchs('49@60','alcoholicStrength');">49-60</a></li>
+					<li><a href="javascript:void(0);" rel="nofollow" class="black"
+						title="61-75" onclick="searchs('61@75','alcoholicStrength');">61-75</a></li>
+				</c:if>
+				<c:if test="${cate.categoryID == 4 || cate.categoryID == 3}">
+					<li><a href="javascript:void(0);" rel="nofollow" class="black"
+						title="0.5-3" onclick="searchs('0.5@3','alcoholicStrength');">0.5-3</a></li>
+					<li><a href="javascript:void(0);" rel="nofollow" class="black"
+						title="3.1-7.5" onclick="searchs('3.1@7.5','alcoholicStrength');">3.1-7.5</a></li>
+					<li><a href="javascript:void(0);" rel="nofollow" class="black"
+						title="7.6-12" onclick="searchs('7.6@12','alcoholicStrength');">7.6-12</a></li>
+				</c:if>
+				<c:if test="${cate.categoryID == 4 }">
+					<li><a href="javascript:void(0);" rel="nofollow" class="black"
+						title="12.1-20" onclick="searchs('12.1@20','alcoholicStrength');">12.1-20</a></li>
+					<li><a href="javascript:void(0);" rel="nofollow" class="black"
+						title="20.1-30" onclick="searchs('20.1@30','alcoholicStrength');">20.1-30</a></li>
+					<li><a href="javascript:void(0);" rel="nofollow" class="black"
+						title="30.1-40" onclick="searchs('30.1@40','alcoholicStrength');">30.1-40</a></li>
+					<li><a href="javascript:void(0);" rel="nofollow" class="black"
+						title="40.1-50" onclick="searchs('40.1@50','alcoholicStrength');">40.1-50</a></li>
+					<li><a href="javascript:void(0);" rel="nofollow" class="black"
+						title="50.1-60" onclick="searchs('50.1@60','alcoholicStrength');">50.1-60</a></li>
+					<li><a href="javascript:void(0);" rel="nofollow" class="black"
+						title="60.1-70" onclick="searchs('60.1@70','alcoholicStrength');">60.1-70</a></li>
+					<li><a href="javascript:void(0);" rel="nofollow" class="black"
+						title="70.1-80" onclick="searchs('70.1@80','alcoholicStrength');">70.1-80</a></li>
+				</c:if>
+			</ul>
+		</div>
 		<div class="big" id="big" onMouseOver="f2()" onMouseOut="f3()">
-			<a><div class="gd" id="btn" onClick="f1()">更多选项</div></a>
+			<a><div class="gd" id="btn" onClick="fddd();">更多选项</div></a>
 		</div>
 	</div>
 	<form action="search/result" id="paramForm" method="get">
-		<input id="params" name="params" type="hidden" value="${params }" />
-		<input id="orderByPice" name="orderByPice" type="hidden"
+		<input id="params" name="params" type="text" value="${params }" /> <input
+			id="orderByPice" name="orderByPice" type="hidden"
 			value="${orderByPice }" /> <input id="haoping" name="haoping"
 			type="hidden" value="${haoping }" /> <input id="id" name="id"
 			type="hidden" value="${id }" /> <input id="cateid" name="cateid"
@@ -421,6 +520,10 @@
 			type="hidden" value="${page }" />
 	</form>
 	<script type="text/javascript">
+		function cate2Click(id) {
+			$('#id').val(id);
+			$('#paramForm').submit();
+		}
 		function searchMoney() {
 			var isok = false;
 			var str = "";
@@ -655,8 +758,8 @@
 						<a
 							href="proscenium/shopItem?commID=${commShop.commCode }&category=${commShop.shopCategory.categoryID }&shopID=${commShop.belongTo.id }&commoName=${commShop.commoidtyName }">
 							<li>
-								<div class="pro" style="border-right: none;">
-									<div class="list">
+								<div class="pro1" style="border-right: none;">
+									<div class="sheng">
 										<img src="${commShop.shopCommImages[0].imagePath }" />
 										<div class="cover">
 											<!--模糊部分-->
@@ -690,35 +793,35 @@
 			</div>
 		</div>
 	</div>
-	<div class="last">
-		<div class="tuijian">猜你喜欢</div>
-		<div class="tuijain_class">
-			<div class="arrow1">
-				<img src="images/arrow_left.png" />
-			</div>
-			<ul>
-				<li><img src="images/tuijian.png" />
-					<div class="name">桑塔丽塔120加本力桃红 2011 Santa Rita 120 Rose</div>
-					<div class="price1">零售参考价：124元</div>
-					<div class="price2">不倒翁价：69</div></li>
-				<li><img src="images/tuijian.png" />
-					<div class="name">桑塔丽塔120加本力桃红 2011 Santa Rita 120 Rose</div>
-					<div class="price1">零售参考价：124元</div>
-					<div class="price2">不倒翁价：69</div></li>
-				<li><img src="images/tuijian.png" />
-					<div class="name">桑塔丽塔120加本力桃红 2011 Santa Rita 120 Rose</div>
-					<div class="price1">零售参考价：124元</div>
-					<div class="price2">不倒翁价：69</div></li>
-				<li><img src="images/tuijian.png" />
-					<div class="name">桑塔丽塔120加本力桃红 2011 Santa Rita 120 Rose</div>
-					<div class="price1">零售参考价：124元</div>
-					<div class="price2">不倒翁价：69</div></li>
-			</ul>
-			<div class="arrow1">
-				<img src="images/arrow_right.png" />
-			</div>
-		</div>
-	</div>
+	<!-- 	<div class="last"> -->
+	<!-- 		<div class="tuijian">猜你喜欢</div> -->
+	<!-- 		<div class="tuijain_class"> -->
+	<!-- 			<div class="arrow1"> -->
+	<!-- 				<img src="images/arrow_left.png" /> -->
+	<!-- 			</div> -->
+	<!-- 			<ul> -->
+	<!-- 				<li><img src="images/tuijian.png" /> -->
+	<!-- 					<div class="name">桑塔丽塔120加本力桃红 2011 Santa Rita 120 Rose</div> -->
+	<!-- 					<div class="price1">零售参考价：124元</div> -->
+	<!-- 					<div class="price2">不倒翁价：69</div></li> -->
+	<!-- 				<li><img src="images/tuijian.png" /> -->
+	<!-- 					<div class="name">桑塔丽塔120加本力桃红 2011 Santa Rita 120 Rose</div> -->
+	<!-- 					<div class="price1">零售参考价：124元</div> -->
+	<!-- 					<div class="price2">不倒翁价：69</div></li> -->
+	<!-- 				<li><img src="images/tuijian.png" /> -->
+	<!-- 					<div class="name">桑塔丽塔120加本力桃红 2011 Santa Rita 120 Rose</div> -->
+	<!-- 					<div class="price1">零售参考价：124元</div> -->
+	<!-- 					<div class="price2">不倒翁价：69</div></li> -->
+	<!-- 				<li><img src="images/tuijian.png" /> -->
+	<!-- 					<div class="name">桑塔丽塔120加本力桃红 2011 Santa Rita 120 Rose</div> -->
+	<!-- 					<div class="price1">零售参考价：124元</div> -->
+	<!-- 					<div class="price2">不倒翁价：69</div></li> -->
+	<!-- 			</ul> -->
+	<!-- 			<div class="arrow1"> -->
+	<!-- 				<img src="images/arrow_right.png" /> -->
+	<!-- 			</div> -->
+	<!-- 		</div> -->
+	<!-- 	</div> -->
 
 	</div>
 	<jsp:include page="../frontDesk/foot.jsp" />

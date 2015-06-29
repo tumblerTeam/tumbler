@@ -61,7 +61,7 @@ public class UserController {
 		AppUser personnel = userService.getUser(name);
 		if (personnel == null) {
 			request.getSession().setAttribute("message", "用户不存在！！");
-			return "redirect:/user/regist" ;
+			return "redirect:/user/regist?page=" + page;
 		} else {
 			if (personnel.getPassword().equals(pwd)) {
 				session.setAttribute("loginUser", personnel);
@@ -118,8 +118,14 @@ public class UserController {
 	@RequestMapping(value = "personalCenter", method = RequestMethod.GET)
 	public ModelAndView personalCenter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ModelMap mode = new ModelMap();
+		AppUser user = (AppUser)request.getSession().getAttribute("loginUser");
 		List<ShopCategory> list = categoryService.getAllByParent();
+		OrderForm orderForm=orderFormService.searchNewst();
+		List<Collection> collections=collectionService.searchPart();
+	    mode.put("orderForm", orderForm);
+	    mode.put("collections", collections);
 		mode.put("categories", list);
+		mode.put("user",user);
 		return new ModelAndView("user/personalCenter", mode);
 	}
 
@@ -194,7 +200,7 @@ public class UserController {
 		collectionService.delete(collectionID);
 		return "redirect:/user/collection";
 	}
-
+	
 	// MD5加码。32位
 	public static String MD5(String inStr) {
 		MessageDigest md5 = null;

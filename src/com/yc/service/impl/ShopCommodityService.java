@@ -118,9 +118,6 @@ public class ShopCommodityService extends GenericService<ShopCommodity> implemen
 	@Override
 	public List<ShopCommodity> getAllByParamsForParent(Map<String, Object> map, String page) {
 		StringBuffer hql = new StringBuffer("select DISTINCT shc.* from ShopCommodity shc JOIN Shop shop ON shop.id = shc.shop_id LEFT join ShopCommoditySpecs sp on shc.commCode = sp.shopComm_id ");
-//		if(map.get("haoping") != null && !map.get("haoping").equals("")){
-//			hql.append(" left join ShopReviews shopReviews on shopReviews.shopcomm_id = shc.commCode");
-//		}
 		hql.append(" where  (shc.blacklist_id IS NULL AND shop.blacklist_id IS NULL AND shc.shelves = 1 ) and shc.shelves = 1");
 		if (map.get("cateid") != null && !map.get("cateid").equals("")) {
 			 hql.append(" and shc.shopCategory_id IN (SELECT cate.categoryID FROM shopcategory cate WHERE cate.parentLevel IN ( SELECT cate2.categoryID FROM shopcategory cate2 WHERE cate2.parentLevel = "+map.get("cateid")+"))");
@@ -142,12 +139,28 @@ public class ShopCommodityService extends GenericService<ShopCommodity> implemen
 				hql.append(" and ('"+map.get("specs")+"' is null or sp.commSpec like '"+map.get("specs")+"') ");
 			}
 		}
+		if (map.get("alcoholicStrength") != null && !map.get("alcoholicStrength").equals("")) {
+			if (!map.get("alcoholicStrength").toString().split("@")[0].equals("")) {
+				 hql.append(" and ("+map.get("alcoholicStrength").toString().split("@")[0]+" is null or shc.unitPrice >= "+map.get("alcoholicStrength").toString().split("@")[0]+")");
+			}
+			if (!map.get("alcoholicStrength").toString().split("@")[1].equals("")) {
+				hql.append(" and ("+map.get("alcoholicStrength").toString().split("@")[1]+" is null or shc.unitPrice < "+map.get("alcoholicStrength").toString().split("@")[1]+")");
+			}
+		}
 		if (map.get("money") != null && !map.get("money").equals("")) {
 			if (!map.get("money").toString().split("@")[0].equals("")) {
-				 hql.append(" and ("+map.get("money").toString().split("@")[0]+" is null or shc.unitPrice >= "+map.get("money").toString().split("@")[0]+")");
+				hql.append(" and ("+map.get("money").toString().split("@")[0]+" is null or shc.unitPrice >= "+map.get("money").toString().split("@")[0]+")");
 			}
 			if (!map.get("money").toString().split("@")[1].equals("")) {
 				hql.append(" and ("+map.get("money").toString().split("@")[1]+" is null or shc.unitPrice < "+map.get("money").toString().split("@")[1]+")");
+			}
+		}
+		if (map.get("particularYear") != null && !map.get("particularYear").equals("")) {
+			if (!map.get("particularYear").toString().split("@")[0].equals("")) {
+				hql.append(" and ("+map.get("particularYear").toString().split("@")[0]+" is null or shc.unitPrice >= "+map.get("particularYear").toString().split("@")[0]+")");
+			}
+			if (!map.get("particularYear").toString().split("@")[1].equals("")) {
+				hql.append(" and ("+map.get("particularYear").toString().split("@")[1]+" is null or shc.unitPrice < "+map.get("particularYear").toString().split("@")[1]+")");
 			}
 		}
 		if (map.get("brand") != null && !map.get("brand").equals("")) {
