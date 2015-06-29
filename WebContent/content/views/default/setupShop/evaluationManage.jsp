@@ -38,11 +38,6 @@ function setTab(name,m,n){
         <div>
       		<div class="pjgl">
             	<div class="nav">
-                	<ul>
-                    	<li>我的评价</li>
-                        <li>收到提问</li>
-                        <li>我的提问</li>
-                    </ul>
                 </div>
                 <div class="left1">
                 	<h4 style="margin-left:5px;">个人信息</h4>

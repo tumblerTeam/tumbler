@@ -60,6 +60,12 @@ public class Shop {
 	private String idCard;//身份证
 	
 	@Column
+	private String foodCriLis;//食品流通许可证
+	
+	@Column
+	private String taxReg;//税务登记证
+	
+	@Column
 	private String juridicalCard; //法人身份证
 
 	@Column
@@ -100,7 +106,7 @@ public class Shop {
 	
 	@Column
 	private String RetailRecordRegUrl;//零售备案登记证Url
-		
+	
 	@Column
 	private String payPwd;//支付密码；
 	
@@ -143,7 +149,7 @@ public class Shop {
 	private List<ShopCommodity> shopCommoidties;//店铺商品
 	
 	@OneToMany(mappedBy = "shop")
-	private List<CarCommodity> carCommoidties;//店铺商品
+	private List<CarCommodity> carCommoidties;//购物车商品
 	
 	@OneToOne(mappedBy = "shop")
 	private AppUser user;
@@ -160,6 +166,22 @@ public class Shop {
 
 	@OneToMany(mappedBy = "shop")
 	private List<FamousManorAndShop> manorAndShops;//名庄
+
+	public String getFoodCriLis() {
+		return foodCriLis;
+	}
+
+	public void setFoodCriLis(String foodCriLis) {
+		this.foodCriLis = foodCriLis;
+	}
+
+	public String getTaxReg() {
+		return taxReg;
+	}
+
+	public void setTaxReg(String taxReg) {
+		this.taxReg = taxReg;
+	}
 
 	public Integer getId() {
 		return id;

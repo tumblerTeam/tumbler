@@ -39,6 +39,9 @@ public class ShopCommodity {
 	@OneToOne(mappedBy = "shopCommSpecs")
 	private ShopCommoditySpecs commsPecs;
 	
+	@OneToOne(mappedBy = "shopCommodity")
+	private ShopCommodityAttribute commAttribute;
+	
 	@OneToMany(mappedBy = "shopCommodity")
 	private List<Commodity> commodities;
 	
@@ -47,6 +50,9 @@ public class ShopCommodity {
 	
 	@Column
 	private Float unitPrice =0f;//单价
+	
+	@Column
+	private String commUnit;//商品单位：瓶1、箱0
 	
 	@Column
 	private Float specialPrice =0f;//活动价
@@ -148,6 +154,22 @@ public class ShopCommodity {
 	@Column
 	private String actityImage;
 	
+	public String getCommUnit() {
+		return commUnit;
+	}
+
+	public void setCommUnit(String commUnit) {
+		this.commUnit = commUnit;
+	}
+
+	public ShopCommodityAttribute getCommAttribute() {
+		return commAttribute;
+	}
+
+	public void setCommAttribute(ShopCommodityAttribute commAttribute) {
+		this.commAttribute = commAttribute;
+	}
+
 	public FamousManor getFamousManor() {
 		return famousManor;
 	}

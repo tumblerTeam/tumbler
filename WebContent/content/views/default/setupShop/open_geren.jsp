@@ -18,8 +18,8 @@
 <link rel="stylesheet" type="text/css" href="content/static/css/datetime/jquery.mobile.flatui.css">
 <link rel="stylesheet" type="text/css" href="content/static/js/datetime/jquery.mobile-1.4.0-rc.1.js">
 <link rel="stylesheet" type="text/css" href="content/static/js/datetime/jquery.js">
-<link rel="stylesheet" type="text/css" href="content/static/js/map/jsAddress.js">
-<!--<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>-->
+<script type="text/javascript"
+	src="content/static/js/datetime/jsAddress.js"></script>
 <script>
 	function f1(div1,div2){
 		if(div2.style.display=="none"){
@@ -29,10 +29,12 @@
 			}
 		}
 </script>
+<style type="text/css">
+	#inputs{
+		margin:20px 0px 0px 1px;
+	}
+</style>
 
-<script>
-    addressInit('cmbProvince', 'cmbCity', 'cmbArea', '新疆', '乌鲁木齐市', '沙依巴克区');
-</script>
 </head>
 
 <body>
@@ -54,36 +56,28 @@
                         *姓名：<input name="name" style="width:150px; height:25px; margin-left:75px;"  /> <br />
                         *性别：<input name="sex" value="1"type="radio" style="margin-left:80px;"/> 男
                         	  <input name="sex" value="0" type="radio"/> 女<br />
-                        *出生年月：<input type="date" name="birthday"/><br />	             	
-                        *居住地：<select name="province" style="margin-left:60px;">
-                        		<option>---</option>
-                        		<option>四川</option>
-                                <option>新疆</option>
-                                <option>北京</option>
-                             </select>
-                             <select name="city">
-                             	<option>---</option>
-                        		<option>广元</option>
-                                <option>成都</option>
-                                <option>乌鲁木齐</option>
-                             </select>
-                             <select name="area">
-                             	<option>---</option>
-                        		<option>青羊区</option>
-                                <option>武侯区</option>
-                                <option>新市区</option>
-                             </select><br/>
+                        *出生年月：<input type="date" name="birthday"/><br />	 
+                        <div>  
+                        *居住地：
+						 省：<select id="cmbProvince"></select> 市：<select id="cmbCity"></select>
+						区：<select id="cmbArea"></select><br>
+						<script type="text/javascript">
+							addressInit('cmbProvince', 'cmbCity', 'cmbArea', '新疆', '乌鲁木齐市', '新市区');
+						</script> 
+					</div>
                         	 
-                              <div class="file-box"> 
-                             		   * 身  份  证 ：<input type="text" name="idCard"/>
-                             		   <input type="file" name="myfile" id="required" />
+                              <div class="file-box" style="width:700px;"> 
+                             		   * 身  份  证 ：<input style="margin-left: 50px;" type="text" name="idCard"/>
+                             		   <span><input id="inputs" type="file" name="myfile" id="required" /></span>
                                        <br />
 						      </div>
-						      <div class="file-box"> 
-                                   *食品流通许可证：<input type="file" name="myfile" id="required" /> 
+						      <div class="file-box" style="width:700px;"> 
+                                   *食品流通许可证：<input style="margin-left: 18px;" type="text" name="foodCriLis"/>
+                                   <span><input id="inputs" type="file" name="myfile" id="required" /></span> 
 						      </div>
-                              <div class="file-box"> 
-                                   *税务登记证：<input type="file" name="myfile" id="required" /> 
+                              <div class="file-box" style="width:700px;"> 
+                                   *税务登记证：<input style="margin-left: 50px;" type="text" name="taxReg"/>
+                                   <span><input id="inputs" type="file" name="myfile" id="required" /></span>
 						      </div>
                              <input class="sq" type="submit" onclick="javascript:submits();" value="申请开店"/>   
                     </form>

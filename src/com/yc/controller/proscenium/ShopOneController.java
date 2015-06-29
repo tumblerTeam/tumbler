@@ -33,6 +33,7 @@ import com.yc.entity.Shop;
 import com.yc.entity.ShopCategory;
 import com.yc.entity.ShopCommImage;
 import com.yc.entity.ShopCommodity;
+import com.yc.entity.ShopCommodityAttribute;
 import com.yc.entity.ShopCommoditySpecs;
 import com.yc.entity.ShopReviews;
 import com.yc.entity.ShopType;
@@ -49,6 +50,7 @@ import com.yc.service.ICurrencyService;
 import com.yc.service.IFamousManorService;
 import com.yc.service.IOrderFormService;
 import com.yc.service.IShopCategoryService;
+import com.yc.service.IShopCommAttributeService;
 import com.yc.service.IShopCommImageService;
 import com.yc.service.IShopCommodityService;
 import com.yc.service.IShopCommoidtySpecsService;
@@ -88,6 +90,8 @@ public class ShopOneController {
 	@Autowired
 	IAddressService addressService; //地址
 	
+	@Autowired
+	IShopCommAttributeService shopCommAttributeService; //商品属性
 	@Autowired
 	IShopCommImageService shopCommImageService;
 
@@ -137,11 +141,12 @@ public class ShopOneController {
 		return "setupShop/open_qiye";
 	}
 		
-	// 发布商品list添加
+	// 发布商品
 	@RequestMapping("releaseCommoidty")
 	public ModelAndView releaseCommoidty(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//AppUser user = (AppUser) request.getSession().getAttribute("appUser");
 		ModelMap mode = new ModelMap();
+		
 		//1.红酒
 		List<ShopCategory> list = shopCategService.getAllByParentLevel(1);
 		mode.put("shopCategories", list);
@@ -162,12 +167,14 @@ public class ShopOneController {
 		List<Currency> currencyList = currencyService.getAll();
 		System.out.println("LIST的大小为："+list.size());
 		mode.put("shop", shop);
+		request.getSession().setAttribute("shop", shop);
 		mode.put("currencylist", currencyList);
 		return new ModelAndView("setupShop/releaseCommoidty", mode);
 	}
+	
 	//保存商品+编辑商品
 	@RequestMapping("saveCommodity")
-	public String saveCommodity(@RequestParam MultipartFile [] myfile,HttpServletRequest req , HttpServletResponse resp) throws IOException{
+	public String saveCommodity(@RequestParam MultipartFile [] myfile,ShopCommodityAttribute commAttribute ,HttpServletRequest req , HttpServletResponse resp) throws IOException{
 		/**
 		 * 以下两句为模拟shop，表示已经存在shop对象。
 		 */
@@ -178,11 +185,16 @@ public class ShopOneController {
 		if (req.getSession().getAttribute("shop")!=null) {
 			String commoidtyName = req.getParameter("commoidtyName");
 			String commItem = req.getParameter("commItem");
+			System.out.println("得到商品属性：：：：储藏方式："+commAttribute.getStockWay());
+			//保存商品属性：
+			shopCommAttributeService.save(commAttribute);
+			
 			/**
 			 * 得到该商品的商品分类categoryID
 			 * 下面对应表shopCommodity与表shopCategory关系
 			 */
 			Integer categoryid = Integer.parseInt(req.getParameter("categoryid"));
+			System.out.println("得到商品种类是：：：："+categoryid);
 			Integer stock = Integer.valueOf(req.getParameter("stock"));
 			float unitPrice = Float.valueOf(req.getParameter("unitPrice"));
 			float probablyWeight = Float.valueOf(req.getParameter("probablyWeight"));
@@ -194,13 +206,14 @@ public class ShopOneController {
 			Boolean auction = Boolean.valueOf(req.getParameter("auction").toString());
 			//是否折扣
 			Boolean isSpecial = Boolean.valueOf(req.getParameter("isSpecial").toString());
-			//打几折
-			float special = 10;
-			if (req.getParameter("special")!=null) {
-				special = Float.valueOf(req.getParameter("special"));
-			}
 			//品牌名称
 			String brandName = req.getParameter("brandName");
+			//打几折
+			float special = 10;
+			System.out.println(req.getParameter("special")+":"+req.getParameter("special").equals(""));
+			if (!req.getParameter("special").equals("")) {
+				special = Float.valueOf(req.getParameter("special"));
+			}
 			ShopCommodity commodity = null;
 			String edit = req.getParameter("edit");
 			if (edit.equals("1")) { //如果是编辑商品
@@ -209,6 +222,35 @@ public class ShopOneController {
 			}else { //如果是保存新商品
 				commodity = new ShopCommodity();
 			}
+			//设置商品的属性：
+			commodity.setCommAttribute(commAttribute);
+			
+			//设置规格属性：
+			ShopCommoditySpecs commoditySpecs = null;
+			if (edit.equals("1")) { //如果是编辑商品
+				commoditySpecs = commoidtySpecsService.findById(commodity.getCommsPecs().getId());
+			}else { //如果是保存新商品
+				commoditySpecs = new ShopCommoditySpecs();
+			}
+			String commSpec = "";
+			for (int i = 0; i < shop.getShopCat().getSpecifications().size(); i++) {
+				String commSpecName = "";
+				int flag = i+1;
+				commSpecName = req.getParameter("commspecName"+flag);
+				System.out.println("得到规格是：：：：："+commSpecName);
+				String commSpecValue = req.getParameter(commSpecName);
+				System.out.println("得到规格值是：："+commSpecValue);
+				commSpec =commSpec+commSpecName+"-"+commSpecValue +",";
+				System.out.println("得到最终规格：：：："+commSpec);
+			}
+			//设置规格字段：
+			commoditySpecs.setCommSpec(commSpec);
+			if (edit.equals("1")) { //如果是编辑商品
+				commoidtySpecsService.update(commoditySpecs);				
+			}else { //如果是保存新商品
+				commoidtySpecsService.save(commoditySpecs);
+			}
+			
 			commodity.setCommoidtyName(commoidtyName);
 			commodity.setCommItem(commItem);
 			commodity.setStock(stock);
@@ -223,16 +265,23 @@ public class ShopOneController {
 			commodity.setShopCategory(shopCategory);
 			Brand brand = brandService.getBrandName(brandName);
 			commodity.setBrand(brand);
+			commodity.setCommsPecs(commoditySpecs);
 			/**设置商品所属店面：setBelongTo
 			 * commodity.setBelongTo(belongTo);
 			 */
 			//设置所属店面shop
 			commodity.setBelongTo(shop);
 			
-			/**
-			 * 编辑商品：
-			 */
-			shopCommodityService.save(commodity);	
+			if (edit.equals("1")) { //如果是编辑商品
+				shopCommodityService.update(commodity);	
+				commoditySpecs.setShopCommSpecs(commodity);
+				commoidtySpecsService.update(commoditySpecs);
+			}else { //如果是保存新商品
+				shopCommodityService.save(commodity);
+				commoditySpecs.setShopCommSpecs(commodity);
+				commoidtySpecsService.update(commoditySpecs);
+				
+			}
 			String endType = "";
 			if (myfile!=null&&myfile.length>0) {
 				for (int i = 0; i < myfile.length; i++) {
@@ -257,6 +306,7 @@ public class ShopOneController {
 			return "failure";
 		}
 	}
+	
 	//保存文件：
 	private boolean saveFileOfCommImage(Long fname ,ShopCommodity commodity ,HttpServletRequest req, MultipartFile file) {  
 		String endType = "";
@@ -284,6 +334,7 @@ public class ShopOneController {
         }  
         return false;  
     }
+	
 	//出售中的商品+仓库中的商品
 	@RequestMapping("chushou")
 	public ModelAndView chushou(HttpServletRequest req, HttpServletResponse resp){
@@ -300,8 +351,12 @@ public class ShopOneController {
 		if (flag.equals("1")) {
 			//通过是否上架（shelves）和商家ID查询出售中的商品
 			commodities = shopCommodityService.getAllByCondition("shelves", true, shop.getId());
+			//flag==1,表示显示上架的商品 
+			mode.put("flag", "1");
 		}else if (flag.equals("0")) {
 			commodities = shopCommodityService.getAllByCondition("shelves", false, shop.getId());
+			//flag==0,表示显示下架的商品 
+			mode.put("flag", "0");
 		}
 		mode.put("commodities", commodities);
 		return new ModelAndView("setupShop/chushou",mode);
@@ -330,22 +385,62 @@ public class ShopOneController {
 		//显示所有名庄
 		List<FamousManor> famousManors = famousManorService.getAll();
 		mode.put("famousManors", famousManors);
+		//显示该商品的规格：
+		
+		//得到商品圖片列表信息：
+		List<ShopCommImage> commImagesAll = shopCommImageService.getAll();
+		List<ShopCommImage> commImages = new ArrayList<ShopCommImage>();
+		for (int i = 0; i < commImagesAll.size(); i++) {
+			if (commImagesAll.get(i).getShopCommoidty().getCommCode()==commid) {
+				commImages.add(commImagesAll.get(i));
+			}
+		}
+		mode.put("commImages", commImages);
 		return new ModelAndView("setupShop/editCommoidty",mode);
 	}
 	
 	//删除商品图片：
 	@RequestMapping("delShopCommImage")
 	@ResponseBody
-	public Map<String, Object> delShopCommImage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public ModelAndView delShopCommImage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ModelMap mode = new ModelMap();
+		
 		System.out.println("已经加载到。。。。delShopImage");
 		Integer imgId = Integer.valueOf(req.getParameter("imgId"));
-//		resp.setContentType("text/html;charset=UTF-8");
-//		resp.getWriter().write("删除成功！");
 		shopCommImageService.delete(imgId);
-		mode.put("success", "删除成功");
-		return mode;
+		
+		Integer commid = Integer.parseInt(req.getParameter("commid"));
+		ShopCommodity commodity = shopCommodityService.findById(commid);
+		//1.红酒
+		List<ShopCategory> list = shopCategService.getAllByParentLevel(1);
+		mode.put("shopCategories", list);
+		//后期改
+		List<ShopCategory> listtemp = new ArrayList<ShopCategory>();
+		List<ShopCategory> list2 = new ArrayList<ShopCategory>();
+		for (int i = 1; i < list.size(); i++) {
+			listtemp = shopCategService.getAllByParentLevel(list.get(i).getCategoryID());
+			list2.addAll(listtemp);
+		}
+		mode.put("list2", list2);
+		mode.addAttribute("commodity", commodity);
+		//设置表shopcategory的每个类型（红酒、啤酒等）的第一个字段category为“品牌”
+		mode.put("listBrand", shopCategService.getAllByParentLevel(list.get(0).getCategoryID()));
+		//显示所有名庄
+		List<FamousManor> famousManors = famousManorService.getAll();
+		mode.put("famousManors", famousManors);
+		//得到商品圖片列表信息：
+		List<ShopCommImage> commImagesAll = shopCommImageService.getAll();
+		List<ShopCommImage> commImages = new ArrayList<ShopCommImage>();
+		for (int i = 0; i < commImagesAll.size(); i++) {
+			if (commImagesAll.get(i).getShopCommoidty().getCommCode()==commid) {
+				commImages.add(commImagesAll.get(i));
+			}
+		}
+		mode.put("commImages", commImages);
+		
+		return new ModelAndView("setupShop/editCommoidty",mode);
 	}
+	
 	//批量删除商品 multiDelComm
 	@RequestMapping("multiDelComm")
 	public String multiDelComm(HttpServletRequest req , HttpServletResponse resp) throws IOException{
@@ -363,15 +458,53 @@ public class ShopOneController {
 		}
 		return "success";
 	}
+	
 	//商品下架
 	@RequestMapping("downComm")
-	public String downComm(HttpServletRequest req , HttpServletResponse resp){
+	public ModelAndView downComm(HttpServletRequest req , HttpServletResponse resp){
 		Integer commId = Integer.parseInt(req.getParameter("commId"));
 		ShopCommodity shopCommodity = shopCommodityService.findById(commId);
 		shopCommodity.setShelves(false);
 		shopCommodityService.update(shopCommodity);
-		return "success";
+		
+		/**
+		 * 以下两句为模拟shop，表示已经存在shop对象。
+		 */
+		Shop shop = shopService.findById(1);
+		req.getSession().setAttribute("shop", shop);
+		
+		ModelMap mode = new ModelMap();
+		List<ShopCommodity> commodities = null;
+		commodities = shopCommodityService.getAllByCondition("shelves", true, shop.getId());
+		//flag==1,表示显示上架的商品 
+		mode.put("flag", "1");
+		mode.put("commodities", commodities);
+		return new ModelAndView("setupShop/chushou",mode);
 	}
+	
+	//商品上架
+	@RequestMapping("upComm")
+	public ModelAndView upComm(HttpServletRequest req , HttpServletResponse resp){
+		Integer commId = Integer.parseInt(req.getParameter("commId"));
+		ShopCommodity shopCommodity = shopCommodityService.findById(commId);
+		shopCommodity.setShelves(true);
+		shopCommodityService.update(shopCommodity);
+		
+		/**
+		 * 以下两句为模拟shop，表示已经存在shop对象。
+		 */
+		Shop shop = shopService.findById(1);
+		req.getSession().setAttribute("shop", shop);
+		
+		ModelMap mode = new ModelMap();
+		List<ShopCommodity> commodities = null;
+		commodities = shopCommodityService.getAllByCondition("shelves", false, shop.getId());
+		//flag==0,表示显示下架的商品 
+		mode.put("flag", "0");
+		mode.put("commodities", commodities);
+		return new ModelAndView("setupShop/chushou",mode);
+	}
+	
 	//批量商品下架
 	@RequestMapping("multiDownComm")
 	public String multiDownComm(HttpServletRequest req , HttpServletResponse resp){
@@ -384,6 +517,7 @@ public class ShopOneController {
 		}
 		return "success";
 	}
+	
 	//出售中的商品搜索栏：map commoidtyName商品名称、commItem商品货号、commCode商品编码
 	@RequestMapping("searchCommName")
 	public ModelAndView searchCommName(HttpServletRequest req , HttpServletResponse resp){
@@ -402,6 +536,7 @@ public class ShopOneController {
 		mode.put("commodities", commodities);
 		return new ModelAndView("setupShop/chushou",mode);
 	}
+	
 	//出售中的商品搜索栏：map commoidtyName商品名称、commItem商品货号、commCode商品编码
 	@RequestMapping("searchCommNameCateBrand")
 	public ModelAndView searchCommNameCateBrand(HttpServletRequest req , HttpServletResponse resp){
@@ -411,6 +546,7 @@ public class ShopOneController {
 		mode.put("commodities", commodities);
 		return new ModelAndView("setupShop/chushou",mode);
 	}
+	
 	//已卖出的商品
 	@RequestMapping("soldComm")
 	public ModelAndView soldComm(HttpServletRequest req , HttpServletResponse resp){
@@ -447,6 +583,7 @@ public class ShopOneController {
 		mode.put("closeTransaction", closeTransaction);
 		return new ModelAndView("setupShop/soldComm",mode);
 	}
+	
 	//已卖出的商品的商品搜索栏：
 	@RequestMapping("searchAlrdyComm")
 	public ModelAndView searchAlrdyComm(HttpServletRequest req , HttpServletResponse resp) throws ParseException{
@@ -468,6 +605,7 @@ public class ShopOneController {
 		mode.put("searchOrders", searchOrders);
 		return new ModelAndView("setupShop/searchOrders",mode);
 	}
+	
 	//批量发货
 	@RequestMapping("multiDelivery")
 	public ModelAndView multiDelivery(HttpServletRequest req , HttpServletResponse resp) throws ParseException{
@@ -483,6 +621,7 @@ public class ShopOneController {
 		mode.put("checkboxs", names);
 		return new ModelAndView("setupShop/deliveryComm",mode);
 	}
+	
 	//发货
 	@RequestMapping("deliveryComm")
 	public ModelAndView deliveryComm(HttpServletRequest req , HttpServletResponse resp) throws ParseException{
@@ -499,6 +638,7 @@ public class ShopOneController {
 		orderFormService.update(orderForm);
 		return new ModelAndView("setupShop/deliveryComm",mode);
 	}
+	
 	//评价管理
 	@RequestMapping("evaluationManage")
 	public ModelAndView evaluationManage(HttpServletRequest req){
@@ -598,6 +738,7 @@ public class ShopOneController {
 		mode.put("addresses", addresses);
 		return new ModelAndView("setupShop/accountManage",mode);
 	}
+	
 	//保存账号信息
 	@RequestMapping("saveAccount")
 	public ModelAndView saveAccount(HttpServletRequest req){
@@ -621,6 +762,7 @@ public class ShopOneController {
 		mode.put("addresses", addresses);
 		return new ModelAndView("setupShop/accountManage",mode);
 	}
+	
 	//新增收货地址：
 	@RequestMapping("saveAddress")
 	public ModelAndView saveAddress(HttpServletRequest req){
@@ -647,7 +789,14 @@ public class ShopOneController {
 		address.setProvience(province);
 		address.setCity(city);
 		address.setDistrict(area);
+		//设置默认地址
 		if (defaults!=null) {
+			List<Address> addresses = addressService.getAll();
+			for (int i = 0; i < addresses.size(); i++) {
+				if (addresses.get(i).getTheDefault()) {
+					addresses.get(i).setTheDefault(false);
+				}
+			}
 			address.setTheDefault(true);
 		}else {
 			address.setTheDefault(false);
@@ -659,9 +808,26 @@ public class ShopOneController {
 		
 		return new ModelAndView("redirect:accountManage",mode);
 	}
-	//修改一条收货信息
+	
+	//传递到修改收货信息页面
 	@RequestMapping("modAddress")
 	public ModelAndView modAddress(HttpServletRequest req){
+		ModelMap mode = new ModelMap();
+		/**
+		 * 以下两句为模拟shop，表示已经存在shop对象。
+		 */
+		Shop shop = shopService.findById(1);
+		req.getSession().setAttribute("shop", shop);
+		Integer aid = Integer.parseInt(req.getParameter("aid"));
+		Address address = addressService.findById(aid);
+		mode.put("shop", shop);
+		mode.put("address", address);
+		return new ModelAndView("setupShop/modAddress",mode);
+	}
+	
+	//修改一条收货信息
+	@RequestMapping("modAddressInfo")
+	public ModelAndView modAddressInfo(HttpServletRequest req){
 		ModelMap mode = new ModelMap();
 		/**
 		 * 以下两句为模拟shop，表示已经存在shop对象。
@@ -686,7 +852,14 @@ public class ShopOneController {
 		address.setProvience(province);
 		address.setCity(city);
 		address.setDistrict(area);
+		//设置默认地址
 		if (defaults!=null) {
+			List<Address> addresses = addressService.getAll();
+			for (int i = 0; i < addresses.size(); i++) {
+				if (addresses.get(i).getTheDefault()) {
+					addresses.get(i).setTheDefault(false);
+				}
+			}
 			address.setTheDefault(true);
 		}else {
 			address.setTheDefault(false);
@@ -697,6 +870,7 @@ public class ShopOneController {
 		mode.put("addresses", addresses);
 		return new ModelAndView("redirect:accountManage",mode);
 	}
+	
 	//删除一条收货地址信息
 	@RequestMapping("delAddress")
 	public ModelAndView delAddress(HttpServletRequest req){
@@ -713,6 +887,58 @@ public class ShopOneController {
 		mode.put("addresses", addresses);
 		return new ModelAndView("redirect:accountManage",mode);
 	}
+	
+	//设为默认地址
+	@RequestMapping("setDefaultAddress")
+	public ModelAndView setDefaultAddress(HttpServletRequest req){
+		ModelMap mode = new ModelMap();
+		/**
+		 * 以下两句为模拟shop，表示已经存在shop对象。
+		 */
+		Shop shop = shopService.findById(1);
+		req.getSession().setAttribute("shop", shop);
+		mode.put("shop", shop);
+		//消除默认地址
+		List<Address> allAddress = addressService.getAll();
+		for (int i = 0; i < allAddress.size(); i++) {
+			if (allAddress.get(i).getTheDefault()) {
+				allAddress.get(i).setTheDefault(false);
+			}
+		}
+		Integer aid = Integer.parseInt(req.getParameter("aid"));
+		Address address = addressService.findById(aid);
+		address.setTheDefault(true);
+		List<Address> addresses = addressService.getAll();
+		mode.put("addresses", addresses);
+		return new ModelAndView("redirect:accountManage",mode);
+	}
+	
+	//商家评论用户：
+	@RequestMapping("evaluteUser")
+	public ModelAndView evaluteUser(HttpServletRequest req){
+		ModelMap mode = new ModelMap();
+		/**
+		 * 以下两句为模拟shop，表示已经存在shop对象。
+		 */
+		Shop shop = shopService.findById(1);
+		req.getSession().setAttribute("shop", shop);
+		mode.put("shop", shop);
+		
+		return new ModelAndView("",mode);
+	}
+	//messageCenter消息中心
+	@RequestMapping("messageCenter")
+	public ModelAndView messageCenter(HttpServletRequest req){
+		ModelMap mode = new ModelMap();
+		/**
+		 * 以下两句为模拟shop，表示已经存在shop对象。
+		 */
+		Shop shop = shopService.findById(1);
+		req.getSession().setAttribute("shop", shop);
+		mode.put("shop", shop);
+		
+		return new ModelAndView("setupShop/messageCenter",mode);
+	}
 	//1.填写个人开店个人信息
 	@RequestMapping("setupPeronShop")
 	public String setupPeronShop(@RequestParam MultipartFile [] myfile ,HttpServletRequest req , HttpServletResponse resp) throws IOException{
@@ -725,6 +951,8 @@ public class ShopOneController {
 		String area = req.getParameter("area"); 
 		String juridicalCard = req.getParameter("juridicalCard"); 
 		String idCard = req.getParameter("idCard"); 
+		String foodCriLis = req.getParameter("foodCriLis"); 
+		String taxReg = req.getParameter("taxReg"); 
 		Shop shop = new Shop();
 		shop.setPrivatePerson(name);
 		shop.setSex(sex);
@@ -733,6 +961,8 @@ public class ShopOneController {
 		shop.setJuridicalCard(juridicalCard);
 		shop.setIdCard(idCard);
 		shop.setShopType(ShopType.individual);
+		//显示待审核：
+		shop.setIsPermit(false);
 		String pathStr = "D:/tumbler/images/"+shop.getIdCard()+"/";
 		File path = new File(pathStr).getCanonicalFile();
 		shop.setIdCardUrl(path+"/shenfenzheng"+".jpg");
@@ -752,6 +982,7 @@ public class ShopOneController {
 		
 		return "success";
 	}
+	
 	//保存文件：
 	private boolean saveFile(int i ,Shop shop ,HttpServletRequest req, MultipartFile file) {  
 		String endType = "";

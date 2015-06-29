@@ -66,13 +66,13 @@ public class AppUser {
 	private String birthday;
 	
 	@ManyToMany(mappedBy = "users")
-	private List<ShopCommodity> activityCommodities;//商品类别
+	private List<ShopCommodity> activityCommodities;//商品
 	
 	@OneToMany(mappedBy = "user")
-	private List<Collection> collections;//商品类别
+	private List<Collection> collections;//商品收藏
 	
 	@OneToMany(mappedBy = "orderUser")
-	private List<OrderForm> orderForms;//商品类别
+	private List<OrderForm> orderForms;//订单
 
 	public List<OrderForm> getOrderForms() {
 		return orderForms;

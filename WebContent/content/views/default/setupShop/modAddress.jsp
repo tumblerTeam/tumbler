@@ -25,19 +25,6 @@
 	href="content/static/js/datetime/jquery.js">
 <script type="text/javascript"
 	src="content/static/js/datetime/jsAddress.js"></script>
-<script type="text/javascript">
-	function addAddress(){
-			var btn=document.getElementById("btn");
-			var btn2=document.getElementById("btn2");
-			var dizhi=document.getElementById("dizhi");
-			btn.onclick=function(){
-					dizhi.style.display="block";	
-				}
-			btn2.onclick=function(){
-					dizhi.style.display="none";	
-				}
-		}
-</script>
 
 </head>
 
@@ -72,7 +59,7 @@
         	<div class="top_nav_class">
                 <ul>
                     <a href="proscenium/openShop"><li>我是卖家</li></a>
-                    <li style="background-color:#a40c59; color:#fff;">账号管理</li>
+                    <a href="proscenium/accountManage"><li style="background-color:#a40c59; color:#fff;">账号管理</li></a>
                     <a href="xxzx.html"><li>消息中心</li></a> 
                 </ul>
             </div>
@@ -81,59 +68,14 @@
         
         <!--中间开始-->
        <div class="zhgl">
-       		<div class="ziliao">
-            	<h3>基本资料</h3>
-                <div class="box">
-                	<span>当前头像：</span>
-                    <img src="images/quan.jpg" />
-                    <form action="proscenium/saveAccount" method="post">
-                		<input type="hidden" name="shopId" value="${shop.id }"/>
-                    	*昵称：<input style="width:250px; height:25px; margin-left:38px;" name="userName" value="${shop.user.userName}" /><br />
-                        店铺名称：<input style="width:150px; height:25px;" name="shopName" value="${shop.shopName}"/> <br />
-                        性别：<input id="male" type="radio" style="margin-left:45px;" name="sex"/> 男
-                        	 <input id="female" type="radio" name="sex"/> 女<br />
-                        	 <script type="text/javascript">
-                        	 	function check(){
-                            	 	var rd = "${shop.sex}";
-                        	 		if(rd=='male'){
-                        	 			document.getElementById("male").checked = 'checked';
-                        	 		}else{
-                        	 			document.getElementById("female").checked = 'checked';
-                        	 		}
-                        	 	}
-                        	 	window.onload = check;
-                        	 </script>
-                        生日：<input style="margin-left: 40px;" type="date" name="birthday" value='${shop.birthday}'/><br />
-                        	
-             		<div> 地址：
-						 省：<select id="cmbProvince" name="province"></select> 
-						 市：<select id="cmbCity" name="city"></select>
-						区：<select id="cmbArea" name="area"></select><br>
-						<script type="text/javascript">
-							addressInit('cmbProvince', 'cmbCity', 'cmbArea', '新疆', '乌鲁木齐市', '新市区');
-						</script>
-					</div>
-					<input type="submit" value="保存" style="
-                   		background-color: #a40c59;
-						color: #fff;
-						border: none;
-						font-size: 16px;
-						padding: 5px 10px;
-						width: 80px;
-						margin: 30px 0px 0px 200px;"/>
-                    </form>
-                </div> 
-            </div>
-            
 			<hr style="margin-top:30px; width:90%;" />
 				<div class="dizhi">
-					<h3>收货地址</h3>
+					<h3>修改收货地址</h3>
 					<div class="box1">
-						<h4 id="btn" style="cursor: pointer;">
-							<button style="width: 120px;" onclick="addAddress();">新增收货地址</button>
-						</h4>
-						<div id="dizhi" style="display: none;">
-							<form action="proscenium/saveAddress" method="post">
+						
+						<div>
+							<form action="proscenium/modAddressInfo" method="post">
+								<input type="hidden" name="aid" value="${address.id}"/>
 								*所在地区：
                                 <select name="province">
                         		<option>---</option>
@@ -153,43 +95,17 @@
                                     <option value="武侯区">武侯区</option>
                                     <option value="">新市区</option>
                                  </select><br />
-                          *详细地址：<input name="street" style="width:400px; height:70px; margin-left:30px;" value="请输入详细信息" /><br />
-                          邮政编码：<input name="toEmail" style="margin-left:40px;" /><br />
-                          *收货人姓名：<input name="toName" type="text" /><br />
+                          *详细地址：<input name="street" style="width:400px; height:70px; margin-left:30px;" value="${address.street }" /><br />
+                          邮政编码：<input name="toEmail" style="margin-left:40px;" value="${address.toEmail }" /><br />
+                          *收货人姓名：<input name="toName" type="text" value="${address.toName }" /><br />
                           手机号码：
-                                <input name="phone" type="text" /><br />
+                                <input name="phone" type="text" value="${address.phone }"/><br />
                                 <input name="default" type="radio" style="margin-left:150px;" />设置为默认收货地址<br />
-                                <input type="submit" value="保存"/>
+                                <input type="submit" value="保存修改"/>
                     </form>
 						</div>
 					</div>
-					<div class="nav">
-						<div class="class">
-							<ul>
-								<li>收货人</li>
-								<li style="width: 240px;">所在地址</li>
-								<li style="width: 240px;">详细地址</li>
-								<li>邮编</li>
-								<li>电话/手机</li>
-								<li style="width: 150px;">操作</li>
-							</ul>
-						</div>
-						<div class="class1">
-							<c:forEach items="${addresses }" var="a">
-								<ul>
-									<li>${a.toName }</li>
-									<li style="width: 240px;">${a.provience}省 ${a.city}市 ${a.district}区</li>
-									<li style="width: 240px;">${a.street}</li>
-									<li>${a.toEmail }</li>
-									<li>${a.phone }</li>
-									<li style="width: 150px;"><a href="proscenium/modAddress?aid=${a.id}">修改</a> |<a href="proscenium/delAddress?aid=${a.id}">删除 |</a>
-									<c:if test="${a.theDefault==true}"><span style="font-size:12px; color:#a40c59;">默认地址</span></c:if> 
-									<c:if test="${a.theDefault==false}"><a href="proscenium/setDefaultAddress?aid=${a.id}">设为默认</a></c:if> 
-									</li>
-								</ul>
-							</c:forEach>
-						</div>
-					</div>
+					
 				</div>
 			</div>
       <!--中间结束-->  

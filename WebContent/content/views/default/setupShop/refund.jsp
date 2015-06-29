@@ -57,7 +57,7 @@ function setTab(name,m,n){
             <a href="#"><span class="right1">退款问题在线帮助</span></a>
         </div>
         <div class="sold">
-        	<div class="top">
+        	<div class="top" style="height:auto;">
             	<form action="proscenium/searchRefund" method="get">
                 	订单编号：<input type="text" name="orderFormID" />
 		                               从：<input type = "date" name="paymentDateLeft"/>到：<input type = "date" name="paymentDateRight"/><br />

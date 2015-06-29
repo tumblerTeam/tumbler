@@ -1,3 +1,4 @@
+<%@page import="com.yc.entity.Shop"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -6,6 +7,7 @@
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
+	Shop shop = (Shop)request.getSession().getAttribute("shop");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -47,7 +49,6 @@
 <!-- 左边部分 -->
 <jsp:include page="setupShopCommons/left.jsp" />
         
-        
 	<div class="con">
 		<div class="perterrtab perterrtab_2">
 			<input id="language" type="hidden" value="chinese" />
@@ -57,6 +58,7 @@
 			<div class="kd_yz_cont">
 				<form action="proscenium/saveCommodity" enctype="multipart/form-data"
 					method="post">
+					<input type="hidden" name="edit" value="0"/>
 					<dl>
 						<dd>
 							<span>商品名称</span><input type="text" value="" name="commoidtyName" />
@@ -65,7 +67,7 @@
 							<span>货号</span><input type="text" value="" name="commItem" />
 						</dd>
 						<dd>
-							<span>商品分类</span> <select onchange="shopcateOne(this);"
+							<span>商品分类</span> <select onchange="shopcateOne(this);" id="shopcateTwo"
 								style="height: 35px; width: 303px; border: 1px solid #ccc; margin-left: 7px">
 								<option value="-1">----请选择----</option>
 								<c:forEach items="${shopCategories }" var="shopcate"
@@ -75,7 +77,7 @@
 							</select>
 						</dd>
 						<dd>
-							<span>商品分类</span> <select onchange="shopcateOne(this);" name = "categoryid"
+							<span>商品分类</span> <select name = "categoryid"  id="shopcateThree"
 								style="height: 35px; width: 303px; border: 1px solid #ccc; margin-left: 7px">
 								<option value="-1">----请选择----</option>
 								<c:forEach items="${list2 }" var="shopcate"
@@ -84,12 +86,71 @@
 								</c:forEach>
 							</select>
 						</dd>
-						<div id="guige"></div>
-						<input type='hidden' id='guize' name="guige" value="" />
+						<!-- 新增开始 -->
+						<dd>
+							<span>酒精度</span><input type="text" style="width: 100px;"
+								value="" name="alcoholDegree" onblur="checkvalue(this);" />
+							<span>净含量</span><input type="text" style="width: 100px;"
+								value="" name="Weight" onblur="checkvalue(this);" />
+						</dd>
+						<dd>
+							<span>保质期</span><input type="text" style="width: 100px;"
+								value="" name="deadline" onblur="checkvalue(this);" />
+							<span>包装方式</span><input type="text" style="width: 100px;"
+								value="" name="packManner" onblur="checkvalue(this);" />
+						</dd>
+						<dd>
+							<span>产地</span><input type="text" style="width: 100px;"
+								value="" name="productPlace" onblur="checkvalue(this);" />
+							<span>产地省份</span><input type="text" style="width: 100px;"
+								value="" name="productProvince" onblur="checkvalue(this);" />
+						</dd>
+						<dd>
+							<span>醒酒时间</span><input type="text" style="width: 100px;"
+								value="" name="soberTime" onblur="checkvalue(this);" />
+							<span>饮酒温度</span><input type="text" style="width: 100px;"
+								value="" name="drinkTemperature" onblur="checkvalue(this);" />
+						</dd>
+						<dd>
+							<span>配料表</span><input type="text"
+								value="" name="mixtureSheet" onblur="checkvalue(this);" />
+						</dd>
+						<dd>
+							<span>储藏方法</span><input type="text"
+								value="" name="stockWay" onblur="checkvalue(this);" />
+						</dd>
+						<dd>
+							<span>食品添加剂</span><input type="text"
+								value="" name="foodAdditive" onblur="checkvalue(this);" />
+						</dd>
+						<dd>
+							<span>生产许可证编号</span><input type="text"
+								value="" name="productPerimitNum" onblur="checkvalue(this);" />
+						</dd>
+						<dd>
+							<span>生产标准号</span><input type="text"
+								value="" name="productStddNum" onblur="checkvalue(this);" />
+						</dd>
+						<dd>
+							<span>生产厂名</span><input type="text"
+								value="" name="productFactoryName" onblur="checkvalue(this);" />
+						</dd>
+						<dd>
+							<span>生产厂址</span><input type="text"
+								value="" name="productFactoryAddress" onblur="checkvalue(this);" />
+						</dd>
+						<dd>
+							<span>生产日期</span><input type="date"
+								value="" name="productTime" onblur="checkvalue(this);" />
+						</dd>
+						<!-- 新增结束 -->
 						<dd>
 							<span>库存数量</span><input type="text" style="width: 100px;"
-								value="" name="stock" onblur="checkvalue(this);" /><span>显示比例</span><input type="text"
-								style="width: 100px;" value="" name="proportion" onblur="checkvalue(this);"/>
+								value="" name="stock" onblur="checkvalue(this);" />
+								<select id="commUnit">
+									<option value="1">瓶</option>
+									<option value="0">箱</option>
+								</select>
 						</dd>
 						<dd>
 							<span>单价</span><input type="text" style="width: 100px;" value=""
@@ -100,9 +161,12 @@
 						<dd>
 							<span>是否上架</span><input type="radio"
 								style="width: 15px; height: 15px;" value="true" name="shelves"
-								checked="checked" id="shelvesTrue"/>上架&nbsp;&nbsp;&nbsp;&nbsp;<input
+								checked="checked" id="shelvesTrue"/>
+								上架&nbsp;&nbsp;&nbsp;&nbsp;<input
 								style="width: 15px; height: 15px;" type="radio" value="false"
-								name="shelves" id="shelvesFalse" />暂不上架 <span>是否精品</span><input type="radio"
+								name="shelves" id="shelvesFalse" />暂不上架 
+								
+								<span>是否精品</span><input type="radio"
 								style="width: 15px; height: 15px;" value="true" name="iscChoice"
 								checked="checked" />精品&nbsp;&nbsp;&nbsp;&nbsp;<input
 								style="width: 15px; height: 15px;" type="radio" value="false"
@@ -139,7 +203,24 @@
 										<option value="${fm.id}">${fm.manorName}</option>
 								</c:forEach>
 							</select>
-						</dd>
+							</dd>
+								<c:forEach items="${shop.shopCat.specifications }" var="sp" varStatus="status">
+									<dd>
+										<span>${sp.specificatName }</span>
+										<input type="hidden" name="commspecName${status.count}" value="${sp.specificatName}"/>
+										<input type="text" name="${sp.specificatName}"/>
+									</dd>
+								</c:forEach>
+							<dd>
+							<span>是否名庄</span><select
+								style="height: 35px; width: 303px; border: 1px solid #ccc; margin-left: 7px">
+								<option value="-1">----请选择----</option>
+								<c:forEach items="${famousManors }" var="fm"
+									varStatus="loop">
+										<option value="${fm.id}">${fm.manorName}</option>
+								</c:forEach>
+							</select>
+						</dd>						
 						<dd>
 							<span>照片上传</span><input type="file" name="myfile" />
 						</dd>
@@ -208,39 +289,49 @@
 				dd.style.display='none';
 			}
 		}
+// 		function shopcateOne(obj) {
+// 			var Code = obj.value;
+// 			alert(Code);
+// 			var shopcateTwo = document.getElementById('shopcateTwo');
+// 			var num = shopcateTwo.options.length;
+// 			for (i = num - 1; i >= 0; i--) {
+//  				shopcateTwo.remove(i);
+//  			}
+// 			var shopcateThree = document.getElementById('shopcateThree');
+// 			var num = shopcateThree.options.length;
+// 			for (i = num - 1; i >= 0; i--) {
+// 				shopcateThree.remove(i);
+// 			}
+// 			var objOption = new Option("----请选择----", -1);
+// 			shopcateTwo.options[shopcateTwo.options.length] = objOption;
+// 			var objOptionT = new Option("----请选择----", -1);
+// 			shopcateThree.options[shopcateThree.options.length] = objOptionT;
+// 			<c:forEach items="${list2 }" var="leiBieTwo">
+// 				if ('${leiBieTwo.parentLevel.categoryID }' == Code) {
+// 					alert('${leiBieTwo.parentLevel.categoryID }');
+// 					var objOption = new Option("${leiBieTwo.category }",'${leiBieTwo.categoryID}');
+// 					shopcateThree.options[shopcateTwo.options.length] = objOption;
+// 				}
+// 			</c:forEach>
+// 		}
 		
 		function shopcateOne(obj) {
-			var language = $("#language").val();
 			var Code = obj.value;
 			var shopcateTwo = document.getElementById('shopcateTwo');
 			var num = shopcateTwo.options.length;
-			for (i = num - 1; i >= 0; i--) {
-				shopcateTwo.remove(i);
-			}
 			var shopcateThree = document.getElementById('shopcateThree');
 			var num = shopcateThree.options.length;
 			for (i = num - 1; i >= 0; i--) {
 				shopcateThree.remove(i);
 			}
-			var objOption = new Option("----请选择----", -1);
-			shopcateTwo.options[shopcateTwo.options.length] = objOption;
 			var objOptionT = new Option("----请选择----", -1);
 			shopcateThree.options[shopcateThree.options.length] = objOptionT;
-			<c:forEach items="${shopCategories }" var="leiBieTwo">
-				alert(Code );
-			if ('${leiBieTwo.parentLevel.categoryID }' == Code) {
-// 				if ( language == "chinese" ) {
-					var objOption = new Option("${leiBieTwo.category }",
-					'${leiBieTwo.categoryID}');
-// 				} else if ( language == "russina" ) {
-// 					var objOption = new Option("${leiBieTwo.russinaCategory }",
-// 					'${leiBieTwo.categoryID}');
-// 				}
-				
-				shopcateTwo.options[shopcateTwo.options.length] = objOption;
-			}
+			<c:forEach items="${list2 }" var="leiBieTwo">
+				if ('${leiBieTwo.parentLevel.categoryID }' == Code) {
+					var objOption = new Option("${leiBieTwo.category}",'${leiBieTwo.categoryID}');
+					shopcateThree.options[shopcateThree.options.length] = objOption;
+				}
 			</c:forEach>
-
 		}
 		function shopcate(obj) {
 			var language = $("#language").val();

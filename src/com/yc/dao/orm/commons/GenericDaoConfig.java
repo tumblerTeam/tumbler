@@ -27,6 +27,7 @@ import com.yc.entity.Shop;
 import com.yc.entity.ShopCategory;
 import com.yc.entity.ShopCommImage;
 import com.yc.entity.ShopCommodity;
+import com.yc.entity.ShopCommodityAttribute;
 import com.yc.entity.ShopCommoditySpecs;
 import com.yc.entity.ShopReviews;
 import com.yc.entity.Specifications;
@@ -170,5 +171,9 @@ public class GenericDaoConfig {
     @Bean
     public GenericDao<BuyCar> getBuyCarDao() {
     	return new GenericDaoSupport<BuyCar>(BuyCar.class);
+    }
+    @Bean
+    public GenericDao<ShopCommodityAttribute> getShopCommodityAttributeDao() {
+    	return new GenericDaoSupport<ShopCommodityAttribute>(ShopCommodityAttribute.class);
     }
 }

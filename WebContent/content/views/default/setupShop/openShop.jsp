@@ -31,8 +31,7 @@
 <!-- 顶部部分 -->
 <jsp:include page="setupShopCommons/header.jsp" />
 <!-- 左边部分 -->
-<jsp:include page="setupShopCommons/left.jsp" />
-        
+<jsp:include page="setupShopCommons/left.jsp" />        
         <div class="bread" >
         	<div class="left1"><a href="#">我是卖家</a> < 申请开店</div>
             <a href="#"><span class="right1">开店帮助</span></a>

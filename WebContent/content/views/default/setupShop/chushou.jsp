@@ -41,14 +41,14 @@ function setTab(name,m,n){
             <a href="#"><span class="right1">买家交易学习专区</span></a>
         </div>
         <div class="sold">
-        	<div class="top">
+        	<div class="top" style="height:90px;">
         		<form action="proscenium/searchCommNameCateBrand" method="get">
 					商品（品牌、类别）名称：<input type="text" name="name" /> 
                     <input type="submit" value="搜索"/>
                  </form>
             	<form action="proscenium/searchCommName" method="get">
-                	商品名称：<input type="text" name="commoidtyName" /> 
-			                    商家编码：<input type="text" name="commCode" />
+                	商品名称：<input type="text" name="commoidtyName" style="margin-right:10px;"/> 
+			                    商家编码：<input type="text" name="commCode" style="margin-right:10px;"/>
 			                    商家货号：<input type="text" name="commItem" />
 			        <input type="submit" value="搜索"/>
         		</form>
@@ -66,7 +66,6 @@ function setTab(name,m,n){
 	                <div class="all_nav1">
 	                	<input type="checkbox" name="quan" />全选
 	                    <input type="submit" value="删除" style="margin:15px 0px 0px 15px;">	
-	                    <button onclick="multiDownComm()">下架</button>
 	                </div>
 	                <script type="text/javascript">
 	                	function multiDownComm(){
@@ -85,7 +84,12 @@ function setTab(name,m,n){
 	               			<li  style="text-align:center; line-height:100px;">${c.unitPrice}</li>
 	                        <li>
 	                        	<div class="l3">${c.stock }</div>
-	                            <div class="l4"><a style="color:#fff; text text-decoration: none;" href="proscenium/downComm?commId=${c.commCode }">下架</a></div>
+	                        	<c:if test="${flag==1}">
+	                            	<div class="l4"><a style="color:#fff; text text-decoration: none;" href="proscenium/downComm?commId=${c.commCode }">下架</a></div>
+								</c:if>
+								<c:if test="${flag==0}">
+	                            	<div class="l4"><a style="color:#fff; text text-decoration: none;" href="proscenium/upComm?commId=${c.commCode }">上架</a></div>
+								</c:if>
 	                        </li>
 	                        <li>
 	                        	<div class="l5"><a href="proscenium/editCommoidty?commid=${c.commCode }">编辑商品</a></div>
@@ -116,10 +120,10 @@ function setTab(name,m,n){
             </div>
         </div>
       </div>
-      <!--中间结束-->  
+      <!--中间结束-->
     </div>
 </div>
-<!--脚部-->
+<!-- 页脚部分 -->
 <jsp:include page="../frontDesk/foot.jsp"/>
 
 </body>

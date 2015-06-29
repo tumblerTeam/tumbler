@@ -26,8 +26,8 @@
         	<div class="top_nav_class">
                 <ul>
                     <li style="background-color:#a40c59; color:#fff;">我是卖家</li>
-                    <a href="proscenium/accountManage"><li>账号管理</li></a>
-                    <a href="xxzx.html"><li>消息中心</li></a>
+                    <!-- <a href="proscenium/accountManage"><li>账号管理</li></a> -->
+                    <a href="proscenium/messageCenter"><li>消息中心</li>
                 </ul>
             </div>
             <a href="personal.html"><div class="lianjie">我的不倒翁>></div></a>
@@ -54,7 +54,6 @@
                     	<li><a href="proscenium/releaseCommoidty">发布商品</a></li>
                         <li><a href="proscenium/chushou?flag=1">出售中的商品</a></li>
                         <li><a href="proscenium/chushou?flag=0">仓库中的商品</a></li>
-                        <li><a href="#">体检中心</a></li>
                     </ul>
                 </div>
         </div>

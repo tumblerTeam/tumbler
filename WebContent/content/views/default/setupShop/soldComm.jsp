@@ -28,6 +28,37 @@
 			}
 		}
 </script>
+<script>
+	window.onload= function(){
+		var zh1=document.getElementById("zh1");
+		var zh2=document.getElementById("zh2");
+		var nav3=document.getElementById("nav3");
+		var timer=null;	
+		zh2.onmouseover=zh1.onmouseover=function(){
+			clearTimeout(timer);
+			zh2.style.display="block";
+			nav3.style.backgroundColor="#fff";
+			};
+		zh2.onmouseout=zh1.onmouseout=function(){
+			timer=setTimeout(function (){
+				zh2.style.display="none";
+				nav3.style.backgroundColor="#eee";
+				},500);
+			};	
+		$(document).ready(function() {
+		$(".pingjia").click(event,function(){
+			$(".ping").css("display","block");
+			});
+		$("#fa").click(event,function(){
+			$(".ping").css("display","none");
+			});
+		$("#bu").click(event,function(){
+			$(".ping").css("display","none");
+			});
+		});
+	}
+</script>
+
 <!--选项卡js-->
 <script type="text/javascript"> 
 function setTab(name,m,n){ 
@@ -45,6 +76,19 @@ function setTab(name,m,n){
 </head>
 
 <body>
+<!--顶部内容-->
+<div class="header">
+	<div class="header_box">
+    	<ul class="header_nav" >
+            <li class="nav3" id="nav3">
+            	<a href="#" id="zh1"><span>htx4846842</span><img src="images/header_icon1.png"></a>
+                <div class="zh" id="zh2" style="display:none;">
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
 <!-- 顶部部分 -->
 <jsp:include page="setupShopCommons/header.jsp" />
 <!-- 左边部分 -->
@@ -56,7 +100,7 @@ function setTab(name,m,n){
             <a href="#"><span class="right1">买家交易学习专区</span></a>
         </div>
         <div class="sold">
-        	<div class="top">
+        	<div class="top" style="height:auto;">
             	<form action="proscenium/searchAlrdyComm" method="get">
                 	商品名称：<input type="text" name="commName" /> 
                     成交时间：从<input type="date" name="firstDate"/> 
@@ -134,19 +178,25 @@ function setTab(name,m,n){
 		                        	<c:if test="${o.orderstatus == 'refundSuccess'}">退款成功</c:if>
 		                        	<c:if test="${o.orderstatus == 'refundFailed'}">退款失败</c:if>
 		                        </li>
-		                        <li style="width:100px;">￥${c.money}</li>
-		                        <li>${c.comment }</li>
+		                        <li>￥${c.money}</li>
+			                        <c:forEach items="${c.shopCommodity.shopreviews}" var="re">
+		                        		<c:if test="${re.user.id == o.orderUser.id}">
+		                        			<c:if test="${re.orderId == o.orderFormID}">
+		                        				<li>${re.reviewsRank}</li>
+		                        			</c:if>
+		                        		</c:if>
+		                        	</c:forEach>
 		                		</c:forEach>
 	                    </ul></c:forEach>
 	                </div>
                 </form>
                 <div class="nav_class" id="text1">
-                	<ul>
-	                	<c:forEach items="${order3Month}" var="o">
+	                <c:forEach items="${order3Month}" var="o">
+                		<ul>
 	                		<c:forEach items="${o.commodities }" var="c">
 	                			<li style="width:250px; line-height:20px; text-align:left; float:left;">
 	                            <img src="images/quan.jpg" width="50px" height="40px" style="margin-left:15px;"/>
-	                            <div style="float:right; margin-right:20px;">${c.commItem }<br />${c.nameOfGoods }</div>
+	                            <div style="float:right; margin-right:20px;">${c.shopCommodity.commCode }<br />${c.shopCommodity.commoidtyName }</div>
 		                        </li>
 		                        <li style="width:100px;">￥${c.price}</li>
 	                        	<li>${c.quantity }</li>
@@ -165,18 +215,25 @@ function setTab(name,m,n){
 	                        	<c:if test="${o.orderstatus == 'refundFailed'}">退款失败</c:if>
 	                        </li>
 	                        <li>￥${c.money}</li>
-	                        <li>${c.comment }</li>
+	                        	<c:forEach items="${c.shopCommodity.shopreviews}" var="re">
+	                        		<c:if test="${re.user.id == o.orderUser.id}">
+	                        			<c:if test="${re.orderId == o.orderFormID}">
+	                        				<li>${re.reviewsRank}</li>
+	                        			</c:if>
+	                        		</c:if>
+	                        	</c:forEach>
 	                		</c:forEach>
-	                	</c:forEach>
-                    </ul>
+                    	</ul>
+                    	
+	                </c:forEach>
                 </div>
                 <div class="nav_class" style="display:none;" id="text2">
                 	<ul>
-                    	<c:forEach items="${waitPayment}" var="o">
+	                	<c:forEach items="${waitPayment}" var="o">
 	                		<c:forEach items="${o.commodities }" var="c">
 	                			<li style="width:250px; line-height:20px; text-align:left; float:left;">
 	                            <img src="images/quan.jpg" width="50px" height="40px" style="margin-left:15px;"/>
-	                            <div style="float:right; margin-right:20px;">${c.commItem }<br />${c.nameOfGoods }</div>
+	                            <div style="float:right; margin-right:20px;">${c.shopCommodity.commCode }<br />${c.shopCommodity.commoidtyName }</div>
 		                        </li>
 		                        <li style="width:100px;">￥${c.price}</li>
 	                        	<li>${c.quantity }</li>
@@ -194,8 +251,14 @@ function setTab(name,m,n){
 	                        	<c:if test="${o.orderstatus == 'refundSuccess'}">退款成功</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundFailed'}">退款失败</c:if>
 	                        </li>
-	                        <li style="width:100px;">￥${c.money}</li>
-	                        <li>${c.comment }</li>
+	                        <li>￥${c.money}</li>
+	                        	<c:forEach items="${c.shopCommodity.shopreviews}" var="re">
+	                        		<c:if test="${re.user.id == o.orderUser.id}">
+	                        			<c:if test="${re.orderId == o.orderFormID}">
+	                        				<li>${re.reviewsRank}</li>
+	                        			</c:if>
+	                        		</c:if>
+	                        	</c:forEach>
 	                		</c:forEach>
 	                	</c:forEach>
                     </ul>
@@ -203,11 +266,11 @@ function setTab(name,m,n){
                 
                 <div class="nav_class"  style="display:none;" id="text4">
                 	<ul>
-                    	<c:forEach items="${transitGoods}" var="o">
+	                	<c:forEach items="${transitGoods}" var="o">
 	                		<c:forEach items="${o.commodities }" var="c">
 	                			<li style="width:250px; line-height:20px; text-align:left; float:left;">
 	                            <img src="images/quan.jpg" width="50px" height="40px" style="margin-left:15px;"/>
-	                            <div style="float:right; margin-right:20px;">${c.commItem }<br />${c.nameOfGoods }</div>
+	                            <div style="float:right; margin-right:20px;">${c.shopCommodity.commCode }<br />${c.shopCommodity.commoidtyName }</div>
 		                        </li>
 		                        <li style="width:100px;">￥${c.price}</li>
 	                        	<li>${c.quantity }</li>
@@ -225,20 +288,25 @@ function setTab(name,m,n){
 	                        	<c:if test="${o.orderstatus == 'refundSuccess'}">退款成功</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundFailed'}">退款失败</c:if>
 	                        </li>
-	                        <li></li>
-	                        <li style="width:100px;">￥${c.money}</li>
-	                        <li>${c.comment }</li>
+	                        <li>￥${c.money}</li>
+		                        <c:forEach items="${c.shopCommodity.shopreviews}" var="re">
+	                        		<c:if test="${re.user.id == o.orderUser.id}">
+	                        			<c:if test="${re.orderId == o.orderFormID}">
+	                        				<li>${re.reviewsRank}</li>
+	                        			</c:if>
+	                        		</c:if>
+	                        	</c:forEach>
 	                		</c:forEach>
 	                	</c:forEach>
                     </ul>
                 </div>
                 <div class="nav_class" style="display:none;" id="text5">
                 	<ul>
-                    	<c:forEach items="${refundOrderForm}" var="o">
+	                	<c:forEach items="${refundOrderForm}" var="o">
 	                		<c:forEach items="${o.commodities }" var="c">
 	                			<li style="width:250px; line-height:20px; text-align:left; float:left;">
 	                            <img src="images/quan.jpg" width="50px" height="40px" style="margin-left:15px;"/>
-	                            <div style="float:right; margin-right:20px;">${c.commItem }<br />${c.nameOfGoods }</div>
+	                            <div style="float:right; margin-right:20px;">${c.shopCommodity.commCode }<br />${c.shopCommodity.commoidtyName }</div>
 		                        </li>
 		                        <li style="width:100px;">￥${c.price}</li>
 	                        	<li>${c.quantity }</li>
@@ -256,19 +324,25 @@ function setTab(name,m,n){
 	                        	<c:if test="${o.orderstatus == 'refundSuccess'}">退款成功</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundFailed'}">退款失败</c:if>
 	                        </li>
-	                        <li style="width:100px;">￥${c.money}</li>
-	                        <li>${c.comment }</li>
+	                        <li>￥${c.money}</li>
+		                        <c:forEach items="${c.shopCommodity.shopreviews}" var="re">
+	                        		<c:if test="${re.user.id == o.orderUser.id}">
+	                        			<c:if test="${re.orderId == o.orderFormID}">
+	                        				<li>${re.reviewsRank}</li>
+	                        			</c:if>
+	                        		</c:if>
+	                        	</c:forEach>
 	                		</c:forEach>
 	                	</c:forEach>
                     </ul>
                 </div>
                 <div class="nav_class"  style="display:none;" id="text6">
                 	<ul>
-                    	<c:forEach items="${refundSuccess}" var="o">
+	                	<c:forEach items="${refundSuccess}" var="o">
 	                		<c:forEach items="${o.commodities }" var="c">
 	                			<li style="width:250px; line-height:20px; text-align:left; float:left;">
 	                            <img src="images/quan.jpg" width="50px" height="40px" style="margin-left:15px;"/>
-	                            <div style="float:right; margin-right:20px;">${c.commItem }<br />${c.nameOfGoods }</div>
+	                            <div style="float:right; margin-right:20px;">${c.shopCommodity.commCode }<br />${c.shopCommodity.commoidtyName }</div>
 		                        </li>
 		                        <li style="width:100px;">￥${c.price}</li>
 	                        	<li>${c.quantity }</li>
@@ -286,19 +360,25 @@ function setTab(name,m,n){
 	                        	<c:if test="${o.orderstatus == 'refundSuccess'}">退款成功</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundFailed'}">退款失败</c:if>
 	                        </li>
-	                        <li style="width:100px;">￥${c.money}</li>
-	                        <li>${c.comment }</li>
+	                        <li>￥${c.money}</li>
+		                        <c:forEach items="${c.shopCommodity.shopreviews}" var="re">
+	                        		<c:if test="${re.user.id == o.orderUser.id}">
+	                        			<c:if test="${re.orderId == o.orderFormID}">
+	                        				<li>${re.reviewsRank}</li>
+	                        			</c:if>
+	                        		</c:if>
+	                        	</c:forEach>
 	                		</c:forEach>
 	                	</c:forEach>
                     </ul>
                 </div>
                 <div class="nav_class"style="display:none;" id="text7">
                 	<ul>
-                    	<c:forEach items="${completionTransaction}" var="o">
+	                	<c:forEach items="${completionTransaction}" var="o">
 	                		<c:forEach items="${o.commodities }" var="c">
 	                			<li style="width:250px; line-height:20px; text-align:left; float:left;">
 	                            <img src="images/quan.jpg" width="50px" height="40px" style="margin-left:15px;"/>
-	                            <div style="float:right; margin-right:20px;">${c.commItem }<br />${c.nameOfGoods }</div>
+	                            <div style="float:right; margin-right:20px;">${c.shopCommodity.commCode }<br />${c.shopCommodity.commoidtyName }</div>
 		                        </li>
 		                        <li style="width:100px;">￥${c.price}</li>
 	                        	<li>${c.quantity }</li>
@@ -316,19 +396,31 @@ function setTab(name,m,n){
 	                        	<c:if test="${o.orderstatus == 'refundSuccess'}">退款成功</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundFailed'}">退款失败</c:if>
 	                        </li>
-	                        <li style="width:100px;">￥${c.money}</li>
-	                        <li>${c.comment }</li>
+	                        <li>￥${c.money}</li>
+	                        	<% int flag = 0; %>
+		                        <c:forEach items="${c.shopCommodity.shopreviews}" var="re">
+	                        		<c:if test="${re.user.id == o.orderUser.id}">
+	                        			<c:if test="${re.orderId == o.orderFormID}">
+	                        				<% flag = 1; %>
+	                        				<li>${re.reviewsRank}</li>
+	                        			</c:if>
+	                        		</c:if>
+	                        	</c:forEach>
+	                        	<%if(flag == 0){ %>
+	                        		<li><a style="color:red;font-size: 12px; font-weight: bold;" href="proscenium/evaluteUser">评论</a></li>
+	                        	<%} %>
+	                        	
 	                		</c:forEach>
 	                	</c:forEach>
                     </ul>
                 </div>
                 <div class="nav_class" style="display:none;" id="text8">
                 	<ul>
-                    	<c:forEach items="${closeTransaction}" var="o">
+	                	<c:forEach items="${closeTransaction}" var="o">
 	                		<c:forEach items="${o.commodities }" var="c">
 	                			<li style="width:250px; line-height:20px; text-align:left; float:left;">
 	                            <img src="images/quan.jpg" width="50px" height="40px" style="margin-left:15px;"/>
-	                            <div style="float:right; margin-right:20px;">${c.commItem }<br />${c.nameOfGoods }</div>
+	                            <div style="float:right; margin-right:20px;">${c.shopCommodity.commCode }<br />${c.shopCommodity.commoidtyName }</div>
 		                        </li>
 		                        <li style="width:100px;">￥${c.price}</li>
 	                        	<li>${c.quantity }</li>
@@ -346,19 +438,29 @@ function setTab(name,m,n){
 	                        	<c:if test="${o.orderstatus == 'refundSuccess'}">退款成功</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundFailed'}">退款失败</c:if>
 	                        </li>
-	                        <li style="width:100px;">￥${c.money}</li>
-	                        <li>${c.comment }</li>
+	                        <li>￥${c.money}</li>
+	                        	${c.shopCommodity}
+		                        <c:forEach items="${c.shopCommodity.shopreviews}" var="re">
+	                        		<c:if test="${re.user.id == o.orderUser.id}">
+	                        			<c:if test="${re.orderId == o.orderFormID}">
+	                        				<c:if test="${re.reviewsRank != null}">
+	                        					<li>${re.reviewsRank}</li>
+	                        				</c:if>
+	                        			</c:if>
+	                        		</c:if>
+	                        	</c:forEach>
+	                        	
 	                		</c:forEach>
 	                	</c:forEach>
                     </ul>
                 </div>
                 <div class="nav_class" style="display:none;" id="text9">
                 	<ul>
-                    	<c:forEach items="${waitPayment}" var="o">
+	                	<c:forEach items="${order3Month}" var="o">
 	                		<c:forEach items="${o.commodities }" var="c">
 	                			<li style="width:250px; line-height:20px; text-align:left; float:left;">
 	                            <img src="images/quan.jpg" width="50px" height="40px" style="margin-left:15px;"/>
-	                            <div style="float:right; margin-right:20px;">${c.commItem }<br />${c.nameOfGoods }</div>
+	                            <div style="float:right; margin-right:20px;">${c.shopCommodity.commCode }<br />${c.shopCommodity.commoidtyName }</div>
 		                        </li>
 		                        <li style="width:100px;">￥${c.price}</li>
 	                        	<li>${c.quantity }</li>
@@ -376,8 +478,14 @@ function setTab(name,m,n){
 	                        	<c:if test="${o.orderstatus == 'refundSuccess'}">退款成功</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundFailed'}">退款失败</c:if>
 	                        </li>
-	                        <li style="width:100px;">￥${c.money}</li>
-	                        <li>${c.comment }</li>
+	                        <li>￥${c.money}</li>
+		                        <c:forEach items="${c.shopCommodity.shopreviews}" var="re">
+	                        		<c:if test="${re.user.id == o.orderUser.id}">
+	                        			<c:if test="${re.orderId == o.orderFormID}">
+	                        				<li>${re.reviewsRank}</li>
+	                        			</c:if>
+	                        		</c:if>
+	                        	</c:forEach>
 	                		</c:forEach>
 	                	</c:forEach>
                     </ul>

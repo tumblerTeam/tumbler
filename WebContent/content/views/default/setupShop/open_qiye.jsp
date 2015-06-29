@@ -78,18 +78,41 @@
                               <div class="file-box"> 
                                    *税务登记证：<input type="file" name="myfile" id="required" /> 
 						      </div>
-                              <div class="file-box"> 
+						      您是：<select onchange="selected(this);" name="PY_type" id="thisSelect">
+						      		<option id="cs" value="1">厂商</option>
+						      		<option id="pf" value="2">批发</option>
+						      		<option id="ls" value="3">零售</option>
+						      	</select>
+						      	<script type="text/javascript">
+							      	function selected(objSelect){
+							      		var thisValue = document.getElementById("thisSelect").value;
+							      		if(thisValue==1){
+							      			document.getElementById("div1").style.display="";
+							      			document.getElementById("div2").style.display="none";
+							      			document.getElementById("div3").style.display="none";
+							      		}if(thisValue==2){
+							      			document.getElementById("div2").style.display="";
+							      			document.getElementById("div1").style.display="none";
+							      			document.getElementById("div3").style.display="none";
+							      		}if(thisValue==3){
+							      			document.getElementById("div3").style.display="";
+							      			document.getElementById("div2").style.display="none";
+							      			document.getElementById("div1").style.display="none";
+							      		}
+							      	}
+						      	</script>
+                              <div style="display: none;" class="file-box" id="div1"> 
                               	<label>厂商：</label>
                                    *生产经营许可证：<input type="file" name="myfile" id="required" /><br>
                                    *国家 Q S 认证：<input type="file" name="myfile" id="required" />
 						      </div>
-						      <div class="file-box"> 
+						      <div style="display: none;" class="file-box" id="div2"> 
                               	<label>批发：</label>
                                    *自治区酒类批发许可证：<input type="file" name="myfile" id="required" /><br>
                                    *酒类经销合同（图片）：<input type="file" name="myfile" id="required" /><br>
                                    *经销授权书（图片）：<input type="file" name="myfile" id="required" />
 						      </div>
-						      <div class="file-box"> 
+						      <div style="display: none;" class="file-box" id="div3"> 
                               	<label>零售：</label>
                                    *酒类经营许可证：<input type="file" name="myfile" id="required" /><br>
                                    *零售备案登记证：<input type="file" name="myfile" id="required" />

@@ -61,7 +61,7 @@ public class UserController {
 		AppUser personnel = userService.getUser(name);
 		if (personnel == null) {
 			request.getSession().setAttribute("message", "用户不存在！！");
-			return "redirect:/login?page=" + page;
+			return "redirect:/user/regist" ;
 		} else {
 			if (personnel.getPassword().equals(pwd)) {
 				session.setAttribute("loginUser", personnel);
@@ -73,7 +73,7 @@ public class UserController {
 				}
 			} else {
 				request.getSession().setAttribute("message", "密码不正确！！");
-				return "redirect:/login?page=" + page;
+				return "redirect:/user/regist?page=" + page;
 			}
 		}
 	}
@@ -98,15 +98,18 @@ public class UserController {
 
 	@RequestMapping(value = "regist", method = RequestMethod.POST)
 	public String registing(String page, String phone, String password, String mobile_code, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		HttpSession session = request.getSession();
-		Object session_code = session.getAttribute("mobile_code");
-		AppUser user = new AppUser();
-		if (session_code != null) {
-			String session_mobileCode = session_code.toString();
-			if (session_mobileCode.equals(mobile_code.trim())) {
-				user.setPhone(phone);
-				user.setPassword(KL(MD5(password)));
-				user = userService.save(user);
+		AppUser user = userService.getUser(phone);
+		if(user ==  null){
+			HttpSession session = request.getSession();
+			Object session_code = session.getAttribute("mobile_code");
+			 user = new AppUser();
+			if (session_code != null) {
+				String session_mobileCode = session_code.toString();
+				if (session_mobileCode.equals(mobile_code.trim())) {
+					user.setPhone(phone);
+					user.setPassword(KL(MD5(password)));
+					user = userService.save(user);
+				}
 			}
 		}
 		return "redirect:/user/login?mobile=" + user.getPhone() + "&password=" + user.getPassword() + "&page=" + page;
