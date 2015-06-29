@@ -2,7 +2,6 @@ package com.yc.controller.search;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.yc.entity.FamousManor;
 import com.yc.entity.ShopCategory;
 import com.yc.entity.ShopCommodity;
-import com.yc.model.CommdityModel;
 import com.yc.service.IFamousManorService;
 import com.yc.service.IShopCategoryService;
 import com.yc.service.IShopCommodityService;
@@ -46,7 +44,6 @@ public class SearchController {
 	@RequestMapping(value = "result", method =RequestMethod.GET)
 	public ModelAndView result(String brand, Integer cateid, Integer id, String famousid, String spec, String params,String orderByPice, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ModelMap mode = new ModelMap();
-		System.out.println("brand"+brand+"cateid"+cateid+"id"+id+"famousid"+famousid+"spec"+spec+"params"+params);
 		List<ShopCategory> list = shopCategService.getAllByParent();
 		mode.put("categories", list);
 		if (params == null) {
@@ -75,7 +72,6 @@ public class SearchController {
 
 	@SuppressWarnings("unused")
 	private ModelAndView extOther(Integer cateid,Integer id, String params, ModelMap mode, String orderByPice) {
-		System.out.println("id============"+id);
 		ShopCategory cate = shopCategService.findById(id);
 		List<ShopCategory> shopcates = new ArrayList<ShopCategory>();
 		String strs = "";
@@ -162,6 +158,8 @@ public class SearchController {
 		String brands = "(";
 		String specs = "";
 		String money = "";
+		String alcoholicStrength = "";
+		String particularYear = "";
 		String famousids = "(";
 		String[] param = params.split(",");
 		for (int i = 1; i < param.length; i++) {
@@ -171,6 +169,10 @@ public class SearchController {
 				famousids = famousids + param[i].split("-")[1] + ",";
 			} else if (param[i].split("-")[0].equals("money")) {
 				money = param[i].split("-")[1];
+			} else if (param[i].split("-")[0].equals("alcoholicStrength")) {
+				alcoholicStrength = param[i].split("-")[1];
+			} else if (param[i].split("-")[0].equals("particularYear")) {
+				particularYear = param[i].split("-")[1];
 			} else {
 				if (param[i].contains("颜色-")) {
 					specs = specs + "%," + param[i] + "%" + "@";
@@ -207,6 +209,16 @@ public class SearchController {
 			map.put("money", null);
 		} else {
 			map.put("money", money);
+		}
+		if (alcoholicStrength.trim().equals("")) {
+			map.put("alcoholicStrength", null);
+		} else {
+			map.put("alcoholicStrength", alcoholicStrength);
+		}
+		if (particularYear.trim().equals("")) {
+			map.put("particularYear", null);
+		} else {
+			map.put("particularYear", particularYear);
 		}
 		return map;
 	}

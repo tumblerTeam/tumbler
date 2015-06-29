@@ -8,7 +8,9 @@
 <head>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 <base href="<%=basePath%>" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -17,36 +19,223 @@
 	content="CSS3 Full Screen Vertical Scroller with jQuery animation fallback" />
 <meta name="viewport" content="width=device-width, user-scalable=no" />
 <script type="text/javascript" src="content/static/js/lib/jquery.min.js"></script>
+<script type="text/javascript"
+	src="content/static/js/tumbler/jquery.SuperSlide.2.1.1.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="content/static/css/style.css" />
 <link rel="stylesheet" type="text/css"
 	href="content/static/css/right.css" />
+<link href="content/static/css/daxuewen1012.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css"
+	href="content/static/css/animation.css" />
+<link href="content/static/css/b_style.css" rel="stylesheet"
+	type="text/css" />
+<style>
+.left li.ysli {
+	background: url(content/static/images/tab.png) scroll 0px 25px no-repeat;
+	font-weight: bold;
+}
+
+.yslia {
+	background: url(content/static/images/tab.png) scroll 0px 25px no-repeat;
+}
+</style>
+<!--搜索框-->
+<script>
+	window.onload = function() {
+		var d1 = document.getElementById("hj");
+		d1.onclick = function() {
+			d1.placeholder = "";
+		}
+
+	}
+</script>
 </head>
 <body>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#csdiv").animate({
+				width : 290
+			}, 5000).css("transition", "all 0.5s").css("right", "350px");
+
+			$(".prev,.next").hover(function() {
+				$(this).stop(true, false).fadeTo("show", 0.9);
+			}, function() {
+				$(this).stop(true, false).fadeTo("show", 0.4);
+			});
+
+			$(".banner-box").slide({
+				titCell : ".hd ul",
+				mainCell : ".bd ul",
+				effect : "fold",
+				interTime : 3500,
+				delayTime : 500,
+				autoPlay : true,
+				autoPage : true,
+				trigger : "click"
+			});
+
+		});
+	</script>
+	<style>
+.bgimg {
+	opacity: 0.3;
+}
+</style>
+	<script>
+		$(function() {
+			$("#csdiv")
+					.children(this)
+					.hover(
+							function() {
+								var index = $("#csdiv").children(this).index(
+										this); //当前鼠标悬停索引
+								$(this).css("position", "all 1s").css(
+										"marginLeft", "1px");
+
+								var a = new Array(3);
+								a[0] = 0;
+								a[1] = 1;
+								a[2] = 2;
+								for (var i = 0; i < a.length; i++) {
+									if (index == i) {
+									} else {
+										$("#csdiv").children(this).eq(i).text(
+												"");
+										$("#csdiv")
+												.children(this)
+												.eq(i)
+												.html(
+														"<img class='bgimg' src='content/static/images/bgblack.jpg'/>");
+									}
+								}
+							},
+							function() {
+								$(this).css("position", "all 0.1s").css(
+										"marginLeft", "0px");
+								$("#csdiv").children(this).html(" ");
+							});
+
+		});
+	</script>
 	<!--顶部内容-->
 	<jsp:include page="frontDesk/header.jsp" />
 	<!--banner-->
 	<div class="banner">
-		<div class="menu_nav">
-			<div class="menu_left">
+		<div id="csdiv"
+			style="border: 0px solid red; width: 290px; height: 570px; float: left; position: absolute; z-index: 9999; right: -300px;">
+			<div
+				style="width: 100%; height: 185px; margin-top: 5px; background: url(images/chushi1.jpg)"></div>
+			<div
+				style="width: 100%; height: 185px; margin-top: 5px; background: url(images/chushi2.jpg)"></div>
+			<div
+				style="width: 100%; height: 185px; margin-top: 5px; background: url(images/chushi3.jpg)"></div>
+		</div>
+		<div class="menu_nav" id="menu_nav">
+			<div class="showdivs">1</div>
+
+			<div class="showdivs">2</div>
+
+			<div class="showdivs">3</div>
+
+			<div class="showdivs">4</div>
+
+			<div class="showdivs">5</div>
+			<div class="menu_left" style="z-index: 999;">
 				<c:forEach items="${categories }" var="category">
-					<div class="list">
-						<h2>
-							<a href="search/result?cateid=${category.categoryID }">${category.category }</a>
-						</h2>
-						<div class="list_con">
-							<c:forEach items="${category.brands }" var="brand">
-								<a
-									href="search/result?cateid=${category.categoryID }&brand=brand-${brand.brandID }">${brand.brandName }</a>
-							</c:forEach>
+					<c:if test="${category.categoryID != 3 }">
+						<div class="list">
+							<h2>
+								<a href="search/result?cateid=${category.categoryID }">${category.category }</a>
+							</h2>
+							<div class="list_con">
+								<c:set value="0" var="loop"></c:set>
+								<c:forEach items="${category.children }" var="cate2">
+									<c:if test="${cate2.parentLevel.categoryID == category.categoryID}">
+										<c:forEach items="${cate2.children }" var="cate3">
+											<c:set var="loop" value="${loop + 1 }"></c:set>
+											<c:if test="${loop < 12 }">
+												<a href="search/result?id=${cate3.categoryID }">${cate3.category }</a>
+											</c:if>
+										</c:forEach>
+									</c:if>
+								</c:forEach>
+							</div>
 						</div>
-					</div>
+					</c:if>
+					<c:if test="${category.categoryID == 3 }">
+						<div class="list">
+							<h2>
+								<a href="search/result?cateid=${category.categoryID }">${category.category }</a>
+							</h2>
+							<div class="list_con">
+								<c:forEach items="${category.brands }" var="brand"
+									varStatus="loop">
+									<c:if test="${loop.index < 10 }">
+										<a
+											href="search/result?cateid=${category.categoryID }&brand=brand-${brand.brandID }">${brand.brandName }</a>
+									</c:if>
+								</c:forEach>
+							</div>
+						</div>
+					</c:if>
 				</c:forEach>
 			</div>
 		</div>
+		<script>
+		$(document).ready(function(){ $(".list").hover(function(){
+		$(this).animate({width:192},300) .css("backgroundColor","#A71234");
+		$(".showdivs").eq($(".list").index(this)).animate({width:500},300)
+		.css("display","block"); /*鼠标移入右边*/ var
+		listindex=$(".list").index(this); //当前悬停list索引
+		$(".showdivs").hover(function(){
+		$(this).eq($(".list").index(this)).animate({width:500},300)
+		.css("display","block");
+		$(".list").eq($(".showdivs").index(this)).css("backgroundColor","#A71234");
+		},function(){
 
+		$(this).eq($(".list").index(this)).animate({width:500},300)
+		.css("display","none");
+		$(".list").eq($(".showdivs").index(this)).css("backgroundColor","#901531");
+		}); },function(){ $(this).animate({width:192},300)
+		.css("backgroundColor","#901531");
+		$(".showdivs").eq($(".list").index(this)).animate({width:500},300)
+		.css("display","none"); }); });
+
+		</script>
 		<!--banner内容-->
-		<div class="banner_box"></div>
+		<div class="banner_box">
+			<div class="bd">
+				<ul>
+					<li style="">
+						<div class="m-width"
+							style="width: 100%; height: 571px; background: url(images/img1.jpg) center center;"></div>
+					</li>
+					<li style="background: #B01415">
+						<div class="m-width"
+							style="width: 100%; height: 571px; background: url(images/img2.jpg) center center;">
+						</div>
+					</li>
+					<li style="background: #C49803;">
+						<div class="m-width"
+							style="width: 100%; height: 571px; background: url(images/img1.jpg) center center;">
+						</div>
+					</li>
+					<li style="background: #FDFDF5">
+						<div class="m-width"
+							style="width: 100%; height: 571px; background: url(images/img2.jpg) center center;">
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="banner-btn">
+				<a class="prev" href="javascript:void(0);"></a> <a class="next"
+					href="javascript:void(0);"></a>
+			</div>
+			<div class="hd">
+				<ul></ul>
+			</div>
+		</div>
 	</div>
 	<!--酒品内容-->
 	<div class="main_box">

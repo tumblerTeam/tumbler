@@ -322,5 +322,18 @@ public class OrderFormService extends GenericService<OrderForm> implements IOrde
 		List<OrderForm> list =  query.getResultList();
 		return list;
 	}
+	
+	/* (non-Javadoc)
+	 * 查询最新订单信息
+	 * @see com.yc.service.IOrderFormService#searchNewst()
+	 */
+	@Override
+	public OrderForm searchNewst() {
+		StringBuffer hql=new StringBuffer("SELECT * FROM orderform ORDER BY orderform.orderFormID DESC LIMIT 1");
+		Query query =  orderFormDao.getEntityManager().createNativeQuery(hql.toString(), OrderForm.class);
+		OrderForm newstOrderForm=(OrderForm) query.getSingleResult();
+		return newstOrderForm;
+	}
+
 
 }

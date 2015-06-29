@@ -1,5 +1,6 @@
 package com.yc.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -54,7 +55,7 @@ public class Commodity {
 	@Column
 	private String tradingCode;// 交易码
 
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH })
 	@JoinColumn(name = "orderform_id")
 	private OrderForm orderNumber;
 
@@ -62,9 +63,6 @@ public class Commodity {
 	private String cellDate;// 入单元格时间
 	@Column
 	private String inStoreRoomDate;// 入库房时间
-
-	@Column
-	private String describes;// 描述
 
 	@Column
 	private String zazataoPayDate;// zazatao付款日期
@@ -105,14 +103,6 @@ public class Commodity {
 
 	public void setZazataoPayTime(String zazataoPayTime) {
 		this.zazataoPayTime = zazataoPayTime;
-	}
-
-	public String getDescribes() {
-		return describes;
-	}
-
-	public void setDescribes(String describes) {
-		this.describes = describes;
 	}
 
 	public String getCellDate() {

@@ -1,6 +1,7 @@
 .sidebar{
 	position:fixed;	
 	display:block;
+	z-index:9999999;
 	width:100px;
 	height:156px;
 	right:0%;
@@ -12,6 +13,14 @@
 	height:50px;
 	position:relative;
 	margin:0px;
+}
+
+.cars{
+	background:url(../images/cart_03.jpg) no-repeat;
+	width:100px;
+	height:50px;
+	position:relative;
+	margin-top:3px;	
 }
 .bar{
 	background:url(../images/bar01.jpg) no-repeat;

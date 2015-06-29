@@ -19,19 +19,6 @@ public class AddressService extends GenericService<Address> implements IAddressS
 		return addressDao;
 	}
 	@Override
-	public Address FindByAddressID(Integer id) {
-		return addressDao.getFirstRecord("adress.id", id);
-	}
-	@Override
-	public boolean deleteByadd(Integer id) {
-		boolean isok = false;
-		List<Address> list =  addressDao.getBy("address.id", id);
-		for (Address address : list) {
-			isok = addressDao.deleteById(address.getId());
-		}
-		return isok ;
-	}
-	@Override
 	public List<Address> getAllByUser(Integer id) {
 		return addressDao.getBy("user.id", id);
 	}

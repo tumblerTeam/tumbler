@@ -432,20 +432,20 @@ div.zoomMask {
 						</div>
 						<div class="choose">
 							<a href="javascript:void(0);" onclick="buyCommodity();">立即购买</a>
-							<a href="javascript:void(0);" class="button orange addcar" onclick="buyCat();">
-							<div class="box_1">
-								加入购物车
-							</div>
+							<a href="javascript:void(0);" class="button orange addcar"
+								onclick="buyCat();">
+								<div class="box_1">加入购物车</div>
 							</a>
 						</div>
 					</div>
 				</div>
 			</div>
 			<script type="text/javascript">
-				function buyCommodity(){
+				function buyCommodity() {
 					var commID = $('#commID').val();
 					var buyAmount = $('#buyAmount').val();
-					location.href = 'user/buyCommodity?shopCommId=' + commID + '&buyAmount=' + buyAmount;
+					location.href = 'user/buyCommodity?shopCommId=' + commID
+							+ '&buyAmount=' + buyAmount;
 				}
 				function buyCat() {
 					var commID = $('#commID').val();
@@ -453,14 +453,15 @@ div.zoomMask {
 					jQuery.ajax({
 						type : 'GET',
 						contentType : 'application/json',
-						url : 'toJsonFmatUtil/addBuyCar?shopCommId=' + commID + '&buyAmount=' + buyAmount,
+						url : 'toJsonFmatUtil/addBuyCar?shopCommId=' + commID
+								+ '&buyAmount=' + buyAmount,
 						dataType : 'json',
 						success : function(data) {
 							if (data.message == 'success') {
 								alert("添加成功");
-							}else if (data.message == 'existed') {
+							} else if (data.message == 'existed') {
 								alert("再次添加成功");
-							}else if (data.message == "nouser") {
+							} else if (data.message == "nouser") {
 								if (confirm('您还没有登录哦！')) {
 									var url = "user/regist";
 									window.location = url;

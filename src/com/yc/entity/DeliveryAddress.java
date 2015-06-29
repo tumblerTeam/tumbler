@@ -5,6 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 public class DeliveryAddress {
@@ -30,6 +34,17 @@ public class DeliveryAddress {
 	private String street;// 街道：天津路
 	@Column
 	private String orther;// 其它
+	
+	@OneToOne(mappedBy = "address")
+	private Delivery delivery;
+
+	public Delivery getDelivery() {
+		return delivery;
+	}
+
+	public void setDelivery(Delivery delivery) {
+		this.delivery = delivery;
+	}
 
 	public Integer getId() {
 		return id;

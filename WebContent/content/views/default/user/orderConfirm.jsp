@@ -246,6 +246,7 @@
 				<input name="xunshufangshi" type="hidden" value="ems"/>
 				<input name="ids" type="hidden" value="${vars }"/>
 				<input name="yunfei" type="hidden" value="${zhongliang * 6 }"/>
+				<input name="mudidi" id="mudidi" type="hidden" value=""/>
 			</form>
 			<div class="bottom">
 				<div class="tuijian">商品推荐</div>
@@ -297,6 +298,7 @@
 	<jsp:include page="../frontDesk/foot.jsp" />
 	<script type="text/javascript">
 		function orderGenerate(){
+			$('#mudidi').val($('#addressChange').val());
 			$('#orderGenerateForm').submit();
 		}
 		window.onload = function() {

@@ -13,4 +13,9 @@ public interface ICollectionService extends IGenericService<Collection>{
 	 */
 	List<Collection> getAllByUser(Integer id);
 
+	/**
+	 * 部分收藏展示
+	 * @return
+	 */
+	List<Collection> searchPart();
 }

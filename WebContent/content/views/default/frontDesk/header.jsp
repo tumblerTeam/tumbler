@@ -56,14 +56,14 @@
 			<c:set var="loginUser"
 				value='<%=(AppUser) request.getSession().getAttribute("loginUser")%>'></c:set>
 			<c:if test="${loginUser == null }">
-				<li class="nav3"><a href="javascript:void(0);"
+				<li class="nav3" id="dl1" style="margin-top:-10px; width:30px; line-height:37px; margin-left:0px;"><a href="javascript:void(0);"
 					onclick="harf();">登录</a></li>
 				<li class="nav4"><a href="javascript:void(0);"
 					onclick="harf();">我的酒翁<img
 						src="content/static/images/header_icon1.png" /></a></li>
 			</c:if>
 			<c:if test="${loginUser != null }">
-				<li class="nav4"><a href="javascript:void(0);" id="zh1">${loginUser.userName }的酒翁<img
+				<li class="nav4"><a href="javascript:void(0);" id="zh1">我的酒翁<img
 						src="content/static/images/header_icon1.png" /></a>
 					<div class="zh" id="zh2" style="display: none;">
 						<a href="user/personalCenter"><div
@@ -105,11 +105,11 @@
 <div class="nav">
 	<div class="nav_box">
 		<div class="nav_btn" id="fen">
-			<a href="#">全部商品分类</a>
+			<a href="javascript:void(0);">全部商品分类</a>
 		</div>
 		<div class="nav_list">
 			<a href="index" style="padding-left: 30px; color: #a40c59">首页</a> <a
-				href="famousManor/index">名庄特卖</a> <a href="#">品牌专区</a> <a href="#">整箱购</a>
+				href="famousManor/index">名庄特卖</a> <a href="brand">品牌专区</a> <a href="#">整箱购</a>
 			<a href="#">商城精选</a> <a href="#">酒翁精品</a> <a href="#">小食品</a>
 		</div>
 	</div>

@@ -34,6 +34,7 @@
 	    </div>
 	</div>
 <!--酒内容-->
+<div class="main_box">
 <div class="content">
   <div class="title"><b>名庄特卖</b><font> Chateau Sale</font></div>
   <c:forEach items="${maps }" var="map" >
@@ -70,7 +71,7 @@
     </c:forEach>
     </c:if>
   </c:forEach>
-  
+  </div>
 </div>
 <jsp:include page="../frontDesk/foot.jsp" />
 </body>

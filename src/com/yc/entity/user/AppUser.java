@@ -65,6 +65,9 @@ public class AppUser {
 	@Column
 	private String birthday;
 	
+	@Column
+	private Integer points = 0;//积分
+	
 	@ManyToMany(mappedBy = "users")
 	private List<ShopCommodity> activityCommodities;//商品类别
 	
@@ -73,6 +76,14 @@ public class AppUser {
 	
 	@OneToMany(mappedBy = "orderUser")
 	private List<OrderForm> orderForms;//商品类别
+
+	public Integer getPoints() {
+		return points;
+	}
+
+	public void setPoints(Integer points) {
+		this.points = points;
+	}
 
 	public List<OrderForm> getOrderForms() {
 		return orderForms;
