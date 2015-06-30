@@ -36,9 +36,8 @@
 				<dd style="width: 204px;">商品名称</dd>
 				<dd>单价（元）</dd>
 				<dd>数量</dd>
-				<dd>商品操作</dd>
 				<dd>实付款（元）</dd>
-				<dd>卖家已发货</dd>
+				<dd>交易状态</dd>
 				<dd>交易操作</dd>
 			</div>
 			<c:forEach items="${orderForms }" var="orderForm" varStatus="loop">
@@ -73,18 +72,35 @@
 								</dd>
 								<dd>${commodity.quantity }</dd>
 								<dd style="padding-top: 35px;">
-									退款/退货<br />投诉卖家
-								</dd>
-								<dd style="padding-top: 35px;">
 									<fmt:formatNumber value="${commodity.money }" pattern="##.##"
 										minFractionDigits="2"></fmt:formatNumber>
 									<br />
 								</dd>
 								<dd style="padding-top: 35px;">
-									卖家已发货<br /> <a href="#">订单详情</a><br /> <a href="#">查看物流</a>
+									<c:choose>
+										<c:when test="${orderForm.orderstatus =='BuyersHavePaid'}">买家已付款</c:when>
+										<c:when test="${orderForm.orderstatus =='waitPayment'}">等待买家付款</c:when>
+										<c:when test="${orderForm.orderstatus =='waitDelivery'}">等待卖家发货</c:when>
+										<c:when test="${orderForm.orderstatus =='transitGoods'}">卖家已发货</c:when>
+										<c:when test="${orderForm.orderstatus =='ApplicationForRefund'}">退货申请中</c:when>
+										<c:when
+											test="${orderForm.orderstatus =='completionTransaction'}">完成交易</c:when>
+										<c:when test="${orderForm.orderstatus =='closeTransaction'}">关闭交易</c:when>
+										<c:when test="${orderForm.orderstatus =='refundOrderForm'}"> 退款中的订单</c:when>
+										<c:when test="${orderForm.orderstatus =='refundSuccess'}">退款成功</c:when>
+										<c:when test="${orderForm.orderstatus =='refundFailed'}">退款失败</c:when>
+									</c:choose>
 								</dd>
 								<dd>
-									<div class="shouhuo">确认收货</div>
+								<c:choose>
+									<c:when test="${orderForm.orderstatus =='waitPayment'}">
+										<div class="shouhuo">立即付款</div><div class="shouhuo">取消订单</div>
+									</c:when>
+									<c:when test="${orderForm.orderstatus =='BuyersHavePaid'}"><div class="shouhuo">取消订单</div></c:when>
+									<c:when test="${orderForm.orderstatus =='waitDelivery'}"><div class="shouhuo">取消订单</div></c:when>
+									<c:when test="${orderForm.orderstatus =='transitGoods'}"><div class="shouhuo">确认收货</div></c:when>
+									<c:when test="${orderForm.orderstatus =='completionTransaction'}"><a>退款/退货</a>&nbsp;&nbsp;</c:when>
+								</c:choose>
 								</dd>
 							</c:forEach>
 						</div>
