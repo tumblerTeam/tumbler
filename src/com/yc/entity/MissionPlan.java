@@ -9,8 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.yc.entity.user.AppUser;
 import com.yc.entity.user.Personnel;
 
 //任务计划
@@ -29,20 +31,42 @@ public class MissionPlan {
 	private String content;//内容
 	
 	@Column
-	private String  from;//来自谁
+	private String source;//来自谁
 	
-//	@ManyToOne
-//	@JoinColumn(name = "to_personnel")
-//	private Personnel  toPer;//给谁
-	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private AppUser toUser;//发给谁
 	
 	@Column
 	@Enumerated(EnumType.STRING)
 	private AdvState advState;//状态
 	
-
 	public Integer getId() {
 		return id;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+	public AppUser getToUser() {
+		return toUser;
+	}
+
+	public void setToUser(AppUser toUser) {
+		this.toUser = toUser;
 	}
 
 	public void setId(Integer id) {

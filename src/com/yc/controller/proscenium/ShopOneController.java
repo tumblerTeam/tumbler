@@ -29,6 +29,7 @@ import com.yc.entity.Address;
 import com.yc.entity.Brand;
 import com.yc.entity.Currency;
 import com.yc.entity.FamousManor;
+import com.yc.entity.MissionPlan;
 import com.yc.entity.OrderForm;
 import com.yc.entity.OrderStatus;
 import com.yc.entity.ReviewsRank;
@@ -51,6 +52,7 @@ import com.yc.service.ICarCommodityService;
 import com.yc.service.ICommodityService;
 import com.yc.service.ICurrencyService;
 import com.yc.service.IFamousManorService;
+import com.yc.service.IMissionPlanService;
 import com.yc.service.IOrderFormService;
 import com.yc.service.IShopCategoryService;
 import com.yc.service.IShopCommAttributeService;
@@ -97,6 +99,9 @@ public class ShopOneController {
 	IShopCommAttributeService shopCommAttributeService; //商品属性
 	
 	@Autowired
+	IMissionPlanService missionPlanService; //消息
+	
+	@Autowired
 	IShopCommImageService shopCommImageService;
 
 	@Autowired
@@ -134,22 +139,31 @@ public class ShopOneController {
 	public ModelAndView openShop(){
 		return new ModelAndView("setupShop/openShop");
 	}
+	
 	//开个人店
 	@RequestMapping("open_geren")
 	public String open_geren(){
 		return "setupShop/open_geren";
 	}
+	
 	//开企业店
 	@RequestMapping("open_qiye")
 	public String open_qiye(){
 		return "setupShop/open_qiye";
 	}
+	//开企业店
+	@RequestMapping("missionPlan")
+	public String missionPlan(){
+		
+		return "setupShop/missionPlan";
+	}
+	
 	//发布商品主分类界面
 	@RequestMapping("publishComm")
 	public String publishComm(){
 		return "setupShop/publishComm";
 	}
-		
+	
 	// 发布商品
 	@RequestMapping("releaseCommoidty")
 	public ModelAndView releaseCommoidty(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -1036,7 +1050,16 @@ public class ShopOneController {
 		Shop shop = shopService.findById(1);
 		req.getSession().setAttribute("shop", shop);
 		mode.put("shop", shop);
-		
+		List<MissionPlan> missionPlans = missionPlanService.getAll();
+		List<MissionPlan> usermp = new ArrayList<MissionPlan>();
+		for (int i = 0; i < missionPlans.size(); i++) {
+			if (missionPlans.get(i).getToUser().getId()==shop.getUser().getId()) {
+				usermp.add(missionPlans.get(i));
+				System.out.println("得SSSSSSSSSSS");
+			}
+		}
+		System.out.println("得到用户的消息个数：：："+usermp.size());
+		mode.addAttribute("usermp", usermp);
 		return new ModelAndView("setupShop/messageCenter",mode);
 	}
 	//1.填写个人开店个人信息

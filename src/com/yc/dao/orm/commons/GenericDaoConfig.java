@@ -20,6 +20,7 @@ import com.yc.entity.Delivery;
 import com.yc.entity.DeliveryAddress;
 import com.yc.entity.FamousManor;
 import com.yc.entity.FamousManorAndShop;
+import com.yc.entity.MissionPlan;
 import com.yc.entity.News;
 import com.yc.entity.OrderForm;
 import com.yc.entity.OrderGroup;
@@ -175,5 +176,9 @@ public class GenericDaoConfig {
     @Bean
     public GenericDao<ShopCommodityAttribute> getShopCommodityAttributeDao() {
     	return new GenericDaoSupport<ShopCommodityAttribute>(ShopCommodityAttribute.class);
+    }
+    @Bean
+    public GenericDao<MissionPlan> getMissionPlanDao() {
+    	return new GenericDaoSupport<MissionPlan>(MissionPlan.class);
     }
 }

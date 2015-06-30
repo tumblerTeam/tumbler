@@ -21,6 +21,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import com.yc.entity.Collection;
+import com.yc.entity.MissionPlan;
 import com.yc.entity.OrderForm;
 import com.yc.entity.Shop;
 import com.yc.entity.ShopCommodity;
@@ -76,6 +77,17 @@ public class AppUser {
 	
 	@OneToMany(mappedBy = "orderUser")
 	private List<OrderForm> orderForms;//订单
+	
+	@OneToMany(mappedBy = "toUser")
+	private List<MissionPlan> missionPlans;//消息
+
+	public List<MissionPlan> getMissionPlans() {
+		return missionPlans;
+	}
+
+	public void setMissionPlans(List<MissionPlan> missionPlans) {
+		this.missionPlans = missionPlans;
+	}
 
 	public Integer getPoints() {
 		return points;
