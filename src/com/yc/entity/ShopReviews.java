@@ -25,10 +25,10 @@ public class ShopReviews {
 	private Integer id;
 	
 	@Column
-	private String reviews;
+	private String reviews;	//评论
 	
 	@Column
-	private String businessreply;
+	private String businessreply; //店家回复
 	
 	@Column
 	private String reviewsdate;

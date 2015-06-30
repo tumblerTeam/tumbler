@@ -51,7 +51,8 @@
                 <div class="box">
                 	<h4 onClick="f1(this,son4)"><img src="content/static/images/zk.png"/><span>商品管理</span></h4>
                     <ul  id="son4">
-                    	<li><a href="proscenium/releaseCommoidty">发布商品</a></li>
+<!--                     	<li><a href="proscenium/releaseCommoidty">发布商品</a></li> -->
+                    	<li><a href="proscenium/publishComm">发布商品</a></li>
                         <li><a href="proscenium/chushou?flag=1">出售中的商品</a></li>
                         <li><a href="proscenium/chushou?flag=0">仓库中的商品</a></li>
                     </ul>

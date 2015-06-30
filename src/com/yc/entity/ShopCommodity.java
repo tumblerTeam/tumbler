@@ -52,7 +52,10 @@ public class ShopCommodity {
 	private Float unitPrice =0f;//单价
 	
 	@Column
-	private String commUnit;//商品单位：瓶1、箱0
+	private String commUnit;//商品单位：瓶1、箱0perBoxnum
+
+	@Column
+	private Integer perBoxnum;//每箱 几瓶
 	
 	@Column
 	private Float specialPrice =0f;//活动价
@@ -67,7 +70,7 @@ public class ShopCommodity {
 	private Float  probablyWeight = 0f;//大概重量
 	
 	@Column
-	private Boolean shelves =true;//是否上架
+	private Boolean shelves = true;//是否上架
 	
 	@Column
 	private Boolean isSpecial=false;//是否折扣
@@ -154,6 +157,14 @@ public class ShopCommodity {
 	@Column
 	private String actityImage;
 	
+	public Integer getPerBoxnum() {
+		return perBoxnum;
+	}
+
+	public void setPerBoxnum(Integer perBoxnum) {
+		this.perBoxnum = perBoxnum;
+	}
+
 	public String getCommUnit() {
 		return commUnit;
 	}
