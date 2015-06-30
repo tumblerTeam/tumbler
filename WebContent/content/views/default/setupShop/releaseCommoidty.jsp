@@ -9,7 +9,7 @@
 			+ path + "/";
 	Shop shop = (Shop)request.getSession().getAttribute("shop");
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -21,7 +21,6 @@
 <link rel="stylesheet" type="text/css" href="content/static/js/datetime/jquery.mobile-1.4.0-rc.1.js"/>
 <link rel="stylesheet" type="text/css" href="content/static/js/map/jsAddress.js"/>
 <link rel="stylesheet" type="text/css" href="content/static/js/datetime/jquery.js"/>
-
 
 <link href="content/static/css/reception/css.css" rel="stylesheet"
 	type="text/css" />
@@ -91,67 +90,86 @@
 							<span>酒精度</span><input type="text" style="width: 100px;"
 								value="" name="alcoholDegree" onblur="checkvalue(this);" />
 							<span>净含量</span><input type="text" style="width: 100px;"
-								value="" name="Weight" onblur="checkvalue(this);" />
+								value="" name="Weight" />
 						</dd>
 						<dd>
 							<span>保质期</span><input type="text" style="width: 100px;"
-								value="" name="deadline" onblur="checkvalue(this);" />
+								value="" name="deadline" />
 							<span>包装方式</span><input type="text" style="width: 100px;"
-								value="" name="packManner" onblur="checkvalue(this);" />
+								value="" name="packManner" />
 						</dd>
 						<dd>
 							<span>产地</span><input type="text" style="width: 100px;"
-								value="" name="productPlace" onblur="checkvalue(this);" />
+								value="" name="productPlace"/>
 							<span>产地省份</span><input type="text" style="width: 100px;"
-								value="" name="productProvince" onblur="checkvalue(this);" />
+								value="" name="productProvince"/>
 						</dd>
 						<dd>
 							<span>醒酒时间</span><input type="text" style="width: 100px;"
-								value="" name="soberTime" onblur="checkvalue(this);" />
+								value="" name="soberTime" onblur="checkvalue(this);" /><label>小时</label>
 							<span>饮酒温度</span><input type="text" style="width: 100px;"
-								value="" name="drinkTemperature" onblur="checkvalue(this);" />
-						</dd>
-						<dd>
-							<span>配料表</span><input type="text"
-								value="" name="mixtureSheet" onblur="checkvalue(this);" />
-						</dd>
-						<dd>
-							<span>储藏方法</span><input type="text"
-								value="" name="stockWay" onblur="checkvalue(this);" />
-						</dd>
-						<dd>
-							<span>食品添加剂</span><input type="text"
-								value="" name="foodAdditive" onblur="checkvalue(this);" />
-						</dd>
-						<dd>
-							<span>生产许可证编号</span><input type="text"
-								value="" name="productPerimitNum" onblur="checkvalue(this);" />
-						</dd>
-						<dd>
-							<span>生产标准号</span><input type="text"
-								value="" name="productStddNum" onblur="checkvalue(this);" />
-						</dd>
-						<dd>
-							<span>生产厂名</span><input type="text"
-								value="" name="productFactoryName" onblur="checkvalue(this);" />
-						</dd>
-						<dd>
-							<span>生产厂址</span><input type="text"
-								value="" name="productFactoryAddress" onblur="checkvalue(this);" />
+								value="" name="drinkTemperature" onblur="checkvalue(this);" /><label>℃</label>
 						</dd>
 						<dd>
 							<span>生产日期</span><input type="date"
-								value="" name="productTime" onblur="checkvalue(this);" />
+								value="" name="productTime"/>
+						</dd>
+						<dd>
+							<span>年份</span><input type="text"
+								value="" name="particularYear" onblur="checkvalue(this);" />
+						</dd>
+						<dd>
+							<span>配料表</span><input type="text"
+								value="" name="mixtureSheet"/>
+						</dd>
+						<dd>
+							<span>储藏方法</span><input type="text"
+								value="" name="stockWay" />
+						</dd>
+						<dd>
+							<span>食品添加剂</span><input type="text"
+								value="" name="foodAdditive" />
+						</dd>
+						<dd>
+							<span>生产许可证编号</span><input type="text"
+								value="" name="productPerimitNum" />
+						</dd>
+						<dd>
+							<span>生产标准号</span><input type="text"
+								value="" name="productStddNum" />
+						</dd>
+						<dd>
+							<span>生产厂名</span><input type="text"
+								value="" name="productFactoryName" />
+						</dd>
+						<dd>
+							<span>生产厂址</span><input type="text"
+								value="" name="productFactoryAddress" />
 						</dd>
 						<!-- 新增结束 -->
 						<dd>
 							<span>库存数量</span><input type="text" style="width: 100px;"
 								value="" name="stock" onblur="checkvalue(this);" />
-								<select id="commUnit">
+								<select id="commUnit" name="commUnit" onchange="commUnitHandle();">
 									<option value="1">瓶</option>
 									<option value="0">箱</option>
 								</select>
 						</dd>
+						<dd id="ddUnit" style="display: none">
+							<span>每箱</span><input type="text" style="width: 100px;"
+							 name="perBoxnum" onblur="checkvalue(this);" />瓶
+						</dd>
+						<script>
+							function commUnitHandle(){
+								var unitValue = document.getElementById("commUnit").value;
+								if(unitValue==0){
+									document.getElementById("ddUnit").style.display="";
+								}if(unitValue==1){
+									document.getElementById("ddUnit").style.display="none";
+								}
+							}
+						</script>
+						
 						<dd>
 							<span>单价</span><input type="text" style="width: 100px;" value=""
 								name="unitPrice"  onblur="checkvalue(this);"/>
@@ -195,7 +213,7 @@
 							</select>
 						</dd>
 						<dd>
-							<span>是否名庄</span><select
+							<span>是否名庄</span><select name="famousManorId"
 								style="height: 35px; width: 303px; border: 1px solid #ccc; margin-left: 7px">
 								<option value="-1">----请选择----</option>
 								<c:forEach items="${famousManors }" var="fm"
@@ -204,23 +222,13 @@
 								</c:forEach>
 							</select>
 							</dd>
-								<c:forEach items="${shop.shopCat.specifications }" var="sp" varStatus="status">
-									<dd>
-										<span>${sp.specificatName }</span>
-										<input type="hidden" name="commspecName${status.count}" value="${sp.specificatName}"/>
-										<input type="text" name="${sp.specificatName}"/>
-									</dd>
-								</c:forEach>
+						<c:forEach items="${shop.shopCat.specifications }" var="sp" varStatus="status">
 							<dd>
-							<span>是否名庄</span><select
-								style="height: 35px; width: 303px; border: 1px solid #ccc; margin-left: 7px">
-								<option value="-1">----请选择----</option>
-								<c:forEach items="${famousManors }" var="fm"
-									varStatus="loop">
-										<option value="${fm.id}">${fm.manorName}</option>
-								</c:forEach>
-							</select>
-						</dd>						
+								<span>${sp.specificatName }</span>
+								<input type="hidden" name="commspecName${status.count}" value="${sp.specificatName}"/>
+								<input type="text" name="${sp.specificatName}"/>
+							</dd>
+						</c:forEach>	
 						<dd>
 							<span>照片上传</span><input type="file" name="myfile" />
 						</dd>

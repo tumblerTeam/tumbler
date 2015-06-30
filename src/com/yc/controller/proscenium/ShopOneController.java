@@ -3,6 +3,7 @@ package com.yc.controller.proscenium;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,6 +31,7 @@ import com.yc.entity.Currency;
 import com.yc.entity.FamousManor;
 import com.yc.entity.OrderForm;
 import com.yc.entity.OrderStatus;
+import com.yc.entity.ReviewsRank;
 import com.yc.entity.Shop;
 import com.yc.entity.ShopCategory;
 import com.yc.entity.ShopCommImage;
@@ -92,6 +95,7 @@ public class ShopOneController {
 	
 	@Autowired
 	IShopCommAttributeService shopCommAttributeService; //商品属性
+	
 	@Autowired
 	IShopCommImageService shopCommImageService;
 
@@ -140,15 +144,23 @@ public class ShopOneController {
 	public String open_qiye(){
 		return "setupShop/open_qiye";
 	}
+	//发布商品主分类界面
+	@RequestMapping("publishComm")
+	public String publishComm(){
+		return "setupShop/publishComm";
+	}
 		
 	// 发布商品
 	@RequestMapping("releaseCommoidty")
 	public ModelAndView releaseCommoidty(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//AppUser user = (AppUser) request.getSession().getAttribute("appUser");
 		ModelMap mode = new ModelMap();
-		
-		//1.红酒
-		List<ShopCategory> list = shopCategService.getAllByParentLevel(1);
+		Integer cateOne = 1;
+		if (request.getParameter("cateOne")!=null&&!request.getParameter("cateOne").equals("")) {
+			cateOne = Integer.parseInt(request.getParameter("cateOne"));
+		}
+		//1.红酒;2.白酒;3.啤酒;4,洋酒;5.小食品
+		List<ShopCategory> list = shopCategService.getAllByParentLevel(cateOne);
 		mode.put("shopCategories", list);
 		//后期改
 		List<ShopCategory> listtemp = new ArrayList<ShopCategory>();
@@ -186,18 +198,28 @@ public class ShopOneController {
 			String commoidtyName = req.getParameter("commoidtyName");
 			String commItem = req.getParameter("commItem");
 			System.out.println("得到商品属性：：：：储藏方式："+commAttribute.getStockWay());
-			//保存商品属性：
-			shopCommAttributeService.save(commAttribute);
-			
+			//商品单位：
+			String commUnit = req.getParameter("commUnit"); 
+			Integer perBoxnum = 0;
+			if (!req.getParameter("perBoxnum").equals("")) {
+				perBoxnum = Integer.parseInt(req.getParameter("perBoxnum"));
+			}
 			/**
 			 * 得到该商品的商品分类categoryID
 			 * 下面对应表shopCommodity与表shopCategory关系
 			 */
 			Integer categoryid = Integer.parseInt(req.getParameter("categoryid"));
 			System.out.println("得到商品种类是：：：："+categoryid);
-			Integer stock = Integer.valueOf(req.getParameter("stock"));
-			float unitPrice = Float.valueOf(req.getParameter("unitPrice"));
-			float probablyWeight = Float.valueOf(req.getParameter("probablyWeight"));
+			Integer stock = 0;
+			float unitPrice = 0f;
+			float probablyWeight = 0f;
+			if (!req.getParameter("stock").equals("")) {
+				stock = Integer.valueOf(req.getParameter("stock"));
+			}if (!req.getParameter("unitPrice").equals("")) {
+				unitPrice = Float.valueOf(req.getParameter("unitPrice"));
+			}if (!req.getParameter("probablyWeight").equals("")) {
+				probablyWeight = Float.valueOf(req.getParameter("probablyWeight"));
+			}
 			//是否上架
 			Boolean shelves = Boolean.valueOf(req.getParameter("shelves").toString());
 			//是否精品
@@ -208,6 +230,11 @@ public class ShopOneController {
 			Boolean isSpecial = Boolean.valueOf(req.getParameter("isSpecial").toString());
 			//品牌名称
 			String brandName = req.getParameter("brandName");
+			//设置名庄
+			Integer manorId = 0;	
+			if (!req.getParameter("famousManorId").equals("")&&req.getParameter("famousManorId")!=null) {
+				manorId = Integer.parseInt(req.getParameter("famousManorId"));
+			}		
 			//打几折
 			float special = 10;
 			System.out.println(req.getParameter("special")+":"+req.getParameter("special").equals(""));
@@ -217,16 +244,20 @@ public class ShopOneController {
 			ShopCommodity commodity = null;
 			String edit = req.getParameter("edit");
 			if (edit.equals("1")) { //如果是编辑商品
-				Integer commId = Integer.parseInt(req.getParameter("commId"));
+				Integer commId = Integer.parseInt(req.getParameter("commid"));
 				commodity = shopCommodityService.findById(commId);
 			}else { //如果是保存新商品
 				commodity = new ShopCommodity();
 			}
+			//保存商品属性：
+			shopCommAttributeService.save(commAttribute);
+			
 			//设置商品的属性：
 			commodity.setCommAttribute(commAttribute);
 			
 			//设置规格属性：
 			ShopCommoditySpecs commoditySpecs = null;
+			//得到商品规格对象
 			if (edit.equals("1")) { //如果是编辑商品
 				commoditySpecs = commoidtySpecsService.findById(commodity.getCommsPecs().getId());
 			}else { //如果是保存新商品
@@ -245,16 +276,18 @@ public class ShopOneController {
 			}
 			//设置规格字段：
 			commoditySpecs.setCommSpec(commSpec);
+			//保存规格对象：
 			if (edit.equals("1")) { //如果是编辑商品
 				commoidtySpecsService.update(commoditySpecs);				
 			}else { //如果是保存新商品
 				commoidtySpecsService.save(commoditySpecs);
-			}
-			
+			}			
 			commodity.setCommoidtyName(commoidtyName);
 			commodity.setCommItem(commItem);
 			commodity.setStock(stock);
 			commodity.setUnitPrice(unitPrice);
+			commodity.setCommUnit(commUnit);
+			commodity.setPerBoxnum(perBoxnum);
 			commodity.setProbablyWeight(probablyWeight);
 			commodity.setShelves(shelves);
 			commodity.setIscChoice(iscChoice);
@@ -265,22 +298,32 @@ public class ShopOneController {
 			commodity.setShopCategory(shopCategory);
 			Brand brand = brandService.getBrandName(brandName);
 			commodity.setBrand(brand);
+			//设置名庄：
+			FamousManor manor = famousManorService.findById(manorId);
+			commodity.setFamousManor(manor);
 			commodity.setCommsPecs(commoditySpecs);
 			/**设置商品所属店面：setBelongTo
 			 * commodity.setBelongTo(belongTo);
 			 */
 			//设置所属店面shop
 			commodity.setBelongTo(shop);
-			
+			//保存商品，更新规格，规格关联商品
 			if (edit.equals("1")) { //如果是编辑商品
 				shopCommodityService.update(commodity);	
+				//更新商品规格
 				commoditySpecs.setShopCommSpecs(commodity);
 				commoidtySpecsService.update(commoditySpecs);
+				//更新商品属性
+				commAttribute.setShopCommodity(commodity);
+				shopCommAttributeService.update(commAttribute);
 			}else { //如果是保存新商品
 				shopCommodityService.save(commodity);
+				//保存商品规格
 				commoditySpecs.setShopCommSpecs(commodity);
 				commoidtySpecsService.update(commoditySpecs);
-				
+				//保存商品属性
+				commAttribute.setShopCommodity(commodity);
+				shopCommAttributeService.save(commAttribute);
 			}
 			String endType = "";
 			if (myfile!=null&&myfile.length>0) {
@@ -923,9 +966,66 @@ public class ShopOneController {
 		Shop shop = shopService.findById(1);
 		req.getSession().setAttribute("shop", shop);
 		mode.put("shop", shop);
+		Integer userId = Integer.parseInt(req.getParameter("userId"));
+		Integer orderFormID = Integer.parseInt(req.getParameter("orderFormID"));
+		Integer commCode = Integer.parseInt(req.getParameter("commCode"));
+		String reviewsRank = req.getParameter("reviewsRank");
+		String businessreply = req.getParameter("businessreply");
+		Date date = new Date();
+		//时间格式化：
+		SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd");
+		String reviewsdate = time.format(date);
+		ShopCommodity shopscommodity = shopCommodityService.findById(commCode);
+		ShopReviews shopReviews = new ShopReviews();
+		shopReviews.setBusinessreply(businessreply);
+		if (reviewsRank.equals("good")) {
+			shopReviews.setReviewsRank(ReviewsRank.good);
+			shopReviews.setRankImagesPath("goodurl");
+		}if (reviewsRank.equals("better")) {
+			shopReviews.setReviewsRank(ReviewsRank.better);
+			shopReviews.setRankImagesPath("betterurl");
+		}if (reviewsRank.equals("bad")) {
+			shopReviews.setReviewsRank(ReviewsRank.bad);
+			shopReviews.setRankImagesPath("badurl");
+		}
+		//设置用户
+		AppUser user = userService.findById(userId);
+		shopReviews.setUser(user);
+		//设置orderFormID，标识评论与订单的关系
+		shopReviews.setOrderId(orderFormID);
+		shopReviews.setReviewsdate(reviewsdate);
+		shopReviews.setShopscommodity(shopscommodity);
+		//保存评论
+		shopReviewsService.save(shopReviews);
+		//1.查询3个月之内的订单
+		List<OrderForm> order3Month = orderFormService.getShopOrderByShop(shop.getId());
+		mode.put("order3Month", order3Month);
+		System.out.println("三个月以内的订单数量："+order3Month.size()); 
+		//2.查询等待买家付款订单
+		List<OrderForm> waitPayment = orderFormService.getAllByOrderStatus("waitPayment");	
+		mode.put("waitPayment", waitPayment);
+		//3.查询等待卖家发货订单
+		List<OrderForm> waitDelivery = orderFormService.getAllByOrderStatus("waitDelivery");	
+		mode.put("waitDelivery", waitDelivery);
+		//4.查询已发货订单
+		List<OrderForm> transitGoods = orderFormService.getAllByOrderStatus("transitGoods");	
+		mode.put("transitGoods", transitGoods);
+		//5.查询退款中订单
+		List<OrderForm> refundOrderForm = orderFormService.getAllByOrderStatus("refundOrderForm");	
+		mode.put("refundOrderForm", refundOrderForm);
+		//6.查询退款成功订单
+		List<OrderForm> refundSuccess = orderFormService.getAllByOrderStatus("refundSuccess");	
+		mode.put("refundSuccess", refundSuccess);
+		//7.查询成功订单
+		List<OrderForm> completionTransaction = orderFormService.getAllByOrderStatus("completionTransaction");	
+		mode.put("completionTransaction", completionTransaction);
+		//8.查询关闭订单
+		List<OrderForm> closeTransaction = orderFormService.getAllByOrderStatus("closeTransaction");	
+		mode.put("closeTransaction", closeTransaction);
 		
-		return new ModelAndView("",mode);
+		return new ModelAndView("redirect:soldComm",mode);
 	}
+	
 	//messageCenter消息中心
 	@RequestMapping("messageCenter")
 	public ModelAndView messageCenter(HttpServletRequest req){

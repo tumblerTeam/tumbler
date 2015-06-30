@@ -73,7 +73,7 @@
 							<span>商品名称</span><input type="text" value="${commodity.commoidtyName }" name="commoidtyName" />
 						</dd>
 						<dd>
-							<span>货号</span><input type="text" value="${commodity.commItem }" name="commItem" />
+							<span>货号</span><input type="text" value="${commodity.commItem}" name="commItem" />
 						</dd>
 						<dd>
 							<span>商品分类</span> <select onchange="shopcateOne(this);" id="shopcateTwo"
@@ -100,66 +100,85 @@
 						<dd>
 							<input type="hidden" name="id" value="${commodity.commAttribute.id}"/>
 							<span>酒精度</span><input type="text" style="width: 100px;"
-								value="" name="alcoholDegree" onblur="checkvalue(this);" />
+								value="${commodity.commAttribute.alcoholDegree}" name="alcoholDegree" onblur="checkvalue(this);" />度
 							<span>净含量</span><input type="text" style="width: 100px;"
-								value="" name="Weight" onblur="checkvalue(this);" />
+								value="${commodity.commAttribute.weight}" name="Weight"/>
 						</dd>
 						<dd>
 							<span>保质期</span><input type="text" style="width: 100px;"
-								value="" name="deadline" onblur="checkvalue(this);" />
+								value="${commodity.commAttribute.deadline}" name="deadline" />
 							<span>包装方式</span><input type="text" style="width: 100px;"
-								value="" name="packManner" onblur="checkvalue(this);" />
+								value="${commodity.commAttribute.packManner}" name="packManner" />
 						</dd>
 						<dd>
 							<span>产地</span><input type="text" style="width: 100px;"
-								value="" name="productPlace" onblur="checkvalue(this);" />
+								value="${commodity.commAttribute.productPlace}" name="productPlace" />
 							<span>产地省份</span><input type="text" style="width: 100px;"
-								value="" name="productProvince" onblur="checkvalue(this);" />
+								value="${commodity.commAttribute.productProvince}" name="productProvince" />
 						</dd>
 						<dd>
 							<span>醒酒时间</span><input type="text" style="width: 100px;"
-								value="" name="soberTime" onblur="checkvalue(this);" />
+								value="${commodity.commAttribute.soberTime}" name="soberTime" onblur="checkvalue(this);" />小时
 							<span>饮酒温度</span><input type="text" style="width: 100px;"
-								value="" name="drinkTemperature" onblur="checkvalue(this);" />
+								value="${commodity.commAttribute.drinkTemperature}" name="drinkTemperature" onblur="checkvalue(this);" />℃
 						</dd>
 						<dd>
 							<span>配料表</span><input type="text"
-								value="" name="mixtureSheet" onblur="checkvalue(this);" />
+								value="${commodity.commAttribute.mixtureSheet}" name="mixtureSheet" />
 						</dd>
 						<dd>
 							<span>储藏方法</span><input type="text"
-								value="" name="stockWay" onblur="checkvalue(this);" />
+								value="${commodity.commAttribute.stockWay}" name="stockWay" />
 						</dd>
 						<dd>
 							<span>食品添加剂</span><input type="text"
-								value="" name="foodAdditive" onblur="checkvalue(this);" />
+								value="${commodity.commAttribute.foodAdditive}" name="foodAdditive" />
 						</dd>
 						<dd>
 							<span>生产许可证编号</span><input type="text"
-								value="" name="productPerimitNum" onblur="checkvalue(this);" />
+								value="${commodity.commAttribute.productPerimitNum}" name="productPerimitNum" />
 						</dd>
 						<dd>
 							<span>生产标准号</span><input type="text"
-								value="" name="productStddNum" onblur="checkvalue(this);" />
+								value="${commodity.commAttribute.productStddNum}" name="productStddNum" />
 						</dd>
 						<dd>
 							<span>生产厂名</span><input type="text"
-								value="" name="productFactoryName" onblur="checkvalue(this);" />
+								value="${commodity.commAttribute.productFactoryName}" name="productFactoryName" />
 						</dd>
 						<dd>
 							<span>生产厂址</span><input type="text"
-								value="" name="productFactoryAddress" onblur="checkvalue(this);" />
+								value="${commodity.commAttribute.productFactoryAddress}" name="productFactoryAddress" />
 						</dd>
 						<dd>
 							<span>生产日期</span><input type="date"
-								value="" name="productTime" onblur="checkvalue(this);" />
+								value="${commodity.commAttribute.productTime}" name="productTime" />
 						</dd>
 						<!-- 新增结束 -->
 						
 						<dd>
 							<span>库存数量</span><input type="text" style="width: 100px;"
 								value="${commodity.stock }" name="stock" onblur="checkvalue(this);" />
+								<select id="commUnit" name="commUnit" onchange="commUnitHandle();">
+									<option value="1">瓶</option>
+									<option value="0">箱</option>
+								</select>
 						</dd>
+						<dd id="ddUnit" style="display: none">
+							<span>每箱</span><input type="text" style="width: 100px;" value="${commodity.perBoxnum}"
+							 name="perBoxnum" onblur="checkvalue(this);" />瓶
+						</dd>
+						<script>
+							function commUnitHandle(){
+								var unitValue = document.getElementById("commUnit").value;
+								if(unitValue==0){
+									document.getElementById("ddUnit").style.display="";
+								}if(unitValue==1){
+									document.getElementById("ddUnit").style.display="none";
+								}
+							}
+						</script>
+						
 						<dd>
 							<span>单价</span><input type="text" style="width: 100px;" value="${commodity.unitPrice }"
 								name="unitPrice"  onblur="checkvalue(this);"/>
@@ -214,7 +233,6 @@
 								if(isSpecial){
 									document.getElementById("isSpecialTrue").checked = 'checked';
 								}else{document.getElementById("isSpecialFalse").checked = 'checked';}
-								alert(shelves);
 							}
 							window.onload = check();
 						</script>
@@ -229,7 +247,7 @@
 							</select>
 						</dd>
 						<dd>
-							<span>是否名庄</span><select
+							<span>是否名庄</span><select name="famousManorId"
 								style="height: 35px; width: 303px; border: 1px solid #ccc; margin-left: 7px">
 								<option value="-1">----请选择----</option>
 								<c:forEach items="${famousManors }" var="fm"
@@ -239,12 +257,12 @@
 							</select>
 						</dd>
 							<c:forEach items="${shop.shopCat.specifications }" var="sp" varStatus="status">
-								<dd>
-									<span>${sp.specificatName }</span>
-									<input type="hidden" name="commspecName${status.count}" value="${sp.specificatName}"/>
-									<input type="text" name="${sp.specificatName}"/>
-								</dd>
-							</c:forEach>
+							<dd>
+								<span>${sp.specificatName }</span>
+								<input type="hidden" name="commspecName${status.count}" value="${sp.specificatName}"/>
+								<input type="text" name="${sp.specificatName}"/>
+							</dd>
+						</c:forEach>	
 						<dd>
 							<span>照片上传</span><input type="file" name="myfile" />
 						</dd>
