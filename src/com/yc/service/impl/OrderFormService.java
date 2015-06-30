@@ -91,9 +91,9 @@ public class OrderFormService extends GenericService<OrderForm> implements IOrde
 		StringBuffer hql = new StringBuffer("select DISTINCT o.* from OrderForm o where o.user_id = "+userID);
 		if (map.get("orderStatus") != null) {
 			if (map.get("orderStatus").equals("wanjie")) {
-				hql.append(" and o.orderstatus in('"+OrderStatus.completionTransaction+"','"+OrderStatus.consigneeSigning+"')");
+				hql.append(" and o.orderstatus in('"+OrderStatus.completionTransaction+"')");
 			}else if(map.get("orderStatus").equals("weiwanjie")){
-				hql.append(" and o.orderstatus not in ('"+OrderStatus.completionTransaction+"','"+OrderStatus.consigneeSigning+"')");
+				hql.append(" and o.orderstatus not in ('"+OrderStatus.completionTransaction+"')");
 			}else {
 				hql.append(" and o.orderstatus in ('"+OrderStatus.valueOf(map.get("orderStatus").toString())+"')");
 			}
