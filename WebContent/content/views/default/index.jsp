@@ -20,6 +20,8 @@
 <meta name="viewport" content="width=device-width, user-scalable=no" />
 <script type="text/javascript" src="content/static/js/lib/jquery.min.js"></script>
 <script type="text/javascript"
+	src="content/static/js/tumbler/jquery-1.7.2.min.js"></script>
+<script type="text/javascript"
 	src="content/static/js/tumbler/jquery.SuperSlide.2.1.1.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="content/static/css/style.css" />
@@ -50,6 +52,7 @@
 
 	}
 </script>
+
 </head>
 <body>
 	<script type="text/javascript">
@@ -119,6 +122,59 @@
 		});
 	</script>
 	<!--顶部内容-->
+
+	<script type="text/javascript">
+		function tab(o, s, cb, ev) { //tab切换类
+			var $ = function(o) {
+				return document.getElementById(o)
+			};
+			var css = o.split((s || '_'));
+			if (css.length != 4)
+				return;
+			this.event = ev || 'onclick';
+			o = $(o);
+			if (o) {
+				this.ITEM = [];
+				o.id = css[0];
+				var item = o.getElementsByTagName(css[1]);
+				var j = 1;
+				for (var i = 0; i < item.length; i++) {
+					if (item[i].className.indexOf(css[2]) >= 0
+							|| item[i].className.indexOf(css[3]) >= 0) {
+						if (item[i].className == css[2])
+							o['cur'] = item[i];
+						item[i].callBack = cb || function() {
+						};
+						item[i]['css'] = css;
+						item[i]['link'] = o;
+						this.ITEM[j] = item[i];
+						item[i]['Index'] = j++;
+						item[i][this.event] = this.ACTIVE;
+					}
+				}
+				return o;
+			}
+		}
+		tab.prototype = {
+			ACTIVE : function() {
+				document.getElementById("test1_1").style.display = "none";
+				var $ = function(o) {
+					return document.getElementById(o)
+				};
+				this['link']['cur'].className = this['css'][3];
+				this.className = this['css'][2];
+
+				try {
+
+					$(this['link']['id'] + '_' + this['link']['cur']['Index']).style.display = 'none';
+					$(this['link']['id'] + '_' + this['Index']).style.display = 'block';
+				} catch (e) {
+				}
+				this.callBack.call(this);
+				this['link']['cur'] = this;
+			}
+		}
+	</script>
 	<jsp:include page="frontDesk/header.jsp" />
 	<!--banner-->
 	<div class="banner">
@@ -151,7 +207,8 @@
 							<div class="list_con">
 								<c:set value="0" var="loop"></c:set>
 								<c:forEach items="${category.children }" var="cate2">
-									<c:if test="${cate2.parentLevel.categoryID == category.categoryID}">
+									<c:if
+										test="${cate2.parentLevel.categoryID == category.categoryID}">
 										<c:forEach items="${cate2.children }" var="cate3">
 											<c:set var="loop" value="${loop + 1 }"></c:set>
 											<c:if test="${loop < 12 }">
@@ -183,25 +240,57 @@
 			</div>
 		</div>
 		<script>
-		$(document).ready(function(){ $(".list").hover(function(){
-		$(this).animate({width:192},300) .css("backgroundColor","#A71234");
-		$(".showdivs").eq($(".list").index(this)).animate({width:500},300)
-		.css("display","block"); /*鼠标移入右边*/ var
-		listindex=$(".list").index(this); //当前悬停list索引
-		$(".showdivs").hover(function(){
-		$(this).eq($(".list").index(this)).animate({width:500},300)
-		.css("display","block");
-		$(".list").eq($(".showdivs").index(this)).css("backgroundColor","#A71234");
-		},function(){
+			$(document).ready(
+					function() {
+						$(".list").hover(
+								function() {
+									$(this).animate({
+										width : 192
+									}, 300).css("backgroundColor", "#A71234");
+									$(".showdivs").eq($(".list").index(this))
+											.animate({
+												width : 500
+											}, 300).css("display", "block"); /*鼠标移入右边*/
+									var listindex = $(".list").index(this); //当前悬停list索引
+									$(".showdivs").hover(
+											function() {
+												$(this).eq(
+														$(".list").index(this))
+														.animate({
+															width : 500
+														}, 300).css("display",
+																"block");
+												$(".list").eq(
+														$(".showdivs").index(
+																this)).css(
+														"backgroundColor",
+														"#A71234");
+											},
+											function() {
 
-		$(this).eq($(".list").index(this)).animate({width:500},300)
-		.css("display","none");
-		$(".list").eq($(".showdivs").index(this)).css("backgroundColor","#901531");
-		}); },function(){ $(this).animate({width:192},300)
-		.css("backgroundColor","#901531");
-		$(".showdivs").eq($(".list").index(this)).animate({width:500},300)
-		.css("display","none"); }); });
-
+												$(this).eq(
+														$(".list").index(this))
+														.animate({
+															width : 500
+														}, 300).css("display",
+																"none");
+												$(".list").eq(
+														$(".showdivs").index(
+																this)).css(
+														"backgroundColor",
+														"#901531");
+											});
+								},
+								function() {
+									$(this).animate({
+										width : 192
+									}, 300).css("backgroundColor", "#901531");
+									$(".showdivs").eq($(".list").index(this))
+											.animate({
+												width : 500
+											}, 300).css("display", "none");
+								});
+					});
 		</script>
 		<!--banner内容-->
 		<div class="banner_box">
@@ -241,8 +330,8 @@
 	<div class="main_box">
 		<div class="main">
 			<div class="left">
-				<ul class="tab_menu">
-					<li><a href="javascript:void(0);">
+				<ul id="test1_li_ysli_" class="tab_menu">
+					<li class="ysli" id="ysli"><a href="javascript:void(0);">
 							<h3>名庄特卖</h3>
 					</a></li>
 					<li>
@@ -252,56 +341,138 @@
 						<h3>超值整箱购</h3>
 					</li>
 				</ul>
-				<dl class="tab_list">
+
+				<dl class="tab_list" id="test1_1">
 					<dd>
-						<div class="list_box"></div>
+						<div class="list_box">
+							<img src="images/jp_01.jpg">
+						</div>
 					</dd>
 					<dd>
-						<div class="list_box"></div>
+						<div class="list_box">
+							<img src="images/jp_02.jpg">
+						</div>
 					</dd>
 					<dd>
-						<div class="list_box"></div>
+						<div class="list_box">
+							<img src="images/jp_01.jpg">
+						</div>
 					</dd>
 					<dd>
-						<div class="list_box"></div>
+						<div class="list_box">
+							<img src="images/jp_02.jpg">
+						</div>
 					</dd>
 					<dd>
-						<div class="list_box"></div>
+						<div class="list_box">
+							<img src="images/jp_01.jpg">
+						</div>
 					</dd>
 					<dd style="border-right: 0;">
-						<div class="list_box"></div>
+						<div class="list_box">
+							<img src="images/jp_02.jpg">
+						</div>
+					</dd>
+				</dl>
+				<dl class="tab_list" id="test1_2" style="display: none;">
+					<dd>
+						<div class="list_box">
+							<img src="images/jp_02.jpg">
+						</div>
+					</dd>
+					<dd>
+						<div class="list_box">
+							<img src="images/jp_01.jpg">
+						</div>
+					</dd>
+					<dd>
+						<div class="list_box">
+							<img src="images/jp_01.jpg">
+						</div>
+					</dd>
+					<dd>
+						<div class="list_box">
+							<img src="images/jp_02.jpg">
+						</div>
+					</dd>
+					<dd>
+						<div class="list_box">
+							<img src="images/jp_01.jpg">
+						</div>
+					</dd>
+					<dd style="border-right: 0;">
+						<div class="list_box">
+							<img src="images/jp_02.jpg">
+						</div>
+					</dd>
+				</dl>
+				<dl class="tab_list" id="test1_3" style="display: none;">
+					<dd>
+						<div class="list_box">
+							<img src="images/jp_01.jpg">
+						</div>
+					</dd>
+					<dd>
+						<div class="list_box">
+							<img src="images/jp_02.jpg">
+						</div>
+					</dd>
+					<dd>
+						<div class="list_box">
+							<img src="images/jp_02.jpg">
+						</div>
+					</dd>
+					<dd>
+						<div class="list_box">
+							<img src="images/jp_02.jpg">
+						</div>
+					</dd>
+					<dd>
+						<div class="list_box">
+							<img src="images/jp_01.jpg">
+						</div>
+					</dd>
+					<dd style="border-right: 0;">
+						<div class="list_box">
+							<img src="images/jp_02.jpg">
+						</div>
 					</dd>
 				</dl>
 
 
 			</div>
+			<script type="text/javascript">
+				window.onload = function() {
+					new tab('test1_li_ysli_', '_', null, 'onmouseover');
+					new tab('news_li_yslia_', '_', null, 'onmouseover');
+				};
+			</script>
 			<div class="right">
-				<ul class="news">
-					<li>促销活动</li>
-					<li>最新公告</li>
+				<ul class="news" id="news_li_yslia_">
+					<li id="yslia" class="yslia"><a href="news.html">促销活动</a></li>
+					<li><a href="news.html">最新公告</a></li>
 				</ul>
-				<dl class="news_con">
-					<c:set var="loop" value="0"></c:set>
-					<c:forEach items="${newsList }" var="ns">
-						<c:if test="${ns.announType == 'news' && loop < 6}">
-							<dd>
-								<a href="javascript:void(0);">${ns.title }</a>
-							</dd>
-							<c:set var="loop" value="${loop +1 }"></c:set>
-						</c:if>
-					</c:forEach>
-				</dl>
-				<dl class="news_con" style="display: none;">
+
+				<ul class="news_con" id="news_1">
+
 					<c:set var="loop" value="0"></c:set>
 					<c:forEach items="${newsList }" var="ns">
 						<c:if test="${ns.announType == 'activity' && loop < 6}">
-							<dd>
-								<a href="javascript:void(0);">${ns.title }</a>
-							</dd>
+							<li><a href="javascript:void(0);">${ns.title }</a></li>
 							<c:set var="loop" value="${loop +1 }"></c:set>
 						</c:if>
 					</c:forEach>
-				</dl>
+				</ul>
+
+				<ul class="news_con" id="news_2" style="display: none;">
+					<c:set var="loop" value="0"></c:set>
+					<c:forEach items="${newsList }" var="ns">
+						<c:if test="${ns.announType == 'news' && loop < 6}">
+							<li><a href="javascript:void(0);">${ns.title}</a></li>
+							<c:set var="loop" value="${loop +1 }"></c:set>
+						</c:if>
+					</c:forEach>
+				</ul>
 				<div class="news_banner"></div>
 			</div>
 		</div>

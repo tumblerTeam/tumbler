@@ -92,14 +92,6 @@ var boolean=true;
 </script>
 <script type="text/ecmascript">
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	function f6(){
 		var pp1=document.getElementById("pp1");
 	    var text1=document.getElementById("text1");
@@ -156,10 +148,6 @@ var boolean=true;
 		pp2.style.borderColor="#ccc";
 		pp2.style.backgroundPosition="2px 2px";
 			}
-
-
-
-
 
 </script>
 </head>
@@ -267,6 +255,13 @@ var boolean=true;
 						type="button" onclick="searchMoney();" value="确定" /></li>
 				</ul>
 			</div>
+			<script>
+				$(function(){
+					for(var i=0;i<$(".lista").length;i++){
+						$(".lista").eq(i).children(this).children($(".lista").eq(i).children(this)).first().css("marginLeft","0px");
+					}
+				});
+			</script>
 			<c:forEach var="cate1" items="${cate.children }">
 				<c:if test="${not empty cate1.children }">
 					<div class="nav2">
@@ -294,7 +289,7 @@ var boolean=true;
 										value="${famous.id }" />${famous.manorName }</li>
 								</c:if>
 							</c:forEach>
-							<li class="lired" onMouseOver="gbred()" onMouseOut="gbredt()">
+							<li class="lired"  onMouseOver="gbred()" onMouseOut="gbredt()">
 								<div class="right_gd" id="pp7" onClick="f7()">更多</div>
 								<div class="small" id="pp8"></div>
 							</li>
@@ -424,18 +419,11 @@ var boolean=true;
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
-						<c:if test="${loop.index == 0 }">
-							<div class="disdiv" id="gd">
-								<span style="margin: 10px 100px 0px 15px; float: left;">${spec.specificatName }：</span>
-								<ul style="float: left;">
-						</c:if>
-						<c:if test="${loop.index > 0 }">
-							<div class="disdiv" style="display: none;">
-								<span style="margin: 10px 100px 0px 15px; float: left;">${spec.specificatName }：</span>
-								<ul style="float: left;">
-						</c:if>
+						<div class="disdiv" style="display: none;">
+							<span style="margin: 10px 100px 0px 15px; float: left;">${spec.specificatName }：</span>
+							<ul style="float: left;">
 						<c:forEach items="${attrs }" var="attr">
-							<li><a href="javascript:;"
+							<li><a href="javascript:void(0);"
 								onclick="searchs('${attr}','${spec.specificatName }');"
 								class="black" title="${attr }">${attr }</a></li>
 						</c:forEach>
@@ -462,47 +450,47 @@ var boolean=true;
 			<ul>
 				<c:if test="${cate.categoryID == 1 }">
 					<li><a href="javascript:void(0);" rel="nofollow" class="black"
-						title="7-10" onclick="searchs('7@10','alcoholicStrength');">7-10</a></li>
+						title="7-10" onclick="searchs('7@10','alcoholicStrength');">7°-10°</a></li>
 					<li><a href="javascript:void(0);" rel="nofollow" class="black"
-						title="11-15" onclick="searchs('11@15','alcoholicStrength');">11-15</a></li>
+						title="11-15" onclick="searchs('11@15','alcoholicStrength');">11°-15°</a></li>
 					<li><a href="javascript:void(0);" rel="nofollow" class="black"
-						title="16-20" onclick="searchs('16@20','alcoholicStrength');">16-20</a></li>
+						title="16-20" onclick="searchs('16@20','alcoholicStrength');">16°-20°</a></li>
 					<li><a href="javascript:void(0);" rel="nofollow" class="black"
-						title="21-25" onclick="searchs('21@25','alcoholicStrength');">21-25</a></li>
+						title="21-25" onclick="searchs('21@25','alcoholicStrength');">21°-25°</a></li>
 				</c:if>
 				<c:if test="${cate.categoryID == 2 }">
 					<li><a href="javascript:void(0);" rel="nofollow" class="black"
-						title="28-38" onclick="searchs('28@38','alcoholicStrength');">28-38</a></li>
+						title="28-38" onclick="searchs('28@38','alcoholicStrength');">28°-38°</a></li>
 					<li><a href="javascript:void(0);" rel="nofollow" class="black"
-						title="39-48" onclick="searchs('39@48','alcoholicStrength');">39-48</a></li>
+						title="39-48" onclick="searchs('39@48','alcoholicStrength');">39°-48°</a></li>
 					<li><a href="javascript:void(0);" rel="nofollow" class="black"
-						title="49-60" onclick="searchs('49@60','alcoholicStrength');">49-60</a></li>
+						title="49-60" onclick="searchs('49@60','alcoholicStrength');">49°-60°</a></li>
 					<li><a href="javascript:void(0);" rel="nofollow" class="black"
-						title="61-75" onclick="searchs('61@75','alcoholicStrength');">61-75</a></li>
+						title="61-75" onclick="searchs('61@75','alcoholicStrength');">61°-75°</a></li>
 				</c:if>
 				<c:if test="${cate.categoryID == 4 || cate.categoryID == 3}">
 					<li><a href="javascript:void(0);" rel="nofollow" class="black"
-						title="0.5-3" onclick="searchs('0.5@3','alcoholicStrength');">0.5-3</a></li>
+						title="0.5-3" onclick="searchs('0.5@3','alcoholicStrength');">0.5°-3°</a></li>
 					<li><a href="javascript:void(0);" rel="nofollow" class="black"
-						title="3.1-7.5" onclick="searchs('3.1@7.5','alcoholicStrength');">3.1-7.5</a></li>
+						title="3.1-7.5" onclick="searchs('3.1@7.5','alcoholicStrength');">3.1°-7.5°</a></li>
 					<li><a href="javascript:void(0);" rel="nofollow" class="black"
-						title="7.6-12" onclick="searchs('7.6@12','alcoholicStrength');">7.6-12</a></li>
+						title="7.6-12" onclick="searchs('7.6@12','alcoholicStrength');">7.6°-12°</a></li>
 				</c:if>
 				<c:if test="${cate.categoryID == 4 }">
 					<li><a href="javascript:void(0);" rel="nofollow" class="black"
-						title="12.1-20" onclick="searchs('12.1@20','alcoholicStrength');">12.1-20</a></li>
+						title="12.1-20" onclick="searchs('12.1@20','alcoholicStrength');">12.1°-20°</a></li>
 					<li><a href="javascript:void(0);" rel="nofollow" class="black"
-						title="20.1-30" onclick="searchs('20.1@30','alcoholicStrength');">20.1-30</a></li>
+						title="20.1-30" onclick="searchs('20.1@30','alcoholicStrength');">20.1°-30°</a></li>
 					<li><a href="javascript:void(0);" rel="nofollow" class="black"
-						title="30.1-40" onclick="searchs('30.1@40','alcoholicStrength');">30.1-40</a></li>
+						title="30.1-40" onclick="searchs('30.1@40','alcoholicStrength');">30.1°-40°</a></li>
 					<li><a href="javascript:void(0);" rel="nofollow" class="black"
-						title="40.1-50" onclick="searchs('40.1@50','alcoholicStrength');">40.1-50</a></li>
+						title="40.1-50" onclick="searchs('40.1@50','alcoholicStrength');">40.1°-50°</a></li>
 					<li><a href="javascript:void(0);" rel="nofollow" class="black"
-						title="50.1-60" onclick="searchs('50.1@60','alcoholicStrength');">50.1-60</a></li>
+						title="50.1-60" onclick="searchs('50.1@60','alcoholicStrength');">50.1°-60°</a></li>
 					<li><a href="javascript:void(0);" rel="nofollow" class="black"
-						title="60.1-70" onclick="searchs('60.1@70','alcoholicStrength');">60.1-70</a></li>
+						title="60.1-70" onclick="searchs('60.1@70','alcoholicStrength');">60.1°-70°</a></li>
 					<li><a href="javascript:void(0);" rel="nofollow" class="black"
-						title="70.1-80" onclick="searchs('70.1@80','alcoholicStrength');">70.1-80</a></li>
+						title="70.1-80" onclick="searchs('70.1@80','alcoholicStrength');">70.1°-80°</a></li>
 				</c:if>
 			</ul>
 		</div>
@@ -511,7 +499,7 @@ var boolean=true;
 		</div>
 	</div>
 	<form action="search/result" id="paramForm" method="get">
-		<input id="params" name="params" type="text" value="${params }" /> <input
+		<input id="params" name="params" type="hidden" value="${params }" /> <input
 			id="orderByPice" name="orderByPice" type="hidden"
 			value="${orderByPice }" /> <input id="haoping" name="haoping"
 			type="hidden" value="${haoping }" /> <input id="id" name="id"

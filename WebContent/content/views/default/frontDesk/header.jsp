@@ -110,7 +110,7 @@
 		<div class="nav_list">
 			<a href="index" style="padding-left: 30px; color: #a40c59">首页</a> <a
 				href="famousManor/index">名庄特卖</a> <a href="brand">品牌专区</a> <a href="#">整箱购</a>
-			<a href="#">商城精选</a> <a href="#">酒翁精品</a> <a href="#">小食品</a>
+			<a href="#">商城精选</a> <a href="#">酒翁精品</a> <a href="getSnacks?categoryID=5">小食品</a>
 		</div>
 	</div>
 </div>

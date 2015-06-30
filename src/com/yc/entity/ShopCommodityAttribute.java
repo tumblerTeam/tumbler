@@ -79,7 +79,6 @@ public class ShopCommodityAttribute {
 		this.id = id;
 	}
 
-
 	public Integer getParticularYear() {
 		return particularYear;
 	}

@@ -115,7 +115,6 @@
 				}
 }
 </script>
-<script src="js/jquery-1.11.1.min.js"></script>
 <!--价格排列-->
 <script type="text/javascript"> 
 $(document).ready(function(){
