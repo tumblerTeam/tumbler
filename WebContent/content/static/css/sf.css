@@ -1,0 +1,146 @@
+.content {
+	width: 100%;
+	height:auto;
+	margin: 0px;
+	padding-bottom: 50px;
+	padding-top:30px;
+	position: relative;
+
+}
+.main_sf{
+	width:1200px;	
+	height:auto;
+	margin:0 auto;
+	background:#f6f6f6;
+}
+.item_1{
+	width:1200px;	
+	height:330px;
+}
+.item_1_left{
+	width:590px;	
+	height:330px;	
+	float:left;
+}
+.item_1_right{
+	width:590px;	
+	height:330px;	
+	float:right;
+}
+.item_2{
+	width:1200px;	
+	height:330px;
+	margin-top:30px;
+}
+.item_2 .img1{
+	width:250px;	
+	height:200px;
+	margin:0 auto;
+}
+.item_2 .img1 img{
+	height:200px;	
+}
+.item_2 .inf{
+	width:300px;	
+	font-family: 'Microsoft YaHei';
+	position: relative;
+	margin:0 auto;
+	text-align:center;
+}
+.item_2 .inf h3{
+	color: #000;
+	height: 23px;
+	font-size: 18px;
+	line-height: 20px;
+	overflow: hidden;
+	font-weight: bold;
+	text-align: center;	
+}
+.item_2 .inf .price{
+	color: #333;
+	font-size: 14px;
+	height: 18px;
+			
+}
+.item_2 .inf .price span{
+	text-decoration: line-through;
+	margin-left:5px;
+}
+.item_2 .inf .sale{
+	color: #821500;
+	font-size: 18px;
+	overflow: hidden;
+	line-height: 38px;	
+}
+.item_3{
+	width: 1200px;
+	margin: 0 auto;
+	position: relative;
+	height:330px;
+	margin-top:30px;	
+}
+.item_3 li{
+	float: left;
+	display: inline;
+	width: 234px;
+	border:1px solid #E6E6E6;
+	height:308px;
+	padding-top:20px;
+	background:#FFF;
+}
+.item_3 li .img_3{
+	width:200px;
+	height:200px;
+	margin:0 auto;
+}
+.item_3 li .img_3 img{
+	height:200px;	
+}
+.item_3 .inf_3{
+	padding-top:20px;
+	width:200px;
+	font-family: 'Microsoft YaHei';
+	position: relative;
+	margin:0 auto;
+	text-align:left;
+}
+.item_3 .inf_3 h3 {
+	color: #000;
+	height: 23px;
+	font-size: 16px;
+	line-height: 22px;
+	width: 200px;
+	overflow: hidden;
+	font-weight: bold;
+	text-align: center;
+}
+.item_3 .inf_3 h3 a{
+	color: #000;
+}
+.item_3 .inf_3 .price{
+	color:#333;
+	font-size: 12px;
+	height: 12px;
+	margin-top:8px;	
+}
+.item_3 .inf_3 .price span{
+	text-decoration: line-through;
+}
+.inf_3 .sale{
+	font-size: 16px;
+	overflow: hidden;
+	line-height: 38px;	
+	color:#901531;
+	margin-top:5px;
+	width:150px;
+	margin-right:0px;
+}
+.shopcar{
+	float:right;
+	position:absolute;
+	right:0px;
+	top:65px;
+}
+.shopcar img{
+	height:35px;
+}

@@ -38,7 +38,10 @@ public class ShopCommodityAttribute {
 	private String mixtureSheet; //配料表
 	
 	@Column
-	private String alcoholDegree; //酒精度：10、50
+	private Integer particularYear = 2015;//年份
+	
+	@Column
+	private Float alcoholDegree = 30f; //酒精度：10、50
 	
 	@Column
 	private String Weight; //净含量：500ml
@@ -68,6 +71,14 @@ public class ShopCommodityAttribute {
 	@JoinColumn(name = "shopcomm_id")
 	private ShopCommodity shopCommodity;
 
+	public Integer getParticularYear() {
+		return particularYear;
+	}
+
+	public void setParticularYear(Integer particularYear) {
+		this.particularYear = particularYear;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -76,11 +87,11 @@ public class ShopCommodityAttribute {
 		this.id = id;
 	}
 
-	public String getAlcoholDegree() {
+	public Float getAlcoholDegree() {
 		return alcoholDegree;
 	}
 
-	public void setAlcoholDegree(String alcoholDegree) {
+	public void setAlcoholDegree(Float alcoholDegree) {
 		this.alcoholDegree = alcoholDegree;
 	}
 

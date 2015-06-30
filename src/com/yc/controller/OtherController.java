@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yc.entity.ShopCategory;
+import com.yc.entity.ShopCommodity;
 import com.yc.service.IBrandService;
 import com.yc.service.IShopCategoryService;
+import com.yc.service.IShopCommodityService;
 
 @Controller
 @RequestMapping("/")
@@ -28,6 +30,10 @@ public class OtherController {
 	@Autowired
 	IShopCategoryService categoryService;
 	
+
+	@Autowired
+	IShopCommodityService shopCommoidtyService;
+	
     @RequestMapping(value = "brand", method = RequestMethod.GET)
     public ModelAndView bander(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	List<ShopCategory> list = categoryService.getAllByParent();
@@ -35,4 +41,21 @@ public class OtherController {
     	mode.put("categories", list);
     	return new ModelAndView("reception/brand",mode);
     }
+    
+    /**
+	 * 小食品查询
+	 * @param categoryID
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "getSnacks", method = RequestMethod.GET)
+	public ModelAndView getSnacks(Integer categoryID, HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		ModelMap mode = new ModelMap();
+		List<ShopCommodity> snacksList=shopCommoidtyService.getAllByShopCategoryID(categoryID, new String(),-1,-1);
+		mode.put("snacksList", snacksList);
+		return new ModelAndView("reception/snacks", mode);
+	}
 }

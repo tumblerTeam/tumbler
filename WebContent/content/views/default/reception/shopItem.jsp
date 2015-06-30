@@ -550,6 +550,22 @@ div.zoomMask {
 								</c:if>
 							</c:forEach>
 							<li>重量： ${shopCommoidty.probablyWeight }</li>
+							<li>度数：${shopCommoidty.commAttribute.alcoholDegree}°</li>
+							<li>年份：${shopCommoidty.commAttribute.particularYear}年</li>
+							<li>保质期：${shopCommoidty.commAttribute.deadline}</li>
+							<li>储藏方法：${shopCommoidty.commAttribute.stockWay}</li>
+							<li>食品添加剂：${shopCommoidty.commAttribute.foodAdditive}</li>
+							<li>产地：${shopCommoidty.commAttribute.productPlace}</li>
+							<li>省份：${shopCommoidty.commAttribute.productProvince}</li>
+							<li>包装：${shopCommoidty.commAttribute.packManner}</li>
+							<li>配料：${shopCommoidty.commAttribute.mixtureSheet}</li>
+							<li>醒酒时间：${shopCommoidty.commAttribute.soberTime}</li>
+							<li>饮用温度：${shopCommoidty.commAttribute.drinkTemperature}</li>
+							<li>生产许可编号：${shopCommoidty.commAttribute.productPerimitNum}</li>
+							<li>生产标准号：${shopCommoidty.commAttribute.productStddNum}</li>
+							<li>生产厂名：${shopCommoidty.commAttribute.productFactoryName}</li>
+							<li>生产工厂地址：${shopCommoidty.commAttribute.productFactoryAddress}</li>
+							<li>生产时期：${shopCommoidty.commAttribute.productTime}</li>
 						</ul>
 					</div>
 
