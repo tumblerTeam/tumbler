@@ -52,6 +52,7 @@ public class Commodity {
 
 	@Column
 	private String sellerDate;// zazatao付款日期
+	
 	@Column
 	private String tradingCode;// 交易码
 
