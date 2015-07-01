@@ -243,7 +243,7 @@ function setTab(name,m,n){
 	                        <li><input type="submit" value="批量发货"/></li>
 	                    </ul>
 	                </div>
-	             	<div class="nav_class"  style="display:none;" id="text3">
+	             	<div class="nav_class" style="display:none;" id="text3">
 	                    	<c:forEach items="${waitDelivery}" var="o">
 	                    	<div style="padding:50px 0px 1px 10px;"><input type="checkbox" name="checkbox" value="${o.orderFormID }"/></div>
 	                		<ul>
@@ -260,9 +260,9 @@ function setTab(name,m,n){
 		                        	<c:if test="${o.orderstatus == 'BuyersHavePaid'}">买家已付款</c:if>
 		                        	<c:if test="${o.orderstatus == 'waitDelivery'}">等待卖家发货</c:if>
 		                        	<c:if test="${o.orderstatus == 'transitGoods'}">卖家已发货</c:if>
-		                        	<c:if test="${o.orderstatus == 'consigneeSigning'}">等待收货人签单</c:if>
 		                        	<c:if test="${o.orderstatus == 'completionTransaction'}">完成交易</c:if>
 		                        	<c:if test="${o.orderstatus == 'refundOrderForm'}">关闭交易</c:if>
+		                        	<c:if test="${o.orderstatus == 'ApplicationForRefund'}">退款申请</c:if>
 		                        	<c:if test="${o.orderstatus == 'closeTransaction'}">退款中的订单</c:if>
 		                        	<c:if test="${o.orderstatus == 'refundSuccess'}">退款成功</c:if>
 		                        	<c:if test="${o.orderstatus == 'refundFailed'}">退款失败</c:if>
@@ -279,7 +279,7 @@ function setTab(name,m,n){
 	                    </ul></c:forEach>
 	                </div>
                 </form>
-                <div class="nav_class" id="text1">
+                <div class="nav_class" style="border:0" id="text1">
 	                <c:forEach items="${order3Month}" var="o">
                 		<ul>
 	                		<c:forEach items="${o.commodities }" var="c">
@@ -296,9 +296,9 @@ function setTab(name,m,n){
 	                        	<c:if test="${o.orderstatus == 'BuyersHavePaid'}">买家已付款</c:if>
 	                        	<c:if test="${o.orderstatus == 'waitDelivery'}">等待卖家发货</c:if>
 	                        	<c:if test="${o.orderstatus == 'transitGoods'}">卖家已发货</c:if>
-	                        	<c:if test="${o.orderstatus == 'consigneeSigning'}">等待收货人签单</c:if>
 	                        	<c:if test="${o.orderstatus == 'completionTransaction'}">完成交易</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundOrderForm'}">关闭交易</c:if>
+		                        	<c:if test="${o.orderstatus == 'ApplicationForRefund'}">退款申请</c:if>
 	                        	<c:if test="${o.orderstatus == 'closeTransaction'}">退款中的订单</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundSuccess'}">退款成功</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundFailed'}">退款失败</c:if>
@@ -306,7 +306,7 @@ function setTab(name,m,n){
 	                        <li>￥${c.money}</li>
 	                        	<c:forEach items="${c.shopCommodity.shopreviews}" var="re">
 	                        		<c:if test="${re.user.id == o.orderUser.id}">
-	                        			<c:if test="${re.orderId == o.orderFormID}">
+	                        			<c:if test="${re.orderForm.orderFormID == o.orderFormID}">
 	                        				<li>${re.reviewsRank}</li>
 	                        			</c:if>
 	                        		</c:if>
@@ -333,9 +333,9 @@ function setTab(name,m,n){
 	                        	<c:if test="${o.orderstatus == 'BuyersHavePaid'}">买家已付款</c:if>
 	                        	<c:if test="${o.orderstatus == 'waitDelivery'}">等待卖家发货</c:if>
 	                        	<c:if test="${o.orderstatus == 'transitGoods'}">卖家已发货</c:if>
-	                        	<c:if test="${o.orderstatus == 'consigneeSigning'}">等待收货人签单</c:if>
 	                        	<c:if test="${o.orderstatus == 'completionTransaction'}">完成交易</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundOrderForm'}">关闭交易</c:if>
+		                        	<c:if test="${o.orderstatus == 'ApplicationForRefund'}">退款申请</c:if>
 	                        	<c:if test="${o.orderstatus == 'closeTransaction'}">退款中的订单</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundSuccess'}">退款成功</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundFailed'}">退款失败</c:if>
@@ -343,7 +343,7 @@ function setTab(name,m,n){
 	                        <li>￥${c.money}</li>
 	                        	<c:forEach items="${c.shopCommodity.shopreviews}" var="re">
 	                        		<c:if test="${re.user.id == o.orderUser.id}">
-	                        			<c:if test="${re.orderId == o.orderFormID}">
+	                        			<c:if test="${re.orderForm.orderFormID == o.orderFormID}">
 	                        				<li>${re.reviewsRank}</li>
 	                        			</c:if>
 	                        		</c:if>
@@ -370,9 +370,9 @@ function setTab(name,m,n){
 	                        	<c:if test="${o.orderstatus == 'BuyersHavePaid'}">买家已付款</c:if>
 	                        	<c:if test="${o.orderstatus == 'waitDelivery'}">等待卖家发货</c:if>
 	                        	<c:if test="${o.orderstatus == 'transitGoods'}">卖家已发货</c:if>
-	                        	<c:if test="${o.orderstatus == 'consigneeSigning'}">等待收货人签单</c:if>
 	                        	<c:if test="${o.orderstatus == 'completionTransaction'}">完成交易</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundOrderForm'}">关闭交易</c:if>
+		                        	<c:if test="${o.orderstatus == 'ApplicationForRefund'}">退款申请</c:if>
 	                        	<c:if test="${o.orderstatus == 'closeTransaction'}">退款中的订单</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundSuccess'}">退款成功</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundFailed'}">退款失败</c:if>
@@ -406,9 +406,9 @@ function setTab(name,m,n){
 	                        	<c:if test="${o.orderstatus == 'BuyersHavePaid'}">买家已付款</c:if>
 	                        	<c:if test="${o.orderstatus == 'waitDelivery'}">等待卖家发货</c:if>
 	                        	<c:if test="${o.orderstatus == 'transitGoods'}">卖家已发货</c:if>
-	                        	<c:if test="${o.orderstatus == 'consigneeSigning'}">等待收货人签单</c:if>
 	                        	<c:if test="${o.orderstatus == 'completionTransaction'}">完成交易</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundOrderForm'}">关闭交易</c:if>
+		                        	<c:if test="${o.orderstatus == 'ApplicationForRefund'}">退款申请</c:if>
 	                        	<c:if test="${o.orderstatus == 'closeTransaction'}">退款中的订单</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundSuccess'}">退款成功</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundFailed'}">退款失败</c:if>
@@ -442,9 +442,9 @@ function setTab(name,m,n){
 	                        	<c:if test="${o.orderstatus == 'BuyersHavePaid'}">买家已付款</c:if>
 	                        	<c:if test="${o.orderstatus == 'waitDelivery'}">等待卖家发货</c:if>
 	                        	<c:if test="${o.orderstatus == 'transitGoods'}">卖家已发货</c:if>
-	                        	<c:if test="${o.orderstatus == 'consigneeSigning'}">等待收货人签单</c:if>
 	                        	<c:if test="${o.orderstatus == 'completionTransaction'}">完成交易</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundOrderForm'}">关闭交易</c:if>
+		                        	<c:if test="${o.orderstatus == 'ApplicationForRefund'}">退款申请</c:if>
 	                        	<c:if test="${o.orderstatus == 'closeTransaction'}">退款中的订单</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundSuccess'}">退款成功</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundFailed'}">退款失败</c:if>
@@ -479,9 +479,9 @@ function setTab(name,m,n){
 	                        	<c:if test="${o.orderstatus == 'BuyersHavePaid'}">买家已付款</c:if>
 	                        	<c:if test="${o.orderstatus == 'waitDelivery'}">等待卖家发货</c:if>
 	                        	<c:if test="${o.orderstatus == 'transitGoods'}">卖家已发货</c:if>
-	                        	<c:if test="${o.orderstatus == 'consigneeSigning'}">等待收货人签单</c:if>
 	                        	<c:if test="${o.orderstatus == 'completionTransaction'}">完成交易</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundOrderForm'}">关闭交易</c:if>
+		                        	<c:if test="${o.orderstatus == 'ApplicationForRefund'}">退款申请</c:if>
 	                        	<c:if test="${o.orderstatus == 'closeTransaction'}">退款中的订单</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundSuccess'}">退款成功</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundFailed'}">退款失败</c:if>
@@ -490,7 +490,7 @@ function setTab(name,m,n){
 	                        	<% int flag = 0; %>
 		                        <c:forEach items="${c.shopCommodity.shopreviews}" var="re">
 	                        		<c:if test="${re.user.id == o.orderUser.id}">
-	                        			<c:if test="${re.orderId == o.orderFormID}">
+	                        			<c:if test="${re.orderForm.orderFormID == o.orderFormID}">
 	                        				<% flag = 1; %>
 	                        				<li>${re.reviewsRank}</li>
 	                        			</c:if>
@@ -549,10 +549,10 @@ function setTab(name,m,n){
 									<li><c:if test="${o.orderstatus == 'waitPayment'}">等待买家付款</c:if>
 										<c:if test="${o.orderstatus == 'BuyersHavePaid'}">买家已付款</c:if>
 										<c:if test="${o.orderstatus == 'waitDelivery'}">等待卖家发货</c:if>
-										<c:if test="${o.orderstatus == 'transitGoods'}">卖家已发货</c:if> <c:if
-											test="${o.orderstatus == 'consigneeSigning'}">等待收货人签单</c:if>
+										<c:if test="${o.orderstatus == 'transitGoods'}">卖家已发货</c:if> 
 										<c:if test="${o.orderstatus == 'completionTransaction'}">完成交易</c:if>
 										<c:if test="${o.orderstatus == 'refundOrderForm'}">关闭交易</c:if>
+		                        	<c:if test="${o.orderstatus == 'ApplicationForRefund'}">退款申请</c:if>
 										<c:if test="${o.orderstatus == 'closeTransaction'}">退款中的订单</c:if>
 										<c:if test="${o.orderstatus == 'refundSuccess'}">退款成功</c:if> <c:if
 											test="${o.orderstatus == 'refundFailed'}">退款失败</c:if></li>
@@ -561,7 +561,7 @@ function setTab(name,m,n){
 		                        <c:forEach
 										items="${c.shopCommodity.shopreviews}" var="re">
 										<c:if test="${re.user.id == o.orderUser.id}">
-											<c:if test="${re.orderId == o.orderFormID}">
+											<c:if test="${re.orderForm.orderFormID == o.orderFormID}">
 												<c:if test="${re.reviewsRank != null}">
 													<li>${re.reviewsRank}</li>
 												</c:if>
@@ -590,17 +590,17 @@ function setTab(name,m,n){
 									<li><c:if test="${o.orderstatus == 'waitPayment'}">等待买家付款</c:if>
 										<c:if test="${o.orderstatus == 'BuyersHavePaid'}">买家已付款</c:if>
 										<c:if test="${o.orderstatus == 'waitDelivery'}">等待卖家发货</c:if>
-										<c:if test="${o.orderstatus == 'transitGoods'}">卖家已发货</c:if> <c:if
-											test="${o.orderstatus == 'consigneeSigning'}">等待收货人签单</c:if>
+										<c:if test="${o.orderstatus == 'transitGoods'}">卖家已发货</c:if> 
 										<c:if test="${o.orderstatus == 'completionTransaction'}">完成交易</c:if>
 										<c:if test="${o.orderstatus == 'refundOrderForm'}">关闭交易</c:if>
+		                        	<c:if test="${o.orderstatus == 'ApplicationForRefund'}">退款申请</c:if>
 										<c:if test="${o.orderstatus == 'closeTransaction'}">退款中的订单</c:if>
 										<c:if test="${o.orderstatus == 'refundSuccess'}">退款成功</c:if> <c:if
 											test="${o.orderstatus == 'refundFailed'}">退款失败</c:if></li>
 									<li>￥${c.money}</li>
 									<c:forEach items="${c.shopCommodity.shopreviews}" var="re">
 										<c:if test="${re.user.id == o.orderUser.id}">
-											<c:if test="${re.orderId == o.orderFormID}">
+											<c:if test="${re.orderForm.orderFormID == o.orderFormID}">
 												<li>${re.reviewsRank}</li>
 											</c:if>
 										</c:if>

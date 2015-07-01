@@ -175,7 +175,9 @@ function f1(div1,div2){
       			window.location.href="proscenium/releaseCommoidty?cateOne=4";
       		}if(food.style.fontSize=='22px'){
       			window.location.href="proscenium/releaseCommoidty?cateOne=5";
-      		}else{
+      		}if(red.style.fontSize!='22px'&&white.style.fontSize!='22px'&&
+      				pi.style.fontSize!='22px'&&yang.style.fontSize!='22px'&&
+      				food.style.fontSize!='22px'){
       			alert("请选择类别！");
       		}
       	}

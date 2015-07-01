@@ -1246,6 +1246,18 @@ public class ShopOneController {
 		
 		return new ModelAndView("setupShop/myShop",mode);
 	}
+	//店铺中的搜索：搜索本店中的商品
+	@RequestMapping("searchTheShopComm")
+	public ModelAndView searchTheShopComm(HttpServletRequest req){
+		ModelMap mode = new ModelMap();
+		/**
+		 * 以下两句为模拟shop，表示已经存在shop对象。
+		 */
+		Shop shop = shopService.findById(1);
+		req.getSession().setAttribute("shop", shop);
+		mode.put("shop", shop);
+		return new ModelAndView("setupShop/myShop",mode);
+	}
 	
 	//1.填写个人开店个人信息
 	@RequestMapping("setupPeronShop")
@@ -1500,4 +1512,62 @@ public class ShopOneController {
 //		return new ModelAndView();
 //	}
 	//填写开店信息：
+	
+
+	// 购物Item
+	@RequestMapping(value = "shopItem", method = RequestMethod.GET)
+	public ModelAndView shopItem(Integer commID, Integer category, Integer shopID, String commoName, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ModelMap mode = new ModelMap();
+		ShopCategory cate = shopCategService.findById(category);
+		List<ShopReviews> reviewslist = shopReviewsService.getAllBycommCode(commID);
+		mode.put("reviewslist", reviewslist);
+		List<ShopCategory> shopcates = new ArrayList<ShopCategory>();
+		shopcates.add(cate);
+		mode.put("specifications", cate.getSpecifications());
+		String strs = "";
+		while (cate.getParentLevel() != null) {
+			cate = shopCategService.findById(cate.getParentLevel().getCategoryID());
+			if (cate != null) {
+				shopcates.add(cate);	
+			}
+		}
+		for (int i = shopcates.size() - 1; i >= 0; i--) {
+			strs = strs + shopcates.get(i).getCategoryID() + "-" + shopcates.get(i).getCategory() + "|";
+		}
+		List<ShopCategory> shopcategories = shopCategService.getAll();
+		mode.put("shopCategories", shopcategories);
+		mode.put("nvabar", strs.substring(0, strs.length() - 1));
+		ShopCommodity shopCommoidty = shopCommService.findById(commID);
+		Map<String, List<String>> map = new HashMap<String, List<String>>();
+		List<String> specStrs = null;
+		mode.put("shopCommoidty", shopCommoidty);
+		ShopCommoditySpecs shopSpecs = shopCommoidty.getCommsPecs();
+		if (shopSpecs != null) {
+			String spec = shopSpecs.getCommSpec();
+			String[] specs = spec.split(",");
+			if (specs.length > 0) {
+				for (int i = 0; i < specs.length; i++) {
+					if (!specs[i].equals("")) {
+						if (map.containsKey(specs[i].split("-")[0])) {
+							specStrs = map.get(specs[i].split("-")[0]);
+							if (!specStrs.contains(specs[i].split("-")[1])) {
+								specStrs.add(specs[i].split("-")[1]);
+							}
+						} else {
+							specStrs = new ArrayList<String>();
+							specStrs.add(specs[i].split("-")[1]);
+							map.put(specs[i].split("-")[0], specStrs);
+						}
+					}
+				}
+			}
+		}
+		List<ShopCategory> list = shopCategService.getAllByParent();
+		mode.put("categories", list);
+		mode.put("map", map);
+		AppUser user = (AppUser) request.getSession().getAttribute("loginUser");
+		mode.put("user", user);
+		return new ModelAndView("reception/shopItem", mode);
+	}
+
 }
