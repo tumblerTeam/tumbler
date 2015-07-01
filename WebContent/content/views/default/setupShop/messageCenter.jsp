@@ -103,13 +103,11 @@
 	                    </li>
 	                    <li style="width:600px; overflow-y:scroll;"> ${m.missionName}
 	                    </li>
-	                    <a><li style="width:200px; text-align:center; border-right:none;">删除</li></a>
-	                    
-	                    	<div style="width:100%;height:auto;">
-	                    		sadasdsd
-	                    	</div>
-	                </ul>
-	                
+	                    <a><li style="width:200px; text-align:center; border-right:none;">删除</li></a>	                    
+	                </ul>	                
+                    	<div style="width:100%;height:auto;">
+                    		sadasdsd
+                    	</div>
 	            </c:forEach>            	
             </div>
             <div class="nav1">
