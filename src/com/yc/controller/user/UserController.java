@@ -201,6 +201,15 @@ public class UserController {
 		return "redirect:/user/collection";
 	}
 	
+	// 点评
+	@RequestMapping(value = "reviews", method = RequestMethod.GET)
+	public ModelAndView reviews(Integer orderID,Integer commid, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ModelMap mode = new ModelMap();
+		mode.put("orderID", orderID);
+		mode.put("commid", commid);
+		
+		return new ModelAndView();
+	}
 	// MD5加码。32位
 	public static String MD5(String inStr) {
 		MessageDigest md5 = null;

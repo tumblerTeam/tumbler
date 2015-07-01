@@ -189,28 +189,28 @@ function f1(div1,div2){
     	<div class="center_top">
         	<ul>
             	<li>
-                	<img src="images/footer1.jpg" />
+                	<img src="content/static/images/footer1.jpg" />
                     <div class="center_zi">
                     <div class="bigzi">100%</div>
                     <div class="smallzi">全球正品</div>
                     </div>
                 </li>
                 <li>
-                	<img src="images/footer2.jpg" />
+                	<img src="content/static/images/footer2.jpg" />
                      <div class="center_zi">
                     <div class="bigzi">24小时内送达</div>
                     <div class="smallzi">承诺24小时之内准时送达</div>
                     </div>
                 </li>
                 <li>
-                	<img src="images/footer3.jpg" />
+                	<img src="content/static/images/footer3.jpg" />
                      <div class="center_zi">
                     <div class="bigzi">消费者保护</div>
                     <div class="smallzi">联合打假 保护隐私</div>
                     </div>
                 </li>
                 <li>
-                	<img src="images/footer4.jpg" />
+                	<img src="content/static/images/footer4.jpg" />
                      <div class="center_zi">
                     <div class="bigzi">真伪鉴别</div>
                     <div class="smallzi">真伪鉴别</div>
@@ -219,7 +219,7 @@ function f1(div1,div2){
             </ul>
         </div>
         <div class="center_left">
-        	<a href="#"><img src="images/logo.png" /></a>
+        	<a href="#"><img src="content/static/images/logo.png" /></a>
       		<div class="center_left_zi">
         		<div class="center_left_zi1">客服电话：4008-888-888</div>
             	<div class="center_left_zi2">周一至周日9:00-20:00</div>

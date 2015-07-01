@@ -36,9 +36,20 @@ public class Advertisement {
 	@Column
 	private int during;//持续时间
 	
+	@Column
+	private String imagePath;
+	
 	@ManyToOne
 	@JoinColumn( name = "adverDistribution_id" )
 	private AdvertiseDistribution adverDistribution;//广告分布
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
 
 	public Integer getId() {
 		return id;
