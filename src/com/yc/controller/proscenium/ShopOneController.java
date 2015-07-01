@@ -1246,6 +1246,18 @@ public class ShopOneController {
 		
 		return new ModelAndView("setupShop/myShop",mode);
 	}
+	//店铺中的搜索：搜索本店中的商品
+	@RequestMapping("searchTheShopComm")
+	public ModelAndView searchTheShopComm(HttpServletRequest req){
+		ModelMap mode = new ModelMap();
+		/**
+		 * 以下两句为模拟shop，表示已经存在shop对象。
+		 */
+		Shop shop = shopService.findById(1);
+		req.getSession().setAttribute("shop", shop);
+		mode.put("shop", shop);
+		return new ModelAndView("setupShop/myShop",mode);
+	}
 	
 	//1.填写个人开店个人信息
 	@RequestMapping("setupPeronShop")

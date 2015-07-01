@@ -117,98 +117,99 @@
 </div>
 <!--商家店铺内容-->
 <div class="business">
-	<div class="add"><img src="images/add.jpg" /></div>
-	<div class="search1">
+<!-- 	<div class="add"><img src="images/add.jpg" /></div> -->
+	<div class="search1" style="border: 0">
     	  <div>
-              <form action="">
+              <form action="proscenium/searchTheShopComm">
                     <input type="search" name="serach1" value="搜索本店商品" style="margin-left:20px;" />
                     <input type="image" src="content/static/images/search1.png" /> 
               </form>
-          </div> 
-          <div  class="zi"><span>冰酒</span><span>解百纳</span><span>拉菲</span></div>                                                                                                     
+          </div>
+          <div  class="zi"><span>冰酒</span><span>解百纳</span><span>拉菲</span></div>                                                                                               
     </div>
-    <div class="brand">
-    	<ul>
-            <li style="border-left:1px #ccc solid; border-bottom:none;"><img src="images/brand1.jpg" /></li>
-            <li style=" border-bottom:none;"><img src="images/brand2.jpg" /></li>
-            <li style=" border-bottom:none;"><img src="images/brand1.jpg" /></li>
-            <li style="border-left:1px #ccc solid;"><img src="images/brand2.jpg" /></li>
-            <li><img src="images/brand1.jpg" /></li>
-            <li><img src="images/brand2.jpg" /></li>
-        </ul>
-    </div>
-    <div class="ad"><img src="images/ad4.jpg" />红酒</div>
+    <!-- 顶部整箱购等效果 -->
+<!--     <div class="brand"> -->
+<!--     	<ul> -->
+<!--             <li style="border-left:1px #ccc solid; border-bottom:none;"><img src="images/brand1.jpg" /></li> -->
+<!--             <li style=" border-bottom:none;"><img src="images/brand2.jpg" /></li> -->
+<!--             <li style=" border-bottom:none;"><img src="images/brand1.jpg" /></li> -->
+<!--             <li style="border-left:1px #ccc solid;"><img src="images/brand2.jpg" /></li> -->
+<!--             <li><img src="images/brand1.jpg" /></li> -->
+<!--             <li><img src="images/brand2.jpg" /></li> -->
+<!--         </ul> -->
+<!--     </div> -->
+    <div class="ad"><img src="content/static/images/ad4.jpg" />红酒</div>
     <div class="class">
     	<ul>
     	<c:forEach items="${redComms }" var="r" begin="0" end="7">
-    		<li style="border-right:none;">
+    		<a href="<%=path%>/${r.link}"><li style="border-right:none;">
                 <c:forEach items="${r.shopCommImages }" var="i" begin="0" end="1">
                 	<img src="<%=path%>${i.imagePath}" />
     			</c:forEach>
                 <div class="name">${r.commoidtyName}<br />
                 <div class="price">￥${r.unitPrice }</div>
                 <div class="btn">加入购物车</div>
-            </li>
+            </li></a>
     	</c:forEach>
         </ul>
     </div>
-    <div class="ad"><img src="images/ad5.jpg" />白酒</div>
+    <div class="ad"><img src="content/static/images/ad5.jpg" />白酒</div>
     <div class="class">
     	<ul>
             <c:forEach items="${whiteComms}" var="r" begin="0" end="7">
-	    		<li style="border-right:none;">
+	    		<a href="<%=path%>/${r.link}"><li style="border-right:none;">
 	    			<c:forEach items="${r.shopCommImages }" var="i" begin="0" end="1">
 	                	<img src="<%=path%>${i.imagePath}" />
 	    			</c:forEach>
 	                <div class="name">${r.commoidtyName}<br />
 	                <div class="price">￥${r.unitPrice }</div>
 	                <div class="btn">加入购物车</div>
-	            </li>
+	            </li></a>
 	    	</c:forEach>
         </ul>
     </div>
-    <div class="ad"><img src="images/ad6.jpg" />啤酒</div>
+    <div class="ad"><img src="content/static/images/ad6.jpg" />啤酒</div>
     <div class="class">
     	<ul>
             <c:forEach items="${piComms}" var="r" begin="0" end="7">
-	    		<li style="border-right:none;">
+	    		<a href="<%=path%>/${r.link}"><li style="border-right:none;">
 	                <c:forEach items="${r.shopCommImages }" var="i" begin="0" end="1">
 	                	<img src="<%=path%>${i.imagePath}" />
 	    			</c:forEach>
 	                <div class="name">${r.commoidtyName}<br />
 	                <div class="price">￥${r.unitPrice }</div>
 	                <div class="btn">加入购物车</div>
-	            </li>
+	            </li></a>
 	    	</c:forEach>
         </ul>
     </div>
-     <div class="ad"><img src="images/ad7.jpg" />洋酒</div>
+     <div class="ad"><img src="content/static/images/ad7.jpg" />洋酒</div>
     <div class="class">
     	<ul>
            <c:forEach items="${yangComms}" var="r" begin="0" end="7">
-	    		<li style="border-right:none;">
+	    		<a href="<%=path%>/${r.link}"><li style="border-right:none;">
 	                <c:forEach items="${r.shopCommImages }" var="i" begin="0" end="1">
 	                	<img src="<%=path%>${i.imagePath}" />
 	    			</c:forEach>
 	                <div class="name">${r.commoidtyName}<br />
 	                <div class="price">￥${r.unitPrice }</div>
 	                <div class="btn">加入购物车</div>
-	            </li>
+	            </li></a>
 	    	</c:forEach>        
         </ul>
     </div>
-    <div class="ad"><img src="images/ad8.jpg" />小食品</div>
+    <div class="ad"><img src="content/static/images/ad8.jpg" />小食品</div>
     <div class="class">
     	<ul>
            <c:forEach items="${foodComms}" var="r" begin="0" end="7">
-	    		<li style="border-right:none;">
+	    		<a href="<%=path%>/${r.link}"><li style="border-right:none;">
 	                <c:forEach items="${r.shopCommImages }" var="i" begin="0" end="1">
 	                	<img src="<%=path%>${i.imagePath}" />
 	    			</c:forEach>
 	                <div class="name">${r.commoidtyName}<br />
 	                <div class="price">￥${r.unitPrice }</div>
 	                <div class="btn">加入购物车</div>
-	            </li>
+	            </li></a>
 	    	</c:forEach>
         </ul>
     </div>
