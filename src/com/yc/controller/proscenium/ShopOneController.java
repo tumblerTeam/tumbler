@@ -841,7 +841,7 @@ public class ShopOneController {
 		Address address = new Address();
 		address.setToEmail(toEmail);
 		address.setToName(toName);
-		address.setStreet(street);
+		address.setOther(street);
 		address.setPhone(phone);
 		address.setProvience(province);
 		address.setCity(city);
@@ -904,7 +904,7 @@ public class ShopOneController {
 		String defaults = req.getParameter("default");
 		address.setToEmail(toEmail);
 		address.setToName(toName);
-		address.setStreet(street);
+		address.setOther(street);
 		address.setPhone(phone);
 		address.setProvience(province);
 		address.setCity(city);
@@ -982,35 +982,39 @@ public class ShopOneController {
 		mode.put("shop", shop);
 		Integer userId = Integer.parseInt(req.getParameter("userId"));
 		Integer orderFormID = Integer.parseInt(req.getParameter("orderFormID"));
-		Integer commCode = Integer.parseInt(req.getParameter("commCode"));
-		String reviewsRank = req.getParameter("reviewsRank");
-		String businessreply = req.getParameter("businessreply");
-		Date date = new Date();
-		//时间格式化：
-		SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd");
-		String reviewsdate = time.format(date);
-		ShopCommodity shopscommodity = shopCommodityService.findById(commCode);
-		ShopReviews shopReviews = new ShopReviews();
-		shopReviews.setBusinessreply(businessreply);
-		if (reviewsRank.equals("good")) {
-			shopReviews.setReviewsRank(ReviewsRank.good);
-			shopReviews.setRankImagesPath("goodurl");
-		}if (reviewsRank.equals("better")) {
-			shopReviews.setReviewsRank(ReviewsRank.better);
-			shopReviews.setRankImagesPath("betterurl");
-		}if (reviewsRank.equals("bad")) {
-			shopReviews.setReviewsRank(ReviewsRank.bad);
-			shopReviews.setRankImagesPath("badurl");
+		OrderForm orderForm = orderFormService.findById(orderFormID);
+		if(orderForm != null){
+			Integer commCode = Integer.parseInt(req.getParameter("commCode"));
+			String reviewsRank = req.getParameter("reviewsRank");
+			String businessreply = req.getParameter("businessreply");
+			Date date = new Date();
+			//时间格式化：
+			SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd");
+			String reviewsdate = time.format(date);
+			ShopCommodity shopscommodity = shopCommodityService.findById(commCode);
+			ShopReviews shopReviews = new ShopReviews();
+			shopReviews.setBusinessreply(businessreply);
+			if (reviewsRank.equals("good")) {
+				shopReviews.setReviewsRank(ReviewsRank.good);
+				shopReviews.setRankImagesPath("goodurl");
+			}if (reviewsRank.equals("better")) {
+				shopReviews.setReviewsRank(ReviewsRank.better);
+				shopReviews.setRankImagesPath("betterurl");
+			}if (reviewsRank.equals("bad")) {
+				shopReviews.setReviewsRank(ReviewsRank.bad);
+				shopReviews.setRankImagesPath("badurl");
+			}
+			//设置用户
+			AppUser user = userService.findById(userId);
+			shopReviews.setUser(user);
+			//设置orderFormID，标识评论与订单的关系
+			shopReviews.setOrderForm(orderForm);
+			shopReviews.setReviewsdate(reviewsdate);
+			shopReviews.setShopscommodity(shopscommodity);
+			//保存评论
+			shopReviewsService.save(shopReviews);
 		}
-		//设置用户
-		AppUser user = userService.findById(userId);
-		shopReviews.setUser(user);
-		//设置orderFormID，标识评论与订单的关系
-		shopReviews.setOrderId(orderFormID);
-		shopReviews.setReviewsdate(reviewsdate);
-		shopReviews.setShopscommodity(shopscommodity);
-		//保存评论
-		shopReviewsService.save(shopReviews);
+		
 		//1.查询3个月之内的订单
 		List<OrderForm> order3Month = orderFormService.getShopOrderByShop(shop.getId());
 		mode.put("order3Month", order3Month);

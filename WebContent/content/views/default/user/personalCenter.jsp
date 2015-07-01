@@ -120,7 +120,7 @@
 										<c:when test="${orderForm.orderstatus =='waitPayment'}">等待买家付款</c:when>
 										<c:when test="${orderForm.orderstatus =='waitDelivery'}">等待卖家发货</c:when>
 										<c:when test="${orderForm.orderstatus =='transitGoods'}">	卖家已发货</c:when>
-										<c:when test="${orderForm.orderstatus =='consigneeSigning'}">等待收货人签单</c:when>
+										<c:when test="${orderForm.orderstatus =='ApplicationForRefund'}">退款申请中</c:when>
 										<c:when
 											test="${orderForm.orderstatus =='completionTransaction'}">完成交易</c:when>
 										<c:when test="${orderForm.orderstatus =='closeTransaction'}">关闭交易</c:when>
