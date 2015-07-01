@@ -1,5 +1,6 @@
 package com.yc.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -28,13 +29,20 @@ public class ShopReviews {
 	private String reviews;	//评论
 	
 	@Column
+	private String additionalReviews;	//追加评论
+	
+	@Column
 	private String businessreply; //店家回复
+	
+	@Column
+	private String additionalBusinessreply; //追加店家回复
 	
 	@Column
 	private String reviewsdate;
 	
-	@Column
-	private Integer orderId; //用来标识评论与订单的关系
+	@ManyToOne(cascade={CascadeType.MERGE,CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REFRESH})
+	@JoinColumn(name = "order_id")
+	private OrderForm orderForm; //用来标识评论与订单的关系
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -50,15 +58,25 @@ public class ShopReviews {
 	
 	@Column
 	private String rankImagesPath;//评论等级路径
-	
-	
-	public Integer getOrderId() {
-		return orderId;
+
+	public String getAdditionalReviews() {
+		return additionalReviews;
 	}
-	public void setOrderId(Integer orderId) {
-		this.orderId = orderId;
+	public void setAdditionalReviews(String additionalReviews) {
+		this.additionalReviews = additionalReviews;
 	}
-	
+	public String getAdditionalBusinessreply() {
+		return additionalBusinessreply;
+	}
+	public void setAdditionalBusinessreply(String additionalBusinessreply) {
+		this.additionalBusinessreply = additionalBusinessreply;
+	}
+	public OrderForm getOrderForm() {
+		return orderForm;
+	}
+	public void setOrderForm(OrderForm orderForm) {
+		this.orderForm = orderForm;
+	}
 	public ReviewsRank getReviewsRank() {
 		return reviewsRank;
 	}

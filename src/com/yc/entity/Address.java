@@ -2,8 +2,6 @@ package com.yc.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,11 +31,7 @@ public class Address {
 	@Column
 	private String district ;// 区：新市区
 	@Column
-	private String street;// 街道：天津路
-	@Column
-	private String orther ;// 其它
-	@Column
-	private String indexNum ;// 指数
+	private String other ;// 其它
 	@Column
 	private Boolean theDefault;// 是否默认
 	@ManyToOne
@@ -76,28 +70,12 @@ public class Address {
 		this.district = district;
 	}
 
-	public String getStreet() {
-		return street;
+	public String getOther() {
+		return other;
 	}
 
-	public void setStreet(String street) {
-		this.street = street;
-	}
-
-	public String getOrther() {
-		return orther;
-	}
-
-	public void setOrther(String orther) {
-		this.orther = orther;
-	}
-
-	public String getIndexNum() {
-		return indexNum;
-	}
-
-	public void setIndexNum(String indexNum) {
-		this.indexNum = indexNum;
+	public void setOther(String other) {
+		this.other = other;
 	}
 
 	public Boolean getTheDefault() {

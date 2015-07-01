@@ -40,6 +40,9 @@ public class OrderForm {
 	@JoinColumn(name = "delivery_id")
 	private Delivery delivery;
 	
+	@OneToMany(mappedBy = "orderForm")
+	private List<ShopReviews> reviews;
+	
 	@Column
 	@Enumerated(EnumType.STRING)
 	private OrderStatus orderstatus;
@@ -62,6 +65,14 @@ public class OrderForm {
 	
 	@Column
 	private String paymentTime;// 付款时间
+
+	public List<ShopReviews> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<ShopReviews> reviews) {
+		this.reviews = reviews;
+	}
 
 	public OrderGroup getOrderGroup() {
 		return orderGroup;

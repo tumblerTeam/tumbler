@@ -67,13 +67,13 @@
 										</div>
 									</dd></a>
 								<dd>
-									<fmt:formatNumber value="${commodity.price }" pattern="##.##"
-										minFractionDigits="2"></fmt:formatNumber>
+									￥<fmt:formatNumber value="${commodity.price }" pattern="##.##"
+										minFractionDigits="2"></fmt:formatNumber>元
 								</dd>
 								<dd>${commodity.quantity }</dd>
 								<dd style="padding-top: 35px;">
-									<fmt:formatNumber value="${commodity.money }" pattern="##.##"
-										minFractionDigits="2"></fmt:formatNumber>
+									￥<fmt:formatNumber value="${commodity.money }" pattern="##.##"
+										minFractionDigits="2"></fmt:formatNumber>元
 									<br />
 								</dd>
 								<dd style="padding-top: 35px;">
@@ -99,7 +99,26 @@
 									<c:when test="${orderForm.orderstatus =='BuyersHavePaid'}"><div class="shouhuo">取消订单</div></c:when>
 									<c:when test="${orderForm.orderstatus =='waitDelivery'}"><div class="shouhuo">取消订单</div></c:when>
 									<c:when test="${orderForm.orderstatus =='transitGoods'}"><div class="shouhuo">确认收货</div></c:when>
-									<c:when test="${orderForm.orderstatus =='completionTransaction'}"><a>退款/退货</a>&nbsp;&nbsp;</c:when>
+									<c:when test="${orderForm.orderstatus =='completionTransaction'}">
+										<c:if test="${empty orderForm.reviews }">
+											<a>退款/退货</a>&nbsp;&nbsp;<a >点评</a>
+										</c:if>
+										<c:if test="${not empty orderForm.reviews }">
+											<c:set value="true" var="isok"></c:set>
+											<c:forEach items="${orderForm.reviews }" var="reviews">
+												<c:if test="${reviews.shopscommodity.commCode == commodity.shopCommodity.commCode && reviews.additionalReviews == null}">
+													<a>退款/退货</a>&nbsp;&nbsp;<a >追加点评</a>
+													<c:set value="false" var="isok"></c:set>
+												</c:if>
+												<c:if test="${reviews.shopscommodity.commCode == commodity.shopCommodity.commCode && reviews.additionalReviews != null}">
+													<a href="proscenium/shopItem?commID=${commodity.shopCommodity.commCode }&category=${commodity.shopcategory.categoryID }&shopID=${commodity.seller.id }&commoName=${commodity.shopCommodity.commoidtyName }">再次购买</a>
+													<c:set value="false" var="isok"></c:set>
+												</c:if>
+											</c:forEach>
+											<c:if test="${isok == true }"><a>退款/退货</a>&nbsp;&nbsp;<a >点评</a></c:if>
+											<c:set value="true" var="isok"></c:set>
+										</c:if>
+									</c:when>
 								</c:choose>
 								</dd>
 							</c:forEach>

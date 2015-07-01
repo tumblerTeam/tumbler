@@ -8,9 +8,9 @@
 					<ul style="margin-left: 40px;">
 						<li><a href="user/perscentBonuses?orderDate=-1&orderStatus=-1" class="a1">全部订单</a></li>
 						<li><a href="user/perscentBonuses?orderDate=-1&orderStatus=waitPayment" class="a1">待付款</a></li>
-						<li><a href="user/perscentBonuses?orderDate=-1&orderStatus=consigneeSigning" class="a1">待收货</a></li>
-						<li><a href="user/perscentBonuses?orderDate=-1&orderStatus=-1" class="a1">待评价</a></li>
-						<li><a href="tuikuan.html" class="a1">退货退款</a></li>
+						<li><a href="user/perscentBonuses?orderDate=-1&orderStatus=transitGoods" class="a1">待收货</a></li>
+						<li><a href="user/perscentBonuses?orderDate=-1&orderStatus=completionTransaction" class="a1">待评价</a></li>
+						<li><a href="user/perscentBonuses?orderDate=-1&orderStatus=tuikuan" class="a1">退货退款</a></li>
 					</ul>
 				</ul>
 			</div>

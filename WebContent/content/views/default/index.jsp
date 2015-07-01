@@ -318,8 +318,7 @@
 				</ul>
 			</div>
 			<div class="banner-btn">
-				<a class="prev" href="javascript:void(0);"></a> <a class="next"
-					href="javascript:void(0);"></a>
+				<a class="prev" href="javascript:void(0);"></a>
 			</div>
 			<div class="hd">
 				<ul></ul>
@@ -449,8 +448,8 @@
 			</script>
 			<div class="right">
 				<ul class="news" id="news_li_yslia_">
-					<li id="yslia" class="yslia"><a href="news.html">促销活动</a></li>
-					<li><a href="news.html">最新公告</a></li>
+					<li id="yslia" class="yslia"><a href="proscenium/getNews?id=1">促销活动</a></li>
+					<li><a href="proscenium/getNews?id=2">最新公告</a></li>
 				</ul>
 
 				<ul class="news_con" id="news_1">
@@ -458,7 +457,7 @@
 					<c:set var="loop" value="0"></c:set>
 					<c:forEach items="${newsList }" var="ns">
 						<c:if test="${ns.announType == 'activity' && loop < 6}">
-							<li><a href="javascript:void(0);">${ns.title }</a></li>
+							<li><a href="${ns.activityUrl }">${ns.title }</a></li>
 							<c:set var="loop" value="${loop +1 }"></c:set>
 						</c:if>
 					</c:forEach>
@@ -468,7 +467,7 @@
 					<c:set var="loop" value="0"></c:set>
 					<c:forEach items="${newsList }" var="ns">
 						<c:if test="${ns.announType == 'news' && loop < 6}">
-							<li><a href="javascript:void(0);">${ns.title}</a></li>
+							<li><a href="proscenium/getNewDetails?newId=${ns.noticeId }">${ns.title}</a></li>
 							<c:set var="loop" value="${loop +1 }"></c:set>
 						</c:if>
 					</c:forEach>
