@@ -156,7 +156,7 @@ public class ShopCommodity {
 	
 	@Column
 	private String actityImage;
-	
+
 	public Integer getPerBoxnum() {
 		return perBoxnum;
 	}

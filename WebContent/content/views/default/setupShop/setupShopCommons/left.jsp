@@ -37,6 +37,7 @@
                 	<h4 onClick="f1(this,son1)"><img src="content/static/images/zk.png"/><span>店铺管理</span></h4>
                     <ul id="son1">
                     	<li><a href="proscenium/openShop">我要开店</a></li>
+                    	<li><a href="proscenium/myShop">我的店铺</a></li>
                     </ul>
                 </div>
                 <div class="box">
