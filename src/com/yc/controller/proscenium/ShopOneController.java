@@ -14,7 +14,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yc.entity.Address;
+import com.yc.entity.AdvState;
 import com.yc.entity.Brand;
 import com.yc.entity.Currency;
 import com.yc.entity.FamousManor;
@@ -307,7 +307,7 @@ public class ShopOneController {
 			commodity.setIscChoice(iscChoice);
 			commodity.setAuction(auction);
 			commodity.setIsSpecial(isSpecial);
-			commodity.setSpecial(special);
+			commodity.setSpecial(special);			
 			ShopCategory shopCategory = shopCategService.findById(categoryid);
 			commodity.setShopCategory(shopCategory);
 			Brand brand = brandService.getBrandName(brandName);
@@ -324,6 +324,27 @@ public class ShopOneController {
 			//保存商品，更新规格，规格关联商品
 			if (edit.equals("1")) { //如果是编辑商品
 				shopCommodityService.update(commodity);	
+				/**
+				 * 设置商品链接开始：proscenium/shopItem?commID=10&category=122&shopID=1&commoName=1111
+				 */
+				ShopCommodity comm = shopCommodityService.
+						getAllByCommItemAndShop(commodity.getCommItem(), shop.getId());
+				//得到商品ID commID
+				Integer commID = comm.getCommCode();
+				//得到类别ID category
+				Integer category = comm.getShopCategory().getCategoryID();
+				//得到店铺ID shopID
+				Integer shopID = shop.getId();
+				//得到商品名称 commoName
+				String commoName = comm.getCommoidtyName();
+				//设置商品链接：
+				String link = "proscenium/shopItem?commID="+commID+"&category="+category+"&shopID="+shopID+"&commoName="+commoName;
+				comm.setLink(link);
+				//重新保存商品：为了更新商品链接link
+				shopCommodityService.update(comm);
+				/**
+				 * 设置商品链接结束
+				 */
 				//更新商品规格
 				commoditySpecs.setShopCommSpecs(commodity);
 				commoidtySpecsService.update(commoditySpecs);
@@ -332,6 +353,27 @@ public class ShopOneController {
 				shopCommAttributeService.update(commAttribute);
 			}else { //如果是保存新商品
 				shopCommodityService.save(commodity);
+				/**
+				 * 设置商品链接开始：proscenium/shopItem?commID=10&category=122&shopID=1&commoName=1111
+				 */
+				ShopCommodity comm = shopCommodityService.
+						getAllByCommItemAndShop(commodity.getCommItem(), shop.getId());
+				//得到商品ID commID
+				Integer commID = comm.getCommCode();
+				//得到类别ID category
+				Integer category = comm.getShopCategory().getCategoryID();
+				//得到店铺ID shopID
+				Integer shopID = shop.getId();
+				//得到商品名称 commoName
+				String commoName = comm.getCommoidtyName();
+				//设置商品链接：
+				String link = "proscenium/shopItem?commID="+commID+"&category="+category+"&shopID="+shopID+"&commoName="+commoName;
+				comm.setLink(link);
+				//重新保存商品：为了更新商品链接link
+				shopCommodityService.update(comm);
+				/**
+				 * 设置商品链接结束
+				 */
 				//保存商品规格
 				commoditySpecs.setShopCommSpecs(commodity);
 				commoidtySpecsService.update(commoditySpecs);
@@ -351,9 +393,16 @@ public class ShopOneController {
 	    			// 得到要上传文件的后缀名
 	    			endType = name2.substring(name2.lastIndexOf("."),name2.length());
 	    			System.out.println("得到的EndTYPE是：：：：：："+endType);
-	            	String pathStr = "D:/tumbler/images/"+commodity.getCommItem()+"/";
-	            	File path = new File(pathStr).getCanonicalFile();
-					commImage.setImagePath(path.toString()+"/"+fname+endType);
+	    			// root是得到本项目在服务器的路径：“D:\tomcat\apache-tomcat-7.0.52\webapps\tourGonglue\”
+	    			String root = req.getSession().getServletContext().getRealPath("/");
+	    			// getCanonicalFile()方法是返回路径名的规范形式。
+	    			File uploadDir = new File(root, "goodsImg/")
+	    					.getCanonicalFile();
+	    			if (!uploadDir.exists() || uploadDir.isFile()) {
+	    				uploadDir.mkdir();
+	    			}
+	    			
+					commImage.setImagePath("goodsImg/"+fname+endType);
 					commImage.setShopCommoidty(commodity);
 					shopCommImageService.save(commImage);
 				}
@@ -370,22 +419,23 @@ public class ShopOneController {
         // 判断文件是否为空  
         if (!file.isEmpty()) {  
             try {
-//	                // 文件保存路径  
-//	                String filePath = req.getSession().getServletContext().getRealPath("/") + ""  
-//	                        + file.getOriginalFilename();
+            	// root是得到本项目在服务器的路径：“D:\tomcat\apache-tomcat-7.0.52\webapps\tourGonglue\”
+    			String root = req.getSession().getServletContext().getRealPath("/");
+    			// getCanonicalFile()方法是返回路径名的规范形式。
+    			File uploadDir = new File(root, "goodsImg/")
+    					.getCanonicalFile();
+    			if (!uploadDir.exists() || uploadDir.isFile()) {
+    				uploadDir.mkdir();
+    			}
+    			
     			String name2 = file.getOriginalFilename();
     			// 得到要上传文件的后缀名
     			endType = name2.substring(name2.lastIndexOf("."),name2.length());
-            	String pathStr = "D:/tumbler/images/"+commodity.getCommItem()+"/";
-            	File path = new File(pathStr).getCanonicalFile();
-            	if (!path.exists() || path.isFile()) {
-        			path.mkdir();
-        		}
                 // 转存文件  
-                System.out.println("文件的保存路径："+path);
-				file.transferTo(new File(path,fname+endType));
+                System.out.println("文件的保存路径："+uploadDir);
+				file.transferTo(new File(uploadDir,fname+endType));
                 return true;
-            } catch (Exception e) {  
+            } catch (Exception e) {
                 e.printStackTrace();  
             }
         }  
@@ -1055,13 +1105,144 @@ public class ShopOneController {
 		for (int i = 0; i < missionPlans.size(); i++) {
 			if (missionPlans.get(i).getToUser().getId()==shop.getUser().getId()) {
 				usermp.add(missionPlans.get(i));
-				System.out.println("得SSSSSSSSSSS");
+			}
+		}
+		mode.addAttribute("usermp", usermp);
+		mode.addAttribute("Usize", usermp.size());
+		return new ModelAndView("setupShop/messageCenter",mode);
+	}
+	
+	//删除消息
+	@RequestMapping("delMessage")
+	public ModelAndView delMessage(HttpServletRequest req){
+		ModelMap mode = new ModelMap();
+		Integer mid = Integer.parseInt(req.getParameter("mid"));
+		missionPlanService.delete(mid);
+		
+		/**
+		 * 以下两句为模拟shop，表示已经存在shop对象。
+		 */
+		Shop shop = shopService.findById(1);
+		req.getSession().setAttribute("shop", shop);
+		mode.put("shop", shop);
+		List<MissionPlan> missionPlans = missionPlanService.getAll();
+		List<MissionPlan> usermp = new ArrayList<MissionPlan>();
+		for (int i = 0; i < missionPlans.size(); i++) {
+			if (missionPlans.get(i).getToUser().getId()==shop.getUser().getId()) {
+				usermp.add(missionPlans.get(i));
 			}
 		}
 		System.out.println("得到用户的消息个数：：："+usermp.size());
 		mode.addAttribute("usermp", usermp);
+		mode.addAttribute("Usize", usermp.size());
 		return new ModelAndView("setupShop/messageCenter",mode);
 	}
+	
+	//读取消息
+	@RequestMapping("readMessage")
+	public ModelAndView readMessage(HttpServletRequest req){
+		ModelMap mode = new ModelMap();
+		Integer mid = Integer.parseInt(req.getParameter("mid"));
+		MissionPlan missionPlan = missionPlanService.findById(mid);
+		missionPlan.setAdvState(AdvState.Read);		
+		/**
+		 * 以下两句为模拟shop，表示已经存在shop对象。
+		 */
+		Shop shop = shopService.findById(1);
+		req.getSession().setAttribute("shop", shop);
+		mode.put("shop", shop);
+		List<MissionPlan> missionPlans = missionPlanService.getAll();
+		List<MissionPlan> usermp = new ArrayList<MissionPlan>();
+		for (int i = 0; i < missionPlans.size(); i++) {
+			if (missionPlans.get(i).getToUser().getId()==shop.getUser().getId()) {
+				usermp.add(missionPlans.get(i));
+			}
+		}
+		System.out.println("得到用户的消息个数：：："+usermp.size());
+		mode.addAttribute("usermp", usermp);
+		mode.addAttribute("Usize", usermp.size());
+		return new ModelAndView("setupShop/messageCenter",mode);
+	}
+	
+	//查看我的店铺：
+	@RequestMapping("myShop")
+	public ModelAndView myShop(HttpServletRequest req){
+		ModelMap mode = new ModelMap();
+		/**
+		 * 以下两句为模拟shop，表示已经存在shop对象。
+		 */
+		Shop shop = shopService.findById(1);
+		req.getSession().setAttribute("shop", shop);
+		mode.put("shop", shop);
+		//通过店铺Id得到所有商品：
+		List<ShopCommodity> commodities = shopCommodityService.getAllByShop(shop.getId());
+		Map<String, String> mapRed = new HashMap<String, String>();
+		Map<String, String> mapWhite = new HashMap<String, String>();
+		Map<String, String> mapPi = new HashMap<String, String>();
+		Map<String, String> mapYang = new HashMap<String, String>();
+		Map<String, String> mapFood = new HashMap<String, String>();
+		
+		List<ShopCommodity> redComms = new ArrayList<ShopCommodity>();
+		List<ShopCommodity> whiteComms = new ArrayList<ShopCommodity>();
+		List<ShopCommodity> piComms = new ArrayList<ShopCommodity>();
+		List<ShopCommodity> yangComms = new ArrayList<ShopCommodity>();
+		List<ShopCommodity> foodComms = new ArrayList<ShopCommodity>();
+		//红酒：
+		for (int i = 0; i < commodities.size()&&commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory().equals("红酒"); i++) {
+			//得到商品的类别的三级目录
+			mapRed.put(commodities.get(i).getShopCategory().getCategory()+"", commodities.get(i).getShopCategory().getCategory());
+			System.out.println("商品的类别是：3：：："+commodities.get(i).getShopCategory().getCategory());
+			//得到商品的类别的一级目录
+			System.out.println("商品的类别是：1：：："+commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory());
+			redComms.add(commodities.get(i));
+		}
+		mode.put("redComms", redComms);
+		mode.put("mapRed",mapRed);
+		//得到所有类别：
+		for (int i = 0; i < commodities.size(); i++) {
+			System.out.println("得到所有类别："+commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory());
+			System.out.println(i < commodities.size()&&commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory().equals("白酒"));
+		}
+		//白酒：
+		for (int i = 0; i < commodities.size(); i++) {
+			if (i < commodities.size()&&commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory().equals("白酒")) {
+				mapWhite.put(commodities.get(i).getShopCategory().getCategory()+"", commodities.get(i).getShopCategory().getCategory());
+				whiteComms.add(commodities.get(i));
+			}
+		}
+		mode.put("whiteComms", whiteComms);
+		mode.put("mapWhite",mapWhite);
+		//啤酒：
+		for (int i = 0; i < commodities.size(); i++) {
+			if (i < commodities.size()&&commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory().equals("啤酒")) {
+				mapPi.put(commodities.get(i).getShopCategory().getCategory()+"", commodities.get(i).getShopCategory().getCategory());
+				piComms.add(commodities.get(i));
+			}
+		}
+		mode.put("piComms", piComms);
+		mode.put("mapPi",mapPi);
+		//洋酒：
+		for (int i = 0; i < commodities.size(); i++) {
+			if (i < commodities.size()&&commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory().equals("洋酒")) {
+				mapYang.put(commodities.get(i).getShopCategory().getCategory()+"", commodities.get(i).getShopCategory().getCategory());
+				yangComms.add(commodities.get(i));
+			}
+		}
+		mode.put("yangComms", yangComms);
+		mode.put("mapYang",mapYang);
+		//小食品：
+		for (int i = 0; i < commodities.size(); i++) {
+			if (i < commodities.size()&&commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory().equals("小食品")) {
+				mapFood.put(commodities.get(i).getShopCategory().getCategory()+"", commodities.get(i).getShopCategory().getCategory());
+				foodComms.add(commodities.get(i));
+			}
+		}
+		mode.put("foodComms", foodComms);
+		mode.put("mapFood",mapFood);
+		
+		return new ModelAndView("setupShop/myShop",mode);
+	}
+	
 	//1.填写个人开店个人信息
 	@RequestMapping("setupPeronShop")
 	public String setupPeronShop(@RequestParam MultipartFile [] myfile ,HttpServletRequest req , HttpServletResponse resp) throws IOException{
@@ -1084,6 +1265,8 @@ public class ShopOneController {
 		shop.setJuridicalCard(juridicalCard);
 		shop.setIdCard(idCard);
 		shop.setShopType(ShopType.individual);
+		shop.setFoodCriLis(foodCriLis);
+		shop.setTaxReg(taxReg);
 		//显示待审核：
 		shop.setIsPermit(false);
 		String pathStr = "D:/tumbler/images/"+shop.getIdCard()+"/";
@@ -1247,6 +1430,7 @@ public class ShopOneController {
 		mode.put("categories", categories);
 		return mode;			
 	}
+	
 //		//得到类别2：红葡萄酒。。
 //		@RequestMapping("getClass2")
 //		@ResponseBody
@@ -1312,68 +1496,4 @@ public class ShopOneController {
 //		return new ModelAndView();
 //	}
 	//填写开店信息：
-	
-	//得到所有商品类别表
-	private ModelMap getShopCategory(ModelMap mode) {
-		List<ShopCategory> list = shopCategService.getAll();
-		mode.put("shopCategories", list);
-		return mode;
-	}
-
-	// 购物Item
-	@RequestMapping(value = "shopItem", method = RequestMethod.GET)
-	public ModelAndView shopItem(Integer commID, Integer category, Integer shopID, String commoName, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ModelMap mode = new ModelMap();
-		ShopCategory cate = shopCategService.findById(category);
-		List<ShopReviews> reviewslist = shopReviewsService.getAllBycommCode(commID);
-		mode.put("reviewslist", reviewslist);
-		List<ShopCategory> shopcates = new ArrayList<ShopCategory>();
-		shopcates.add(cate);
-		mode.put("specifications", cate.getSpecifications());
-		String strs = "";
-		while (cate.getParentLevel() != null) {
-			cate = shopCategService.findById(cate.getParentLevel().getCategoryID());
-			if (cate != null) {
-				shopcates.add(cate);
-			}
-		}
-		for (int i = shopcates.size() - 1; i >= 0; i--) {
-			strs = strs + shopcates.get(i).getCategoryID() + "-" + shopcates.get(i).getCategory() + "|";
-		}
-		List<ShopCategory> shopcategories = shopCategService.getAll();
-		mode.put("shopCategories", shopcategories);
-		mode.put("nvabar", strs.substring(0, strs.length() - 1));
-		ShopCommodity shopCommoidty = shopCommService.findById(commID);
-		Map<String, List<String>> map = new HashMap<String, List<String>>();
-		List<String> specStrs = null;
-		mode.put("shopCommoidty", shopCommoidty);
-		ShopCommoditySpecs shopSpecs = shopCommoidty.getCommsPecs();
-		if (shopSpecs != null) {
-			String spec = shopSpecs.getCommSpec();
-			String[] specs = spec.split(",");
-			if (specs.length > 0) {
-				for (int i = 0; i < specs.length; i++) {
-					if (!specs[i].equals("")) {
-						if (map.containsKey(specs[i].split("-")[0])) {
-							specStrs = map.get(specs[i].split("-")[0]);
-							if (!specStrs.contains(specs[i].split("-")[1])) {
-								specStrs.add(specs[i].split("-")[1]);
-							}
-						} else {
-							specStrs = new ArrayList<String>();
-							specStrs.add(specs[i].split("-")[1]);
-							map.put(specs[i].split("-")[0], specStrs);
-						}
-					}
-				}
-			}
-		}
-		List<ShopCategory> list = shopCategService.getAllByParent();
-		mode.put("categories", list);
-		mode.put("map", map);
-		AppUser user = (AppUser) request.getSession().getAttribute("loginUser");
-		mode.put("user", user);
-		return new ModelAndView("reception/shopItem", mode);
-	}
-
 }

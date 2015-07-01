@@ -86,50 +86,52 @@
         
         <!--中间开始-->
         <div class="xxzx">
-        	<h2>消息提醒</h2><span>（共0条）</span>
+        	<h2>消息提醒</h2><span>（共${Usize}条）</span>
         	<input type="checkbox" style="margin-bottom:10px; margin-left:5px;"/> 全选
             <div class="nav">
             	<ul>
-                	<li style="width:200px;">消息来源</li>
-                    <li style="width:600px;">消息内容</li>
+                	<li style="width:100px;">消息来源</li>
+                    <li style="width:600px;">消息标题</li>
+                    <li style="width:100px;">是否已读</li>
                     <li style="width:200px;border-right:none;">操作</li>
                 </ul>
             </div>
             <div class="nav1">
 	            <c:forEach items="${usermp}" var="m">
 	            	<ul>
-	                	<li style="width:200px;">
+	                	<li style="width:100px;">
 	                        <input type="checkbox" style=" margin-right:10px; margin-left:15px;"/>${m.source }
 	                    </li>
-	                    <li style="width:600px; overflow-y:scroll;"> ${m.missionName}
+	                    <li style="width:600px;font-weight: bold" onclick="lookContent(${m.id});"> ${m.missionName}
 	                    </li>
-	                    <a><li style="width:200px; text-align:center; border-right:none;">删除</li></a>	                    
-	                </ul>	                
-                    	<div style="width:100%;height:auto;">
-                    		sadasdsd
-                    	</div>
-	            </c:forEach>            	
+	                    <li style="width:100px;"> ${m.advState}
+	                    </li>
+	                    <a href="proscenium/delMessage?mid=${m.id}"><li style="width:200px; text-align:center; border-right:none;">删除</li></a>	                    
+	                </ul>
+	                <ul id="ulcontent${m.id}" style="display: none;font-size: 14px;">
+	                	<li style="width:100px;">
+	                        	消息内容：
+	                    </li>
+	                    <li style="width:600px; overflow-y:scroll;line-height: 80px;">${m.content}
+	                    	<label id="shouqi" style="color:red;font-weight: bold;" onclick="shouqi(${m.id});">《《收起</label>
+	                    </li>
+	                    <li style="width:100px; text-align:center; border-right:none;"></li>                    
+	                    <li style="width:200px; text-align:center; border-right:none;"></li>                    
+	                </ul>
+	            </c:forEach>
             </div>
-            <div class="nav1">
-            	<ul>
-                	<li style="width:200px;">
-                        <input type="checkbox" style=" margin-right:10px; margin-left:15px;"/>asdfsdfsdg
-                    </li>
-                    <li style="width:600px; overflow-y:scroll;"> fgrfgregrr</li>
-                    <a><li style="width:200px; text-align:center; border-right:none;">删除</li></a>
-                </ul>
-            </div>
-            <div class="nav1">
-            	<ul>
-                	<li style="width:200px;">
-                        <input type="checkbox" style=" margin-right:10px; margin-left:15px;"/>asdfsdfsdg
-                    </li>
-                    <li style="width:600px; overflow-y:scroll">fgrfgregrr</li>
-                    <a><li style="width:200px; text-align:center; border-right:none;">删除</li></a>
-                </ul>
-            </div>
-            
         </div>
+        <script type="text/javascript">
+        	function lookContent(flag){
+        		var ulcontent = document.getElementById("ulcontent"+flag);
+        			ulcontent.style.display = '';
+        	}
+        	function shouqi(flag){
+        		var ulcontent = document.getElementById("ulcontent"+flag);
+        			ulcontent.style.display = 'none';
+        			window.location.href = "proscenium/readMessage?mid="+flag;
+        	}
+        </script>
       <!--中间结束-->  
     </div>
 </div>

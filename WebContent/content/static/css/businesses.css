@@ -1,0 +1,48 @@
+@charset "utf-8";
+/* CSS Document */
+.business{ width:1200px; height:auto; background-color:#fff; margin:0px auto;}
+.business .add{ width:950px; height:90px; float:left;}
+.business .search1{ width:250px; height:90px; border-left:1px #ccc solid; margin-left:950px;}
+.business .search1 input{height:30px;  margin-top:15px;float:left; color:#999;}
+.business .search1 .zi{width:200px; height:25px;margin-top:50px; margin-left:20px;} 
+.business .search1 .zi span{ color:#999; margin-left:15px; font-size:14px;}
+.business .brand{ width:100%; height:400px; }
+.business .brand ul{ padding-left:0px; padding-top:0px; margin:0px;}
+.business .brand ul li{ list-style-type:none; float:left; display:inline-block; width:400px; height:200px; box-sizing:border-box; border:1px #ccc solid; border-left:none; }
+
+.business .ad{ width:100%; height:150px;}
+.business .class{ width:100%; height:660px;}
+.business .class ul{ padding-left:0px; margin:0px;}
+.business .class ul li{ list-style-type:none; float:left; display:inline-block; width:300px; height:330px; border:1px #ccc solid; box-sizing:border-box; border-top:none;}
+.business .class ul li img{ margin-left:25px; margin-top:5px;}
+.business .class ul li .name{ font-size:14px; text-align:center; margin-top:10px;}
+.business .class ul li .price{ color:#a40c59; float:left; font-weight:700px; font-size:16px; margin-top:20px; margin-left:50px;}
+.business .class ul li .btn{ width:80px; height:30px; background-color:#a40c59; border-radius:3px; text-align:center; line-height:30px; color:#fff; font-size:14px; float:right; margin-top:15px; margin-right:50px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
