@@ -1023,7 +1023,6 @@ public class ShopOneController {
 	//商家评论用户：
 	@RequestMapping("evaluteUser")
 	public ModelAndView evaluteUser(HttpServletRequest req){
-		System.out.println("阿迪萨斯大师大大四大四大大大说的是倒萨");
 		ModelMap mode = new ModelMap();
 		/**
 		 * 以下两句为模拟shop，表示已经存在shop对象。
@@ -1034,7 +1033,6 @@ public class ShopOneController {
 		Integer userId = Integer.parseInt(req.getParameter("userId"));
 		Integer orderFormID = Integer.parseInt(req.getParameter("orderFormID"));
 		OrderForm orderForm = orderFormService.findById(orderFormID);
-		System.out.println("进入商家评论：：："+orderForm!=null);
 		if(orderForm != null){
 			Integer commCode = Integer.parseInt(req.getParameter("commCode"));
 			String reviewsRank = req.getParameter("reviewsRank");
@@ -1097,6 +1095,24 @@ public class ShopOneController {
 //		mode.put("closeTransaction", closeTransaction);
 		
 		return new ModelAndView("success",mode);
+	}
+
+	//商家追加评论用户：
+	@RequestMapping("addtoEvaluteUser")
+	public ModelAndView addtoEvaluteUser(HttpServletRequest req){
+		ModelMap mode = new ModelMap();
+		/**
+		 * 以下两句为模拟shop，表示已经存在shop对象。
+		 */
+		Shop shop = shopService.findById(1);
+		req.getSession().setAttribute("shop", shop);
+		mode.put("shop", shop);
+		Integer shopReviewID = Integer.parseInt(req.getParameter("shopReviewID"));
+		String additionalBusinessreply = req.getParameter("additionalBusinessreply");
+		ShopReviews review = shopReviewsService.findById(shopReviewID);
+		review.setAdditionalBusinessreply(additionalBusinessreply);
+		reviewsService.update(review);
+		return new ModelAndView("success");
 	}
 	
 	//messageCenter消息中心

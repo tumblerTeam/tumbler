@@ -104,21 +104,7 @@ function setTab(name,m,n){
 			});
 		}
 </script>
-<style>
-.white_content {
-	display: none;
-	position: absolute;
-	top: 25%;
-	left: 25%;
-	width: 50%;
-	height: 40%;
-	padding: 16px;
-	border: 16px solid orange;
-	background-color: white;
-	z-index: 1002;
-	overflow: auto;
-}
-</style>
+
 </head>
 <style type="text/css">
 	ul{font-size: 10px;}

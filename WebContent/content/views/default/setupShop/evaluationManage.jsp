@@ -16,17 +16,54 @@
 <title>不倒翁首页</title>
 <link rel="stylesheet" type="text/css" href="content/static/css/seller.css">
 <link rel="stylesheet" type="text/css" href="content/static/css/style.css">
-<!--选项卡js-->
-<!--<script type="text/javascript"> 
-function setTab(name,m,n){ 
-		for( var i=1;i<=n;i++){ 
-			var menu = document.getElementById(name+i); 
-			var showDiv = document.getElementById("text"+i); 
-			menu.className = i==m?"on":""; 
-			showDiv.style.display = i==m?"block":"none"; 
-			} 
-	} 
-</script>-->
+<script src="content/static/js/datetime/jquery-1.11.1.min.js"></script>
+
+<!--退出js-->
+<script>
+	window.onload=function(){
+			
+			$(".pingjia").click(event,function(){
+				for(var i=0;i<$(".pingjia").length;i++){
+					if(i==$(".pingjia").index($(this))){
+						$(".ping").eq(i).css("transition","all 0.5s").css("display","block");
+					}else{
+						$(".ping").eq(i).css("transition","all 0.5s").css("display","none");
+					}
+					
+				}
+			});
+// 		$(".fa").click(event,function(){
+// 			for(var i=0;i<$(".fa").length;i++){
+// 				if(i==$(".fa").index($(this))){
+// 					$(".ping").eq(i).css("transition","all 0.5s").css("display","none");
+// 				}
+// 			}
+// 			});
+		$(".bu").click(event,function(){
+			for(var i=0;i<$(".bu").length;i++){
+				if(i==$(".bu").index($(this))){
+					$(".ping").eq(i).css("transition","all 0.5s").css("display","none");
+				}
+			}
+			});
+		}
+</script>
+<style type="text/css">
+.ping .content #fa {
+	border: none;
+	background-color: #901531;
+	cursor: pointer;
+	color: #fff;
+	font-size: 16px;
+	width: 100px;
+	height: 30px;
+	margin-top: 30px;
+	border-radius: 2px;
+	margin-left: 250px;
+	margin-top: 50px;
+}
+</style>
+
 </head>
 
 <body>
@@ -123,12 +160,12 @@ function setTab(name,m,n){
                             </li>
                             <li>评论人</li>
                             <li>商品信息</li>
-                            <li style="margin-left:25px;">操作</li>
+                            <li style="margin-left:25px;">操作/追加评论信息</li>
                         </ul>
            			</div>
                     <!--添加评论内容-->
                    	<div class="nav2">
-                    	 <div class="nav1" id="text1" style="margin-top:10px;">
+                    	 <div class="nav1" id="text1" style="margin-top:10px;border-bottom: 0">
                             <ul>
                             	<c:forEach items="${reviews}" var="r">
 	                                <li style="width:220px;">
@@ -145,12 +182,59 @@ function setTab(name,m,n){
 	                                    <div style="font-size:12px;text-align:center; margin-top:0px;">￥${r.shopscommodity.unitPrice }</div>
 	                                </li>
 	                                <li style="font-size:12px; line-height:30px; text-align:center;">
-	                                    <a href="#"><span>追加评论</span></a><a href="#">
-	                                    <img src="images/shanchu.png" style=" position:absolute; margin-left:20px; "/></a>
+                                		<c:if test="${r.additionalBusinessreply==null}">
+	                                		<div class="pingjia">追加评论</div>
+	                                	</c:if>
+	                                	<c:if test="${r.additionalBusinessreply !=''}">
+	                                		${r.additionalBusinessreply }
+	                                	</c:if>
 	                                </li>
-                                </c:forEach>
+								<div class="ping" style="display: none;">
+									<form action="proscenium/addtoEvaluteUser" method="post">
+										<div class="content" style="height: 250px;background-color: #ededed">
+											<div style="text-align: center;">
+												<input type="hidden" name="shopReviewID" value="${r.id}"/> 追加评价												
+											</div>
+											<div class="box" style="background-color: #ededed">
+												<textarea name="additionalBusinessreply" style="margin-left:100px;width:600px; height:100px;resize: none;"></textarea>
+											</div>
+											<input type="submit" id="fa" value="发表评论" />
+											 <span class="bu" id="bu" style="margin-left: 30px; font-size: 12px;">暂不评论</span>
+										</div>
+									</form>
+								</div>
+
+
+							</c:forEach>
                             </ul>
                         </div>
+                        
+                        
+                        <script>
+               <!--第一个-->
+                    $("#ping").children($("#ping")).hover(function(){
+                        
+                        //索引
+                        var index=$("#ping").children($("#ping")).index(this);
+                        $(this).css("backgroundPosition","0px 15px");
+                            for(var i=0;i<=index;i++){
+                                $("#ping").children($("#ping")).eq(i).css("backgroundPosition","0px 15px");
+                                }
+                            for(var j=index+1;j<=5;j++){
+                                $("#ping").children($("#ping")).eq(j).css("backgroundPosition","0px 0px");
+                                }
+                            
+                        },function(){
+                            if(index==5){
+                                return;
+                                }
+                        $(this).css("backgroundPosition","0px 0px");
+                            });
+                
+               </script>
+                        
+                        
+                        
                        	<div class="nav1" id="text2" style="margin-top:10px; display:none;">
                             <ul>
                             	<c:forEach items="${reviews2}" var="r">

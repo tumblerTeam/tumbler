@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+<meta name="GENERATOR" content="MSHTML 8.00.7600.16535">
+<title>不倒翁首页</title>
+<link rel="stylesheet" type="text/css" href="css/seller.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/tz.js"></script>
+<script>
+	function f1(div1,div2){
+		if(div2.style.display=="none"){
+			div2.style.display="block";
+			}else{
+				 div2.style.display="none";
+			}
+		}
+</script>
+<!--选项卡js-->
+<script type="text/javascript"> 
+function setTab(name,m,n){ 
+		for( var i=1;i<=n;i++){ 
+			var menu = document.getElementById(name+i); 
+			var showDiv = document.getElementById("text"+i); 
+			menu.className = i==m?"on":""; 
+			showDiv.style.display = i==m?"block":"none"; 
+			} 
+	} 
+</script>
+<!--退出js-->	
+<script>
+	window.onload=function(){
+			var zh1=document.getElementById("zh1");
+			var zh2=document.getElementById("zh2");
+			var nav3=document.getElementById("nav3");
+			var timer=null;	
+			zh2.onmouseover=zh1.onmouseover=function(){
+				clearTimeout(timer);
+				zh2.style.display="block";
+				nav3.style.backgroundColor="#fff";
+				};
+			zh2.onmouseout=zh1.onmouseout=function(){
+				timer=setTimeout(function (){
+					zh2.style.display="none";
+					nav3.style.backgroundColor="#eee";
+					},500);
+				};
+				
+			$(".pingjia").click(event,function(){
+			$(".ping").css("transition","all 0.5s").css("display","block");
+			});
+		$("#fa").click(event,function(){
+			$(".ping").css("transition","all 0.5s").css("display","none");
+			});
+		$("#bu").click(event,function(){
+			$(".ping").css("transition","all 0.5s").css("display","none");
+			});
+		}
+</script>
+
+</head>
+
+<body>
+<!--顶部内容-->
+<div class="header">
+	<div class="header_box">
+    	<ul class="header_nav">
+            <li class="nav1">
+                <a href="#"><img src="images/header_hot.jpg">免费开店</a>
+          	</li>
+            <li class="nav2" onClick="tiaozhuan('1')" id="zc1" style="cursor:pointer;">快速注册</li>
+            <li class="nav3" id="nav3">
+            	<a href="#" id="zh1"><span>htx4846842</span><img src="images/header_icon1.png"></a>
+                <div class="zh" id="zh2" style="display:none; ">
+                    <a href="#"><div style="margin-left:20px;  margin-top:15px;">个人中心</div></a>
+                    <a href="#"><div style="margin-left:20px; margin-top:12px;">退出账号</div></a>
+                </div>
+            </li>
+            <li class="nav4">
+            	<a href="#">我的酒翁<img src="images/header_icon1.png"></a>
+            </li>
+            <li class="nav5">
+            	<a href="#">购物车<img src="images/header_icon1.png"></a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--中间内容-->
+<div class="seller">
+	<div class="top">
+    	<div class="logo"><a href="index.html"><img src="images/sellerlogo.png" /></a></div>
+        <div class="search1">
+        	<div class="zi">
+            	<ul>
+                	<li>服务</li>
+                    <li>货源</li>
+                    <li>商品</li>
+                    <li>店铺</li>
+                    <li>帮助</li>
+                </ul>
+            </div>
+            <div class="text">
+            	<form>
+                	<input type="search" class="box" name="search1" />
+                    <input type="image" class="img" src="img/search_text.jpg" name="image" />
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="center">
+    	<div class="top_nav">
+        	<div class="top_nav_class">
+                <ul>
+                    <li style="background-color:#a40c59; color:#fff;">我是卖家</li>
+                    <a href="zhgl.html"><li>账号管理</li></a>
+                    <a href="xxzx.html"><li>消息中心</li></a> 
+                    <a href="jpzsh.html"><li>品酒知识会</li></a>
+                </ul>
+            </div>
+            <a href="personal.html"><div class="lianjie">我的不倒翁>></div></a>
+        </div>
+        <div class="left_nav">
+        		<div class="box">
+            <h1 style="font-family:'微软雅黑'; font-size:20px; margin-left:10px;" >买家中心</h1>
+                	
+                    <h4 onClick="f1(this,son4)" style="margin-top:10px;" ><img src="img/zk.png"/><span>商品管理</span></h4>
+                    <ul  id="son4">
+                        <li><a href="chushou.html">出售中的商品</a></li>
+                        <li><a href="cangku.html">仓库中的商品</a></li>
+                    	<li><a href="fabu.html">发布新商品</a></li>
+                        <li><a href="tijian.html">图片空间</a></li>
+                    </ul>
+                </div>
+                <div class="box">
+                	<h4 onClick="f1(this,son2)"><img src="img/zk.png"/><span>交易管理</span></h4>
+                    <ul  id="son2">
+                    	<li><a href="sold_goods.html">订单管理</a></li>
+                        <li><a href="pjgl.html">物流跟踪</a></li>
+                        <li><a href="tkgl.html">评价管理</a></li>
+                        <li><a href="tkgl.html">退款管理</a></li>
+                    </ul>
+                </div>
+               
+                <div class="box">
+                	<h4 onClick="f1(this,son1)" style="margin-top:10px;" ><img src="img/zk.png"/><span>营销中心</span></h4>
+                    <ul id="son1">
+                    	<li><a href="open.html">我要推广</a></li>
+                    	<li><a href="open.html">活动报名</a></li>
+                    </ul>
+                </div>
+        </div>
+        <!--中间开始-->
+        <div>
+         <div class="bread" >
+        	<div class="left1"><a href="open.html">我是卖家</a> < <font style="font-weight:700;">已卖出的商品</font></div>
+            <a href="#"><span class="right1">买家交易学习专区</span></a>
+        </div>
+        <div class="sold">
+        	<div class="top">
+            	<form>
+                	商品名称：<input type="text" name="spname" /> 
+                    成交时间：从<input style="width:80px; margin-right:5px;"/>日
+                    	<select style="margin-right:5px; width:45px;">
+                        	<option>00</option>
+                            <option>01</option>
+                            <option>02</option>
+                            <option>03</option>
+                            <option>04</option>
+                            <option>05</option>
+                            <option>06</option>
+                            <option>07</option>
+                            <option>08</option>
+                            <option>09</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                            <option>13</option>
+                            <option>14</option>
+                            <option>15</option>
+                            <option>16</option>
+                            <option>17</option>
+                            <option>18</option>
+                            <option>19</option>
+                            <option>20</option>
+                            <option>21</option>
+                            <option>22</option>
+                            <option>23</option>
+                        </select>时
+                        <input style="width:20px;margin-right:5px;" value="00" />分 
+                        到<input style="width:80px;margin-right:5px;"/>日
+                    	<select style="margin-right:5px;width:45px;">
+                        	<option>00</option>
+                            <option>01</option>
+                            <option>02</option>
+                            <option>03</option>
+                            <option>04</option>
+                            <option>05</option>
+                            <option>06</option>
+                            <option>07</option>
+                            <option>08</option>
+                            <option>09</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                            <option>13</option>
+                            <option>14</option>
+                            <option>15</option>
+                            <option>16</option>
+                            <option>17</option>
+                            <option>18</option>
+                            <option>19</option>
+                            <option>20</option>
+                            <option>21</option>
+                            <option>22</option>
+                            <option>23</option>
+                        </select>时
+                        <input style="width:20px;margin-right:5px;" value="00" />分 <br />
+                        买家昵称：<input type="text" name="mname" />
+                        订单状态：<select>
+                        			<option>全部</option>
+                                    <option>等待买家付款</option>
+                                    <option>买家已付款</option>
+                                    <option>卖家已发货</option>
+                                    <option>交易成功</option>
+                                    <option>交易关闭</option>
+                                    <option>待付款和待发货订单</option>
+                                    <option>退款中的订单</option>
+                                    <option>定金已付</option>
+                                    <option>异常订单</option>
+                      			</select>
+                        评价状态：<select>
+                        			<option>全部</option>
+                                    <option>需我评价</option>
+                                    <option>我已评价</option>
+                                    <option>对方已评</option>
+                                    <option>双方已评</option>
+                      			</select><br />
+                       订单编号：<input type="text" name="num" />
+                      <br />
+                       <button>搜索</button>
+                       <button>批量导出</button>
+                </form>
+            </div>
+            <div class="last" id="tab">
+            	<div class="nav"  >
+                	<ul>
+                    	<li id="tow1" class="on" onclick='setTab("tow",1,9)'>近三个月订单</li>
+                        <li id="tow2"  onclick='setTab("tow",2,9)'>等待买家付款</li>
+                        <li id="tow3"  onclick='setTab("tow",3,9)'>等待发货</li>
+                        <li id="tow4"  onclick='setTab("tow",4,9)'>已发货</li>
+                        <li id="tow5"  onclick='setTab("tow",5,9)'>退款中</li>
+                        <li id="tow6"  onclick='setTab("tow",6,9)'>需要评价</li>
+                        <li id="tow7"  onclick='setTab("tow",7,9)'>成功的订单</li>
+                        <li id="tow8"  onclick='setTab("tow",8,9)'>关闭的订单</li>
+                        <li id="tow9"  onclick='setTab("tow",9,9)'>三个月前的订单</li>
+                    </ul>
+                </div>
+                <div class="nav1">
+                	<ul> 
+                    	<li style="width:250px;">商品</li>
+                        <li style="width:100px;">单价（元）</li>
+                        <li>数量</li>
+                        <li>售后</li>
+                        <li>买家</li>
+                        <li>交易状态</li>
+                        <li style="width:100px;">实收款（元）</li>
+                        <li>评价</li>
+                    </ul>
+                </div>
+                <div class="nav2">
+                	<ul>
+                    	<li><form><input type="checkbox" name="quan" />全选</form></li>
+                        <li>批量发货</li>
+                        <li>批量标记</li>
+                        <li>批量免运费</li>
+                        <li><form><input type="checkbox" name="quan" />不显示已关闭的订单</form></li>
+                        <li></li>
+                    </ul>
+                </div>
+             
+                <div class="nav_class" id="text1" >
+                	<ul>
+                    	<li style="width:250px; line-height:20px; text-align:left; float:left;">
+                            <img src="images/quan.jpg" width="50px" height="40px" style="margin-left:15px;"/>
+                            <div style="float:right; margin-right:20px;">1071851878632339<br />查梅尔庄园干红葡萄酒</div>
+                        </li>
+                        <li style="width:100px;">￥999.00</li>
+                        <li>1</li>
+                        <li></li>
+                        <li>王大晓姐1</li>
+                        <li>待收货</li>
+                        <li style="width:100px;">￥999.00</li>
+                        <li>好评</li>
+                    </ul>
+                </div>
+                <div class="nav_class" style="display:none;" id="text2">
+                	<ul>
+                    	<li style="width:250px; line-height:20px; text-align:left; float:left;">
+                            <img src="images/quan.jpg" width="50px" height="40px" style="margin-left:15px;"/>
+                            <div style="float:right; margin-right:20px;">1071851878632339<br />查梅尔庄园干红葡萄酒</div>
+                        </li>
+                        <li style="width:100px;">￥999.00</li>
+                        <li>1</li>
+                        <li></li>
+                        <li>王大晓姐2</li>
+                        <li>待收货</li>
+                        <li style="width:100px;">￥999.00</li>
+                        <li>好评</li>
+                    </ul>
+                </div>
+                <div class="nav_class"  style="display:none;" id="text3">
+                	<ul>
+                    	<li style="width:250px; line-height:20px; text-align:left; float:left;">
+                            <img src="images/quan.jpg" width="50px" height="40px" style="margin-left:15px;"/>
+                            <div style="float:right; margin-right:20px;">1071851878632339<br />查梅尔庄园干红葡萄酒</div>
+                        </li>
+                        <li style="width:100px;">￥999.00</li>
+                        <li>1</li>
+                        <li></li>
+                        <li>王大晓姐3</li>
+                        <li>待收货</li>
+                        <li style="width:100px;">￥999.00</li>
+                        <li>好评</li>
+                    </ul>
+                </div>
+                <div class="nav_class"  style="display:none;" id="text4">
+                	<ul>
+                    	<li style="width:250px; line-height:20px; text-align:left; float:left;">
+                            <img src="images/quan.jpg" width="50px" height="40px" style="margin-left:15px;"/>
+                            <div style="float:right; margin-right:20px;">1071851878632339<br />查梅尔庄园干红葡萄酒</div>
+                        </li>
+                        <li style="width:100px;">￥999.00</li>
+                        <li>1</li>
+                        <li></li>
+                        <li>王大晓姐4</li>
+                        <li>待收货</li>
+                        <li style="width:100px;">￥999.00</li>
+                        <li>好评</li>
+                    </ul>
+                </div>
+                <div class="nav_class" style="display:none;" id="text5">
+                	<ul>
+                    	<li style="width:250px; line-height:20px; text-align:left; float:left;">
+                            <img src="images/quan.jpg" width="50px" height="40px" style="margin-left:15px;"/>
+                            <div style="float:right; margin-right:20px;">1071851878632339<br />查梅尔庄园干红葡萄酒</div>
+                        </li>
+                        <li style="width:100px;">￥999.00</li>
+                        <li>1</li>
+                        <li></li>
+                        <li>王大晓姐5</li>
+                        <li>待收货</li>
+                        <li style="width:100px;">￥999.00</li>
+                        <li>好评</li>
+                    </ul>
+                </div>
+                <div class="nav_class"  style="display:none;" id="text6" >
+                	<ul>
+                    	<li style="width:250px; line-height:20px; text-align:left; float:left;">
+                            <img src="images/quan.jpg" width="50px" height="40px" style="margin-left:15px;"/>
+                            <div style="float:right; margin-right:20px;">1071851878632339<br />查梅尔庄园干红葡萄酒</div>
+                        </li>
+                        <li style="width:100px;">￥999.00</li>
+                        <li>1</li>
+                        <li></li>
+                        <li>王大晓姐6</li>
+                        <li>待收货</li>
+                        <li style="width:100px;">￥999.00</li>
+                        <li>好评</li>
+                    </ul>
+                </div>
+                <div class="nav_class" id="text7" style="display:none;">
+                    	<ul class="shangp">
+                            <li style="width:250px; line-height:20px; text-align:left; float:left;">
+                                <img src="images/quan.jpg" width="50px" height="40px" style="margin-left:15px;"/>
+                                <div style="float:right; margin-right:20px;">1071851878632339<br />查梅尔庄园干红葡萄酒</div>
+                            </li>
+                            <li style="width:100px;">￥999.00</li>
+                            <li>1</li>
+                            <li></li>
+                            <li>王大晓姐7</li>
+                            <li>待收货</li>
+                            <li style="width:100px;">￥999.00</li>
+                            <li><div class="pingjia">评价</div></li>
+                        </ul>
+                    	<div  class="ping" style="display:none;">
+                            <div class="content">
+                                <form style="text-align:center;">评价：
+                                    <input type="radio" name="hao"/>好评
+                                    <input type="radio" name="hao"/>中评
+                                    <input type="radio" name="hao"/>差评
+                                </form>
+                                <div class="box">
+                                 <textarea></textarea>
+                                  <p>还可以输入<a> 500 </a>字</p>
+                                  </div>
+                                <div class="xin" style=" margin-top:15px;">
+                                    <span>卖家的服务态度：</span>
+                                    <ul id="ping"> 
+                                        <li style="background:none;" ></li>
+                                        <li style="background-image:url(images/ping.png);"></li>
+                                        <li style="background-image:url(images/ping.png);"></li>
+                                        <li style="background-image:url(images/ping.png);"></li>
+                                        <li style="background-image:url(images/ping.png);"></li>
+                                        <li style="background-image:url(images/ping.png);"></li>
+                                    </ul>
+                                </div> 
+                                <div class="xin" style=" margin-top:15px;">
+                                    <span>卖家的发货速度：</span>
+                                    <ul id="ping1"> 
+                                        <li style="background:none;" ></li>
+                                        <li style="background-image:url(images/ping.png);"></li>
+                                        <li style="background-image:url(images/ping.png);"></li>
+                                        <li style="background-image:url(images/ping.png);"></li>
+                                        <li style="background-image:url(images/ping.png);"></li>
+                                        <li style="background-image:url(images/ping.png);"></li>
+                                    </ul>
+                                </div>
+                                <div class="xin" style=" margin-top:15px;">
+                                    <span>商品质量：</span>
+                                    <ul id="ping2" style="margin-left:40px;"> 
+                                        <li style="background:none;" ></li>
+                                        <li style="background-image:url(images/ping.png);"></li>
+                                        <li style="background-image:url(images/ping.png);"></li>
+                                        <li style="background-image:url(images/ping.png);"></li>
+                                        <li style="background-image:url(images/ping.png);"></li>
+                                        <li style="background-image:url(images/ping.png);"></li>
+                                    </ul>
+                                </div>
+                                <button id="fa">发表评论</button>
+                                <span id="bu">暂不评论</span>
+                            </div>
+                    	</div>
+                </div>
+                  <script>
+               <!--第一个-->
+                    $("#ping").children($("#ping")).hover(function(){
+                        
+                        //索引
+                        var index=$("#ping").children($("#ping")).index(this);
+                        $(this).css("backgroundPosition","0px 15px");
+                            for(var i=0;i<=index;i++){
+                                $("#ping").children($("#ping")).eq(i).css("backgroundPosition","0px 15px");
+                                }
+                            for(var j=index+1;j<=5;j++){
+                                $("#ping").children($("#ping")).eq(j).css("backgroundPosition","0px 0px");
+                                }
+                            
+                        },function(){
+                            if(index==5){
+                                return;
+                                }
+                        $(this).css("backgroundPosition","0px 0px");
+                            });
+                 <!--第二个-->
+                 $("#ping1").children($("#ping1")).hover(function(){
+                        //索引
+                        var index=$("#ping1").children($("#ping1")).index(this);
+                        $(this).css("backgroundPosition","0px 15px");
+                            for(var i=0;i<=index;i++){
+                                $("#ping1").children($("#ping1")).eq(i).css("backgroundPosition","0px 15px");
+                                }
+                            for(var j=index+1;j<=5;j++){
+                                $("#ping1").children($("#ping1")).eq(j).css("backgroundPosition","0px 0px");
+                                }
+                            
+                        },function(){
+                            if(index==5){
+                                return;
+                                }
+                        $(this).css("backgroundPosition","0px 0px");
+                            });
+                 <!--第三个	-->
+                    $("#ping2").children($("#ping2")).hover(function(){
+                        //索引
+                        var index=$("#ping2").children($("#ping2")).index(this);
+                        $(this).css("backgroundPosition","0px 15px");
+                            for(var i=0;i<=index;i++){
+                                $("#ping2").children($("#ping2")).eq(i).css("backgroundPosition","0px 15px");
+                                }
+                            for(var j=index+1;j<=5;j++){
+                                $("#ping2").children($("#ping2")).eq(j).css("backgroundPosition","0px 0px");
+                                }
+                            
+                        },function(){
+                            if(index==5){
+                                return;
+                                }
+                        $(this).css("backgroundPosition","0px 0px");
+                            });
+               </script>
+                <div class="nav_class" style="display:none;" id="text8">
+                	<ul>
+                    	<li style="width:250px; line-height:20px; text-align:left; float:left;">
+                            <img src="images/quan.jpg" width="50px" height="40px" style="margin-left:15px;"/>
+                            <div style="float:right; margin-right:20px;">1071851878632339<br />查梅尔庄园干红葡萄酒</div>
+                        </li>
+                        <li style="width:100px;">￥999.00</li>
+                        <li>1</li>
+                        <li></li>
+                        <li>王大晓姐8</li>
+                        <li>待收货</li>
+                        <li style="width:100px;">￥999.00</li>
+                        <li>好评</li>
+                    </ul>
+                </div>
+                <div class="nav_class" style="display:none;" id="text9">
+                	<ul>
+                    	<li style="width:250px; line-height:20px; text-align:left; float:left;">
+                            <img src="images/quan.jpg" width="50px" height="40px" style="margin-left:15px;"/>
+                            <div style="float:right; margin-right:20px;">1071851878632339<br />查梅尔庄园干红葡萄酒</div>
+                        </li>
+                        <li style="width:100px;">￥999.00</li>
+                        <li>1</li>
+                        <li></li>
+                        <li>王大晓姐9</li>
+                        <li>待收货</li>
+                        <li style="width:100px;">￥999.00</li>
+                        <li>好评</li>
+                    </ul>
+                </div>
+              
+            </div>
+        </div>
+        
+      </div>
+      <!--中间结束-->  
+    </div>
+</div>
+<!--脚部-->
+<div class="foot">
+	<div class="center">
+    	<div class="center_top">
+        	<ul>
+            	<li>
+                	<img src="images/footer1.jpg" />
+                    <div class="center_zi">
+                    <div class="bigzi">100%</div>
+                    <div class="smallzi">全球正品</div>
+                    </div>
+                </li>
+                <li>
+                	<img src="images/footer2.jpg" />
+                     <div class="center_zi">
+                    <div class="bigzi">24小时内送达</div>
+                    <div class="smallzi">承诺24小时之内准时送达</div>
+                    </div>
+                </li>
+                <li>
+                	<img src="images/footer3.jpg" />
+                     <div class="center_zi">
+                    <div class="bigzi">消费者保护</div>
+                    <div class="smallzi">联合打假 保护隐私</div>
+                    </div>
+                </li>
+                <li>
+                	<img src="images/footer4.jpg" />
+                     <div class="center_zi">
+                    <div class="bigzi">真伪鉴别</div>
+                    <div class="smallzi">真伪鉴别</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="center_left">
+        	<a href="#"><img src="images/logo.png" /></a>
+      		<div class="center_left_zi">
+        		<div class="center_left_zi1">客服电话：4008-888-888</div>
+            	<div class="center_left_zi2">周一至周日9:00-20:00</div>
+            </div>
+        </div>
+        <div class="center_center">
+        	<div style="font-size:14px; color:#666666; margin-left:40px; margin-top:50px;">雨岑不倒翁</div>
+            <div class="center_center_big">
+            <dl>
+            	<dt><a  href="#">关于我们</a></dt>
+                <dd><a  href="#">公司简介</a></dd>
+                <dd><a  href="#">战略合作</a></dd>
+                <dd><a  href="#">雨岑基地</a></dd>
+                <dd><a  href="#">媒体报道</a></dd>
+             </dl>
+             <dl>
+                
+                <dt><a  href="#">新手指南</a></dt>
+                <dd><a  href="#">新用户注册</a></dd>
+                <dd><a  href="#">购物流程</a></dd>
+                <dd><a  href="#">雨岑优势</a></dd>
+               </dl>
+             <dl>
+                <dt><a  href="#">配送服务</a></dt>
+                <dd><a  href="#">配送范围及时</a></dd>
+                <dd><a  href="#">配送运费</a></dd>
+                <dd><a  href="#">运输包装说明</a></dd>
+                <dd><a  href="#">发票制度</a></dd>
+                </dl>
+             <dl> 
+                <dt><a  href="#">售后服务</a></dt>
+                <dd><a  href="#">退换货流程</a></dd>
+                <dd><a  href="#">退款说明</a></dd>
+                <dd><a  href="#">正品保障</a></dd>
+                <dd><a  href="#">投诉建议</a></dd>
+                 </dl>
+             <dl>
+                <dt><a  href="#">支付方式</a></dt>
+                <dd><a  href="#">货到付款</a></dd>
+                <dd><a  href="#">在线支付</a></dd>
+               <dd><a  href="#"> 优惠券</a></dd>
+                <dd><a  href="#">礼品卡</a></dd>
+            </dl>
+            </div>
+        </div>
+        <div class="center_right">
+        	<div class="center_right_left">
+            <p>关注不倒翁酒网</p>
+            <img src="images/erwerma1.jpg">
+            </div>
+            <div class="center_right_right">
+            <p>下载不倒翁APP</p>
+            <img src="images/erweima2.jpg">
+            </div>
+        </div>
+    </div>
+<div class="copy">Copyright © 2015 乌鲁木齐市雨岑信息科技有限公司   联系电话：4008-888-888  联系我们.隐私声明.媒体报道.消费者保护.真伪鉴别</div>
+</div>
+
+</body>
+</html>
