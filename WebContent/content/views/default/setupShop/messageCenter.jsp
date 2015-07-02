@@ -99,7 +99,7 @@
             <div class="nav1">
 	            <c:forEach items="${usermp}" var="m">
 	            	<ul>
-	                	<li style="width:100px;">
+	                	<li style="width:100px;border:1;">
 	                        <input type="checkbox" style=" margin-right:10px; margin-left:15px;"/>${m.source }
 	                    </li>
 	                    <li style="width:600px;font-weight: bold" onclick="lookContent(${m.id});"> ${m.missionName}
@@ -113,10 +113,10 @@
 	                        	消息内容：
 	                    </li>
 	                    <li style="width:600px; overflow-y:scroll;line-height: 80px;">${m.content}
-	                    	<label id="shouqi" style="color:red;font-weight: bold;" onclick="shouqi(${m.id});">《《收起</label>
+	                    	
 	                    </li>
-	                    <li style="width:100px; text-align:center; border-right:none;"></li>                    
-	                    <li style="width:200px; text-align:center; border-right:none;"></li>                    
+	                    <li style="width:100px;line-height:80px; text-align:center; border-right:none;">正在读取</li>                    
+	                    <li style="width:200px; line-height:80px; text-align:center; border-right:none;"><label id="shouqi" style="color:red;font-weight: bold;" onclick="shouqi(${m.id});">点击收起</label></li>                    
 	                </ul>
 	            </c:forEach>
             </div>

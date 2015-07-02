@@ -40,7 +40,7 @@ public class ShopReviews {
 	@Column
 	private String reviewsdate;
 	
-	@ManyToOne(cascade={CascadeType.MERGE,CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REFRESH})
+	@ManyToOne
 	@JoinColumn(name = "order_id")
 	private OrderForm orderForm; //用来标识评论与订单的关系
 	

@@ -173,7 +173,7 @@ public class ShopOneController {
 		if (request.getParameter("cateOne")!=null&&!request.getParameter("cateOne").equals("")) {
 			cateOne = Integer.parseInt(request.getParameter("cateOne"));
 		}
-		//1.红酒;2.白酒;3.啤酒;4,洋酒;5.小食品
+		//1.葡萄酒;2.白酒;3.啤酒;4,洋酒;5.小食品
 		List<ShopCategory> list = shopCategService.getAllByParentLevel(cateOne);
 		mode.put("shopCategories", list);
 		//后期改
@@ -475,8 +475,8 @@ public class ShopOneController {
 		ModelMap mode = new ModelMap();
 		Integer commid = Integer.parseInt(req.getParameter("commid"));
 		ShopCommodity commodity = shopCommodityService.findById(commid);
-		//1.红酒
-		List<ShopCategory> list = shopCategService.getAllByParentLevel(1);
+		//1.葡萄酒
+		List<ShopCategory> list = shopCategService.getAllByParentLevel(commodity.getShopCategory().getParentLevel().getParentLevel().getCategoryID());
 		mode.put("shopCategories", list);
 		//后期改
 		List<ShopCategory> listtemp = new ArrayList<ShopCategory>();
@@ -1023,6 +1023,7 @@ public class ShopOneController {
 	//商家评论用户：
 	@RequestMapping("evaluteUser")
 	public ModelAndView evaluteUser(HttpServletRequest req){
+		System.out.println("阿迪萨斯大师大大四大四大大大说的是倒萨");
 		ModelMap mode = new ModelMap();
 		/**
 		 * 以下两句为模拟shop，表示已经存在shop对象。
@@ -1033,6 +1034,7 @@ public class ShopOneController {
 		Integer userId = Integer.parseInt(req.getParameter("userId"));
 		Integer orderFormID = Integer.parseInt(req.getParameter("orderFormID"));
 		OrderForm orderForm = orderFormService.findById(orderFormID);
+		System.out.println("进入商家评论：：："+orderForm!=null);
 		if(orderForm != null){
 			Integer commCode = Integer.parseInt(req.getParameter("commCode"));
 			String reviewsRank = req.getParameter("reviewsRank");
@@ -1044,16 +1046,18 @@ public class ShopOneController {
 			ShopCommodity shopscommodity = shopCommodityService.findById(commCode);
 			ShopReviews shopReviews = new ShopReviews();
 			shopReviews.setBusinessreply(businessreply);
-			if (reviewsRank.equals("good")) {
-				shopReviews.setReviewsRank(ReviewsRank.good);
-				shopReviews.setRankImagesPath("goodurl");
-			}if (reviewsRank.equals("better")) {
-				shopReviews.setReviewsRank(ReviewsRank.better);
-				shopReviews.setRankImagesPath("betterurl");
-			}if (reviewsRank.equals("bad")) {
-				shopReviews.setReviewsRank(ReviewsRank.bad);
-				shopReviews.setRankImagesPath("badurl");
-			}
+			if (!reviewsRank.equals("")&&reviewsRank!=null) {
+				if (reviewsRank.equals("good")) {
+					shopReviews.setReviewsRank(ReviewsRank.good);
+					shopReviews.setRankImagesPath("goodurl");
+				}if (reviewsRank.equals("better")) {
+					shopReviews.setReviewsRank(ReviewsRank.better);
+					shopReviews.setRankImagesPath("betterurl");
+				}if (reviewsRank.equals("bad")) {
+					shopReviews.setReviewsRank(ReviewsRank.bad);
+					shopReviews.setRankImagesPath("badurl");
+				}
+			}			
 			//设置用户
 			AppUser user = userService.findById(userId);
 			shopReviews.setUser(user);
@@ -1061,37 +1065,38 @@ public class ShopOneController {
 			shopReviews.setOrderForm(orderForm);
 			shopReviews.setReviewsdate(reviewsdate);
 			shopReviews.setShopscommodity(shopscommodity);
+			System.out.println("得到评价的信息："+shopReviews.getReviews()+"::"+shopReviews.getReviewsRank());
 			//保存评论
 			shopReviewsService.save(shopReviews);
 		}
 		
-		//1.查询3个月之内的订单
-		List<OrderForm> order3Month = orderFormService.getShopOrderByShop(shop.getId());
-		mode.put("order3Month", order3Month);
-		System.out.println("三个月以内的订单数量："+order3Month.size()); 
-		//2.查询等待买家付款订单
-		List<OrderForm> waitPayment = orderFormService.getAllByOrderStatus("waitPayment");	
-		mode.put("waitPayment", waitPayment);
-		//3.查询等待卖家发货订单
-		List<OrderForm> waitDelivery = orderFormService.getAllByOrderStatus("waitDelivery");	
-		mode.put("waitDelivery", waitDelivery);
-		//4.查询已发货订单
-		List<OrderForm> transitGoods = orderFormService.getAllByOrderStatus("transitGoods");	
-		mode.put("transitGoods", transitGoods);
-		//5.查询退款中订单
-		List<OrderForm> refundOrderForm = orderFormService.getAllByOrderStatus("refundOrderForm");	
-		mode.put("refundOrderForm", refundOrderForm);
-		//6.查询退款成功订单
-		List<OrderForm> refundSuccess = orderFormService.getAllByOrderStatus("refundSuccess");	
-		mode.put("refundSuccess", refundSuccess);
-		//7.查询成功订单
-		List<OrderForm> completionTransaction = orderFormService.getAllByOrderStatus("completionTransaction");	
-		mode.put("completionTransaction", completionTransaction);
-		//8.查询关闭订单
-		List<OrderForm> closeTransaction = orderFormService.getAllByOrderStatus("closeTransaction");	
-		mode.put("closeTransaction", closeTransaction);
+//		//1.查询3个月之内的订单
+//		List<OrderForm> order3Month = orderFormService.getShopOrderByShop(shop.getId());
+//		mode.put("order3Month", order3Month);
+//		System.out.println("三个月以内的订单数量："+order3Month.size()); 
+//		//2.查询等待买家付款订单
+//		List<OrderForm> waitPayment = orderFormService.getAllByOrderStatus("waitPayment");	
+//		mode.put("waitPayment", waitPayment);
+//		//3.查询等待卖家发货订单
+//		List<OrderForm> waitDelivery = orderFormService.getAllByOrderStatus("waitDelivery");	
+//		mode.put("waitDelivery", waitDelivery);
+//		//4.查询已发货订单
+//		List<OrderForm> transitGoods = orderFormService.getAllByOrderStatus("transitGoods");	
+//		mode.put("transitGoods", transitGoods);
+//		//5.查询退款中订单
+//		List<OrderForm> refundOrderForm = orderFormService.getAllByOrderStatus("refundOrderForm");	
+//		mode.put("refundOrderForm", refundOrderForm);
+//		//6.查询退款成功订单
+//		List<OrderForm> refundSuccess = orderFormService.getAllByOrderStatus("refundSuccess");	
+//		mode.put("refundSuccess", refundSuccess);
+//		//7.查询成功订单
+//		List<OrderForm> completionTransaction = orderFormService.getAllByOrderStatus("completionTransaction");	
+//		mode.put("completionTransaction", completionTransaction);
+//		//8.查询关闭订单
+//		List<OrderForm> closeTransaction = orderFormService.getAllByOrderStatus("closeTransaction");	
+//		mode.put("closeTransaction", closeTransaction);
 		
-		return new ModelAndView("redirect:soldComm",mode);
+		return new ModelAndView("success",mode);
 	}
 	
 	//messageCenter消息中心
@@ -1107,8 +1112,10 @@ public class ShopOneController {
 		List<MissionPlan> missionPlans = missionPlanService.getAll();
 		List<MissionPlan> usermp = new ArrayList<MissionPlan>();
 		for (int i = 0; i < missionPlans.size(); i++) {
-			if (missionPlans.get(i).getToUser().getId()==shop.getUser().getId()) {
-				usermp.add(missionPlans.get(i));
+			if (missionPlans.get(i).getToUser()!=null) {
+				if (missionPlans.get(i).getToUser().getId()==shop.getUser().getId()) {
+					usermp.add(missionPlans.get(i));
+				}
 			}
 		}
 		mode.addAttribute("usermp", usermp);
@@ -1116,24 +1123,29 @@ public class ShopOneController {
 		return new ModelAndView("setupShop/messageCenter",mode);
 	}
 	
-	//删除消息
+	//删除消息:删除消息对象与用户之间的关系
 	@RequestMapping("delMessage")
 	public ModelAndView delMessage(HttpServletRequest req){
 		ModelMap mode = new ModelMap();
-		Integer mid = Integer.parseInt(req.getParameter("mid"));
-		missionPlanService.delete(mid);
-		
 		/**
 		 * 以下两句为模拟shop，表示已经存在shop对象。
 		 */
 		Shop shop = shopService.findById(1);
 		req.getSession().setAttribute("shop", shop);
 		mode.put("shop", shop);
+		
+		Integer mid = Integer.parseInt(req.getParameter("mid"));
+		MissionPlan mission = missionPlanService.findById(mid);
+		mission.setToUser(null);
+		missionPlanService.update(mission);
+		
 		List<MissionPlan> missionPlans = missionPlanService.getAll();
 		List<MissionPlan> usermp = new ArrayList<MissionPlan>();
 		for (int i = 0; i < missionPlans.size(); i++) {
-			if (missionPlans.get(i).getToUser().getId()==shop.getUser().getId()) {
-				usermp.add(missionPlans.get(i));
+			if (missionPlans.get(i).getToUser()!=null) {
+				if (missionPlans.get(i).getToUser().getId()==shop.getUser().getId()) {
+					usermp.add(missionPlans.get(i));
+				}
 			}
 		}
 		System.out.println("得到用户的消息个数：：："+usermp.size());
@@ -1158,8 +1170,10 @@ public class ShopOneController {
 		List<MissionPlan> missionPlans = missionPlanService.getAll();
 		List<MissionPlan> usermp = new ArrayList<MissionPlan>();
 		for (int i = 0; i < missionPlans.size(); i++) {
-			if (missionPlans.get(i).getToUser().getId()==shop.getUser().getId()) {
-				usermp.add(missionPlans.get(i));
+			if (missionPlans.get(i).getToUser()!=null) {
+				if (missionPlans.get(i).getToUser().getId()==shop.getUser().getId()) {
+					usermp.add(missionPlans.get(i));
+				}
 			}
 		}
 		System.out.println("得到用户的消息个数：：："+usermp.size());
@@ -1191,59 +1205,68 @@ public class ShopOneController {
 		List<ShopCommodity> piComms = new ArrayList<ShopCommodity>();
 		List<ShopCommodity> yangComms = new ArrayList<ShopCommodity>();
 		List<ShopCommodity> foodComms = new ArrayList<ShopCommodity>();
-		//红酒：
-		for (int i = 0; i < commodities.size()&&commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory().equals("红酒"); i++) {
-			//得到商品的类别的三级目录
-			mapRed.put(commodities.get(i).getShopCategory().getCategory()+"", commodities.get(i).getShopCategory().getCategory());
-			System.out.println("商品的类别是：3：：："+commodities.get(i).getShopCategory().getCategory());
-			//得到商品的类别的一级目录
-			System.out.println("商品的类别是：1：：："+commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory());
-			redComms.add(commodities.get(i));
+		//葡萄酒：
+		for (int i = 0; i < commodities.size()&&commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory().equals("葡萄酒"); i++) {
+			if (commodities.get(i).getShelves()) {
+				//得到商品的类别的三级目录
+				mapRed.put(commodities.get(i).getShopCategory().getCategory()+"", commodities.get(i).getShopCategory().getCategory());
+				System.out.println("商品的类别是：3：：："+commodities.get(i).getShopCategory().getCategory());
+				//得到商品的类别的一级目录
+				System.out.println("商品的类别是：1：：："+commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory());
+				redComms.add(commodities.get(i));
+			}			
 		}
 		mode.put("redComms", redComms);
 		mode.put("mapRed",mapRed);
-		//得到所有类别：
-		for (int i = 0; i < commodities.size(); i++) {
-			System.out.println("得到所有类别："+commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory());
-			System.out.println(i < commodities.size()&&commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory().equals("白酒"));
-		}
+		
 		//白酒：
 		for (int i = 0; i < commodities.size(); i++) {
 			if (i < commodities.size()&&commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory().equals("白酒")) {
-				mapWhite.put(commodities.get(i).getShopCategory().getCategory()+"", commodities.get(i).getShopCategory().getCategory());
-				whiteComms.add(commodities.get(i));
+				if (commodities.get(i).getShelves()) {
+					mapWhite.put(commodities.get(i).getShopCategory().getCategory()+"", commodities.get(i).getShopCategory().getCategory());
+					whiteComms.add(commodities.get(i));
+				}
 			}
 		}
 		mode.put("whiteComms", whiteComms);
 		mode.put("mapWhite",mapWhite);
+		
 		//啤酒：
 		for (int i = 0; i < commodities.size(); i++) {
 			if (i < commodities.size()&&commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory().equals("啤酒")) {
-				mapPi.put(commodities.get(i).getShopCategory().getCategory()+"", commodities.get(i).getShopCategory().getCategory());
-				piComms.add(commodities.get(i));
+				if (commodities.get(i).getShelves()) {
+					mapPi.put(commodities.get(i).getShopCategory().getCategory()+"", commodities.get(i).getShopCategory().getCategory());
+					piComms.add(commodities.get(i));
+				}
 			}
 		}
 		mode.put("piComms", piComms);
 		mode.put("mapPi",mapPi);
+		
 		//洋酒：
 		for (int i = 0; i < commodities.size(); i++) {
 			if (i < commodities.size()&&commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory().equals("洋酒")) {
-				mapYang.put(commodities.get(i).getShopCategory().getCategory()+"", commodities.get(i).getShopCategory().getCategory());
-				yangComms.add(commodities.get(i));
+				if (commodities.get(i).getShelves()) {
+					mapYang.put(commodities.get(i).getShopCategory().getCategory()+"", commodities.get(i).getShopCategory().getCategory());
+					yangComms.add(commodities.get(i));
+				}
 			}
 		}
 		mode.put("yangComms", yangComms);
 		mode.put("mapYang",mapYang);
+		
 		//小食品：
 		for (int i = 0; i < commodities.size(); i++) {
 			if (i < commodities.size()&&commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory().equals("小食品")) {
-				mapFood.put(commodities.get(i).getShopCategory().getCategory()+"", commodities.get(i).getShopCategory().getCategory());
-				foodComms.add(commodities.get(i));
+				if (commodities.get(i).getShelves()) {
+					mapFood.put(commodities.get(i).getShopCategory().getCategory()+"", commodities.get(i).getShopCategory().getCategory());
+					foodComms.add(commodities.get(i));
+				}
 			}
 		}
 		mode.put("foodComms", foodComms);
 		mode.put("mapFood",mapFood);
-		
+		mode.put("shopId", shop.getId());
 		return new ModelAndView("setupShop/myShop",mode);
 	}
 	//店铺中的搜索：搜索本店中的商品
@@ -1256,6 +1279,11 @@ public class ShopOneController {
 		Shop shop = shopService.findById(1);
 		req.getSession().setAttribute("shop", shop);
 		mode.put("shop", shop);
+		String keyValue = req.getParameter("serach1");
+		//得到商家ID：
+		Integer shopId = Integer.parseInt(req.getParameter("shopId"));
+		List<ShopCommodity> commodities = shopCommodityService.getAllByNameAndShop(keyValue,shopId);
+		mode.put("commodities", commodities);
 		return new ModelAndView("setupShop/myShop",mode);
 	}
 	
@@ -1512,7 +1540,6 @@ public class ShopOneController {
 //		return new ModelAndView();
 //	}
 	//填写开店信息：
-	
 
 	// 购物Item
 	@RequestMapping(value = "shopItem", method = RequestMethod.GET)

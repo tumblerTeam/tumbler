@@ -451,19 +451,22 @@ font-size:
 	padding: 0px 5px;
 }
 .column_01 {
-	width: 1200px;
-	height: 620px;
-	margin: 0;
+	width: 1205px;
+	height: 900px;
+	margin: 10px auto;
 	padding: 0;
 	list-style: none;
 }
 .column_01 li {
-	width: 297px;
-	height: 300px;
+	width: 290px;
+	height: 290px;
 	float: left;
-	margin-right: 4px;
-	margin-bottom: 4px;
+	margin-right: 10px;
+	margin-bottom: 5px; box-sizing:border-box;
 	background: #FFF;
+}
+.column_01 li:hover{
+	border:1px solid red;
 }
 .column_01 li h1 {
 	color: #909090;
@@ -1157,34 +1160,16 @@ border：1px #eee solid;
 /*左侧菜单*/
 .personal .personal_left {
 	width: 170px;
-	height: 500px;
+	height: 800px;
 	border: 1px #ededed solid;
 	float: left;
 	margin-top: 30px;
 	background-color: #fff;
+	line-height:30px;
 }
-.personal .personal_left .left_nav1 {
-	border-bottom: 1px #ededed dashed;
-	margin-top: 20px;
-	margin-bottom: 20px;
-}
-.personal .personal_left .left_nav1 ul li {
-	list-style: none;
-	line-height: 30px;
-	margin-left: 40px;
-}
-.personal .personal_left .left_nav1 ul .a1 {
-	font-size: 14px;
-}
-.personal .personal_left .left_nav2 {
-	border-bottom: 1px #ededed dashed;
-	width: 100%;
-}
-.personal .personal_left .left_nav2 .sc {
-	margin-top: 30px;
-	margin-bottom: 30px;
-	padding-left: 40px;
-}
+.personal .personal_left h3{ margin:15px 0px 0px 15px;}
+.personal .personal_left .ji2{ margin-left:15px; font-weight:700;}
+.personal .personal_left .ji3{ margin-left:25px; font-size:14px; font-weight:100;}
 /*右边推荐*/
 .personal .personal_right {
 	width: 256px;
@@ -1235,7 +1220,7 @@ border：1px #eee solid;
 	cursor: pointer;
 }
 .personal .personal_right .product {
-	width: 256px;
+	width: 250px;
 	height: auto;
 	border: 1px #ededed solid;
 	float: right;
@@ -1447,6 +1432,20 @@ border：1px #eee solid;
 .personal .personal_center .center_class3 .all3 ul li .mask .time {
 	color: #444;
 }
+/*物流*/
+.personal .wuliu{ width:750px; height:800px; float:left; margin-top:20px; margin-left:10px;}
+.personal .wuliu .info{ width:720px; height:400px; background-color:#ededed; margin-top:10px; border-radius:3px; margin-left:15px;}
+.personal .wuliu .info h3{  padding-top:25px; margin-left:30px;}
+.personal .wuliu .info hr{  width:95%;}
+.personal .wuliu .info .info_class1{ margin-left:30px;  margin-bottom:10px; font-size:13px;}
+.personal .wuliu .info .info_class1 .sp1{ font-weight:600;}
+.personal .wuliu .info .info_class1 .sp3{ margin-left:15px;}
+
+.personal .wuliu .info .info_class2{ margin-left:135px; margin-bottom:10px;font-size:13px;}
+.personal .wuliu .info .info_class2 .sp3{ margin-left:15px;}
+.personal .wuliu .xinxi_info{ width:720px; height:300px;  margin-left:15px; margin-top:20px; font-size:12px; line-height:25px;}
+.personal .wuliu .xinxi_info span{ margin-left:10px;}
+
 /*收藏*/
 .personal .shoucang {
 	margin-top: 30px;
@@ -1460,31 +1459,17 @@ border：1px #eee solid;
 	height: 50px;
 	border-bottom: 3px #901531 solid;
 }
-.personal .shoucang .all3 .change1 {
+.personal .shoucang .all3 .change{
 	float: left;
 	display: inline-block;
 	margin-top: 15px;
 	margin-left: 15px;
-	width: 100px;
+	width: 120px;
 	height: 35px;
 	background-color: #901531;
 	color: #fff;
 	text-align: center;
 	line-height: 40px;
-	font-size:14px;
-}
-.personal .shoucang .all3 .change2 {
-	float: left;
-	display: inline-block;
-	margin-top: 15px;
-	margin-left: 10px;
-	width: 100px;
-	height: 35px;
-	background-color: #ccc;
-	color: #000;
-	text-align: center;
-	line-height: 40px;
-	cursor: pointer;
 	font-size:14px;
 }
 .personal .shoucang .all2 {
@@ -1779,6 +1764,20 @@ border：1px #eee solid;
 	height: 85px;
 	float: left;
 }
+/*发表评论*/
+.personal .personal_center2 .all .all_class1 .nav1 .ping{clear:both;width:500px; font-size:14px; height:500px; border:1px #ccc solid; position:absolute; top:50%; display:none; left:50%; margin:-250px 0px 0px -300px; background-color:#fff; z-index:99;}
+.personal .personal_center2 .all .all_class1 .nav1 .ping .shangp{ width:500px; height:100px; text-align:left;border-bottom:1px #ccc solid; margin-top:-10px; margin-bottom:20px; }
+.personal .personal_center2 .all .all_class1 .nav1 .ping .shangp img{ margin:10px 0px 0px 10px; float:left;}
+.personal .personal_center2 .all .all_class1 .nav1 .ping .shangp .name{ float:right; font-size:14px; margin-left:115px; margin-top:35px; }
+.personal .personal_center2 .all .all_class1 .nav1 .ping .shangp .name2{ float:right; font-size:14px; margin-top:35px; margin-right:50px; }
+.personal .personal_center2 .all .all_class1 .nav1 .ping .content { width:500px; height:400px; margin-top:-15px;}
+.personal .personal_center2 .all .all_class1 .nav1 .ping .content input{ margin-bottom:20px; margin-right:5px;}
+.personal .personal_center2 .all .all_class1 .nav1 .ping .content .xin{ width:450px; height:30px;  text-align:left; margin-left:15px; }
+.personal .personal_center2 .all .all_class1 .nav1 .ping .content .xin span{ float:left; margin-top:0px;}
+.personal .personal_center2 .all .all_class1 .nav1 .ping .content .xin ul{ float:left;}
+.personal .personal_center2 .all .all_class1 .nav1 .ping .content .xin ul li{ background-image:url(../images/ping.png); width:15px; height:15px; float:left; display:inline-block; margin-right:5px; margin-top:3px;}
+.personal .personal_center2 .all .all_class1 .nav1 .ping .content span{ float:right; margin-top:30px; margin-right:40px; cursor:pointer;}
+.personal .personal_center2 .all .all_class1 .nav1 .ping .content button{ border:none; background-color:#901531; cursor:pointer; color:#fff; font-size:16px; width:100px; height:30px; margin-top:20px; border-radius:2px;}
 .personal .personal_center2 .all .all_class1 .nav1 dd .name {
 	float: left;
 	font-size: 12px;

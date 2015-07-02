@@ -15,8 +15,35 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
 <title>不倒翁首页</title>
+<script type="text/javascript" src="content/static/js/lib/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="content/static/css/businesses.css">
 <link rel="stylesheet" type="text/css" href="content/static/css/style.css">
+<script type="text/javascript">
+function buyCat() {
+	var commID = document.getElementById('commID').value;
+	var buyAmount = document.getElementById('buyAmount').value;
+	jQuery.ajax({
+		type : 'GET',
+		contentType : 'application/json',
+		url : 'toJsonFmatUtil/addBuyCar?shopCommId=' + commID
+				+ '&buyAmount=' + buyAmount,
+		dataType : 'json',
+		success : function(data) {
+			if (data.message == 'success') {
+				alert("添加成功");
+			} else if (data.message == 'existed') {
+				alert("再次添加成功");
+			} else if (data.message == "nouser") {
+				if (confirm('您还没有登录哦！')) {
+					var url = "user/regist";
+					window.location = url;
+				}
+			}
+		}
+	});
+}
+
+</script>
 </head>
 
 <body>
@@ -65,10 +92,12 @@
 	<div class="menu_nav">
 		<div class="menu_left">
         	<div class="list">
-            	<h2><a href="#">红酒</a></h2>
+            	<h2><a href="#">葡萄酒</a></h2>
                 <div class="list_con">
-	                <c:forEach items="${mapRed}" var="entry">
+	                <c:forEach items="${mapRed}" var="entry" varStatus="vs" begin="0">
 	                	<a href="#">${entry.value}</a>
+	                	
+	                	<c:if test="${vs.index%3 == 2}"><br/></c:if>
 	                </c:forEach>
                 </div>
             </div>
@@ -99,6 +128,7 @@
 	                </c:forEach>
                 </div>
             </div>
+            
             <div class="list">
             	<h2><a href="#">小食品</a></h2>
                 <div class="list_con">
@@ -117,15 +147,16 @@
 </div>
 <!--商家店铺内容-->
 <div class="business">
-<!-- 	<div class="add"><img src="images/add.jpg" /></div> -->
+<!-- <div class="add"><img src="images/add.jpg" /></div> -->
 	<div class="search1" style="border: 0">
     	  <div>
               <form action="proscenium/searchTheShopComm">
+              		<input type="hidden" name="shopId" value="${shopId}"/>
                     <input type="search" name="serach1" value="搜索本店商品" style="margin-left:20px;" />
                     <input type="image" src="content/static/images/search1.png" /> 
               </form>
           </div>
-          <div  class="zi"><span>冰酒</span><span>解百纳</span><span>拉菲</span></div>                                                                                               
+          <div class="zi"><span>冰酒</span><span>解百纳</span><span>拉菲</span></div>                                                                                               
     </div>
     <!-- 顶部整箱购等效果 -->
 <!--     <div class="brand"> -->
@@ -142,14 +173,21 @@
     <div class="class">
     	<ul>
     	<c:forEach items="${redComms }" var="r" begin="0" end="7">
-    		<a href="<%=path%>/${r.link}"><li style="border-right:none;">
-                <c:forEach items="${r.shopCommImages }" var="i" begin="0" end="1">
-                	<img src="<%=path%>${i.imagePath}" />
-    			</c:forEach>
-                <div class="name">${r.commoidtyName}<br />
+    		<li style="border-right:none;">
+    			<input id="commID" type="hidden" value="" value="${r.commCode }"/>
+	    			<input id="buyAmount" type="hidden" value="1"/>
+                <a href="<%=path%>/${r.link}">
+	                <c:forEach items="${r.shopCommImages }" var="i" begin="0" end="1">
+	                	<img src="<%=path%>${i.imagePath}" />
+	    			</c:forEach>
+    			</a>
+                <div class="name">${r.commoidtyName}<br /></div>
                 <div class="price">￥${r.unitPrice }</div>
-                <div class="btn">加入购物车</div>
-            </li></a>
+<!--                 <div class="btn">加入购物车</div> -->
+				<a href="javascript:void(0);" onclick="buyCat();">
+					<div class="btn">加入购物车</div>
+				</a>
+            </li>
     	</c:forEach>
         </ul>
     </div>
@@ -157,14 +195,20 @@
     <div class="class">
     	<ul>
             <c:forEach items="${whiteComms}" var="r" begin="0" end="7">
-	    		<a href="<%=path%>/${r.link}"><li style="border-right:none;">
-	    			<c:forEach items="${r.shopCommImages }" var="i" begin="0" end="1">
-	                	<img src="<%=path%>${i.imagePath}" />
-	    			</c:forEach>
-	                <div class="name">${r.commoidtyName}<br />
+	    		<li style="border-right:none;">
+	    			<input id="commID" type="hidden" value="${r.commCode }"/>
+	    			<input id="buyAmount" type="hidden" value="1"/>
+	    			<a href="<%=path%>/${r.link}">
+	                	<c:forEach items="${r.shopCommImages }" var="i" begin="0" end="1">
+		                	<img src="<%=path%>${i.imagePath}" />
+		    			</c:forEach>
+	    			</a>
+	                <div class="name">${r.commoidtyName}<br /></div>
 	                <div class="price">￥${r.unitPrice }</div>
-	                <div class="btn">加入购物车</div>
-	            </li></a>
+	                <a href="javascript:void(0);" onclick="buyCat();">
+						<div class="btn">加入购物车</div>
+					</a>
+	            </li>
 	    	</c:forEach>
         </ul>
     </div>
@@ -172,14 +216,20 @@
     <div class="class">
     	<ul>
             <c:forEach items="${piComms}" var="r" begin="0" end="7">
-	    		<a href="<%=path%>/${r.link}"><li style="border-right:none;">
-	                <c:forEach items="${r.shopCommImages }" var="i" begin="0" end="1">
-	                	<img src="<%=path%>${i.imagePath}" />
-	    			</c:forEach>
-	                <div class="name">${r.commoidtyName}<br />
+	    		<li style="border-right:none;">
+	    			<input id="commID" type="hidden" value="${r.commCode }"/>
+	    			<input id="buyAmount" type="hidden" value="1"/>
+	                <a href="<%=path%>/${r.link}">
+		                <c:forEach items="${r.shopCommImages }" var="i" begin="0" end="1">
+		                	<img src="<%=path%>${i.imagePath}" />
+		    			</c:forEach>
+	    			</a>
+	                <div class="name">${r.commoidtyName}<br /></div>
 	                <div class="price">￥${r.unitPrice }</div>
-	                <div class="btn">加入购物车</div>
-	            </li></a>
+	                <a href="javascript:void(0);" onclick="buyCat();">
+						<div class="btn">加入购物车</div>
+					</a>
+	            </li>
 	    	</c:forEach>
         </ul>
     </div>
@@ -187,14 +237,20 @@
     <div class="class">
     	<ul>
            <c:forEach items="${yangComms}" var="r" begin="0" end="7">
-	    		<a href="<%=path%>/${r.link}"><li style="border-right:none;">
-	                <c:forEach items="${r.shopCommImages }" var="i" begin="0" end="1">
-	                	<img src="<%=path%>${i.imagePath}" />
-	    			</c:forEach>
-	                <div class="name">${r.commoidtyName}<br />
+	    		<li style="border-right:none;">
+	    			<input id="commID" type="hidden" value="${r.commCode }"/>
+	    			<input id="buyAmount" type="hidden" value="1"/>
+	                <a href="<%=path%>/${r.link}">
+		                <c:forEach items="${r.shopCommImages }" var="i" begin="0" end="1">
+		                	<img src="<%=path%>${i.imagePath}" />
+		    			</c:forEach>
+	    			</a>
+	                <div class="name">${r.commoidtyName}<br /></div>
 	                <div class="price">￥${r.unitPrice }</div>
-	                <div class="btn">加入购物车</div>
-	            </li></a>
+	                <a href="javascript:void(0);" onclick="buyCat();">
+						<div class="btn">加入购物车</div>
+					</a>
+	            </li>
 	    	</c:forEach>        
         </ul>
     </div>
@@ -202,115 +258,26 @@
     <div class="class">
     	<ul>
            <c:forEach items="${foodComms}" var="r" begin="0" end="7">
-	    		<a href="<%=path%>/${r.link}"><li style="border-right:none;">
-	                <c:forEach items="${r.shopCommImages }" var="i" begin="0" end="1">
-	                	<img src="<%=path%>${i.imagePath}" />
-	    			</c:forEach>
-	                <div class="name">${r.commoidtyName}<br />
+	    		<li style="border-right:none;">
+	    			<input id="commID" type="hidden" value="${r.commCode }"/>
+	    			<input id="buyAmount" type="hidden" value="1"/>
+	               <a href="<%=path%>/${r.link}">
+		                <c:forEach items="${r.shopCommImages }" var="i" begin="0" end="1">
+		                	<img src="<%=path%>${i.imagePath}" />
+		    			</c:forEach>
+	    			</a>
+	                <div class="name">${r.commoidtyName}<br /></div>
 	                <div class="price">￥${r.unitPrice }</div>
-	                <div class="btn">加入购物车</div>
-	            </li></a>
+	                <a href="javascript:void(0);" onclick="buyCat();">
+						<div class="btn">加入购物车</div>
+					</a>
+	            </li>
 	    	</c:forEach>
         </ul>
     </div>
     
 </div>
 
-<!--脚部-->
-<div class="foot">
-	<div class="center">
-    	<div class="center_top">
-        	<ul>
-            	<li>
-                	<img src="images/footer1.jpg" />
-                    <div class="center_zi">
-                    <div class="bigzi">100%</div>
-                    <div class="smallzi">全球正品</div>
-                    </div>
-                </li>
-                <li>
-                	<img src="images/footer2.jpg" />
-                     <div class="center_zi">
-                    <div class="bigzi">24小时内送达</div>
-                    <div class="smallzi">承诺24小时之内准时送达</div>
-                    </div>
-                </li>
-                <li>
-                	<img src="images/footer3.jpg" />
-                     <div class="center_zi">
-                    <div class="bigzi">消费者保护</div>
-                    <div class="smallzi">联合打假 保护隐私</div>
-                    </div>
-                </li>
-                <li>
-                	<img src="images/footer4.jpg" />
-                     <div class="center_zi">
-                    <div class="bigzi">真伪鉴别</div>
-                    <div class="smallzi">真伪鉴别</div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="center_left">
-        	<a href="#"><img src="images/logo.png" /></a>
-      		<div class="center_left_zi">
-        		<div class="center_left_zi1">客服电话：4008-888-888</div>
-            	<div class="center_left_zi2">周一至周日9:00-20:00</div>
-            </div>
-        </div>
-        <div class="center_center">
-        	<div style="font-size:14px; color:#666666; margin-left:40px; margin-top:50px;">雨岑不倒翁</div>
-            <div class="center_center_big">
-            <dl>
-            	<dt><a  href="#">关于我们</a></dt>
-                <dd><a  href="#">公司简介</a></dd>
-                <dd><a  href="#">战略合作</a></dd>
-                <dd><a  href="#">雨岑基地</a></dd>
-                <dd><a  href="#">媒体报道</a></dd>
-             </dl>
-             <dl>
-                
-                <dt><a  href="#">新手指南</a></dt>
-                <dd><a  href="#">新用户注册</a></dd>
-                <dd><a  href="#">购物流程</a></dd>
-                <dd><a  href="#">雨岑优势</a></dd>
-               </dl>
-             <dl>
-                <dt><a  href="#">配送服务</a></dt>
-                <dd><a  href="#">配送范围及时</a></dd>
-                <dd><a  href="#">配送运费</a></dd>
-                <dd><a  href="#">运输包装说明</a></dd>
-                <dd><a  href="#">发票制度</a></dd>
-                </dl>
-             <dl> 
-                <dt><a  href="#">售后服务</a></dt>
-                <dd><a  href="#">退换货流程</a></dd>
-                <dd><a  href="#">退款说明</a></dd>
-                <dd><a  href="#">正品保障</a></dd>
-                <dd><a  href="#">投诉建议</a></dd>
-                 </dl>
-             <dl>
-                <dt><a  href="#">支付方式</a></dt>
-                <dd><a  href="#">货到付款</a></dd>
-                <dd><a  href="#">在线支付</a></dd>
-               <dd><a  href="#"> 优惠券</a></dd>
-                <dd><a  href="#">礼品卡</a></dd>
-            </dl>
-            </div>
-        </div>
-        <div class="center_right">
-        	<div class="center_right_left">
-            <p>关注不倒翁酒网</p>
-            <img src="images/erwerma1.jpg">
-            </div>
-            <div class="center_right_right">
-            <p>下载不倒翁APP</p>
-            <img src="images/erweima2.jpg">
-            </div>
-        </div>
-    </div>
-<div class="copy">Copyright © 2015 乌鲁木齐市雨岑信息科技有限公司   联系电话：4008-888-888  联系我们.隐私声明.媒体报道.消费者保护.真伪鉴别</div>
-</div>
-
+<jsp:include page="../frontDesk/foot.jsp" />
 </body>
 </html>
