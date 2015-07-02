@@ -113,6 +113,7 @@ function setTab(name,m,n){
           		 </div>
                  <div class="nav2" id="text2" style="display:none">
                      <c:forEach items="${orderFormsOfShop}" var="o">
+                     	<c:if test="${o.orderstatus == 'ApplicationForRefund' }">
                       	<ul>
                       		<!--后期改 显示的是订单编号 -->
                       		<li>${o.orderFormID}</li>
@@ -124,12 +125,13 @@ function setTab(name,m,n){
                            <li>${c.money}</li>
                       		</c:forEach>
                           <li>
-                          	<c:if test="${o.orderstatus == 'refundOrderForm'}">退款中</c:if> 
-                          	<c:if test="${o.orderstatus == 'refundSuccess'}">退款成功</c:if>
-                          	<c:if test="${o.orderstatus == 'refundFailed'}">退款失败</c:if>	                            	
+                          	<c:if test="${o.orderstatus == 'ApplicationForRefund'}">申请退款</c:if>                             	
                           </li>
-                          <li></li>                           
+                          <li>
+                          	接收&nbsp;&nbsp;拒绝
+                          </li>                           
                      	</ul>
+                     	</c:if>
                       </c:forEach> 
           		 </div>
              </div>

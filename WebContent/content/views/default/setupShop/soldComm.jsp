@@ -231,7 +231,7 @@ function setTab(name,m,n){
 									<li>￥${c.money}</li>
 									<c:forEach items="${c.shopCommodity.shopreviews}" var="re">
 										<c:if test="${re.user.id == o.orderUser.id}">
-											<c:if test="${re.orderId == o.orderFormID}">
+											<c:if test="${re.orderForm.orderFormID == o.orderFormID}">
 												<li>${re.reviewsRank}</li>
 											</c:if>
 										</c:if>
@@ -342,7 +342,7 @@ function setTab(name,m,n){
 								<li>￥${c.money}</li>
 								<c:forEach items="${c.shopCommodity.shopreviews}" var="re">
 									<c:if test="${re.user.id == o.orderUser.id}">
-										<c:if test="${re.orderId == o.orderFormID}">
+										<c:if test="${re.orderForm.orderFormID == o.orderFormID}">
 											<li>${re.reviewsRank}</li>
 										</c:if>
 									</c:if>
@@ -378,7 +378,7 @@ function setTab(name,m,n){
 								<li>￥${c.money}</li>
 								<c:forEach items="${c.shopCommodity.shopreviews}" var="re">
 									<c:if test="${re.user.id == o.orderUser.id}">
-										<c:if test="${re.orderId == o.orderFormID}">
+										<c:if test="${re.orderForm.orderFormID == o.orderFormID}">
 											<li>${re.reviewsRank}</li>
 										</c:if>
 									</c:if>
@@ -414,7 +414,7 @@ function setTab(name,m,n){
 								<li>￥${c.money}</li>
 								<c:forEach items="${c.shopCommodity.shopreviews}" var="re">
 									<c:if test="${re.user.id == o.orderUser.id}">
-										<c:if test="${re.orderId == o.orderFormID}">
+										<c:if test="${re.orderForm.orderFormID== o.orderFormID}">
 											<li>${re.reviewsRank}</li>
 										</c:if>
 									</c:if>
