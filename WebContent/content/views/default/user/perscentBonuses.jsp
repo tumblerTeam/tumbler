@@ -17,6 +17,26 @@
 <link rel="stylesheet" type="text/css"
 	href="content/static/css/style.css" />
 <title>不倒翁</title>
+<style>
+.white_content {
+	display: none;
+	position: absolute;
+	top: 25%;
+	left: 25%;
+	width: 50%;
+	height: 40%;
+	padding: 16px;
+	border: 16px solid orange;
+	background-color: white;
+	z-index: 1002;
+	overflow: auto;
+}
+</style>
+<style type="text/css">
+ul {
+	font-size: 10px;
+}
+</style>
 </head>
 <body>
 	<jsp:include page="../frontDesk/header.jsp" />
@@ -25,7 +45,7 @@
 	<div class="breadCrumb"
 		style="background-color: #E8E8E8; height: 30px; line-height: 30px; width: 100%;">
 		<div class="con" style="width: 1200px; margin: 0px auto;">
-			<a href="index.html">首页</a> > <a>我的酒翁</a>
+			<a href="index">首页</a> > <a>我的酒翁</a>
 		</div>
 	</div>
 	<div class="personal">
@@ -57,7 +77,8 @@
 									href="proscenium/shopItem?commID=${commodity.shopCommodity.commCode }&category=${commodity.shopcategory.categoryID }&shopID=${commodity.seller.id }&commoName=${commodity.shopCommodity.commoidtyName }"><dd
 										style="width: 202px; padding-top: 20px;">
 										<div class="img">
-											<img src="${commodity.shopCommodity.shopCommImages[0].imagePath }" />
+											<img
+												src="${commodity.shopCommodity.shopCommImages[0].imagePath }" />
 										</div>
 										<div class="name">
 											<c:if
@@ -67,14 +88,17 @@
 										</div>
 									</dd></a>
 								<dd>
-									￥<fmt:formatNumber value="${commodity.price }" pattern="##.##"
-										minFractionDigits="2"></fmt:formatNumber>元
+									￥
+									<fmt:formatNumber value="${commodity.price }" pattern="##.##"
+										minFractionDigits="2"></fmt:formatNumber>
+									元
 								</dd>
 								<dd>${commodity.quantity }</dd>
 								<dd style="padding-top: 35px;">
-									￥<fmt:formatNumber value="${commodity.money }" pattern="##.##"
-										minFractionDigits="2"></fmt:formatNumber>元
-									<br />
+									￥
+									<fmt:formatNumber value="${commodity.money }" pattern="##.##"
+										minFractionDigits="2"></fmt:formatNumber>
+									元 <br />
 								</dd>
 								<dd style="padding-top: 35px;">
 									<c:choose>
@@ -82,7 +106,8 @@
 										<c:when test="${orderForm.orderstatus =='waitPayment'}">等待买家付款</c:when>
 										<c:when test="${orderForm.orderstatus =='waitDelivery'}">等待卖家发货</c:when>
 										<c:when test="${orderForm.orderstatus =='transitGoods'}">卖家已发货</c:when>
-										<c:when test="${orderForm.orderstatus =='ApplicationForRefund'}">退货申请中</c:when>
+										<c:when
+											test="${orderForm.orderstatus =='ApplicationForRefund'}">退货申请中</c:when>
 										<c:when
 											test="${orderForm.orderstatus =='completionTransaction'}">完成交易</c:when>
 										<c:when test="${orderForm.orderstatus =='closeTransaction'}">关闭交易</c:when>
@@ -92,34 +117,106 @@
 									</c:choose>
 								</dd>
 								<dd>
-								<c:choose>
-									<c:when test="${orderForm.orderstatus =='waitPayment'}">
-										<div class="shouhuo">立即付款</div><div class="shouhuo">取消订单</div>
-									</c:when>
-									<c:when test="${orderForm.orderstatus =='BuyersHavePaid'}"><div class="shouhuo">取消订单</div></c:when>
-									<c:when test="${orderForm.orderstatus =='waitDelivery'}"><div class="shouhuo">取消订单</div></c:when>
-									<c:when test="${orderForm.orderstatus =='transitGoods'}"><div class="shouhuo">确认收货</div></c:when>
-									<c:when test="${orderForm.orderstatus =='completionTransaction'}">
-										<c:if test="${empty orderForm.reviews }">
-											<a>退货申请</a>&nbsp;&nbsp;<a href="user/reviews?orderID=${orderForm.orderFormID }&commid=${commodity.shopCommodity.commCode}">点评</a>
-										</c:if>
-										<c:if test="${not empty orderForm.reviews }">
-											<c:set value="true" var="isok"></c:set>
-											<c:forEach items="${orderForm.reviews }" var="reviews">
-												<c:if test="${reviews.shopscommodity.commCode == commodity.shopCommodity.commCode && reviews.additionalReviews == null}">
-													<a>退货申请</a>&nbsp;&nbsp;<a href="user/reviews?orderID=${orderForm.orderFormID }&commid=${commodity.shopCommodity.commCode}">追加点评</a>
-													<c:set value="false" var="isok"></c:set>
+									<c:choose>
+										<c:when test="${orderForm.orderstatus =='waitPayment'}">
+											<div class="shouhuo">立即付款</div>
+											<div class="shouhuo">取消订单</div>
+										</c:when>
+										<c:when test="${orderForm.orderstatus =='BuyersHavePaid'}">
+											<div class="shouhuo">取消订单</div>
+										</c:when>
+										<c:when test="${orderForm.orderstatus =='waitDelivery'}">
+											<div class="shouhuo">取消订单</div>
+										</c:when>
+										<c:when test="${orderForm.orderstatus =='transitGoods'}">
+											<div class="shouhuo">确认收货</div>
+										</c:when>
+										<c:when
+											test="${orderForm.orderstatus =='completionTransaction'}">
+											<c:if test="${empty orderForm.reviews }">
+												<a>退货申请</a>&nbsp;&nbsp;
+											<a style="font-size: 16px; color: red; font-weight: bold;"
+													href="javascript:void(0)"
+													onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">评价</a>
+												<div id="light" class="white_content">
+													<a style="float: right; font-size: 16px;"
+														href="javascript:void(0)"
+														onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">
+														X关闭</a>
+													<div class="content">
+														<form style="text-align: center;"
+															action="proscenium/evaluteUser" method="post">
+															<%-- 											<input type="text" name="userId" value="${orderForm.orderUser.id}" /> --%>
+															<input type="text" name="orderFormID"
+																value="${orderForm.orderFormID}" /> <input type="text"
+																name="commCode"
+																value="${commodity.shopCommodity.commCode}" /> <input
+																type="radio" name="reviewsRank" value="good" />好评 <input
+																type="radio" name="reviewsRank" value="better" />中评 <input
+																type="radio" name="reviewsRank" value="bad" />差评<br />
+															<textarea name="businessreply"
+																style="width: 350px; height: 150px; resize: none;"></textarea>
+															<div id="evalute" star_width="14">
+																<input style="margin-top: 15px; padding: 6px;"
+																	type="submit" value="发布评价" />
+															</div>
+														</form>
+													</div>
+												</div>
+												<%-- 											<a href="user/reviews?orderID=${orderForm.orderFormID }&commid=${commodity.shopCommodity.commCode}">点评</a> --%>
+											</c:if>
+											<c:if test="${not empty orderForm.reviews }">
+												<c:set value="true" var="isok"></c:set>
+												<c:forEach items="${orderForm.reviews }" var="reviews">
+													<c:if
+														test="${reviews.shopscommodity.commCode == commodity.shopCommodity.commCode && reviews.additionalReviews == null}">
+														<a>退货申请</a>&nbsp;&nbsp;<a
+															href="user/reviews?orderID=${orderForm.orderFormID }&commid=${commodity.shopCommodity.commCode}">追加点评</a>
+														<c:set value="false" var="isok"></c:set>
+													</c:if>
+													<c:if
+														test="${reviews.shopscommodity.commCode == commodity.shopCommodity.commCode && reviews.additionalReviews != null}">
+														<a
+															href="proscenium/shopItem?commID=${commodity.shopCommodity.commCode }&category=${commodity.shopcategory.categoryID }&shopID=${commodity.seller.id }&commoName=${commodity.shopCommodity.commoidtyName }">再次购买</a>
+														<c:set value="false" var="isok"></c:set>
+													</c:if>
+												</c:forEach>
+												<c:if test="${isok == true }">
+													<a>退货申请</a>&nbsp;&nbsp;
+<%-- 											<a href="user/reviews?orderID=${orderForm.orderFormID }&commid=${commodity.shopCommodity.commCode}">点评</a> --%>
+													<a style="font-size: 16px; color: red; font-weight: bold;"
+														href="javascript:void(0)"
+														onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">评价</a>
+													<div id="light" class="white_content">
+														<a style="float: right; font-size: 16px;"
+															href="javascript:void(0)"
+															onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">
+															X关闭</a>
+														<div class="content">
+															<form style="text-align: center;"
+																action="proscenium/evaluteUser" method="post">
+																<%-- 											<input type="text" name="userId" value="${orderForm.orderUser.id}" /> --%>
+																<input type="text" name="orderFormID"
+																	value="${orderForm.orderFormID}" /> <input type="text"
+																	name="commCode"
+																	value="${commodity.shopCommodity.commCode}" /> <input
+																	type="radio" name="reviewsRank" value="good" />好评 <input
+																	type="radio" name="reviewsRank" value="better" />中评 <input
+																	type="radio" name="reviewsRank" value="bad" />差评<br />
+																<textarea name="businessreply"
+																	style="width: 350px; height: 150px; resize: none;"></textarea>
+																<div id="evalute" star_width="14">
+																	<input style="margin-top: 15px; padding: 6px;"
+																		type="submit" value="发布评价" />
+																</div>
+															</form>
+														</div>
+													</div>
 												</c:if>
-												<c:if test="${reviews.shopscommodity.commCode == commodity.shopCommodity.commCode && reviews.additionalReviews != null}">
-													<a href="proscenium/shopItem?commID=${commodity.shopCommodity.commCode }&category=${commodity.shopcategory.categoryID }&shopID=${commodity.seller.id }&commoName=${commodity.shopCommodity.commoidtyName }">再次购买</a>
-													<c:set value="false" var="isok"></c:set>
-												</c:if>
-											</c:forEach>
-											<c:if test="${isok == true }"><a>退货申请</a>&nbsp;&nbsp;<a href="user/reviews?orderID=${orderForm.orderFormID }&commid=${commodity.shopCommodity.commCode}">点评</a></c:if>
-											<c:set value="true" var="isok"></c:set>
-										</c:if>
-									</c:when>
-								</c:choose>
+												<c:set value="true" var="isok"></c:set>
+											</c:if>
+										</c:when>
+									</c:choose>
 								</dd>
 							</c:forEach>
 						</div>

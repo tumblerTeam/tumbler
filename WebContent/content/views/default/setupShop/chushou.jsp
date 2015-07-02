@@ -98,25 +98,6 @@ function setTab(name,m,n){
 	               		</c:forEach></ul>
 	               </div>
                </form>
-               <div class="all_class2">
-               		<ul>
-                    	<li style="width:362px;">
-                        	<form><input type="checkbox" name="ww" /></form>
-                            <img src="images/quan.jpg" width="50px;" />
-                            <div class="l1"><a href="#">【名庄】拉格喜庄园正牌干红葡萄酒 2006 <br />Chateau Lagrange 2006</a></div>	
-                            <div class="l2">商家编码：9002534</div>
-                        </li>
-                        <li  style="text-align:center; line-height:100px;">99.00</li>
-                        <li>
-                        	<div class="l3">99</div>
-                            <div class="l4">上架</div>
-                        </li>
-                        <li>
-                        	<div class="l5"><a href="#">编辑商品</a></div>
-                            <div class="l6"><a href="#">复制链接</a></div>
-                        </li>
-                    </ul>
-               </div>
             </div>
         </div>
       </div>

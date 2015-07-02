@@ -16,7 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.yc.entity.AnnounType;
 import com.yc.entity.News;
+import com.yc.entity.ShopCategory;
 import com.yc.service.INewsService;
+import com.yc.service.IShopCategoryService;
 
 //前台
 @Controller
@@ -26,6 +28,8 @@ public class ShopTwoController {
 	@Autowired
 	INewsService newService;
 	
+	@Autowired
+	IShopCategoryService categoryService;
 	/**
 	 * 获取公告或新闻
 	 * @param id
@@ -38,6 +42,8 @@ public class ShopTwoController {
 	@RequestMapping(value = "getNews", method = RequestMethod.GET)
     public ModelAndView getNews(Integer id,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
  		ModelMap mode=new ModelMap();
+ 		List<ShopCategory> list = categoryService.getAllByParent();
+		mode.put("categories", list);
  		List<News> newList=null;
  		String sign=null;
  		if(id==1){
@@ -66,6 +72,8 @@ public class ShopTwoController {
 	@RequestMapping(value = "getNewDetails", method = RequestMethod.GET)
     public ModelAndView getNewDetails(Integer newId,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ModelMap mode=new ModelMap();
+		List<ShopCategory> list = categoryService.getAllByParent();
+		mode.put("categories", list);
 		News newDe=newService.findById(newId);
 		List<News> newList=newService.getNewsByAnnounType(AnnounType.valueOf("news"));
 		mode.put("newDe", newDe);

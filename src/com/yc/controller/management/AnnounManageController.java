@@ -235,6 +235,10 @@ public class AnnounManageController {
 				commodity.setAdvertisement(null);
 				shopCommodityService.update(commodity);
 			}
+			AdvertiseDistribution de = advertisement.getAdverDistribution();
+			System.out.println("de.getAdvertisementList().size()====="+de.getAdvertisementList().size());
+			de.getAdvertisementList().clear();
+			System.out.println("de.getAdvertisementList().size()====="+de.getAdvertisementList().size());
 		}
 		advertisementService.delete(id);
 		return "redirect:/management/advertisement";
@@ -246,7 +250,6 @@ public class AnnounManageController {
 		List<String> list = distributionService.getDistinctWhichPage();	
 		mode.put("list", list);
 		mode.put("method", "add");
-		
 		return new ModelAndView("management/addAdvertisement", mode);
 	}
 	

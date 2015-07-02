@@ -3,24 +3,192 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="menu_nav" id="menu_nav">
  <div class="showdivs">
-                1
-                </div>
-               
-                <div class="showdivs">
-                 2
-                </div>
-                
-                <div class="showdivs">
-                3
-                </div>
-                
-                <div class="showdivs">
-                4
-                </div>
-                
-                <div class="showdivs">
-                5
-                </div>
+				<div class="showdivs_left" style="width: 220px; float: left;">
+					<c:forEach items="${categories }" var="category">
+						<c:if test="${category.categoryID == 1 }">
+							<c:forEach var="cate1" items="${category.children }">
+								<c:if test="${not empty cate1.children }">
+									<h2
+										style="font-family: 微软雅黑; color: #fff; margin-left: 10px; margin-top: 20px; font-size: 13px;">${cate1.category }</h2>
+									<hr style="float: none; border-color: #FFF;" width="200" />
+									<div class="list_con" style="margin-left: 10px;">
+										<c:forEach items="${cate1.children }" var="cate2">
+											<a href="search/result?id=${cate2.categoryID }">${cate2.category }</a>
+											<!-- 										<li><a href="javascript:void(0);" rel="nofollow" -->
+											<%-- 											class="black" onclick="cate2Click('${cate2.categoryID }');">${cate2.category }</a></li> --%>
+										</c:forEach>
+									</div>
+								</c:if>
+							</c:forEach>
+						</c:if>
+					</c:forEach>
+				</div>
+				<div class="showdivs_right" style="float: right; width: 220px">
+					<c:forEach items="${categories }" var="category">
+						<c:if test="${category.categoryID == 1 }">
+							<c:if test="${not empty category.brands }">
+								<h2 style="font-family: 微软雅黑; color: #fff; margin-left: 10px; margin-top: 20px; font-size: 13px;">品牌</h2>
+								<hr    style="float:none; border-color:#FFF; " width="200"  />
+	                    		<div class="list_con" style="margin-left:10px;" >
+								<c:forEach items="${category.brands }" var="brand">
+									<a href="search/result?cateid=${category.categoryID }&brand=brand-${brand.brandID }">${brand.brandName }</a> 
+								</c:forEach>
+								</div>
+							</c:if>
+						</c:if>
+					</c:forEach>
+				</div>
+			</div>
+			<div class="showdivs">
+				<div class="showdivs_left" style="width: 220px; float: left;">
+					<c:forEach items="${categories }" var="category">
+						<c:if test="${category.categoryID == 2 }">
+							<c:forEach var="cate1" items="${category.children }">
+								<c:if test="${not empty cate1.children }">
+									<h2
+										style="font-family: 微软雅黑; color: #fff; margin-left: 10px; margin-top: 20px; font-size: 13px;">${cate1.category }</h2>
+									<hr style="float: none; border-color: #FFF;" width="200" />
+									<div class="list_con" style="margin-left: 10px;">
+										<c:forEach items="${cate1.children }" var="cate2">
+											<a href="search/result?id=${cate2.categoryID }">${cate2.category }</a>
+											<!-- 										<li><a href="javascript:void(0);" rel="nofollow" -->
+											<%-- 											class="black" onclick="cate2Click('${cate2.categoryID }');">${cate2.category }</a></li> --%>
+										</c:forEach>
+									</div>
+								</c:if>
+							</c:forEach>
+						</c:if>
+					</c:forEach>
+				</div>
+				<div class="showdivs_right" style="float: right; width: 220px">
+					<c:forEach items="${categories }" var="category">
+						<c:if test="${category.categoryID == 2 }">
+							<c:if test="${not empty category.brands }">
+								<h2 style="font-family: 微软雅黑; color: #fff; margin-left: 10px; margin-top: 20px; font-size: 13px;">品牌</h2>
+								<hr    style="float:none; border-color:#FFF; " width="200"  />
+	                    		<div class="list_con" style="margin-left:10px;" >
+								<c:forEach items="${category.brands }" var="brand">
+									<a href="search/result?cateid=${category.categoryID }&brand=brand-${brand.brandID }">${brand.brandName }</a> 
+								</c:forEach>
+								</div>
+							</c:if>
+						</c:if>
+					</c:forEach>
+				</div>
+			</div>
+
+			<div class="showdivs">
+				<div class="showdivs_left" style="width: 220px; float: left;">
+					<c:forEach items="${categories }" var="category">
+						<c:if test="${category.categoryID == 3 }">
+							<c:forEach var="cate1" items="${category.children }">
+								<c:if test="${not empty cate1.children }">
+									<h2
+										style="font-family: 微软雅黑; color: #fff; margin-left: 10px; margin-top: 20px; font-size: 13px;">${cate1.category }</h2>
+									<hr style="float: none; border-color: #FFF;" width="200" />
+									<div class="list_con" style="margin-left: 10px;">
+										<c:forEach items="${cate1.children }" var="cate2">
+											<a href="search/result?id=${cate2.categoryID }">${cate2.category }</a>
+											<!-- 										<li><a href="javascript:void(0);" rel="nofollow" -->
+											<%-- 											class="black" onclick="cate2Click('${cate2.categoryID }');">${cate2.category }</a></li> --%>
+										</c:forEach>
+									</div>
+								</c:if>
+							</c:forEach>
+						</c:if>
+					</c:forEach>
+				</div>
+				<div class="showdivs_right" style="float: right; width: 220px">
+					<c:forEach items="${categories }" var="category">
+						<c:if test="${category.categoryID == 3 }">
+							<c:if test="${not empty category.brands }">
+								<h2 style="font-family: 微软雅黑; color: #fff; margin-left: 10px; margin-top: 20px; font-size: 13px;">品牌</h2>
+								<hr    style="float:none; border-color:#FFF; " width="200"  />
+	                    		<div class="list_con" style="margin-left:10px;" >
+								<c:forEach items="${category.brands }" var="brand">
+									<a href="search/result?cateid=${category.categoryID }&brand=brand-${brand.brandID }">${brand.brandName }</a> 
+								</c:forEach>
+								</div>
+							</c:if>
+						</c:if>
+					</c:forEach>
+				</div>
+			</div>
+
+			<div class="showdivs">
+				<div class="showdivs_left" style="width: 220px; float: left;">
+					<c:forEach items="${categories }" var="category">
+						<c:if test="${category.categoryID == 4 }">
+							<c:forEach var="cate1" items="${category.children }">
+								<c:if test="${not empty cate1.children }">
+									<h2
+										style="font-family: 微软雅黑; color: #fff; margin-left: 10px; margin-top: 20px; font-size: 13px;">${cate1.category }</h2>
+									<hr style="float: none; border-color: #FFF;" width="200" />
+									<div class="list_con" style="margin-left: 10px;">
+										<c:forEach items="${cate1.children }" var="cate2">
+											<a href="search/result?id=${cate2.categoryID }">${cate2.category }</a>
+											<!-- 										<li><a href="javascript:void(0);" rel="nofollow" -->
+											<%-- 											class="black" onclick="cate2Click('${cate2.categoryID }');">${cate2.category }</a></li> --%>
+										</c:forEach>
+									</div>
+								</c:if>
+							</c:forEach>
+						</c:if>
+					</c:forEach>
+				</div>
+				<div class="showdivs_right" style="float: right; width: 220px">
+					<c:forEach items="${categories }" var="category">
+						<c:if test="${category.categoryID == 4 }">
+							<c:if test="${not empty category.brands }">
+								<h2 style="font-family: 微软雅黑; color: #fff; margin-left: 10px; margin-top: 20px; font-size: 13px;">品牌</h2>
+								<hr    style="float:none; border-color:#FFF; " width="200"  />
+	                    		<div class="list_con" style="margin-left:10px;" >
+								<c:forEach items="${category.brands }" var="brand">
+									<a href="search/result?cateid=${category.categoryID }&brand=brand-${brandID }">${brand.brandName }</a> 
+								</c:forEach>
+								</div>
+							</c:if>
+						</c:if>
+					</c:forEach>
+				</div>
+			</div>
+			<div class="showdivs">
+				<div class="showdivs_left" style="width: 220px; float: left;">
+					<c:forEach items="${categories }" var="category">
+						<c:if test="${category.categoryID == 5 }">
+							<c:forEach var="cate1" items="${category.children }">
+								<c:if test="${not empty cate1.children }">
+									<h2
+										style="font-family: 微软雅黑; color: #fff; margin-left: 10px; margin-top: 20px; font-size: 13px;">${cate1.category }</h2>
+									<hr style="float: none; border-color: #FFF;" width="200" />
+									<div class="list_con" style="margin-left: 10px;">
+										<c:forEach items="${cate1.children }" var="cate2">
+											<a href="search/result?id=${cate2.categoryID }">${cate2.category }</a>
+											<!-- 										<li><a href="javascript:void(0);" rel="nofollow" -->
+											<%-- 											class="black" onclick="cate2Click('${cate2.categoryID }');">${cate2.category }</a></li> --%>
+										</c:forEach>
+									</div>
+								</c:if>
+							</c:forEach>
+						</c:if>
+					</c:forEach>
+				</div>
+				<div class="showdivs_right" style="float: right; width: 220px">
+					<c:forEach items="${categories }" var="category">
+						<c:if test="${category.categoryID == 5 }">
+							<c:if test="${not empty category.brands }">
+								<h2 style="font-family: 微软雅黑; color: #fff; margin-left: 10px; margin-top: 20px; font-size: 13px;">品牌</h2>
+								<hr    style="float:none; border-color:#FFF; " width="200"  />
+	                    		<div class="list_con" style="margin-left:10px;" >
+								<c:forEach items="${category.brands }" var="brand">
+									<a href="search/result?cateid=${category.categoryID }&brand=brand-${brand.brandID }">${brand.brandName }</a> 
+								</c:forEach>
+								</div>
+							</c:if>
+						</c:if>
+					</c:forEach>
+				</div>
+			</div>
 	<div class="menu_left" style="display: none;" id="fen_class">
 		<c:forEach items="${categories }" var="category">
 			<c:if test="${category.categoryID != 3 }">

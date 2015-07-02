@@ -18,6 +18,6 @@
 				<a href="user/collection"><div class="sc">我的收藏</div></a>
 			</div>
 			<div class="left_nav2">
-				<a href="pingjia.html"><div class="sc">我的评价</div></a>
+				<a href="user/myrReviews"><div class="sc">我的评价</div></a>
 			</div>
 		</div>

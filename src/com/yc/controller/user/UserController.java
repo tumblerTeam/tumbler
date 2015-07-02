@@ -24,11 +24,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.yc.entity.Collection;
 import com.yc.entity.OrderForm;
 import com.yc.entity.ShopCategory;
+import com.yc.entity.ShopReviews;
 import com.yc.entity.user.AppUser;
 import com.yc.service.IAppUserService;
 import com.yc.service.ICollectionService;
 import com.yc.service.IOrderFormService;
 import com.yc.service.IShopCategoryService;
+import com.yc.service.IShopReviewsService;
 import com.yc.tumbler.service.TumblerService;
 import com.yc.util.ServiceException;
 
@@ -52,6 +54,9 @@ public class UserController {
 
 	@Autowired
 	ICollectionService collectionService;
+	
+	@Autowired
+	IShopReviewsService	shopReviewsService;
 
 	@RequestMapping(value = "login", method = { RequestMethod.POST, RequestMethod.GET })
 	public String login(String page, RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -210,6 +215,18 @@ public class UserController {
 		
 		return new ModelAndView();
 	}
+	
+	@RequestMapping(value = "myrReviews", method = RequestMethod.GET)
+	public ModelAndView myrReviews( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ModelMap mode = new ModelMap();
+		List<ShopCategory> list2 = categoryService.getAllByParent();
+		mode.put("categories", list2);
+		AppUser user =(AppUser)request.getSession().getAttribute("loginUser");
+		List<ShopReviews> list = shopReviewsService.getReviewsByUser(user.getId());
+		mode.put("list", list);
+		return new ModelAndView("user/myrReviews",mode);
+	}
+	
 	// MD5加码。32位
 	public static String MD5(String inStr) {
 		MessageDigest md5 = null;

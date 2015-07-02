@@ -79,11 +79,11 @@ function f1(div1,div2){
              	<h3 style="margin:10px 0px 0px 15px;">请选择商品类型：</h3>
              	<div class="first" style="margin-left: auto;margin-right: auto;float:none;">
                 	<ul>
-                    	<li id="red" onclick="changeColor(1);">红酒<img src="images/sanjiao.png" /></li>
-                        <li id="white" onclick="changeColor(2);">白酒<img src="images/sanjiao.png" /></li>
-                        <li id="pi" onclick="changeColor(3);">啤酒<img src="images/sanjiao.png" /></li>
-                        <li id="yang" onclick="changeColor(4);">洋酒<img src="images/sanjiao.png" /></li>
-                        <li id="food" onclick="changeColor(5);">小食品<img src="images/sanjiao.png" /></li>
+                    	<li id="red" onclick="changeColor(1);">红酒<img src="content/static/images/sanjiao.png" /></li>
+                        <li id="white" onclick="changeColor(2);">白酒<img src="content/static/images/sanjiao.png" /></li>
+                        <li id="pi" onclick="changeColor(3);">啤酒<img src="content/static/images/sanjiao.png" /></li>
+                        <li id="yang" onclick="changeColor(4);">洋酒<img src="content/static/images/sanjiao.png" /></li>
+                        <li id="food" onclick="changeColor(5);">小食品<img src="content/static/images/sanjiao.png" /></li>
                     </ul>
                 </div>
                 <button class="btn" onclick="publishComm();">我已阅读以下规则，现在发布商品</button>

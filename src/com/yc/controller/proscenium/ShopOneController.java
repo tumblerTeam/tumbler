@@ -795,6 +795,7 @@ public class ShopOneController {
 		map.put("orderStatusRefunding", "refundOrderForm");
 		map.put("orderStatusRefundSuccess", "refundSuccess");
 		map.put("orderStatusRefundfail", "refundFailed");
+		map.put("ApplicationForRefund", "ApplicationForRefund");
 		List<OrderForm> orderFormsOfShop = orderFormService.getAllRefundByStatus(map , shop.getId());
 		mode.put("orderFormsOfShop", orderFormsOfShop);
 		//我申请的退款
