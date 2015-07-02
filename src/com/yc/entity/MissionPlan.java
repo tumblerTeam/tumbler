@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import com.yc.entity.user.AppUser;
 import com.yc.entity.user.Personnel;
 
-//任务计划
+//消息中心
 @Entity
 @DiscriminatorValue("missionPlan")
 public class MissionPlan {
