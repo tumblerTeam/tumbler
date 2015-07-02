@@ -83,7 +83,7 @@
 								</c:if>
 							</select>
 							<input id="lAndW" type="hidden" value="${advertisement.adverDistribution.lAndW }">
-						</div><label id="tishi"></label>
+						</div><label id="tishi">图片尺寸：${advertisement.adverDistribution.lAndW }</label>
 					</div>
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-2 control-label">商品ID</label>
@@ -103,7 +103,7 @@
 						<label for="inputEmail3" class="col-sm-2 control-label"> </label>
 						<div class="col-sm-8" id="brandLogo">
 							<c:if test="${advertisement.commodity.actityImage != null}">
-								<img alt="" src="${advertisement.commodity.actityImage }">
+								<img alt="" src="${advertisement.imagePath }">
 							</c:if>
 						</div>
 					</div>
@@ -203,7 +203,7 @@
 			if (!document.IUpload.imagePath.value == "") {
 				if (picshow.width != w || picshow.height != h) {
 					alert("图像尺寸：" + picshow.width + "X" + picshow.height
-							+ "。图像尺寸过大！你只能上传尺寸为 " + w + "×" + h
+							+ "。图像尺寸不符合！你只能上传尺寸为 " + w + "×" + h
 							+ "的图像，请重新浏览图片！");
 					document.getElementById("brandLogo").innerHTML = "";
 					return true;

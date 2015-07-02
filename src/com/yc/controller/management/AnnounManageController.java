@@ -265,13 +265,12 @@ public class AnnounManageController {
 	public String addAdvertisement(@RequestParam("imagePath") MultipartFile imagePath,Integer commID, String link, Float expenditure, Float income, 
 			String startDate, Integer during, String whichPage, Integer position,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ShopCommodity shopCommodity = shopCommodityService.findById(commID);
-		if(shopCommodity.getAdvertisement() == null){
 			AdvertiseDistribution advertiseDistribution = distributionService.findByWhichPageAndPosition(whichPage,position);	
 			if(advertiseDistribution != null){
 				List<Advertisement> advertisements = advertiseDistribution.getAdvertisementList();
 				if(advertisements.size()<=advertiseDistribution.getNum()){
 					String name = imagePath.getOriginalFilename();
-					String pathDir = "content/static/img/actityImage/";
+					String pathDir = "content/static/img/advertiseImage/";
 					if (!name.equals("")) {
 						String logoRealPathDir = request.getSession().getServletContext().getRealPath(pathDir);
 						File file1 = new File(logoRealPathDir);
@@ -293,19 +292,20 @@ public class AnnounManageController {
 						}
 						advertisement.setLink(link);		
 						advertisement.setStartDate(startDate);		
+						advertisement.setImagePath(pathDir+name);	
 						advertisement.setAdverDistribution(advertiseDistribution);
 						advertisement = advertisementService.save(advertisement);
-						shopCommodity.setActityImage(pathDir+name);
-						shopCommodity.setAdvertisement(advertisement);
-						shopCommodity = shopCommodityService.update(shopCommodity);
-						advertisement.setCommodity(shopCommodity);
+						if(shopCommodity != null){
+							shopCommodity.setAdvertisement(advertisement);
+							shopCommodity = shopCommodityService.update(shopCommodity);
+							advertisement.setCommodity(shopCommodity);
+						}
 						advertisements.add(advertisement);
 					}
 				}
 				advertiseDistribution.setAdvertisementList(advertisements);
 				distributionService.update(advertiseDistribution);
 			}
-		}
 		return "redirect:/management/advertisement";
 	}
 	
@@ -313,13 +313,14 @@ public class AnnounManageController {
 	public String updateAdvertisement(@RequestParam("imagePath") MultipartFile imagePath,Integer id,Integer commID, String link, Float expenditure, Float income, 
 			String startDate, Integer during, String whichPage, Integer position,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AdvertiseDistribution advertiseDistribution = distributionService.findByWhichPageAndPosition(whichPage,position);	
+		System.out.println("advertiseDistribution======="+advertiseDistribution);
 		if(advertiseDistribution != null){
 			List<Advertisement> advertisements = advertiseDistribution.getAdvertisementList();
 			if(advertisements.size()<=advertiseDistribution.getNum()){
 				String name = imagePath.getOriginalFilename();
-				String pathDir = "content/static/img/actityImage/";
+				String pathDir = "content/static/img/advertiseImage/";
+				Advertisement advertisement = advertisementService.findById(id);
 				if (!name.equals("")) {
-					Advertisement advertisement = advertisementService.findById(id);
 					if(advertisement != null){
 						String logoRealPathDir = request.getSession().getServletContext().getRealPath(pathDir);
 						File file1 = new File(logoRealPathDir);
@@ -329,43 +330,37 @@ public class AnnounManageController {
 						if (file.getParentFile() == null)
 							file.mkdirs();
 						imagePath.transferTo(file);
-						if(commID != null && !commID.equals("")){
-							if(advertisement.getCommodity().getCommCode() == commID){
-								ShopCommodity commodity = advertisement.getCommodity();
-								if(commodity !=null){
-									commodity.setActityImage(pathDir+name);
-									shopCommodityService.update(commodity);
-								}
-							}else{
-								ShopCommodity commodity = advertisement.getCommodity();
-								commodity.setActityImage(null);
-								commodity.setAdvertisement(null);
-								shopCommodityService.update(commodity);
-								commodity = shopCommodityService.findById(commID);
-								commodity.setActityImage(pathDir+name);
-								commodity.setAdvertisement(advertisement);
-								commodity = shopCommodityService.update(commodity);
-								advertisement.setCommodity(commodity); 
-							}
-						}
-						if ( expenditure != null ) {
-							advertisement.setExpenditure(expenditure);
-						}
-						if ( income != null ) {
-							advertisement.setIncome(income);
-						}
-						if ( during != null ) {
-							advertisement.setDuring(during);
-						}
-						advertisement.setLink(link);		
-						advertisement.setStartDate(startDate);		
-						advertisement.setAdverDistribution(advertiseDistribution);
-						advertisement = advertisementService.update(advertisement);
-						advertisements.add(advertisement);
+						advertisement.setImagePath(pathDir+name);
 					}
 				}
+				System.out.println("commID==========="+commID);
+				if(commID != null && !commID.equals("")){
+					ShopCommodity shopCommodity = shopCommodityService.findById(commID);
+					shopCommodity.setAdvertisement(advertisement);
+					ShopCommodity commodity =	shopCommodityService.update(shopCommodity);
+					advertisement.setCommodity(commodity); 
+				}else{
+					if(advertisement.getCommodity() != null){
+						ShopCommodity shopCommodity = advertisement.getCommodity();
+						shopCommodity.setAdvertisement(null);
+						shopCommodity = shopCommodityService.update(shopCommodity);
+						advertisement.setCommodity(null);
+					}
+				}
+				if ( expenditure != null ) {
+					advertisement.setExpenditure(expenditure);
+				}
+				if ( income != null ) {
+					advertisement.setIncome(income);
+				}
+				if ( during != null ) {
+					advertisement.setDuring(during);
+				}
+				advertisement.setLink(link);		
+				advertisement.setStartDate(startDate);		
+				advertisement.setAdverDistribution(advertiseDistribution);
+				advertisement = advertisementService.update(advertisement);
 			}
-			advertiseDistribution.setAdvertisementList(advertisements);
 			distributionService.update(advertiseDistribution);
 		}
 		return "redirect:/management/advertisement";

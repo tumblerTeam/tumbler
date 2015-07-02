@@ -72,5 +72,4 @@ public class ShopTwoController {
 		mode.put("newList", newList);
 		return new ModelAndView("reception/newDetails",mode);
 	}
-
 }

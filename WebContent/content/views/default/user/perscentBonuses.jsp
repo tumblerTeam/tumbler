@@ -101,13 +101,13 @@
 									<c:when test="${orderForm.orderstatus =='transitGoods'}"><div class="shouhuo">确认收货</div></c:when>
 									<c:when test="${orderForm.orderstatus =='completionTransaction'}">
 										<c:if test="${empty orderForm.reviews }">
-											<a>退款/退货</a>&nbsp;&nbsp;<a >点评</a>
+											<a>退货申请</a>&nbsp;&nbsp;<a href="user/reviews?orderID=${orderForm.orderFormID }&commid=${commodity.shopCommodity.commCode}">点评</a>
 										</c:if>
 										<c:if test="${not empty orderForm.reviews }">
 											<c:set value="true" var="isok"></c:set>
 											<c:forEach items="${orderForm.reviews }" var="reviews">
 												<c:if test="${reviews.shopscommodity.commCode == commodity.shopCommodity.commCode && reviews.additionalReviews == null}">
-													<a>退款/退货</a>&nbsp;&nbsp;<a >追加点评</a>
+													<a>退货申请</a>&nbsp;&nbsp;<a href="user/reviews?orderID=${orderForm.orderFormID }&commid=${commodity.shopCommodity.commCode}">追加点评</a>
 													<c:set value="false" var="isok"></c:set>
 												</c:if>
 												<c:if test="${reviews.shopscommodity.commCode == commodity.shopCommodity.commCode && reviews.additionalReviews != null}">
@@ -115,7 +115,7 @@
 													<c:set value="false" var="isok"></c:set>
 												</c:if>
 											</c:forEach>
-											<c:if test="${isok == true }"><a>退款/退货</a>&nbsp;&nbsp;<a >点评</a></c:if>
+											<c:if test="${isok == true }"><a>退货申请</a>&nbsp;&nbsp;<a href="user/reviews?orderID=${orderForm.orderFormID }&commid=${commodity.shopCommodity.commCode}">点评</a></c:if>
 											<c:set value="true" var="isok"></c:set>
 										</c:if>
 									</c:when>
