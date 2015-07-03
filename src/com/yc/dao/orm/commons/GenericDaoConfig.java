@@ -15,7 +15,6 @@ import com.yc.entity.BuyCar;
 import com.yc.entity.CarCommodity;
 import com.yc.entity.Collection;
 import com.yc.entity.Commodity;
-import com.yc.entity.Currency;
 import com.yc.entity.Delivery;
 import com.yc.entity.DeliveryAddress;
 import com.yc.entity.FamousManor;
@@ -64,10 +63,6 @@ public class GenericDaoConfig {
     @Bean
     public GenericDao<Commodity> getCommodityDao() {
     	return new GenericDaoSupport<Commodity>(Commodity.class);
-    }
-    @Bean
-    public GenericDao<Currency> getCurrencyDao() {
-    	return new GenericDaoSupport<Currency>(Currency.class);
     }
     @Bean
     public GenericDao<DeliveryAddress> getDeliveryAddressDao() {

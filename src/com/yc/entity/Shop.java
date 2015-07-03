@@ -106,7 +106,7 @@ public class Shop {
 	
 	@Column
 	private String RetailRecordRegUrl;//零售备案登记证Url
-	
+		
 	@Column
 	private String payPwd;//支付密码；
 	
@@ -182,7 +182,6 @@ public class Shop {
 	public void setTaxReg(String taxReg) {
 		this.taxReg = taxReg;
 	}
-
 	public Integer getId() {
 		return id;
 	}

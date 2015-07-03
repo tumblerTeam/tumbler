@@ -1,6 +1,5 @@
 package com.yc.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -36,6 +35,7 @@ public class ShopReviews {
 	
 	@Column
 	private String additionalBusinessreply; //追加店家回复
+
 	
 	@Column
 	private String reviewsdate;

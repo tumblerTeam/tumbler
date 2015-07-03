@@ -17,27 +17,33 @@ public class Address {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	@Column
-	private String toName;// 给xx
+	private String toName;// 给xx 
 	@Column
 	private String toEmail;// 邮件
 	@Column
-	private String phone;// 电话
+	private String phone;// 电话  
 	@Column
-	private String country;// 国家
+	private String country;// 国家  
 	@Column
-	private String provience ; // 省：新疆
+	private String provience ; // 省：新疆  
 	@Column
-	private String city ;// 市：乌鲁木齐
+	private String city ;// 市：乌鲁木齐   
 	@Column
-	private String district ;// 区：新市区
+	private String district ;// 区：新市区  
 	@Column
-	private String other ;// 其它
+	private String other ;// 其它    
 	@Column
-	private Boolean theDefault;// 是否默认
+	private Boolean theDefault;// 是否默认   
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-    private AppUser user;
-
+    private AppUser user;  
+	@Column
+	private Integer provienceId;
+	@Column
+	private Integer cityId;
+	@Column
+	private Integer districtId;
+	
 	public AppUser getUser() {
 		return user;
 	}
@@ -69,7 +75,7 @@ public class Address {
 	public void setDistrict(String district) {
 		this.district = district;
 	}
-
+	
 	public String getOther() {
 		return other;
 	}
@@ -126,4 +132,27 @@ public class Address {
 		this.country = country;
 	}
 
+	public Integer getProvienceId() {
+		return provienceId;
+	}
+
+	public void setProvienceId(Integer provienceId) {
+		this.provienceId = provienceId;
+	}
+
+	public Integer getCityId() {
+		return cityId;
+	}
+
+	public void setCityId(Integer cityId) {
+		this.cityId = cityId;
+	}
+
+	public Integer getDistrictId() {
+		return districtId;
+	}
+
+	public void setDistrictId(Integer districtId) {
+		this.districtId = districtId;
+	}
 }

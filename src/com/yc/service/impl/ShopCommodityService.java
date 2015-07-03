@@ -310,4 +310,15 @@ public class ShopCommodityService extends GenericService<ShopCommodity> implemen
 		StringBuffer hql=new StringBuffer(" from ShopCommodity shopComm where shopComm.famousManor.id is not null and shopComm.belongTo.id = "+id);
 		return ShopCommodityDao.find(hql.toString(), null, null);
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ShopCommodity> getAllByCommNameAndCateName(String key,
+			Integer id) {
+		StringBuffer hql = new StringBuffer(" select * from ShopCommodity comm left join ShopCategory c ON comm.shopcategory_id = c.categoryID left join Brand b on b.brandID = comm.brand_id where comm.commoidtyName like '%"+key+"%' or c.category like '%"+key+"%' or b.brandName like '%"+key+"%'");
+		Query query = ShopCommodityDao.getEntityManager().createNativeQuery(hql.toString(), ShopCommodity.class);
+		return query.getResultList();
+	}
+
+	
 }

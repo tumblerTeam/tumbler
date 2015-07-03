@@ -128,8 +128,27 @@ function setTab(name,m,n){
                           	<c:if test="${o.orderstatus == 'ApplicationForRefund'}">申请退款</c:if>                             	
                           </li>
                           <li>
-                          	接收&nbsp;&nbsp;拒绝
-                          </li>                           
+                          	<a onclick="a();">接收</a>&nbsp;&nbsp;
+                          	<a onclick="b();">拒绝</a>
+                          </li> 
+                          <script>
+                          	function a(){
+                          		//window.open("#","adsasd","height:400px; width:800px;");
+                          		if (confirm("你确定接受退款？")) {
+                          			window.location.href = "";
+								}else{
+									
+								}
+                          	}
+                          	function b(){
+                          		//window.open("#","adsasd","height:400px; width:800px;");
+                          		if (confirm("你确定拒绝退款？")) {
+                          			window.location.href = "";
+								}else{
+									
+								}
+                          	}
+                          </script>                          
                      	</ul>
                      	</c:if>
                       </c:forEach> 

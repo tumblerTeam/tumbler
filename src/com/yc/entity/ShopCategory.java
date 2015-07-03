@@ -46,8 +46,8 @@ public class ShopCategory {
 	private List<ShopCommodity>  shopCommoidties;//商品
 	
 	@OneToMany(mappedBy = "carCategory")
-	private List<CarCommodity>  carCommoidties;//购物车商品
-	
+	private List<CarCommodity>  carCommoidties;//商品
+
 	@OneToMany(mappedBy = "shopCategory")
 	private List<FamousManorAndShop> manorAndShops;
 
@@ -70,7 +70,6 @@ public class ShopCategory {
 	public void setManorAndShops(List<FamousManorAndShop> manorAndShops) {
 		this.manorAndShops = manorAndShops;
 	}
-
 	public Boolean getIsForbidden() {
 		return isForbidden;
 	}

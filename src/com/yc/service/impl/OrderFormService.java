@@ -298,6 +298,8 @@ public class OrderFormService extends GenericService<OrderForm> implements IOrde
 			hql.append(" or o.orderstatus = '" + map.get("orderStatusRefundSuccess") + "'");
 		}if (map.get("orderStatusRefundfail") != null) {
 			hql.append(" or o.orderstatus = '" + map.get("orderStatusRefundfail") + "'");
+		}if (map.get("ApplicationForRefund") != null) {
+			hql.append(" or o.orderstatus = '" + map.get("ApplicationForRefund") + "'");
 		}
 		orderFormDao.getEntityManager().clear();
 		Query query =  orderFormDao.getEntityManager().createNativeQuery(hql.toString(), OrderForm.class);

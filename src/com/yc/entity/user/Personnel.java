@@ -1,6 +1,8 @@
 package com.yc.entity.user;
 
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -11,8 +13,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+import com.yc.entity.CarCommodity;
 
 @Entity
 @DiscriminatorValue("personnel")//员工
@@ -48,6 +53,18 @@ public class Personnel {
 	
 	@Column
 	private Boolean forbidden = true;//是否禁用
+	
+	@OneToMany(mappedBy = "personnel")
+	private List<CarCommodity> carcommodities;//购物车商品
+
+	
+	public List<CarCommodity> getCarcommodities() {
+		return carcommodities;
+	}
+
+	public void setCarcommodities(List<CarCommodity> carcommodities) {
+		this.carcommodities = carcommodities;
+	}
 
 	public void setForbidden(Boolean forbidden) {
 		this.forbidden = forbidden;

@@ -31,7 +31,7 @@ public class Collection {
 	
 	@Column
 	@Enumerated(EnumType.STRING)
-	private CollectionType  collectionType = CollectionType.commodity;
+	private CollectionType collectionType = CollectionType.commodity;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
