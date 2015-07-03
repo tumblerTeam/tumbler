@@ -1,5 +1,7 @@
 package com.yc.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 @DiscriminatorValue("famousManorAndShop")//商家和名庄
@@ -30,6 +33,9 @@ public class FamousManorAndShop {
 	
 	@Column
 	private String endDate;
+	
+	@OneToMany(mappedBy = "famousManorAndShop")
+	private List<ShopCommodity> shopCommoidties;
 	
 	@ManyToOne
 	@JoinColumn(name = "shopCategory_id")
@@ -81,5 +87,13 @@ public class FamousManorAndShop {
 
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
+	}
+
+	public List<ShopCommodity> getShopCommoidties() {
+		return shopCommoidties;
+	}
+
+	public void setShopCommoidties(List<ShopCommodity> shopCommoidties) {
+		this.shopCommoidties = shopCommoidties;
 	}
 }

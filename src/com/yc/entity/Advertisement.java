@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+//广告
 @Entity
 @DiscriminatorValue("advertisement")//广告
 @JsonIgnoreProperties(value = { "commodity" })
@@ -22,10 +23,13 @@ public class Advertisement {
 	private Integer id;
 	
 	@Column
-	private String link;//链接
+	private String imagePath;//图片路径
 	
-	@OneToOne(mappedBy = "advertisement" )
-	private ShopCommodity commodity;;
+	@Column
+	private String link;//链接
+
+	@OneToOne(mappedBy="advertisement")
+	private ShopCommodity commodity; //对应商品
 	
 	@Column
 	private Float expenditure;//支出
@@ -39,20 +43,9 @@ public class Advertisement {
 	@Column
 	private int during;//持续时间
 	
-	@Column
-	private String imagePath;
-	
 	@ManyToOne
 	@JoinColumn( name = "adverDistribution_id" )
-	private AdvertiseDistribution adverDistribution;//广告分布
-
-	public String getImagePath() {
-		return imagePath;
-	}
-
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
-	}
+	private AdvertiseDistribution adverDistribution; //广告分配
 
 	public Integer getId() {
 		return id;
@@ -62,14 +55,14 @@ public class Advertisement {
 		this.id = id;
 	}
 
-	public ShopCommodity getCommodity() {
-		return commodity;
+	public String getImagePath() {
+		return imagePath;
 	}
 
-	public void setCommodity(ShopCommodity commodity) {
-		this.commodity = commodity;
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
-
+	
 	public String getLink() {
 		return link;
 	}
@@ -85,6 +78,7 @@ public class Advertisement {
 	public void setAdverDistribution(AdvertiseDistribution adverDistribution) {
 		this.adverDistribution = adverDistribution;
 	}
+	
 
 	public Float getExpenditure() {
 		return expenditure;
@@ -116,5 +110,13 @@ public class Advertisement {
 
 	public void setDuring(int during) {
 		this.during = during;
+	}
+
+	public ShopCommodity getCommodity() {
+		return commodity;
+	}
+
+	public void setCommodity(ShopCommodity commodity) {
+		this.commodity = commodity;
 	}
 }

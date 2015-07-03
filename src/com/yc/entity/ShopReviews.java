@@ -36,6 +36,7 @@ public class ShopReviews {
 	
 	@Column
 	private String additionalBusinessreply; //追加店家回复
+
 	
 	@Column
 	private String reviewsdate;
@@ -58,7 +59,16 @@ public class ShopReviews {
 	
 	@Column
 	private String rankImagesPath;//评论等级路径
+	
+	@Column
+	private String reviewTime;  
 
+	public String getReviewTime() {
+		return reviewTime;
+	}
+	public void setReviewTime(String reviewTime) {
+		this.reviewTime = reviewTime;
+	}
 	public String getAdditionalReviews() {
 		return additionalReviews;
 	}

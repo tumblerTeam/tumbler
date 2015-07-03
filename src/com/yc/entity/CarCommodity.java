@@ -1,7 +1,5 @@
 package com.yc.entity;
 
-
-
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -10,15 +8,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import com.yc.entity.user.Personnel;
 
 @Entity
-@DiscriminatorValue("carcommoidty")//购物车商品.
-@JsonIgnoreProperties(value={"buyCar","carCategory","shop","currency","personnel","shopCommodity"})
+@DiscriminatorValue("carcommoidty")//购物车商品
+@JsonIgnoreProperties(value={"buyCar","shopCommodity","carCategory","shop","currency","personnel"})
 public class CarCommodity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,10 +32,6 @@ public class CarCommodity {
 	@ManyToOne
 	@JoinColumn(name = "shop_id")
 	private Shop shop;
-	
-	@OneToOne
-	@JoinColumn(name = "currency_id")
-	private Currency currency;// 币种
 	
 	@ManyToOne
 	@JoinColumn(name = "shopCategory_id")
@@ -59,7 +52,6 @@ public class CarCommodity {
 	@ManyToOne
 	@JoinColumn(name = "personnel_id")
 	private Personnel personnel;//价格变动操作员
-	
 
 	public Integer getId() {
 		return id;
@@ -101,15 +93,6 @@ public class CarCommodity {
 		this.amount = amount;
 	}
 
-
-	public String getChangePriceDate() {
-		return changePriceDate;
-	}
-
-	public void setChangePriceDate(String changePriceDate) {
-		this.changePriceDate = changePriceDate;
-	}
-
 	public Personnel getPersonnel() {
 		return personnel;
 	}
@@ -126,14 +109,6 @@ public class CarCommodity {
 		this.shop = shop;
 	}
 
-	public Currency getCurrency() {
-		return currency;
-	}
-
-	public void setCurrency(Currency currency) {
-		this.currency = currency;
-	}
-
 	public ShopCategory getCarCategory() {
 		return carCategory;
 	}
@@ -148,6 +123,14 @@ public class CarCommodity {
 
 	public void setUnitPrice(float unitPrice) {
 		this.unitPrice = unitPrice;
+	}
+
+	public String getChangePriceDate() {
+		return changePriceDate;
+	}
+
+	public void setChangePriceDate(String changePriceDate) {
+		this.changePriceDate = changePriceDate;
 	}
 	
 }

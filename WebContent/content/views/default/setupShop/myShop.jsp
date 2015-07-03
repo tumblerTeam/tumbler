@@ -92,10 +92,10 @@ function buyCat() {
 	<div class="menu_nav">
 		<div class="menu_left">
         	<div class="list">
-            	<h2><a href="#">葡萄酒</a></h2>
+            	<h2><a href="proscenium/goods?flag=3&shopId=${shopId}&key=葡萄酒">葡萄酒</a></h2>
                 <div class="list_con">
 	                <c:forEach items="${mapRed}" var="entry" varStatus="vs" begin="0">
-	                	<a href="#">${entry.value}</a>
+	                	<a href="proscenium/goods?flag=2&shopId=${shopId}&key=${entry.value}">${entry.value}</a>
 	                	
 	                	<c:if test="${vs.index%3 == 2}"><br/></c:if>
 	                </c:forEach>
@@ -103,37 +103,40 @@ function buyCat() {
             </div>
             
             <div class="list">
-            	<h2><a href="#">白酒</a></h2>
+            	<h2><a href="proscenium/goods?flag=3&shopId=${shopId}&key=白酒">白酒</a></h2>
                 <div class="list_con">
                 	<c:forEach items="${mapWhite}" var="entry">
-	                	<a href="#">${entry.value}</a>
+	                	<a href="proscenium/goods?flag=2&shopId=${shopId}&key=${entry.value}">${entry.value}</a>
+	                	<c:if test="${vs.index%3 == 2}"><br/></c:if>
 	                </c:forEach>
                 </div>
             </div>
             
             <div class="list">
-            	<h2><a href="#">啤酒</a></h2>
+            	<h2><a href="proscenium/goods?flag=3&shopId=${shopId}&key=啤酒">啤酒</a></h2>
                 <div class="list_con">
                 	<c:forEach items="${mapPi}" var="entry">
-	                	<a href="#">${entry.value}</a>
+	                	<a href="proscenium/goods?flag=2&shopId=${shopId}&key=${entry.value}">${entry.value}</a>
+	                	<c:if test="${vs.index%3 == 2}"><br/></c:if>
 	                </c:forEach>
                 </div>
             </div>
             
             <div class="list">
-            	<h2><a href="#">洋酒</a></h2>
+            	<h2><a href="proscenium/goods?flag=3&shopId=${shopId}&key=洋酒">洋酒</a></h2>
                 <div class="list_con">
                 	<c:forEach items="${mapYang}" var="entry">
-	                	<a href="#">${entry.value}</a>
+	                	<a href="proscenium/goods?flag=2&shopId=${shopId}&key=${entry.value}">${entry.value}</a>
+	                	<c:if test="${vs.index%3 == 2}"><br/></c:if>
 	                </c:forEach>
                 </div>
             </div>
             
             <div class="list">
-            	<h2><a href="#">小食品</a></h2>
+            	<h2><a href="proscenium/goods?flag=3&shopId=${shopId}&key=小食品">小食品</a></h2>
                 <div class="list_con">
                 	<c:forEach items="${mapFood}" var="entry">
-	                	<a href="#">${entry.value}</a>
+	                	<a href="proscenium/goods?flag=2&shopId=${shopId}&key=${entry.value}">${entry.value}</a>
 	                </c:forEach>
                 </div>
             </div>
@@ -150,9 +153,10 @@ function buyCat() {
 <!-- <div class="add"><img src="images/add.jpg" /></div> -->
 	<div class="search1" style="border: 0">
     	  <div>
-              <form action="proscenium/searchTheShopComm">
+              <form action="proscenium/goods">
               		<input type="hidden" name="shopId" value="${shopId}"/>
-                    <input type="search" name="serach1" value="搜索本店商品" style="margin-left:20px;" />
+              		<input type="hidden" name="flag" value="1"/>
+                    <input type="search" name="key" value="搜索本店商品" style="margin-left:20px;" />
                     <input type="image" src="content/static/images/search1.png" /> 
               </form>
           </div>
@@ -169,7 +173,11 @@ function buyCat() {
 <!--             <li><img src="images/brand2.jpg" /></li> -->
 <!--         </ul> -->
 <!--     </div> -->
-    <div class="ad"><img src="content/static/images/ad4.jpg" />红酒</div>
+    <div class="ad">
+    	<a href="proscenium/goods?flag=3&shopId=${shopId}&key=葡萄酒">
+    		<img src="content/static/images/ad4.jpg" />葡萄酒
+    	</a>
+    </div>
     <div class="class">
     	<ul>
     	<c:forEach items="${redComms }" var="r" begin="0" end="7">
@@ -191,7 +199,9 @@ function buyCat() {
     	</c:forEach>
         </ul>
     </div>
-    <div class="ad"><img src="content/static/images/ad5.jpg" />白酒</div>
+    <a href="proscenium/goods?flag=3&shopId=${shopId}&key=白酒">
+   		<img src="content/static/images/ad4.jpg" />白酒
+   	</a>
     <div class="class">
     	<ul>
             <c:forEach items="${whiteComms}" var="r" begin="0" end="7">
@@ -212,7 +222,9 @@ function buyCat() {
 	    	</c:forEach>
         </ul>
     </div>
-    <div class="ad"><img src="content/static/images/ad6.jpg" />啤酒</div>
+    <a href="proscenium/goods?flag=3&shopId=${shopId}&key=啤酒">
+   		<img src="content/static/images/ad4.jpg" />啤酒
+   	</a>
     <div class="class">
     	<ul>
             <c:forEach items="${piComms}" var="r" begin="0" end="7">
@@ -233,7 +245,9 @@ function buyCat() {
 	    	</c:forEach>
         </ul>
     </div>
-     <div class="ad"><img src="content/static/images/ad7.jpg" />洋酒</div>
+     <a href="proscenium/goods?flag=3&shopId=${shopId}&key=洋酒">
+   		<img src="content/static/images/ad4.jpg" />洋酒
+   	</a>
     <div class="class">
     	<ul>
            <c:forEach items="${yangComms}" var="r" begin="0" end="7">
@@ -254,7 +268,9 @@ function buyCat() {
 	    	</c:forEach>        
         </ul>
     </div>
-    <div class="ad"><img src="content/static/images/ad8.jpg" />小食品</div>
+    <a href="proscenium/goods?flag=3&shopId=${shopId}&key=小食品">
+   		<img src="content/static/images/ad4.jpg" />小食品
+   	</a>
     <div class="class">
     	<ul>
            <c:forEach items="${foodComms}" var="r" begin="0" end="7">

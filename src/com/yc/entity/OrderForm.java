@@ -66,21 +66,6 @@ public class OrderForm {
 	@Column
 	private String paymentTime;// 付款时间
 
-	public List<ShopReviews> getReviews() {
-		return reviews;
-	}
-
-	public void setReviews(List<ShopReviews> reviews) {
-		this.reviews = reviews;
-	}
-
-	public OrderGroup getOrderGroup() {
-		return orderGroup;
-	}
-
-	public void setOrderGroup(OrderGroup orderGroup) {
-		this.orderGroup = orderGroup;
-	}
 	
 	public String getOrderTime() {
 		return orderTime;
@@ -154,6 +139,14 @@ public class OrderForm {
 		this.commodities = commodities;
 	}
 
+	public OrderGroup getOrderGroup() {
+		return orderGroup;
+	}
+
+	public void setOrderGroup(OrderGroup orderGroup) {
+		this.orderGroup = orderGroup;
+	}
+
 	public AppUser getOrderUser() {
 		return orderUser;
 	}
@@ -161,5 +154,12 @@ public class OrderForm {
 	public void setOrderUser(AppUser orderUser) {
 		this.orderUser = orderUser;
 	}
+	
+	public List<ShopReviews> getReviews() {
+		return reviews;
+	}
 
+	public void setReviews(List<ShopReviews> reviews) {
+		this.reviews = reviews;
+	}
 }

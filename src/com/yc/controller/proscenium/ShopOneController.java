@@ -2,6 +2,7 @@ package com.yc.controller.proscenium;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,7 +28,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.yc.entity.Address;
 import com.yc.entity.AdvState;
 import com.yc.entity.Brand;
-import com.yc.entity.Currency;
 import com.yc.entity.FamousManor;
 import com.yc.entity.MissionPlan;
 import com.yc.entity.OrderForm;
@@ -50,7 +50,6 @@ import com.yc.service.IBrandService;
 import com.yc.service.IBuyCarService;
 import com.yc.service.ICarCommodityService;
 import com.yc.service.ICommodityService;
-import com.yc.service.ICurrencyService;
 import com.yc.service.IFamousManorService;
 import com.yc.service.IMissionPlanService;
 import com.yc.service.IOrderFormService;
@@ -106,9 +105,6 @@ public class ShopOneController {
 
 	@Autowired
 	IAppUserService userService;
-
-	@Autowired
-	ICurrencyService currencyService;
 
 	@Autowired
 	ICommodityService commodityService;
@@ -190,11 +186,9 @@ public class ShopOneController {
 		List<FamousManor> famousManors = famousManorService.getAll();
 		mode.put("famousManors", famousManors);
 		Shop shop = shopService.getShopByUser(1);//user.getId(),现在设为1
-		List<Currency> currencyList = currencyService.getAll();
 		System.out.println("LIST的大小为："+list.size());
 		mode.put("shop", shop);
 		request.getSession().setAttribute("shop", shop);
-		mode.put("currencylist", currencyList);
 		return new ModelAndView("setupShop/releaseCommoidty", mode);
 	}
 	
@@ -1024,7 +1018,6 @@ public class ShopOneController {
 	//商家评论用户：
 	@RequestMapping("evaluteUser")
 	public ModelAndView evaluteUser(HttpServletRequest req){
-		System.out.println("阿迪萨斯大师大大四大四大大大说的是倒萨");
 		ModelMap mode = new ModelMap();
 		/**
 		 * 以下两句为模拟shop，表示已经存在shop对象。
@@ -1035,7 +1028,6 @@ public class ShopOneController {
 		Integer userId = Integer.parseInt(req.getParameter("userId"));
 		Integer orderFormID = Integer.parseInt(req.getParameter("orderFormID"));
 		OrderForm orderForm = orderFormService.findById(orderFormID);
-		System.out.println("进入商家评论：：："+orderForm!=null);
 		if(orderForm != null){
 			Integer commCode = Integer.parseInt(req.getParameter("commCode"));
 			String reviewsRank = req.getParameter("reviewsRank");
@@ -1098,6 +1090,24 @@ public class ShopOneController {
 //		mode.put("closeTransaction", closeTransaction);
 		
 		return new ModelAndView("success",mode);
+	}
+
+	//商家追加评论用户：
+	@RequestMapping("addtoEvaluteUser")
+	public ModelAndView addtoEvaluteUser(HttpServletRequest req){
+		ModelMap mode = new ModelMap();
+		/**
+		 * 以下两句为模拟shop，表示已经存在shop对象。
+		 */
+		Shop shop = shopService.findById(1);
+		req.getSession().setAttribute("shop", shop);
+		mode.put("shop", shop);
+		Integer shopReviewID = Integer.parseInt(req.getParameter("shopReviewID"));
+		String additionalBusinessreply = req.getParameter("additionalBusinessreply");
+		ShopReviews review = shopReviewsService.findById(shopReviewID);
+		review.setAdditionalBusinessreply(additionalBusinessreply);
+		reviewsService.update(review);
+		return new ModelAndView("success");
 	}
 	
 	//messageCenter消息中心
@@ -1270,6 +1280,7 @@ public class ShopOneController {
 		mode.put("shopId", shop.getId());
 		return new ModelAndView("setupShop/myShop",mode);
 	}
+	
 	//店铺中的搜索：搜索本店中的商品
 	@RequestMapping("searchTheShopComm")
 	public ModelAndView searchTheShopComm(HttpServletRequest req){
@@ -1286,6 +1297,139 @@ public class ShopOneController {
 		List<ShopCommodity> commodities = shopCommodityService.getAllByNameAndShop(keyValue,shopId);
 		mode.put("commodities", commodities);
 		return new ModelAndView("setupShop/myShop",mode);
+	}
+	
+	//搜索所有大类、小类、关键字的商品
+	@RequestMapping("goods")
+	public ModelAndView goods(HttpServletRequest req) throws UnsupportedEncodingException{
+		ModelMap mode = new ModelMap();
+		/**
+		 * 以下两句为模拟shop，表示已经存在shop对象。
+		 */
+		Shop shop = shopService.findById(1);
+		req.getSession().setAttribute("shop", shop);
+		mode.put("shop", shop);
+		String key = req.getParameter("key");
+		Integer flag = Integer.parseInt(req.getParameter("flag"));
+		key = new String(key.getBytes("ISO-8859-1"),"UTF-8");
+		List<ShopCommodity> commodities = new ArrayList<ShopCommodity>();
+		//搜索商品：flag = 1
+		if (flag == 1) {
+			commodities = shopCommodityService.getAllByCommNameAndCateName(key,shop.getId());
+			System.out.println("得到搜索商品的数量：：："+commodities.size());
+		}
+		//搜索 二级分类：flag = 2
+		if (flag == 2) {
+			commodities = new ArrayList<ShopCommodity>();
+			List<ShopCommodity> allComms = shopCommodityService.getAll();
+			System.out.println("得到所有商品个数："+allComms.size());
+			for (int i = 0; i < allComms.size(); i++) {
+				if (allComms.get(i).getShopCategory()!=null) {
+					if (allComms.get(i).getShopCategory().getParentLevel()
+							.getCategory().equals(key)) {
+						commodities.add(allComms.get(i));
+						System.out.println(allComms.get(i).getShopCategory().getParentLevel()
+							.getCategory());
+					}
+				}
+			}
+			System.out.println("得到所有商品个数："+commodities.size());
+		}
+		//搜索 一级级分类：flag = 3
+		System.out.println("要搜索的值是："+key);
+		if (flag == 3) {
+			commodities = new ArrayList<ShopCommodity>();
+			List<ShopCommodity> allComms = shopCommodityService.getAll();
+			System.out.println("得到所有商品个数："+allComms.size());
+			for (int i = 0; i < allComms.size(); i++) {
+				if (allComms.get(i).getShopCategory()!=null) {
+					if (allComms.get(i).getShopCategory().getParentLevel()!=null) {
+						if (allComms.get(i).getShopCategory().getParentLevel()
+								.getParentLevel().getCategory().equals(key)) {
+							commodities.add(allComms.get(i));
+						}
+					}
+				}
+			}
+		}		
+		
+		Map<String, String> mapRed = new HashMap<String, String>();
+		Map<String, String> mapWhite = new HashMap<String, String>();
+		Map<String, String> mapPi = new HashMap<String, String>();
+		Map<String, String> mapYang = new HashMap<String, String>();
+		Map<String, String> mapFood = new HashMap<String, String>();
+		
+		List<ShopCommodity> redComms = new ArrayList<ShopCommodity>();
+		List<ShopCommodity> whiteComms = new ArrayList<ShopCommodity>();
+		List<ShopCommodity> piComms = new ArrayList<ShopCommodity>();
+		List<ShopCommodity> yangComms = new ArrayList<ShopCommodity>();
+		List<ShopCommodity> foodComms = new ArrayList<ShopCommodity>();
+		//葡萄酒：
+		for (int i = 0; i < commodities.size()&&commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory().equals("葡萄酒"); i++) {
+			if (commodities.get(i).getShelves()) {
+				//得到商品的类别的三级目录
+				mapRed.put(commodities.get(i).getShopCategory().getCategory()+"", commodities.get(i).getShopCategory().getCategory());
+				System.out.println("商品的类别是：3：：："+commodities.get(i).getShopCategory().getCategory());
+				//得到商品的类别的一级目录
+				System.out.println("商品的类别是：1：：："+commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory());
+				redComms.add(commodities.get(i));
+			}			
+		}
+		mode.put("redComms", redComms);
+		mode.put("mapRed",mapRed);
+		
+		//白酒：
+		for (int i = 0; i < commodities.size(); i++) {
+			if (i < commodities.size()&&commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory().equals("白酒")) {
+				if (commodities.get(i).getShelves()) {
+					mapWhite.put(commodities.get(i).getShopCategory().getCategory()+"", commodities.get(i).getShopCategory().getCategory());
+					whiteComms.add(commodities.get(i));
+				}
+			}
+		}
+		mode.put("whiteComms", whiteComms);
+		mode.put("mapWhite",mapWhite);
+		
+		//啤酒：
+		for (int i = 0; i < commodities.size(); i++) {
+			if (i < commodities.size()&&commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory().equals("啤酒")) {
+				if (commodities.get(i).getShelves()) {
+					mapPi.put(commodities.get(i).getShopCategory().getCategory()+"", commodities.get(i).getShopCategory().getCategory());
+					piComms.add(commodities.get(i));
+				}
+			}
+		}
+		mode.put("piComms", piComms);
+		mode.put("mapPi",mapPi);
+		
+		//洋酒：
+		for (int i = 0; i < commodities.size(); i++) {
+			if (i < commodities.size()&&commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory().equals("洋酒")) {
+				if (commodities.get(i).getShelves()) {
+					mapYang.put(commodities.get(i).getShopCategory().getCategory()+"", commodities.get(i).getShopCategory().getCategory());
+					yangComms.add(commodities.get(i));
+				}
+			}
+		}
+		mode.put("yangComms", yangComms);
+		mode.put("mapYang",mapYang);
+		
+		//小食品：
+		for (int i = 0; i < commodities.size(); i++) {
+			if (i < commodities.size()&&commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory().equals("小食品")) {
+				if (commodities.get(i).getShelves()) {
+					mapFood.put(commodities.get(i).getShopCategory().getCategory()+"", commodities.get(i).getShopCategory().getCategory());
+					foodComms.add(commodities.get(i));
+				}
+			}
+		}
+		mode.put("foodComms", foodComms);
+		mode.put("mapFood",mapFood);
+		mode.put("shopId", shop.getId());
+		
+		System.out.println(key+"得到所有的商品个数：：："+commodities.size());
+		mode.put("commodities", commodities);
+		return new ModelAndView("setupShop/goods",mode);
 	}
 	
 	//1.填写个人开店个人信息
@@ -1412,6 +1556,7 @@ public class ShopOneController {
         }
 		return "success";
 	}
+	
 	//保存商家文件：
 	private boolean saveComFile(int i ,Shop shop ,HttpServletRequest req, MultipartFile file) {  
 		String endType = "";
@@ -1462,7 +1607,7 @@ public class ShopOneController {
 	            e.printStackTrace();  
 	        }
 	    }  
-	    return false;  
+	    return false;
 	}
 	//得到类型2：
 	@RequestMapping(value = "getClass2", method = RequestMethod.GET)

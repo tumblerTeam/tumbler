@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
@@ -33,11 +32,7 @@ public class Commodity {
 	@Column
 	private Float fare;// 附加费
 	@Column
-	private Float money;// 总金额
-
-	@OneToOne
-	@JoinColumn(name = "currency_id")
-	private Currency currency;// 币种
+	private Float money;// 金额
 
 	@Column
 	private String commSpec;// 规格【，颜色-红色，尺寸-12L,】
@@ -52,11 +47,10 @@ public class Commodity {
 
 	@Column
 	private String sellerDate;// zazatao付款日期
-	
 	@Column
 	private String tradingCode;// 交易码
 
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH })
+	@ManyToOne(cascade={CascadeType.MERGE,CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinColumn(name = "orderform_id")
 	private OrderForm orderNumber;
 
@@ -66,10 +60,13 @@ public class Commodity {
 	private String inStoreRoomDate;// 入库房时间
 
 	@Column
-	private String zazataoPayDate;// zazatao付款日期
+	private String describes;// 描述
 
 	@Column
-	private String zazataoPayTime;// zazatao付款时间
+	private String payDate;// 付款日期
+
+	@Column
+	private String payTime;// 付款时间
 
 	@Column
 	private String notes;
@@ -89,21 +86,29 @@ public class Commodity {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
-
-	public String getZazataoPayDate() {
-		return zazataoPayDate;
+	
+	public String getPayDate() {
+		return payDate;
 	}
 
-	public void setZazataoPayDate(String zazataoPayDate) {
-		this.zazataoPayDate = zazataoPayDate;
+	public void setPayDate(String payDate) {
+		this.payDate = payDate;
 	}
 
-	public String getZazataoPayTime() {
-		return zazataoPayTime;
+	public String getPayTime() {
+		return payTime;
 	}
 
-	public void setZazataoPayTime(String zazataoPayTime) {
-		this.zazataoPayTime = zazataoPayTime;
+	public void setPayTime(String payTime) {
+		this.payTime = payTime;
+	}
+
+	public String getDescribes() {
+		return describes;
+	}
+
+	public void setDescribes(String describes) {
+		this.describes = describes;
 	}
 
 	public String getCellDate() {
@@ -120,14 +125,6 @@ public class Commodity {
 
 	public void setInStoreRoomDate(String inStoreRoomDate) {
 		this.inStoreRoomDate = inStoreRoomDate;
-	}
-
-	public Currency getCurrency() {
-		return currency;
-	}
-
-	public void setCurrency(Currency currency) {
-		this.currency = currency;
 	}
 
 	public String getSellerDate() {
@@ -152,14 +149,6 @@ public class Commodity {
 
 	public void setSeller(Shop seller) {
 		this.seller = seller;
-	}
-
-	public ShopCommodity getShopCommodity() {
-		return shopCommodity;
-	}
-
-	public void setShopCommodity(ShopCommodity shopCommodity) {
-		this.shopCommodity = shopCommodity;
 	}
 
 	public Float getPrice() {
@@ -224,6 +213,14 @@ public class Commodity {
 
 	public void setShopcategory(ShopCategory shopcategory) {
 		this.shopcategory = shopcategory;
+	}
+
+	public ShopCommodity getShopCommodity() {
+		return shopCommodity;
+	}
+
+	public void setShopCommodity(ShopCommodity shopCommodity) {
+		this.shopCommodity = shopCommodity;
 	}
 
 }
