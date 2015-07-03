@@ -19,19 +19,14 @@
 	content="CSS3 Full Screen Vertical Scroller with jQuery animation fallback" />
 <meta name="viewport" content="width=device-width, user-scalable=no" />
 <script type="text/javascript" src="content/static/js/lib/jquery.min.js"></script>
-<script type="text/javascript"
-	src="content/static/js/tumbler/jquery-1.7.2.min.js"></script>
-<script type="text/javascript"
-	src="content/static/js/tumbler/jquery.SuperSlide.2.1.1.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="content/static/css/style.css" />
-<link rel="stylesheet" type="text/css"
-	href="content/static/css/right.css" />
+<script type="text/javascript" src="content/static/js/tumbler/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="content/static/js/tumbler/jquery.SuperSlide.2.1.1.js"></script>
+<link rel="stylesheet" type="text/css" href="content/static/css/style.css" />
+<link rel="stylesheet" type="text/css" href="content/static/css/right.css" />
+<link rel="stylesheet" type="text/css" href="content/static/css/daxuewen1012.css" />
 <link href="content/static/css/daxuewen1012.css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css"
-	href="content/static/css/animation.css" />
-<link href="content/static/css/b_style.css" rel="stylesheet"
-	type="text/css" />
+<link rel="stylesheet" type="text/css" href="content/static/css/animation.css" />
+<link rel="stylesheet" type="text/css" href="content/static/css/b_style.css" />
 <style>
 .left li.ysli {
 	background: url(content/static/images/tab.png) scroll 0px 25px no-repeat;
@@ -41,6 +36,7 @@
 .yslia {
 	background: url(content/static/images/tab.png) scroll 0px 25px no-repeat;
 }
+
 </style>
 <!--搜索框-->
 <script>
@@ -52,35 +48,98 @@
 
 	}
 </script>
-
+<script type="text/javascript">
+         $(function(){
+        	 $.getJSON(
+        		  "/toJsonFmatUtil/getAdvertisement",
+        		  {
+        			  whichPage: "homePage"
+        		   }, function(json) {
+        			   $.each(json.advertisementList, function(i,item){
+//         				   alert(item.id);	//id
+//         				   alert(item.imagePath);//宣传图片
+//         				   alert(item.link);//链接
+//         				   alert(item.adverDistribution.position);//广告所在位置
+                                  if(item.adverDistribution.position==1){
+                                	    $("#Adv_1").append("<li><a href=\""+item.link+"\"><div class=\"m-width\"style=\"width: 100%; height: 571px; background: url("+item.imagePath+") center center;\"></div></a></li>");
+                                  }else if(item.adverDistribution.position==2){
+                                	     $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 185px;margin-top: 5px;background: url("+item.imagePath+") center center;\"></div></a>");
+                                  }else if(item.adverDistribution.position==3){
+                                	     $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 185px;margin-top: 5px;background: url("+item.imagePath+") center center;\"></div></a>");
+                                  }else if(item.adverDistribution.position==4){
+                                	     $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 185px;margin-top: 5px;background: url("+item.imagePath+") center center;\"></div></a>");
+                                  }else if(item.adverDistribution.position==5){
+                                	     $("#test1_1").append("<dd><a href=\""+item.link+"\"><div class=\"list_box\"><img src=\""+item.imagePath+"\"/></div></a></dd>");
+                                  }else if(item.adverDistribution.position==6){
+                                	     $("#test1_2").append("<dd><a href=\""+item.link+"\"><div class=\"list_box\"><img src=\""+item.imagePath+"\"/></div></a></dd>");
+                                  }else if(item.adverDistribution.position==7){
+                                	     $("#test1_3").append("<dd><a href=\""+item.link+"\"><div class=\"list_box\"><img src=\""+item.imagePath+"\"/></div></a></dd>");
+                                  }else if(item.adverDistribution.position==8){
+                                	     $("#Adv_8").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 115px; background: url("+item.imagePath+") center center;\"></div></a>");
+                                  }else if(item.adverDistribution.position==9){
+                                	     $("#Adv_9").append("<li><a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a></li>");
+                                  }else if(item.adverDistribution.position==10){
+                                	     $("#Adv_10").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a>");
+                                  }else if(item.adverDistribution.position==11){
+                                	     $("#Adv_11").append( "<li class=\"jgca\"><a href=\""+item.link+"\"><div class=\"p_img\"><img src=\""+item.imagePath+"\"/></div></a></li>");
+                                  }else if(item.adverDistribution.position==12){
+                                	     $("#Adv_12").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a>");
+                                  }else if(item.adverDistribution.position==13){
+                                	     $("#Adv_13").append( "<li class=\"jgca\"><a href=\""+item.link+"\"><div class=\"p_img\"><img src=\""+item.imagePath+"\"/></div></a></li>");
+                                  }else if(item.adverDistribution.position==14){
+                                	     $("#Adv_14").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a>");
+                                  }else if(item.adverDistribution.position==15){
+                                	     $("#Adv_15").append( "<li class=\"jgca\"><a href=\""+item.link+"\"><div class=\"p_img\"><img src=\""+item.imagePath+"\"/></div></a></li>");
+                                  }else if(item.adverDistribution.position==16){
+                                	     $("#Adv_16").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a>");
+                                  }else if(item.adverDistribution.position==17){
+                                	     $("#Adv_17").append( "<li class=\"jgca\"><a href=\""+item.link+"\"><div class=\"p_img\"><img src=\""+item.imagePath+"\"/></div></a></li>");
+                                  }else if(item.adverDistribution.position==18){
+                                	     $("#Adv_18").append(   "<li><a href=\""+item.link+"\"><div class=\"m-width\"style=\"width: 100%; height: 100px; background: url("+item.imagePath+") center center;\"></div></a></li>");
+                                  }else if(item.adverDistribution.position==16){
+                                	     $("#Adv_19").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a>");
+                                  }else if(item.adverDistribution.position==17){
+                                	     $("#Adv_20").append( "<li class=\"jgca\"><a href=\""+item.link+"\"><div class=\"p_img\"><img src=\""+item.imagePath+"\"/></div></a></li>");
+                                  }
+        			   });//动态生成广告
+		        			   $("#csdiv").animate({
+		        					width : 290
+		        				}, 5000).css("transition", "all 0.5s").css("right", "350px");
+		
+		        				$(".prev,.next").hover(function() {
+		        					$(this).stop(true, false).fadeTo("show", 0.9);
+		        				}, function() {
+		        					$(this).stop(true, false).fadeTo("show", 0.4);
+		        				});
+		        	            
+		        				$(".banner-box").slide({
+		        					titCell : ".hd ul",	
+		        					mainCell : ".bd ul",
+		        					effect : "fold",
+		        					interTime : 3500,
+		        					delayTime : 500,
+		        					autoPlay : true,
+		        					autoPage : true,
+		        					trigger : "click"
+		        				});
+		        				$(".banner-box2").slide({
+		        					titCell : ".hd ul",	
+		        					mainCell : ".bd ul",
+		        					effect : "fold",
+		        					interTime : 3500,
+		        					delayTime : 500,
+		        					autoPlay : true,
+		        					autoPage : true,
+		        					trigger : "click"
+		        				});
+        		   });
+        		   
+         });
+</script>
 </head>
 <body>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("#csdiv").animate({
-				width : 290
-			}, 5000).css("transition", "all 0.5s").css("right", "350px");
 
-			$(".prev,.next").hover(function() {
-				$(this).stop(true, false).fadeTo("show", 0.9);
-			}, function() {
-				$(this).stop(true, false).fadeTo("show", 0.4);
-			});
-
-			$(".banner-box").slide({
-				titCell : ".hd ul",
-				mainCell : ".bd ul",
-				effect : "fold",
-				interTime : 3500,
-				delayTime : 500,
-				autoPlay : true,
-				autoPage : true,
-				trigger : "click"
-			});
-
-		});
-	</script>
-	<style>
+<style>
 .bgimg {
 	opacity: 0.3;
 }
@@ -178,15 +237,9 @@
 	<jsp:include page="frontDesk/header.jsp" />
 	<!--banner-->
 	<div class="banner">
-		<div id="csdiv"
-			style="border: 0px solid red; width: 290px; height: 570px; float: left; position: absolute; z-index: 9999; right: -300px;">
-			<div
-				style="width: 100%; height: 185px; margin-top: 5px; background: url(images/chushi1.jpg)"></div>
-			<div
-				style="width: 100%; height: 185px; margin-top: 5px; background: url(images/chushi2.jpg)"></div>
-			<div
-				style="width: 100%; height: 185px; margin-top: 5px; background: url(images/chushi3.jpg)"></div>
+		<div id="csdiv" style="border: 0px solid red; width: 290px; height: 570px; float: left; position: absolute; z-index: 9999; right: -300px;">
 		</div>
+		
 		<div class="menu_nav" id="menu_nav">
 			<div class="showdivs">
 				<div class="showdivs_left" style="width: 220px; float: left;">
@@ -471,32 +524,14 @@
 					});
 		</script>
 		<!--banner内容-->
-		<div class="banner_box">
+		<div class="banner-box">
 			<div class="bd">
-				<ul>
-					<li style="">
-						<div class="m-width"
-							style="width: 100%; height: 571px; background: url(images/img1.jpg) center center;"></div>
-					</li>
-					<li style="background: #B01415">
-						<div class="m-width"
-							style="width: 100%; height: 571px; background: url(images/img2.jpg) center center;">
-						</div>
-					</li>
-					<li style="background: #C49803;">
-						<div class="m-width"
-							style="width: 100%; height: 571px; background: url(images/img1.jpg) center center;">
-						</div>
-					</li>
-					<li style="background: #FDFDF5">
-						<div class="m-width"
-							style="width: 100%; height: 571px; background: url(images/img2.jpg) center center;">
-						</div>
-					</li>
+				<ul id="Adv_1">
 				</ul>
 			</div>
 			<div class="banner-btn">
-				<a class="prev" href="javascript:void(0);"></a>
+				 <a class="prev" href="javascript:void(0);"></a>
+                 <a class="next" href="javascript:void(0);"></a> 
 			</div>
 			<div class="hd">
 				<ul></ul>
@@ -520,100 +555,13 @@
 				</ul>
 
 				<dl class="tab_list" id="test1_1">
-					<dd>
-						<div class="list_box">
-							<img src="images/jp_01.jpg">
-						</div>
-					</dd>
-					<dd>
-						<div class="list_box">
-							<img src="images/jp_02.jpg">
-						</div>
-					</dd>
-					<dd>
-						<div class="list_box">
-							<img src="images/jp_01.jpg">
-						</div>
-					</dd>
-					<dd>
-						<div class="list_box">
-							<img src="images/jp_02.jpg">
-						</div>
-					</dd>
-					<dd>
-						<div class="list_box">
-							<img src="images/jp_01.jpg">
-						</div>
-					</dd>
-					<dd style="border-right: 0;">
-						<div class="list_box">
-							<img src="images/jp_02.jpg">
-						</div>
-					</dd>
-				</dl>
+<!-- 				     5号广告位 -->
+			   </dl>
 				<dl class="tab_list" id="test1_2" style="display: none;">
-					<dd>
-						<div class="list_box">
-							<img src="images/jp_02.jpg">
-						</div>
-					</dd>
-					<dd>
-						<div class="list_box">
-							<img src="images/jp_01.jpg">
-						</div>
-					</dd>
-					<dd>
-						<div class="list_box">
-							<img src="images/jp_01.jpg">
-						</div>
-					</dd>
-					<dd>
-						<div class="list_box">
-							<img src="images/jp_02.jpg">
-						</div>
-					</dd>
-					<dd>
-						<div class="list_box">
-							<img src="images/jp_01.jpg">
-						</div>
-					</dd>
-					<dd style="border-right: 0;">
-						<div class="list_box">
-							<img src="images/jp_02.jpg">
-						</div>
-					</dd>
+<!-- 				     6号广告位 -->
 				</dl>
 				<dl class="tab_list" id="test1_3" style="display: none;">
-					<dd>
-						<div class="list_box">
-							<img src="images/jp_01.jpg">
-						</div>
-					</dd>
-					<dd>
-						<div class="list_box">
-							<img src="images/jp_02.jpg">
-						</div>
-					</dd>
-					<dd>
-						<div class="list_box">
-							<img src="images/jp_02.jpg">
-						</div>
-					</dd>
-					<dd>
-						<div class="list_box">
-							<img src="images/jp_02.jpg">
-						</div>
-					</dd>
-					<dd>
-						<div class="list_box">
-							<img src="images/jp_01.jpg">
-						</div>
-					</dd>
-					<dd style="border-right: 0;">
-						<div class="list_box">
-							<img src="images/jp_02.jpg">
-						</div>
-					</dd>
+<!-- 					 7号广告位 -->
 				</dl>
 
 
@@ -650,7 +598,7 @@
 						</c:if>
 					</c:forEach>
 				</ul>
-				<div class="news_banner"></div>
+				<div class="news_banner" id="Adv_8"></div>
 			</div>
 		</div>
 
@@ -660,50 +608,9 @@
 				<div class="column_h1">
 					<b>世界名庄</b> <span>World Wine</span>
 				</div>
-				<ul class="more">
-					<c:forEach items="${famouss }" var="famous" varStatus="loop">
-						<c:if test="${loop.index<5 }">
-							<c:choose>
-								<c:when test="${loop.index%2==0 }">
-									<li><a
-										href="search/result?cateid=1&famousid=famousid-${famous.id }">${famous.manorName }</a></li>
-								</c:when>
-								<c:otherwise>
-									<li class="site-nav-pipe">|</li>
-								</c:otherwise>
-							</c:choose>
-						</c:if>
-						<c:if test="${loop.index==4 }">
-							<li><a href="famousManor/index"><b>更多></b></a></li>
-						</c:if>
-					</c:forEach>
-				</ul>
 			</div>
 
-			<ul class="column_01">
-				<c:forEach items="${famouss }" var="famous" varStatus="loop">
-					<c:if test="${loop.index <8  }">
-						<c:choose>
-							<c:when test="${loop.index%4==0 }">
-								<li style="margin-right: 0px;">
-							</c:when>
-							<c:otherwise>
-								<li>
-							</c:otherwise>
-						</c:choose>
-						<a href="search/result?cateid=1&famousid=famousid-${famous.id }"><img
-							src="${famous.logoPath }" />
-							<h1>
-								<span style="margin-right: 0.5em"></span>${famous.manorName }
-							</h1></a>
-						<p>
-							<a href="search/result?cateid=1&famousid=famousid-${famous.id }">${famous.title }</a>
-						</p>
-
-						</li>
-					</c:if>
-				</c:forEach>
-
+			<ul class="column_01"  id="Adv_9">
 			</ul>
 		</div>
 		<!--酒馆-->
@@ -746,40 +653,9 @@
 						<li><a href="javascript:void(0);">勃艮第</a></li>
 					</ul>
 				</div>
-				<div class="jg2">
-					<a href="javascript:void(0);"><img
-						src="content/static/img/jg_banner.jpg" /></a>
+				<div class="jg2"  id="Adv_10">
 				</div>
-				<ul class="jg3">
-					<c:forEach var="hong" items="${hongjiu }" varStatus="loop">
-						<c:if test="${loop.index == 5 }">
-							<li style="margin: 0px; width: 200px;">
-						</c:if>
-						<c:if test="${loop.index != 5 }">
-							<li>
-						</c:if>
-						<div class="p_img">
-							<a href="javascript:void(0);"><img
-								src="${hong.shopCommImages[0].imagePath }" /></a>
-						</div>
-						<div class="p_name">
-							<div class="p_name_text">
-								<a href="javascript:void(0);">
-									<p>${hong.commoidtyName }</p> <span>¥ <c:if
-											test="${!hong.isSpecial }">
-											<fmt:formatNumber value="${hong.unitPrice}" pattern="##.##"
-												minFractionDigits="2">
-											</fmt:formatNumber>
-										</c:if> <c:if test="${hong.isSpecial }">
-											<fmt:formatNumber value="${hong.unitPrice * hong.special}"
-												pattern="##.##" minFractionDigits="2">
-											</fmt:formatNumber>
-										</c:if> /<del style="color: #b0b0b0;">${hong.unitPrice}</del></span>
-								</a>
-							</div>
-						</div>
-						</li>
-					</c:forEach>
+				<ul class="jg3"   id="Adv_11">
 				</ul>
 			</div>
 		</div>
@@ -822,40 +698,9 @@
 						<li><a href="javascript:void(0);">北京</a></li>
 					</ul>
 				</div>
-				<div class="jg2">
-					<a href="javascript:void(0);"><img
-						src="content/static/img/jg_banner2.jpg" /></a>
+				<div class="jg2" id="Adv_12">
 				</div>
-				<ul class="jg3">
-					<c:forEach var="bai" items="${baijiu }" varStatus="loop">
-						<c:if test="${loop.index == 5 }">
-							<li style="margin: 0px; width: 200px;">
-						</c:if>
-						<c:if test="${loop.index != 5 }">
-							<li>
-						</c:if>
-						<div class="p_img">
-							<a href="javascript:void(0);"><img
-								src="${bai.shopCommImages[0].imagePath }" /></a>
-						</div>
-						<div class="p_name">
-							<div class="p_name_text">
-								<a href="javascript:void(0);">
-									<p>${bai.commoidtyName }</p> <span>¥ <c:if
-											test="${!bai.isSpecial }">
-											<fmt:formatNumber value="${bai.unitPrice}" pattern="##.##"
-												minFractionDigits="2">
-											</fmt:formatNumber>
-										</c:if> <c:if test="${bai.isSpecial }">
-											<fmt:formatNumber value="${bai.unitPrice * bai.special}"
-												pattern="##.##" minFractionDigits="2">
-											</fmt:formatNumber>
-										</c:if> /<del style="color: #b0b0b0;">${bai.unitPrice}</del></span>
-								</a>
-							</div>
-						</div>
-						</li>
-					</c:forEach>
+				<ul class="jg3" id="Adv_13">
 				</ul>
 			</div>
 		</div>
@@ -897,40 +742,9 @@
 						<li><a href="javascript:void(0);">法国</a></li>
 					</ul>
 				</div>
-				<div class="jg2">
-					<a href="javascript:void(0);"><img
-						src="content/static/img/yjg_banner.jpg" /></a>
+				<div class="jg2" id="Adv_14">
 				</div>
-				<ul class="jg3">
-					<c:forEach var="yang" items="${yangjiu }" varStatus="loop">
-						<c:if test="${loop.index == 5 }">
-							<li style="margin: 0px; width: 200px;">
-						</c:if>
-						<c:if test="${loop.index != 5 }">
-							<li>
-						</c:if>
-						<div class="p_img">
-							<a href="javascript:void(0);"><img
-								src="${yang.shopCommImages[0].imagePath }" /></a>
-						</div>
-						<div class="p_name">
-							<div class="p_name_text">
-								<a href="javascript:void(0);">
-									<p>${yang.commoidtyName }</p> <span>¥ <c:if
-											test="${!yang.isSpecial }">
-											<fmt:formatNumber value="${yang.unitPrice}" pattern="##.##"
-												minFractionDigits="2">
-											</fmt:formatNumber>
-										</c:if> <c:if test="${yang.isSpecial }">
-											<fmt:formatNumber value="${yang.unitPrice * yang.special}"
-												pattern="##.##" minFractionDigits="2">
-											</fmt:formatNumber>
-										</c:if> /<del style="color: #b0b0b0;">${yang.unitPrice}</del></span>
-								</a>
-							</div>
-						</div>
-						</li>
-					</c:forEach>
+				<ul class="jg3" id="Adv_15">
 				</ul>
 			</div>
 		</div>
@@ -971,51 +785,20 @@
 						<li><a href="javascript:void(0);">白啤酒</a></li>
 					</ul>
 				</div>
-				<div class="jg2">
-					<a href="javascript:void(0);"><img
-						src="content/static/img/jg_banner2.jpg" /></a>
+				<div class="jg2" id="Adv_16">
 				</div>
-				<ul class="jg3">
-					<c:forEach var="pi" items="${pijiu }" varStatus="loop">
-						<c:if test="${loop.index == 5 }">
-							<li style="margin: 0px; width: 200px;">
-						</c:if>
-						<c:if test="${loop.index != 5 }">
-							<li>
-						</c:if>
-						<div class="p_img">
-							<a href="javascript:void(0);"><img
-								src="${pi.shopCommImages[0].imagePath }" /></a>
-						</div>
-						<div class="p_name">
-							<div class="p_name_text">
-								<a href="javascript:void(0);">
-									<p>${pi.commoidtyName }</p> <span>¥ <c:if
-											test="${!pi.isSpecial }">
-											<fmt:formatNumber value="${pi.unitPrice}" pattern="##.##"
-												minFractionDigits="2">
-											</fmt:formatNumber>
-										</c:if> <c:if test="${pi.isSpecial }">
-											<fmt:formatNumber value="${pi.unitPrice * pi.special}"
-												pattern="##.##" minFractionDigits="2">
-											</fmt:formatNumber>
-										</c:if> /<del style="color: #b0b0b0;">${pi.unitPrice}</del></span>
-								</a>
-							</div>
-						</div>
-						</li>
-					</c:forEach>
+				<ul class="jg3" id="Adv_17">
 				</ul>
 			</div>
 		</div>
-
-		<!--banner2-->
-		<div class="banner2">
-			<a href="javascript:void(0);"><img
-				src="content/static/img/banner3.jpg" /></a>
-		</div>
-
-
+          		<!--banner2-->
+        <div class="banner-box2">
+            <div class="bd"> 
+                <ul id="Adv_18">          	    
+                </ul>
+            </div>
+            <div class="hd"><ul></ul></div>
+        </div>  
 		<!--其他-->
 		<div class="column_06">
 			<div class="column_tt">
@@ -1042,103 +825,9 @@
 						<li><a href="javascript:void(0);">新潮</a></li>
 					</ul>
 				</div>
-				<div class="jg2">
-					<a href="javascript:void(0);"><img
-						src="content/static/img/ot_banner.jpg" /></a>
+	            <div class="jg2" id="Adv_19">
 				</div>
-				<ul class="jg3">
-					<li>
-						<div class="p_img">
-							<a href="javascript:void(0);"><img
-								src="content/static/img/51483107351769163_MD.jpg" /></a>
-						</div>
-						<div class="p_name">
-							<div class="p_name_text">
-								<a href="javascript:void(0);">
-									<p>石岛牌3119型红酒杯</p> <span>¥29/<del
-											style="color: #b0b0b0;">¥38</del></span>
-									<p>2015年产</p>
-								</a>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="p_img">
-							<a href="javascript:void(0);"><img
-								src="content/static/img/20473653226472527_MD.jpg" /></a>
-						</div>
-						<div class="p_name">
-							<div class="p_name_text">
-								<a href="javascript:void(0);">
-									<p>52°五粮液(股份)唐王宴珍品750ml</p> <span>¥158/<del
-											style="color: #b0b0b0;">¥244</del></span>
-									<p>2014年产</p>
-								</a>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="p_img">
-							<a href="javascript:void(0);"><img
-								src="content/static/img/11056210852146909_MD.jpg" /></a>
-						</div>
-						<div class="p_name">
-							<div class="p_name_text">
-								<a href="javascript:void(0);">
-									<p>52°五粮液(股份)唐王宴珍品750ml</p> <span>¥158/<del
-											style="color: #b0b0b0;">¥244</del></span>
-									<p>2014年产</p>
-								</a>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="p_img">
-							<a href="javascript:void(0);"><img
-								src="content/static/img/19241986366557447_MD.jpg" /></a>
-						</div>
-						<div class="p_name">
-							<div class="p_name_text">
-								<a href="javascript:void(0);">
-									<p>52°五粮液(股份)唐王宴珍品750ml</p> <span>¥158/<del
-											style="color: #b0b0b0;">¥244</del></span>
-									<p>2014年产</p>
-								</a>
-							</div>
-						</div>
-					</li>
-
-					<li>
-						<div class="p_img">
-							<a href="javascript:void(0);"><img
-								src="content/static/img/20050103564906169_MD.jpg" /></a>
-						</div>
-						<div class="p_name">
-							<div class="p_name_text">
-								<a href="javascript:void(0);">
-									<p>52°五粮液(股份)唐王宴珍品750ml</p> <span>¥158/<del
-											style="color: #b0b0b0;">¥244</del></span>
-									<p>2014年产</p>
-								</a>
-							</div>
-						</div>
-					</li>
-
-					<li style="margin: 0px; width: 200px;">
-						<div class="p_img">
-							<a href="javascript:void(0);"><img
-								src="content/static/img/3890622308968659_MD.jpg"></img></a>
-						</div>
-						<div class="p_name">
-							<div class="p_name_text">
-								<a href="javascript:void(0);">
-									<p>52°五粮液(股份)唐王宴珍品750ml</p> <span>¥158/<del
-											style="color: #b0b0b0;">¥244</del></span>
-									<p>2014年产</p>
-								</a>
-							</div>
-						</div>
-					</li>
+				<ul class="jg3" id="Adv_20">
 				</ul>
 			</div>
 		</div>

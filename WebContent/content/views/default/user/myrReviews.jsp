@@ -16,8 +16,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+<link rel="stylesheet" type="text/css" href="content/static/css/seller.css"/>
 <link rel="stylesheet" type="text/css"
 	href="content/static/css/style.css" />
+<script src="content/static/js/datetime/jquery-1.11.1.min.js"></script>
 <title>不倒翁</title>
 </head>
 <body>
@@ -66,7 +68,11 @@
 							<li class="hp"><c:if test="${reviews.reviewsRank == 'good'}">好评</c:if>
 								<c:if test="${reviews.reviewsRank == 'better'}">中评</c:if> <c:if
 									test="${reviews.reviewsRank == 'bad'}">差评</c:if>
-								<div class="zi1">${reviews.reviews }</div>
+								<div class="zi1">${reviews.reviews }
+									<c:if test="${reviews.additionalReviews != null }">
+										追加：${reviews.additionalReviews }
+									</c:if>
+								</div>
 								<div class="zi2">[${reviews.reviewsdate }]</div></li>
 							<li class="plr">
 								<div class="zi1">买家 ：${reviews.user.userName }</div>
@@ -88,13 +94,57 @@
 									</c:if>
 								</div></li>
 							<li class="cz"><c:if
-									test="${reviews.additionalReviews != null }">
-									<a href="#"><span>追加评论</span></a>
+									test="${reviews.additionalReviews == null }">
+									<span class="pingjia">追加评论</span>
 								</c:if></li>
 						</ul>
 					</div>
+				<div class="ping" style="display: none;">
+				<form action="user/reviews" method="post">
+					<div class="content" style="height: 250px; width:100%;margin-top:50px; background-color:#ededed; border:none;">
+						<div style="text-align: center;">
+							<input type="hidden" name="userId" value="${reviews.user.id}" />
+							<input type="hidden" name="orderFormID" value="${reviews.orderForm.orderFormID}" />
+							<input type="hidden" name="commCode"
+								value="${reviews.shopscommodity.commCode}" /> 评价： <input type="radio"
+								name="reviewsRank" value="good" checked="checked" />好评 <input
+								type="radio" name="reviewsRank" value="better" />中评 <input
+								type="radio" name="reviewsRank" value="bad" />差评
+						</div>
+						<div class="box" style="width:100%; height:120px;margin-left:0px; background-color:#ededed">
+							<textarea name="businessreply" style=" margin-left:100px;width:600px; height:100px;resize: none;"></textarea>
+						</div>
+						<input type="submit" id="fa" style="border:none; background-color:#901531; cursor:pointer; color:#fff; font-size:16px; width:100px; height:30px; margin-bottom:60px; border-radius:2px; margin-left:200px;" value="发表评论" /> <span class="bu"
+							id="bu">暂不评论</span>
+					</div>
+				</form>
+			</div>
 				</c:forEach>
 			</div>
+			<script>
+			<!--第一个-->
+				$("#ping").children($("#ping")).hover(
+						function() {
+							//索引
+							var index = $("#ping").children($("#ping")).index(
+									this);
+							$(this).css("backgroundPosition", "0px 15px");
+							for (var i = 0; i <= index; i++) {
+								$("#ping").children($("#ping")).eq(i).css(
+										"backgroundPosition", "0px 15px");
+							}
+							for (var j = index + 1; j <= 5; j++) {
+								$("#ping").children($("#ping")).eq(j).css(
+										"backgroundPosition", "0px 0px");
+							}
+
+						}, function() {
+							if (index == 5) {
+								return;
+							}
+							$(this).css("backgroundPosition", "0px 0px");
+						});
+			</script>
 			<div id="text2" style="display: none;">
 				<div class="pingjia2_nav">
 					<ul>
@@ -206,6 +256,25 @@
 			p3.style.cursor = "text";
 			p2.style.cursor = "pointer";
 			p1.style.cursor = "pointer";
+		}
+		window.onload=function(){
+			$(".pingjia").click(event,function(){
+				for(var i=0;i<$(".pingjia").length;i++){
+					if(i==$(".pingjia").index($(this))){
+						$(".ping").eq(i).css("transition","all 0.5s").css("display","block");
+					}else{
+						$(".ping").eq(i).css("transition","all 0.5s").css("display","none");
+					}
+					
+				}
+			});
+			$(".bu").click(event,function(){
+				for(var i=0;i<$(".bu").length;i++){
+					if(i==$(".bu").index($(this))){
+						$(".ping").eq(i).css("transition","all 0.5s").css("display","none");
+					}
+				}
+			});
 		}
 	</script>
 </body>

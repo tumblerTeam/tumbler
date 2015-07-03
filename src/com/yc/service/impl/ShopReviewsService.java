@@ -124,4 +124,15 @@ public class ShopReviewsService extends GenericService<ShopReviews> implements I
 //		System.out.println();
 //	}
 
+	@Override
+	public ShopReviews getAllByOrderAndComm(Integer orderFormID, Integer commCode) {
+		List<String> keys = new ArrayList<String>();
+		keys.add("orderForm.orderFormID");
+		keys.add("shopscommodity.commCode");
+		List<Object> values = new ArrayList<Object>();
+		values.add(orderFormID);
+		values.add(commCode);
+		return shopReviewsDao.getFirstRecord(keys, values);
+	}
+
 }

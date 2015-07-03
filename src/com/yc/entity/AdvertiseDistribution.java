@@ -10,8 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 @Entity
 @DiscriminatorValue("adverDistribution") //广告分配
+@JsonIgnoreProperties(value = { "advertisementList"})
 public class AdvertiseDistribution {
 
 	@Id

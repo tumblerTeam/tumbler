@@ -164,8 +164,6 @@
 									<div class="list_con" style="margin-left: 10px;">
 										<c:forEach items="${cate1.children }" var="cate2">
 											<a href="search/result?id=${cate2.categoryID }">${cate2.category }</a>
-											<!-- 										<li><a href="javascript:void(0);" rel="nofollow" -->
-											<%-- 											class="black" onclick="cate2Click('${cate2.categoryID }');">${cate2.category }</a></li> --%>
 										</c:forEach>
 									</div>
 								</c:if>

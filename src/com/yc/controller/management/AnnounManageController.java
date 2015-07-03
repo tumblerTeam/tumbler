@@ -3,6 +3,7 @@ package com.yc.controller.management;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -271,6 +272,9 @@ public class AnnounManageController {
 			AdvertiseDistribution advertiseDistribution = distributionService.findByWhichPageAndPosition(whichPage,position);	
 			if(advertiseDistribution != null){
 				List<Advertisement> advertisements = advertiseDistribution.getAdvertisementList();
+				if(advertisements == null){
+					advertisements = new ArrayList<Advertisement>();
+				}
 				if(advertisements.size()<=advertiseDistribution.getNum()){
 					String name = imagePath.getOriginalFilename();
 					String pathDir = "content/static/img/advertiseImage/";

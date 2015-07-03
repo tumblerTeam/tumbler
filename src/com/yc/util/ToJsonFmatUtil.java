@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yc.entity.AdvertiseDistribution;
+import com.yc.entity.Advertisement;
 import com.yc.entity.Collection;
 import com.yc.entity.CollectionType;
 import com.yc.entity.Shop;
@@ -50,15 +51,15 @@ public class ToJsonFmatUtil {
 
 	@Autowired
 	IShopService shopService;
-	
+
 	@Autowired
 	ICarCommodityService carCommodityService;
 
 	@Autowired
 	IBuyCarService buyCarService;
-	
+
 	@Resource
-	ServiceTools serviceTools; 
+	ServiceTools serviceTools;
 
 	// 获得所选页面的广告位
 	@RequestMapping(value = "getAdverPositions", method = RequestMethod.GET)
@@ -148,7 +149,7 @@ public class ToJsonFmatUtil {
 		}
 		return mode;
 	}
-	
+
 	/**
 	 * 加入购物车
 	 * 
@@ -170,6 +171,16 @@ public class ToJsonFmatUtil {
 		} else {
 			mode = serviceTools.addCarCommodity(buyAmount, shopCommId, mode, user);
 		}
+		return mode;
+	}
+
+	// 获得所选页面的广告
+	@RequestMapping(value = "getAdvertisement", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> getAdvertisement(String whichPage, HttpServletRequest request) throws ServletException, IOException {
+		ModelMap mode = new ModelMap();
+		List<Advertisement> advertisementList = advertisementService.getAdvertiseBywhichPage(whichPage);
+		mode.put("advertisementList", advertisementList);
 		return mode;
 	}
 

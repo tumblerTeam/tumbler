@@ -1,5 +1,6 @@
 package com.yc.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -40,7 +41,7 @@ public class ShopReviews {
 	@Column
 	private String reviewsdate;
 	
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
 	@JoinColumn(name = "order_id")
 	private OrderForm orderForm; //用来标识评论与订单的关系
 	
@@ -58,7 +59,16 @@ public class ShopReviews {
 	
 	@Column
 	private String rankImagesPath;//评论等级路径
+	
+	@Column
+	private String reviewTime;  
 
+	public String getReviewTime() {
+		return reviewTime;
+	}
+	public void setReviewTime(String reviewTime) {
+		this.reviewTime = reviewTime;
+	}
 	public String getAdditionalReviews() {
 		return additionalReviews;
 	}
