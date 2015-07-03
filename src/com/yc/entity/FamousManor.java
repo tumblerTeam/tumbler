@@ -38,7 +38,6 @@ public class FamousManor {
 	
 	@OneToMany(mappedBy = "famousManor")
 	private List<ShopCommodity> shopCommoidties;
-	
 	public String getTitle() {
 		return title;
 	}
@@ -93,6 +92,14 @@ public class FamousManor {
 
 	public void setFamousManorAndShops(List<FamousManorAndShop> famousManorAndShops) {
 		this.famousManorAndShops = famousManorAndShops;
+	}
+
+	public List<ShopCommodity> getShopCommoidties() {
+		return shopCommoidties;
+	}
+
+	public void setShopCommoidties(List<ShopCommodity> shopCommoidties) {
+		this.shopCommoidties = shopCommoidties;
 	} 
 	
 }

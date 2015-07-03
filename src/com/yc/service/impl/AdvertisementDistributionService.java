@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import com.yc.dao.orm.commons.GenericDao;
 import com.yc.entity.AdvertiseDistribution;
-import com.yc.entity.AdvertisementPage;
 import com.yc.service.IAdvertisementDistributionService;
 
 @Component

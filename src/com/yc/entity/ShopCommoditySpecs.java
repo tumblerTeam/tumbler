@@ -23,7 +23,7 @@ public class ShopCommoditySpecs {
 	
 	@Column
 	private String commSpec;//规格【，颜色-红色，尺寸-12L,】
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -47,5 +47,5 @@ public class ShopCommoditySpecs {
 	public void setCommSpec(String commSpec) {
 		this.commSpec = commSpec;
 	}
-
+	
 }

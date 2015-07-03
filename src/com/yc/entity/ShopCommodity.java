@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
 import com.yc.entity.user.AppUser;
 
 @Entity
@@ -49,7 +50,8 @@ public class ShopCommodity {
 	private Integer proportion = 1;//显示比例
 	
 	@Column
-	private Float unitPrice =0f;//单价
+	private Float unitPrice = 0f;//单价
+
 	
 	@Column
 	private String commUnit;//商品单位：瓶1、箱0perBoxnum
@@ -58,10 +60,10 @@ public class ShopCommodity {
 	private Integer perBoxnum;//每箱 几瓶
 	
 	@Column
-	private Float specialPrice =0f;//活动价
+	private Float specialPrice = 0f;//活动价
 	
 	@Column
-	private Boolean isAcitvity=false;//是否参加活动
+	private Boolean isAcitvity = false;//是否有活动
 	
 	@Column
 	private Integer stock = 1 ;//库存总数量
@@ -70,20 +72,16 @@ public class ShopCommodity {
 	private Float  probablyWeight = 0f;//大概重量
 	
 	@Column
-	private Boolean shelves = true;//是否上架
+	private Boolean shelves =true;//是否上架
 	
 	@Column
-	private Boolean isSpecial=false;//是否折扣
+	private Boolean isSpecial =false;//是否折扣
 	
 	@Column
 	private Float  special  = 1f;//打几折
 	
-	@OneToOne
-	@JoinColumn(name = "currency_id")
-	private Currency currency;// 币种
-	
 	@Column
-	private  Boolean iscChoice = false;//是否精品
+	private  Boolean iscChoice   = false;//是否精品
 	
 	@Column
 	private  Boolean auction =false;//是否拍卖
@@ -114,7 +112,7 @@ public class ShopCommodity {
 	private String describes;//描述
 	
 	@Column
-	private Integer activityAmount;//参加活动的数目
+	private Integer activityAmount = 0;//参加活动的数目
 
 	@OneToOne
 	@JoinColumn(name = "blacklist_id")
@@ -124,18 +122,12 @@ public class ShopCommodity {
 	@OneToMany(mappedBy = "shopscommodity")
 	private List<ShopReviews> shopreviews;
 	
-	@Column
-	private String russinaCommoidtyName;
+	@OneToMany(mappedBy = "shopCommodity")
+	private List<CarCommodity> carCommodities  ;//购物车商品
 	
-	@Column
-	private String russinaDescribes;
-
 	@ManyToOne
 	@JoinColumn(name = "famAndShop_id")
 	private FamousManorAndShop famousManorAndShop;//名庄
-	
-	@OneToMany(mappedBy = "shopCommodity")
-	private List<CarCommodity> carCommodities  ;//购物车商品
 	
 	@ManyToOne
 	@JoinColumn(name="activity_id")
@@ -156,53 +148,13 @@ public class ShopCommodity {
 	
 	@Column
 	private String actityImage;
-
-	public Integer getPerBoxnum() {
-		return perBoxnum;
-	}
-
-	public void setPerBoxnum(Integer perBoxnum) {
-		this.perBoxnum = perBoxnum;
-	}
-
-	public String getCommUnit() {
-		return commUnit;
-	}
-
-	public void setCommUnit(String commUnit) {
-		this.commUnit = commUnit;
-	}
-
-	public ShopCommodityAttribute getCommAttribute() {
-		return commAttribute;
-	}
-
-	public void setCommAttribute(ShopCommodityAttribute commAttribute) {
-		this.commAttribute = commAttribute;
-	}
-
-	public FamousManor getFamousManor() {
-		return famousManor;
-	}
-
-	public void setFamousManor(FamousManor famousManor) {
-		this.famousManor = famousManor;
-	}
-
+	
 	public String getActityImage() {
 		return actityImage;
 	}
 
 	public void setActityImage(String actityImage) {
 		this.actityImage = actityImage;
-	}
-
-	public Integer getSalesVolume() {
-		return salesVolume;
-	}
-
-	public void setSalesVolume(Integer salesVolume) {
-		this.salesVolume = salesVolume;
 	}
 
 	public FamousManorAndShop getFamousManorAndShop() {
@@ -218,22 +170,6 @@ public class ShopCommodity {
 	}
 	public void setCarCommodities(List<CarCommodity> carCommodities) {
 		this.carCommodities = carCommodities;
-	}
-
-	public String getRussinaCommoidtyName() {
-		return russinaCommoidtyName;
-	}
-
-	public void setRussinaCommoidtyName(String russinaCommoidtyName) {
-		this.russinaCommoidtyName = russinaCommoidtyName;
-	}
-
-	public String getRussinaDescribes() {
-		return russinaDescribes;
-	}
-	
-	public void setRussinaDescribes(String russinaDescribes) {
-		this.russinaDescribes = russinaDescribes;
 	}
    
 	public List<ShopReviews> getShopreviews() {
@@ -266,21 +202,6 @@ public class ShopCommodity {
 
 	public void setStock(Integer stock) {
 		this.stock = stock;
-	}
-     
-	public ShopCommoditySpecs getCommsPecs() {
-		return commsPecs;
-	}
-
-	public void setCommsPecs(ShopCommoditySpecs commsPecs) {
-		this.commsPecs = commsPecs;
-	}
-
-	public Currency getCurrency() {
-		return currency;
-	}
-	public void setCurrency(Currency currency) {
-		this.currency = currency;
 	}
 
 	public Boolean getAuction() {
@@ -482,4 +403,53 @@ public class ShopCommodity {
 	public void setAdvertisement(Advertisement advertisement) {
 		this.advertisement = advertisement;
 	}
+
+	public ShopCommoditySpecs getCommsPecs() {
+		return commsPecs;
+	}
+
+	public void setCommsPecs(ShopCommoditySpecs commsPecs) {
+		this.commsPecs = commsPecs;
+	}
+
+	public Integer getSalesVolume() {
+		return salesVolume;
+	}
+
+	public void setSalesVolume(Integer salesVolume) {
+		this.salesVolume = salesVolume;
+	}
+
+	public ShopCommodityAttribute getCommAttribute() {
+		return commAttribute;
+	}
+
+	public void setCommAttribute(ShopCommodityAttribute commAttribute) {
+		this.commAttribute = commAttribute;
+	}
+
+	public String getCommUnit() {
+		return commUnit;
+	}
+
+	public void setCommUnit(String commUnit) {
+		this.commUnit = commUnit;
+	}
+
+	public Integer getPerBoxnum() {
+		return perBoxnum;
+	}
+
+	public void setPerBoxnum(Integer perBoxnum) {
+		this.perBoxnum = perBoxnum;
+	}
+
+	public FamousManor getFamousManor() {
+		return famousManor;
+	}
+
+	public void setFamousManor(FamousManor famousManor) {
+		this.famousManor = famousManor;
+	}
+	
 }

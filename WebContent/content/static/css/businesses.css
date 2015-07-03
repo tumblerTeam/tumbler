@@ -1,10 +1,12 @@
 @charset "utf-8";
 /* CSS Document */
-.business{ width:1200px; height:auto; background-color:#fff; margin:0px auto;}
-.business .add{ width:950px; height:90px; float:left;}
-.business .search1{ width:250px; height:90px; border-left:1px #ccc solid; margin-left:950px;}
+.business{ width:1200px;background-color:#fff; margin:0px auto;}
+.business .add{ width:900px; height:90px; float:left;}
+.business .search1{ width:250px; height:90px; margin-left:910px;}
+.business .search1 .btnn{width:271px; height:50px;}
+.business .search1 .btnn div{width:60px; height:30px; border:none; font-size:14px; color:#fff; background-color:#901531; float:right; text-align:center; line-height:30px; margin-top:15px;}
 .business .search1 input{height:30px;  margin-top:15px;float:left; color:#999;}
-.business .search1 .zi{width:200px; height:25px;margin-top:50px; margin-left:20px;} 
+.business .search1 .zi{width:200px; height:25px;margin-top:5px; margin-left:20px;} 
 .business .search1 .zi span{ color:#999; margin-left:15px; font-size:14px;}
 .business .brand{ width:100%; height:400px; }
 .business .brand ul{ padding-left:0px; padding-top:0px; margin:0px;}
@@ -20,18 +22,30 @@
 .business .class ul li .btn{ width:80px; height:30px; background-color:#a40c59; border-radius:3px; text-align:center; line-height:30px; color:#fff; font-size:14px; float:right; margin-top:15px; margin-right:50px;}
 
 
+/*无限加载*/
+#container{width:1200px;  }
+#container ul{float:left; }
+#container ul li{border:1px #ccc solid; box-sizing:border-box; border-top:none;width:300px; height:330px;list-style:none;}
+#container ul li img{ margin-left:25px; margin-top:5px;}
+#container ul li .name{ font-size:14px; text-align:center; margin-top:10px;}
+#container ul li .price{ color:#a40c59; float:left; font-weight:700px; font-size:16px; margin-top:20px; margin-left:50px;}
+#container ul li .btn{ width:80px; height:30px; background-color:#a40c59; border-radius:3px; text-align:center; line-height:30px; color:#fff; font-size:14px; float:right; margin-top:15px; margin-right:50px;}
 
 
-
-
-
-
-
-
-
-
-
-
+/*面包屑导航*/
+.breadCrumb{
+	width:100%;
+	height:30px;
+	background: #e8e8e8;
+	line-height: 30px;
+	color: #666;
+}
+.breadCrumb .con{
+	width:1190px;	
+	margin:0 auto;
+	padding-left:10px;
+	font-size:14px;
+}
 
 
 

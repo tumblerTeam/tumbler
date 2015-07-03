@@ -122,5 +122,11 @@ public interface IShopCommodityService extends IGenericService<ShopCommodity> {
 	 * @return
 	 */
 	List<ShopCommodity> getAllByParamsForParent(Map<String, Object> map, String string);
+	
+	/**
+	 * 通过 商品名称 %CommName%,类别名称查询CateName,店铺id
+	 * @return
+	 */
+	List<ShopCommodity> getAllByCommNameAndCateName(String key,Integer id);
 
 }

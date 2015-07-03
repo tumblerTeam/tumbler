@@ -50,10 +50,10 @@ public class AppUser {
 	private String validateCode;//邮箱激活码
 	
 	@Column
-	private Boolean  status;
+	private Boolean status;
 	
 	@Column
-	private String emailBindTime;
+	private String emailBindTime;//邮箱绑定时间
 	
 	@Column
 	@Enumerated(EnumType.STRING)
@@ -70,14 +70,14 @@ public class AppUser {
 	private Integer points = 0;//积分
 	
 	@ManyToMany(mappedBy = "users")
-	private List<ShopCommodity> activityCommodities;//商品
+	private List<ShopCommodity> activityCommodities;//商品类别
 	
 	@OneToMany(mappedBy = "user")
-	private List<Collection> collections;//商品收藏
+	private List<Collection> collections;//商品类别
 	
 	@OneToMany(mappedBy = "orderUser")
-	private List<OrderForm> orderForms;//订单
-	
+	private List<OrderForm> orderForms;//商品类别
+
 	@OneToMany(mappedBy = "toUser")
 	private List<MissionPlan> missionPlans;//消息
 
@@ -88,7 +88,7 @@ public class AppUser {
 	public void setMissionPlans(List<MissionPlan> missionPlans) {
 		this.missionPlans = missionPlans;
 	}
-
+	
 	public Integer getPoints() {
 		return points;
 	}

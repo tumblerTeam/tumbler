@@ -113,30 +113,8 @@ function setTab(name,m,n){
 
 <body>
 
-<!--顶部内容-->
-<div class="header">
-	<div class="header_box">
-    	<ul class="header_nav">
-            <li class="nav1">
-                <a href="#"><img src="images/header_hot.jpg">免费开店</a>
-          	</li>
-            <li class="nav2" onClick="tiaozhuan('1')" id="zc1" style="cursor:pointer;">快速注册</li>
-            <li class="nav3" id="nav3">
-            	<a href="#" id="zh1"><span>htx4846842</span><img src="images/header_icon1.png"></a>
-                <div class="zh" id="zh2" style="display:none;">
-                    <a href="#"><div style="margin-left:20px;  margin-top:15px;">个人中心</div></a>
-                    <a href="#"><div style="margin-left:20px; margin-top:12px;">退出账号</div></a>
-                </div>
-            </li>
-            <li class="nav4">
-            	<a href="#">我的酒翁<img src="images/header_icon1.png"></a>
-            </li>
-            <li class="nav5">
-            	<a href="#">购物车<img src="images/header_icon1.png"></a>
-            </li>
-        </ul>
-    </div>
-</div>
+<!-- 顶部部分 -->
+<jsp:include page="setupShopCommons/header.jsp" />
 
 <!-- 左边部分 -->
 <jsp:include page="setupShopCommons/left.jsp" />
