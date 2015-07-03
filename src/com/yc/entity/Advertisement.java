@@ -10,8 +10,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 @Entity
 @DiscriminatorValue("advertisement")//广告
+@JsonIgnoreProperties(value = { "commodity" })
 public class Advertisement {
 
 	@Id

@@ -2,6 +2,8 @@ package com.yc.controller.user;
 
 import java.io.IOException;
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,13 +25,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yc.entity.Collection;
 import com.yc.entity.OrderForm;
+import com.yc.entity.OrderStatus;
+import com.yc.entity.ReviewsRank;
 import com.yc.entity.ShopCategory;
+import com.yc.entity.ShopCommodity;
 import com.yc.entity.ShopReviews;
 import com.yc.entity.user.AppUser;
 import com.yc.service.IAppUserService;
 import com.yc.service.ICollectionService;
 import com.yc.service.IOrderFormService;
 import com.yc.service.IShopCategoryService;
+import com.yc.service.IShopCommodityService;
 import com.yc.service.IShopReviewsService;
 import com.yc.tumbler.service.TumblerService;
 import com.yc.util.ServiceException;
@@ -57,6 +63,9 @@ public class UserController {
 	
 	@Autowired
 	IShopReviewsService	shopReviewsService;
+	
+	@Autowired
+	IShopCommodityService shopCommodityService;
 
 	@RequestMapping(value = "login", method = { RequestMethod.POST, RequestMethod.GET })
 	public String login(String page, RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -207,13 +216,27 @@ public class UserController {
 	}
 	
 	// 点评
-	@RequestMapping(value = "reviews", method = RequestMethod.GET)
-	public ModelAndView reviews(Integer orderID,Integer commid, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ModelMap mode = new ModelMap();
-		mode.put("orderID", orderID);
-		mode.put("commid", commid);
-		
-		return new ModelAndView();
+	@RequestMapping(value = "reviews", method = RequestMethod.POST)
+	public String reviews(Integer orderFormID,Integer commCode, String reviewsRank,String businessreply, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ShopReviews reviews = shopReviewsService.getAllByOrderAndComm(orderFormID,commCode);
+		OrderForm orderform = orderFormService.findById(orderFormID);
+		ShopCommodity commodity = shopCommodityService.findById(commCode);
+		AppUser user = (AppUser)request.getSession().getAttribute("loginUser");
+		if(reviews == null){
+			reviews = new ShopReviews();
+			reviews.setReviews(businessreply);
+			reviews.setReviewsRank(ReviewsRank.valueOf(reviewsRank));
+			reviews.setReviewsdate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			reviews.setOrderForm(orderform);
+			reviews.setShopscommodity(commodity);
+			reviews.setUser(user);
+			shopReviewsService.save(reviews);
+		}else{
+			reviews.setAdditionalReviews(businessreply);
+			shopReviewsService.update(reviews);
+		}
+//		return "redirect:"+request.getHeader("Referer");
+		return null;
 	}
 	
 	@RequestMapping(value = "myrReviews", method = RequestMethod.GET)
@@ -227,6 +250,14 @@ public class UserController {
 		return new ModelAndView("user/myrReviews",mode);
 	}
 	
+	@RequestMapping(value = "comitComm", method = RequestMethod.GET)
+	public String comitComm(Integer id, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("id=-==========="+id);
+		OrderForm orderform = orderFormService.findById(id);
+		orderform.setOrderstatus(OrderStatus.completionTransaction);
+		orderFormService.update(orderform);
+		return "redirect:/user/perscentBonuses?orderDate=-1&orderStatus=-1";
+	}
 	// MD5加码。32位
 	public static String MD5(String inStr) {
 		MessageDigest md5 = null;

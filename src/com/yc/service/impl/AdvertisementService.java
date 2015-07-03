@@ -37,4 +37,12 @@ public class AdvertisementService extends GenericService<Advertisement> implemen
 		return query.getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Advertisement> getAdvertiseBywhichPage(String whichPage) {
+		StringBuffer hql = new StringBuffer(" select * from Advertisement a right join AdvertiseDistribution ad on ad.adverDisId = a.adverDistribution_id  where ad.whichPage = '" + whichPage + "'");
+		Query query =  advertisementDao.getEntityManager().createNativeQuery(hql.toString(),Advertisement.class);
+		return query.getResultList();
+	}
+
 }

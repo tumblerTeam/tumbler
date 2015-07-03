@@ -29,4 +29,12 @@ public interface IShopReviewsService extends IGenericService<ShopReviews> {
 	 */
 	public Integer[] getReviewsByDate(Integer weeks,Integer month,Integer shopID);
 
+	/***
+	 * 通过订单ID和商品ID查询评价
+	 * @param orderFormID 订单ID
+	 * @param commCode 商品ID
+	 * @return
+	 */
+	public ShopReviews getAllByOrderAndComm(Integer orderFormID, Integer commCode);
+
 }
