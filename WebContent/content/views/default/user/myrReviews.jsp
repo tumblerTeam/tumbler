@@ -73,7 +73,7 @@
 										追加：${reviews.additionalReviews }
 									</c:if>
 								</div>
-								<div class="zi2">[${reviews.reviewsdate }]</div></li>
+								<div class="zi2">[${reviews.reviewsdate }${reviews.reviewTime }]</div></li>
 							<li class="plr">
 								<div class="zi1">买家 ：${reviews.user.userName }</div>
 							</li>

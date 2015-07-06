@@ -23,8 +23,8 @@ public class AdvertisementService extends GenericService<Advertisement> implemen
 	}
 	
 	@Override
-	public Integer getAdvertiseBywhichPageAndPostion(String whichPage, Integer position) {
-		StringBuffer hql = new StringBuffer("select COUNT(DISTINCT a.id) from Advertisement a right join AdvertiseDistribution ad on ad.adverDisId = a.adverDistribution_id  where ad.whichPage = '" + whichPage + "' and ad.position = " + position);
+	public Integer getAdvertiseBywhichPageAndPostion(String whichPage, String position) {
+		StringBuffer hql = new StringBuffer("select COUNT(DISTINCT a.id) from Advertisement a right join AdvertiseDistribution ad on ad.adverDisId = a.adverDistribution_id  where ad.whichPage = '" + whichPage + "' and ad.position = '" + position +"'");
 		Query query =  advertisementDao.getEntityManager().createNativeQuery(hql.toString());
 		return Integer.parseInt(query.getSingleResult().toString());
 	}

@@ -67,9 +67,9 @@ public class ToJsonFmatUtil {
 	public Map<String, Object> getAdverPositions(String whichPage, HttpServletRequest request) throws ServletException, IOException {
 		ModelMap mode = new ModelMap();
 		List<AdvertiseDistribution> adverDistributions = adverDistributionService.getAdvertiseDistributionsByWhichPage(whichPage);
-		List<Integer> positions = new ArrayList<Integer>();
+		List<String> positions = new ArrayList<String>();
 		for (int i = 0; i < adverDistributions.size(); i++) {
-			int position = adverDistributions.get(i).getPosition();
+			String position = adverDistributions.get(i).getPosition();
 			Integer size = advertisementService.getAdvertiseBywhichPageAndPostion(whichPage, position);
 			if (adverDistributions.get(i).getNum() == -1) {
 				positions.add(position);

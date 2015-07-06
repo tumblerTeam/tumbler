@@ -177,7 +177,7 @@ public class AnnounManageController {
 	}
 
 	@RequestMapping(value = "addAdverDis", method = RequestMethod.POST)
-	public String addNew(String whichPage, Integer position, String lAndW, Integer num, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public String addNew(String whichPage, String position, String lAndW, Integer num, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AdvertiseDistribution news = new AdvertiseDistribution();
 		news.setNum(num);
 		news.setPosition(position);
@@ -198,7 +198,7 @@ public class AnnounManageController {
 	}
 	
 	@RequestMapping(value = "updateAdverDis", method = RequestMethod.POST)
-	public String addNew(Integer adverDisId, String whichPage, Integer position, String lAndW, Integer num, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public String addNew(Integer adverDisId, String whichPage, String position, String lAndW, Integer num, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AdvertiseDistribution news = distributionService.findById(adverDisId);
 		if(news != null){
 			news.setNum(num);
