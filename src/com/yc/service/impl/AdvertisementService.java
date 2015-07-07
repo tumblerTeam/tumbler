@@ -31,8 +31,8 @@ public class AdvertisementService extends GenericService<Advertisement> implemen
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Advertisement> getAdvertiseBywhichPageAndPostions(String whichPage, Integer position) {
-		StringBuffer hql = new StringBuffer(" select * from Advertisement a right join AdvertiseDistribution ad on ad.adverDisId = a.adverDistribution_id  where ad.whichPage = '" + whichPage + "' and ad.position = " + position);
+	public List<Advertisement> getAdvertiseBywhichPageAndPostions(String whichPage, String position) {
+		StringBuffer hql = new StringBuffer(" select * from Advertisement a right join AdvertiseDistribution ad on ad.adverDisId = a.adverDistribution_id  where ad.whichPage = '" + whichPage + "' and ad.position = '" + position +"'");
 		Query query =  advertisementDao.getEntityManager().createNativeQuery(hql.toString());
 		return query.getResultList();
 	}

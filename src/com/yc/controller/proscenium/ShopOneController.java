@@ -1693,7 +1693,24 @@ public class ShopOneController {
 		ModelMap mode = new ModelMap();
 		ShopCategory cate = shopCategService.findById(category);
 		List<ShopReviews> reviewslist = shopReviewsService.getAllBycommCode(commID);
+		Integer hao = 0;
+		Integer zhong = 0;
+		Integer cha = 0;
+		for (int i = 0; i < reviewslist.size(); i++) {
+			if (reviewslist.get(i).getReviewsRank() == ReviewsRank.good) {
+				hao = hao + 1;
+			}
+			if (reviewslist.get(i).getReviewsRank() == ReviewsRank.better) {
+				zhong = zhong + 1;
+			}
+			if (reviewslist.get(i).getReviewsRank() == ReviewsRank.bad) {
+				cha = cha + 1;
+			}
+		}
 		mode.put("reviewslist", reviewslist);
+		mode.put("hao", hao);
+		mode.put("zhong", zhong);
+		mode.put("cha", cha);
 		List<ShopCategory> shopcates = new ArrayList<ShopCategory>();
 		shopcates.add(cate);
 		mode.put("specifications", cate.getSpecifications());

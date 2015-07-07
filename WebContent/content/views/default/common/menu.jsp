@@ -70,17 +70,42 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<a class="panel-title" data-toggle="collapse"
-					data-parent="#panel-864199" href="#panel-element-540275">新闻活动管理</a>
+					data-parent="#panel-864199" href="#panel-element-540275">新闻管理</a>
 			</div>
 			<div id="panel-element-540275" class="panel-collapse collapse">
 				<div class="panel-body">
-					<a href="management/news">新闻活动发布</a>
+					<a href="management/news">新闻发布</a>
 				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<a class="panel-title" data-toggle="collapse"
+					data-parent="#panel-864122" href="#panel-element-542275">广告管理</a>
+			</div>
+			<div id="panel-element-542275" class="panel-collapse collapse">
 				<div class="panel-body">
 					<a href="management/advertiseDistribution">广告位管理</a>
 				</div>
 				<div class="panel-body">
 					<a href="management/advertisement">广告位分配</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<a class="panel-title" data-toggle="collapse"
+					data-parent="#panel-864123" href="#panel-element-542285">活动管理</a>
+			</div>
+			<div id="panel-element-542285" class="panel-collapse collapse">
+				<div class="panel-body">
+					<a href="management/activityStyle">活动类型管理</a>
+				</div>
+				<div class="panel-body">
+					<a href="management/activity">活动管理</a>
+				</div>
+				<div class="panel-body">
+					<a href="management/activityShopCommodity">活动商品管理</a>
 				</div>
 			</div>
 		</div>

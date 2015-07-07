@@ -30,12 +30,23 @@ public class Activity {
 	@Column
 	private String activityName;//活动名称
 	
+	@Column
+	private boolean isOpenOrClose;
+	
 	@ManyToOne
 	@JoinColumn(name="activityStyle_id")
 	private ActivityStyle activityStyle;//活动类型
 	
 	@OneToMany(mappedBy="activity")
 	private List<ShopCommodity> commodities;//商品
+
+	public boolean isOpenOrClose() {
+		return isOpenOrClose;
+	}
+
+	public void setOpenOrClose(boolean isOpenOrClose) {
+		this.isOpenOrClose = isOpenOrClose;
+	}
 
 	public String getStartDate() {
 		return startDate;

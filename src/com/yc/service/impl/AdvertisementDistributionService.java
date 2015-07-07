@@ -30,7 +30,7 @@ public class AdvertisementDistributionService extends GenericService<AdvertiseDi
 	}
 
 	@Override
-	public AdvertiseDistribution findByWhichPageAndPosition(String whichPage, Integer position) {
+	public AdvertiseDistribution findByWhichPageAndPosition(String whichPage, String position) {
 		List<String> keys = new ArrayList<String>();
 		keys.add("whichPage");
 		keys.add("position");

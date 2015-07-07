@@ -88,7 +88,7 @@ public class ToJsonFmatUtil {
 	// 获得广告位图片限制
 	@RequestMapping(value = "getImgeWitch", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> getImgeWitch(String whichPage, Integer posID, HttpServletRequest request) throws ServletException, IOException {
+	public Map<String, Object> getImgeWitch(String whichPage, String posID, HttpServletRequest request) throws ServletException, IOException {
 		ModelMap mode = new ModelMap();
 		AdvertiseDistribution adverDistribution = adverDistributionService.findByWhichPageAndPosition(whichPage, posID);
 		mode.put("success", "true");

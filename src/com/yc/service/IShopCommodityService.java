@@ -129,4 +129,10 @@ public interface IShopCommodityService extends IGenericService<ShopCommodity> {
 	 */
 	List<ShopCommodity> getAllByCommNameAndCateName(String key,Integer id);
 
+	/**
+	 * 得到所有参加活动的商品
+	 * @return
+	 */
+	List<ShopCommodity> getActivityCommodity();
+
 }
