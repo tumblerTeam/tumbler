@@ -26,7 +26,7 @@ public class LoginFilter implements Filter {
 		String uri = request.getRequestURI();
 		if (uri.contains("/personalCenter") || uri.contains("/perscentBonuses") || uri.contains("/collection") 
 				|| uri.contains("/buyCommodity") || uri.contains("/reCarCommodity") || uri.contains("/orderConfirm") 
-				|| uri.contains("/orderGenerate") || uri.contains("/myrReviews")) {
+				|| uri.contains("/orderGenerate") || uri.contains("/myrReviews") || uri.contains("/proscenium")) {
 			return true;
 		}
 		return false;
