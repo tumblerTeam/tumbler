@@ -28,7 +28,7 @@ public class AdvertiseDistribution {
 	private String lAndW;//宽高
 	
 	@Column
-	private Integer position;//位置
+	private String position;//位置
 	
 	@Column
 	private Integer num;//数量
@@ -67,11 +67,11 @@ public class AdvertiseDistribution {
 		this.whichPage = whichPage;
 	}
 
-	public Integer getPosition() {
+	public String getPosition() {
 		return position;
 	}
 
-	public void setPosition(Integer position) {
+	public void setPosition(String position) {
 		this.position = position;
 	}
 

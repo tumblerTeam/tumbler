@@ -289,13 +289,16 @@ public class BuyCarController {
  			}
 		}
 		while( commodities.size() > 0 ) {
+			float total = 0f;
 			List<Commodity> list = new ArrayList<Commodity>();//存放分组后的commodity集合
 			list.add(commodities.get(0));
+			total = total + commodities.get(0).getMoney();
 			int shopId = commodities.get(0).getSeller().getId();
 			commodities.remove(0);
 			for ( int i = 0; i < commodities.size(); i++ ) {
 				int id = commodities.get(i).getSeller().getId();
 				if ( shopId == id ) {
+					total = total + commodities.get(i).getMoney();
 					list.add(commodities.get(i));
 					commodities.remove(i);
 					i--;
@@ -304,6 +307,7 @@ public class BuyCarController {
 			//订单存储操作
 			OrderForm orderform=new OrderForm();
 			orderform.setCommodities(list);
+			orderform.setTotalPrice(total);
 			orderform.setOrderstatus(OrderStatus.waitPayment);
 			orderform.setDelivery(delivery);
 			orderform.setChangeStatusDate(new SimpleDateFormat(

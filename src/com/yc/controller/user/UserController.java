@@ -33,6 +33,7 @@ import com.yc.entity.ShopReviews;
 import com.yc.entity.user.AppUser;
 import com.yc.service.IAppUserService;
 import com.yc.service.ICollectionService;
+import com.yc.service.ICommodityService;
 import com.yc.service.IOrderFormService;
 import com.yc.service.IShopCategoryService;
 import com.yc.service.IShopCommodityService;
@@ -66,6 +67,9 @@ public class UserController {
 	
 	@Autowired
 	IShopCommodityService shopCommodityService;
+	
+	@Autowired
+	ICommodityService commodityService;
 
 	@RequestMapping(value = "login", method = { RequestMethod.POST, RequestMethod.GET })
 	public String login(String page, RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -227,6 +231,7 @@ public class UserController {
 			reviews.setReviews(businessreply);
 			reviews.setReviewsRank(ReviewsRank.valueOf(reviewsRank));
 			reviews.setReviewsdate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			reviews.setReviewTime(new SimpleDateFormat("HH:mm:ss").format(new Date()));
 			reviews.setOrderForm(orderform);
 			reviews.setShopscommodity(commodity);
 			reviews.setUser(user);
@@ -235,8 +240,7 @@ public class UserController {
 			reviews.setAdditionalReviews(businessreply);
 			shopReviewsService.update(reviews);
 		}
-//		return "redirect:"+request.getHeader("Referer");
-		return null;
+		return "redirect:"+request.getHeader("Referer");
 	}
 	
 	@RequestMapping(value = "myrReviews", method = RequestMethod.GET)
@@ -258,6 +262,17 @@ public class UserController {
 		orderFormService.update(orderform);
 		return "redirect:/user/perscentBonuses?orderDate=-1&orderStatus=-1";
 	}
+	
+	@RequestMapping(value = "quxiao", method = RequestMethod.GET)
+	public String quxiao(Integer id, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		OrderForm orderform = orderFormService.findById(id);
+		for (int i = 0; i < orderform.getCommodities().size(); i++) {
+			commodityService.delete(orderform.getCommodities().get(i).getCommodityID());
+		}
+		orderFormService.delete(id);
+		return "redirect:/user/perscentBonuses?orderDate=-1&orderStatus=-1";
+	}
+	
 	// MD5加码。32位
 	public static String MD5(String inStr) {
 		MessageDigest md5 = null;

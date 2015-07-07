@@ -73,10 +73,13 @@ ul {
 						<div class="zi2">订单号：${orderForm.orderFormID }</div>
 						<div class="zi3">${orderForm.commodities[0].shopCommodity.belongTo.shopName }</div>
 						<c:if test="${orderForm.orderstatus =='transitGoods'}">
-								<div class="zi3" style="margin-left: 228px;" onclick="queren('${orderForm.orderFormID}');">确认收货</div>
+							<div class="zi3" style="margin-left: 228px;"
+								onclick="queren('${orderForm.orderFormID}');">确认收货</div>
 						</c:if>
-						<c:if test="${orderForm.orderstatus =='waitPayment' || orderForm.orderstatus =='BuyersHavePaid' || orderForm.orderstatus =='waitDelivery'}">
-							<div class="shouhuo" onclick="quxiao('${orderForm.orderFormID}');">取消订单</div>
+						<c:if
+							test="${orderForm.orderstatus =='waitPayment' || orderForm.orderstatus =='BuyersHavePaid' || orderForm.orderstatus =='waitDelivery'}">
+							<div class="shouhuo"
+								onclick="quxiao('${orderForm.orderFormID}');">取消订单</div>
 						</c:if>
 					</div>
 					<div class="all_class1">
@@ -128,7 +131,7 @@ ul {
 								<dd>
 									<c:choose>
 										<c:when test="${orderForm.orderstatus =='waitPayment'}">
-											<div class="shouhuo" >立即付款</div>
+											<div class="shouhuo">立即付款</div>
 										</c:when>
 										<c:when
 											test="${orderForm.orderstatus =='completionTransaction'}">
@@ -137,24 +140,24 @@ ul {
 											<span class="pingjia">评论</span>
 											</c:if>
 											<c:if test="${not empty orderForm.reviews }">
-												<c:set value="true" var="isok"></c:set>
-												<c:forEach items="${orderForm.reviews }" var="reviews">
-													<c:if
-														test="${reviews.shopscommodity.commCode == commodity.shopCommodity.commCode && reviews.additionalReviews == null}">
-														<a>退货申请</a>&nbsp;&nbsp;<span class="pingjia">追加评论</span>
-														<c:set value="false" var="isok"></c:set>
-													</c:if>
-													<c:if
-														test="${reviews.shopscommodity.commCode == commodity.shopCommodity.commCode && reviews.additionalReviews != null}">
-														<a
-															href="proscenium/shopItem?commID=${commodity.shopCommodity.commCode }&category=${commodity.shopcategory.categoryID }&shopID=${commodity.seller.id }&commoName=${commodity.shopCommodity.commoidtyName }">再次购买</a>
-														<c:set value="false" var="isok"></c:set>
+												<c:forEach items="${orderForm.commodities }" var="comm">
+													<c:if test="${comm.shopCommodity.commCode == commodity.shopCommodity.commCode  }">
+														<c:forEach items="${comm.shopCommodity.shopreviews }" var="review">
+															<c:if test="${review.orderForm.orderFormID == orderForm.orderFormID && review.reviews == null }">
+																<a>退货申请</a>&nbsp;&nbsp;<span class="pingjia">评论</span>
+																<c:set value="false" var="isok"></c:set>
+															</c:if>
+															<c:if test="${review.orderForm.orderFormID == orderForm.orderFormID && review.reviews != null && review.additionalReviews == null }">
+																<a>退货申请</a>&nbsp;&nbsp;<span class="pingjia">追加评论</span>
+																<c:set value="false" var="isok"></c:set>
+															</c:if>
+															<c:if test="${comm.shopCommodity.commCode == commodity.shopCommodity.commCode && review.additionalReviews != null}">
+																<a href="proscenium/shopItem?commID=${commodity.shopCommodity.commCode }&category=${commodity.shopcategory.categoryID }&shopID=${commodity.seller.id }&commoName=${commodity.shopCommodity.commoidtyName }">再次购买</a>
+																<c:set value="false" var="isok"></c:set>
+															</c:if>
+														</c:forEach>
 													</c:if>
 												</c:forEach>
-												<c:if test="${isok == true }">
-													<a>退货申请</a>&nbsp;&nbsp;<span class="pingjia">追加评论</span>
-												</c:if>
-												<c:set value="true" var="isok"></c:set>
 											</c:if>
 										</c:when>
 									</c:choose>
@@ -165,9 +168,9 @@ ul {
 											style="height: 250px; width: 100%; margin-top: 50px; background-color: #ededed; border: none;">
 											<div style="text-align: center;">
 												<input type="hidden" name="userId"
-													value="${orderForm.orderUser.id}" /> <input type="hidden"
+													value="${orderForm.orderUser.id}" /> <input type="text"
 													name="orderFormID" value="${orderForm.orderFormID}" /> <input
-													type="hidden" name="commCode"
+													type="text" name="commCode"
 													value="${commodity.shopCommodity.commCode}" /> 评价： <input
 													type="radio" name="reviewsRank" value="good"
 													checked="checked" />好评 <input type="radio"
@@ -190,8 +193,12 @@ ul {
 					</div>
 				</div>
 				<script type="text/javascript">
-					function queren(id){
-						window.location.href = "user/comitComm?id="+id;
+					function queren(id) {
+						window.location.href = "user/comitComm?id=" + id;
+					}
+					function quxiao(id) {
+						alert(id);
+						window.location.href = "user/quxiao?id=" + id;
 					}
 					$(".pingjia").click(
 							event,

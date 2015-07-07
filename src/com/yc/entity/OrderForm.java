@@ -44,6 +44,9 @@ public class OrderForm {
 	private List<ShopReviews> reviews;
 	
 	@Column
+	private Float totalPrice = 0f;
+	
+	@Column
 	@Enumerated(EnumType.STRING)
 	private OrderStatus orderstatus;
 
@@ -66,7 +69,14 @@ public class OrderForm {
 	@Column
 	private String paymentTime;// 付款时间
 
-	
+	public Float getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(Float totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
 	public String getOrderTime() {
 		return orderTime;
 	}

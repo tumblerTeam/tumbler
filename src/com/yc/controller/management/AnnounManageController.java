@@ -177,7 +177,7 @@ public class AnnounManageController {
 	}
 
 	@RequestMapping(value = "addAdverDis", method = RequestMethod.POST)
-	public String addNew(String whichPage, Integer position, String lAndW, Integer num, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public String addNew(String whichPage, String position, String lAndW, Integer num, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AdvertiseDistribution news = new AdvertiseDistribution();
 		news.setNum(num);
 		news.setPosition(position);
@@ -198,7 +198,7 @@ public class AnnounManageController {
 	}
 	
 	@RequestMapping(value = "updateAdverDis", method = RequestMethod.POST)
-	public String addNew(Integer adverDisId, String whichPage, Integer position, String lAndW, Integer num, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public String addNew(Integer adverDisId, String whichPage, String position, String lAndW, Integer num, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AdvertiseDistribution news = distributionService.findById(adverDisId);
 		if(news != null){
 			news.setNum(num);
@@ -267,7 +267,7 @@ public class AnnounManageController {
 	
 	@RequestMapping(value = "addAdvertisement", method = RequestMethod.POST)
 	public String addAdvertisement(@RequestParam("imagePath") MultipartFile imagePath,Integer commID, String link, Float expenditure, Float income, 
-			String startDate, Integer during, String whichPage, Integer position,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			String startDate, Integer during, String whichPage, String position,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ShopCommodity shopCommodity = shopCommodityService.findById(commID);
 			AdvertiseDistribution advertiseDistribution = distributionService.findByWhichPageAndPosition(whichPage,position);	
 			if(advertiseDistribution != null){
@@ -318,7 +318,7 @@ public class AnnounManageController {
 	
 	@RequestMapping(value = "updateAdvertisement", method = RequestMethod.POST)
 	public String updateAdvertisement(@RequestParam("imagePath") MultipartFile imagePath,Integer id,Integer commID, String link, Float expenditure, Float income, 
-			String startDate, Integer during, String whichPage, Integer position,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			String startDate, Integer during, String whichPage, String position,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AdvertiseDistribution advertiseDistribution = distributionService.findByWhichPageAndPosition(whichPage,position);	
 		System.out.println("advertiseDistribution======="+advertiseDistribution);
 		if(advertiseDistribution != null){

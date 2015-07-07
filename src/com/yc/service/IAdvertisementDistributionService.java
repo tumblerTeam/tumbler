@@ -19,7 +19,7 @@ public interface IAdvertisementDistributionService extends IGenericService<Adver
 	 * @param position  广告位置
 	 * @return
 	 */
-	public AdvertiseDistribution findByWhichPageAndPosition(String whichPage, Integer position);
+	public AdvertiseDistribution findByWhichPageAndPosition(String whichPage, String position);
 	
 	/**
 	 * 得到所有广告页，AJAX用

@@ -6,9 +6,9 @@ import com.yc.entity.Advertisement;
 
 public interface IAdvertisementService extends IGenericService<Advertisement>{
 
-	public Integer getAdvertiseBywhichPageAndPostion(String whichPage, Integer position);
+	public Integer getAdvertiseBywhichPageAndPostion(String whichPage, String position);
 	
-	public List<Advertisement> getAdvertiseBywhichPageAndPostions(String whichPage, Integer position);
+	public List<Advertisement> getAdvertiseBywhichPageAndPostions(String whichPage, String position);
 
 	public List<Advertisement> getAdvertiseBywhichPage(String whichPage);
 }

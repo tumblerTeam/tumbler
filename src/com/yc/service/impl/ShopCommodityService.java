@@ -320,5 +320,9 @@ public class ShopCommodityService extends GenericService<ShopCommodity> implemen
 		return query.getResultList();
 	}
 
-	
+	@Override
+	public List<ShopCommodity> getActivityCommodity() {
+		StringBuffer hql = new StringBuffer("select * from ShopCommodity comm right join Activity act on comm.activity_id = act.activityId ");
+		return null;
+	}
 }
