@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -137,11 +138,12 @@ public class ShopOneController {
 			AppUser appuser = (AppUser) req.getSession().getAttribute("loginUser");
 			Shop shop = shopService.getShopByUser(appuser.getId());
 			if (shop!=null) {
-				if (shop.getIsPermit()) {
-					req.getSession().setAttribute("shop", shop);
-				}
+				req.getSession().setAttribute("shop", shop);
+				System.out.println("得到店铺："+shop.getIsPermit());
 			}
+			System.out.println("店铺session信息："+req.getSession().getAttribute("shop"));
 		}
+		
 		return new ModelAndView("setupShop/openShop");
 	}
 	
@@ -1499,9 +1501,9 @@ public class ShopOneController {
 		String name = req.getParameter("name");
 		String sex = req.getParameter("sex"); 
 		String birthday = req.getParameter("birthday"); 
-		String province = req.getParameter("province"); 
-		String city = req.getParameter("city"); 
-		String area = req.getParameter("area"); 
+		String province = req.getParameter("cmbProvince"); 
+		String city = req.getParameter("cmbCity"); 
+		String area = req.getParameter("cmbArea"); 
 		String juridicalCard = req.getParameter("juridicalCard"); 
 		String idCard = req.getParameter("idCard"); 
 		String foodCriLis = req.getParameter("foodCriLis"); 
@@ -1520,11 +1522,6 @@ public class ShopOneController {
 		shop.setUser(appuser);		
 		//显示待审核：
 		shop.setIsPermit(false);
-		String pathStr = "D:/tumbler/images/"+shop.getIdCard()+"/";
-		File path = new File(pathStr).getCanonicalFile();
-		shop.setIdCardUrl(path+"/shenfenzheng"+".jpg");
-		shop.setTaxRegUrl(path+"/shuiwudengji"+".jpg");
-		shop.setFoodCriLisUrl(path+"/shipinliutongxuke"+".jpg");
 		shopService.save(shop);
 		//用户设置店铺：
 		AppUser user = userService.findById(appuser.getId());
@@ -1557,24 +1554,34 @@ public class ShopOneController {
     			String name2 = file.getOriginalFilename();
     			// 得到要上传文件的后缀名
     			endType = name2.substring(name2.lastIndexOf("."),name2.length());
-            	String pathStr = "D:/tumbler/images/"+shop.getIdCard()+"/";
-            	File path = new File(pathStr).getCanonicalFile();
-            	if (!path.exists() || path.isFile()) {
-        			path.mkdir();
+    			String root = req.getSession().getServletContext().getRealPath("../");
+    			File uploadDir = new File(root, "images/").getCanonicalFile();
+            	if (!uploadDir.exists() || uploadDir.isFile()) {
+            		uploadDir.mkdir();
         		}
-                // 转存文件  
-                System.out.println("文件的保存路径："+path);
-                
+            	uploadDir = new File(root, "images/"+shop.getIdCard()+"/").getCanonicalFile();
+            	if (!uploadDir.exists() || uploadDir.isFile()) {
+            		uploadDir.mkdir();
+        		}            	
+            	
+                // 转存文件                  
             	if (i == 0) {
-					file.transferTo(new File(path,"shenfenzheng"+endType));
-					System.out.println("存储数据库0:"+path+"shenfenzheng"+endType);
+					file.transferTo(new File(uploadDir,"shenfenzheng"+endType));
+					System.out.println("存储数据库0:"+uploadDir+"shenfenzheng"+endType);
+
+					shop.setIdCardUrl("images/"+shop.getIdCard()+"/shenfenzheng"+endType);
 				}if (i == 1) {
-					file.transferTo(new File(path,"shuiwudengji"+endType));
-					System.out.println("存储数据库1:"+path+"shuiwudengji"+endType);
+					file.transferTo(new File(uploadDir,"shuiwudengji"+endType));
+					System.out.println("存储数据库1:"+uploadDir+"shuiwudengji"+endType);
+					
+					shop.setTaxRegUrl("images/"+shop.getIdCard()+"/shuiwudengji"+endType);
 				}if (i == 2) {
-					file.transferTo(new File(path,"shipinliutongxuke"+endType));
-					System.out.println("存储数据库2:"+path+"shipinliutongxuke"+endType);
+					file.transferTo(new File(uploadDir,"shipinliutongxuke"+endType));
+					System.out.println("存储数据库2:"+uploadDir+"shipinliutongxuke"+endType);
+
+					shop.setFoodCriLisUrl("images/"+shop.getIdCard()+"/shipinliutongxuke"+endType);
 				}
+				shopService.update(shop);
                 return true;
             } catch (Exception e) {  
                 e.printStackTrace();  
@@ -1597,20 +1604,6 @@ public class ShopOneController {
 		shop.setComName(cname);
 		shop.setAddress(province+" "+city+" "+area);
 		shop.setIdCard(idCard);
-		String pathStr = "D:/tumbler/images/"+shop.getIdCard()+"/";
-		File path = new File(pathStr).getCanonicalFile();
-		shop.setIdCardUrl(path+"/shenfenzheng"+".jpg");
-		shop.setBusinesslisUrl(path+"/yingyezhizhao"+".jpg");
-		shop.setAuthorizeUrl(path+"/shouquanweituo"+".jpg");
-		shop.setFoodCriLisUrl(path+"/shipinliutong"+".jpg");
-		shop.setTaxRegUrl(path+"/shuiwudengji"+".jpg");
-		shop.setProRunPermitCardUrl(path+"/shengchanjingyingxuke"+".jpg");
-		shop.setQsIdentityUrl(path+"/guojiaQSrenzheng"+".jpg");
-		shop.setAlcoholMultiPermitUrl(path+"/zizhiqujiuleipifa"+".jpg");
-		shop.setAlcoholSellContractUrl(path+"/jiuleijingxiaohetong"+".jpg");
-		shop.setSellAuthorizeUrl(path+"/jingxiaoshouquan"+".jpg");
-		shop.setAlcoholRunPermitUrl(path+"/jiuleijingyingxuke"+".jpg");
-		shop.setRetailRecordRegUrl(path+"/lingshoubeiandengji"+".jpg");
 		shop.setShopType(ShopType.company);
 		//设置用户：
 		shop.setUser(appuser);		
@@ -1638,45 +1631,58 @@ public class ShopOneController {
 	    // 判断文件是否为空  
 	    if (!file.isEmpty()) {  
 	        try {
-	//	                // 文件保存路径  
-	//	                String filePath = req.getSession().getServletContext().getRealPath("/") + ""  
-	//	                        + file.getOriginalFilename();
 				String name2 = file.getOriginalFilename();
 				// 得到要上传文件的后缀名
 				endType = name2.substring(name2.lastIndexOf("."),name2.length());
-	        	String pathStr = "D:/tumbler/images/"+shop.getIdCard()+"/";
-	        	File path = new File(pathStr).getCanonicalFile();
-	        	if (!path.exists() || path.isFile()) {
-	    			path.mkdir();
-	    		}
-	            // 转存文件  
-	            System.out.println("文件的保存路径："+path);
-	            
+
+    			String root = req.getSession().getServletContext().getRealPath("../");
+    			File uploadDir = new File(root, "images/").getCanonicalFile();
+            	if (!uploadDir.exists() || uploadDir.isFile()) {
+            		uploadDir.mkdir();
+        		}
+            	uploadDir = new File(root, "images/"+shop.getIdCard()+"/").getCanonicalFile();
+            	if (!uploadDir.exists() || uploadDir.isFile()) {
+            		uploadDir.mkdir();
+        		} 
+	            // 转存文件  	            
 	        	if (i == 0) {
-					file.transferTo(new File(path,"shenfenzheng"+endType));
+					file.transferTo(new File(uploadDir,"shenfenzheng"+endType));
+					shop.setIdCardUrl("images/"+shop.getIdCard()+"/shenfenzheng"+".jpg");
 				}if (i == 1) {
-					file.transferTo(new File(path,"yingyezhizhao"+endType));
+					file.transferTo(new File(uploadDir,"yingyezhizhao"+endType));
+					shop.setBusinesslisUrl("images/"+shop.getIdCard()+"/yingyezhizhao"+".jpg");
 				}if (i == 2) {
-					file.transferTo(new File(path,"shouquanweituo"+endType));
+					file.transferTo(new File(uploadDir,"shouquanweituo"+endType));
+					shop.setAuthorizeUrl("images/"+shop.getIdCard()+"/shouquanweituo"+".jpg");
 				}if (i == 3) {
-					file.transferTo(new File(path,"shipinliutongxuke"+endType));
+					file.transferTo(new File(uploadDir,"shipinliutongxuke"+endType));
+					shop.setFoodCriLisUrl("images/"+shop.getIdCard()+"/shipinliutong"+".jpg");
 				}if (i == 4) {
-					file.transferTo(new File(path,"shuiwudengji"+endType));
+					file.transferTo(new File(uploadDir,"shuiwudengji"+endType));
+					shop.setTaxRegUrl("images/"+shop.getIdCard()+"/shuiwudengji"+".jpg");
 				}if (i == 5) {
-					file.transferTo(new File(path,"shengchanjingyingxuke"+endType));
+					file.transferTo(new File(uploadDir,"shengchanjingyingxuke"+endType));
+					shop.setProRunPermitCardUrl("images/"+shop.getIdCard()+"/shengchanjingyingxuke"+".jpg");
 				}if (i == 6) {
-					file.transferTo(new File(path,"guojiaQSrenzheng"+endType));
+					file.transferTo(new File(uploadDir,"guojiaQSrenzheng"+endType));
+					shop.setQsIdentityUrl("images/"+shop.getIdCard()+"/guojiaQSrenzheng"+".jpg");
 				}if (i == 7) {
-					file.transferTo(new File(path,"zizhiqujiuleipifa"+endType));
+					file.transferTo(new File(uploadDir,"zizhiqujiuleipifa"+endType));
+					shop.setAlcoholMultiPermitUrl("images/"+shop.getIdCard()+"/zizhiqujiuleipifa"+".jpg");
 				}if (i == 8) {
-					file.transferTo(new File(path,"jiuleijingxiaohetong"+endType));
+					file.transferTo(new File(uploadDir,"jiuleijingxiaohetong"+endType));
+					shop.setAlcoholSellContractUrl("images/"+shop.getIdCard()+"/jiuleijingxiaohetong"+".jpg");
 				}if (i == 9) {
-					file.transferTo(new File(path,"jingxiaoshouquan"+endType));
+					file.transferTo(new File(uploadDir,"jingxiaoshouquan"+endType));
+					shop.setSellAuthorizeUrl("images/"+shop.getIdCard()+"/jingxiaoshouquan"+".jpg");
 				}if (i == 10) {
-					file.transferTo(new File(path,"jiuleijingyingxuke"+endType));
+					file.transferTo(new File(uploadDir,"jiuleijingyingxuke"+endType));
+					shop.setAlcoholRunPermitUrl("images/"+shop.getIdCard()+"/jiuleijingyingxuke"+".jpg");
 				}if (i == 11) {
-					file.transferTo(new File(path,"lingshoubeiandengji"+endType));
+					file.transferTo(new File(uploadDir,"lingshoubeiandengji"+endType));
+					shop.setRetailRecordRegUrl("images/"+shop.getIdCard()+"/lingshoubeiandengji"+".jpg");
 				}
+				shopService.update(shop);
 	            return true;
 	        } catch (Exception e) {  
 	            e.printStackTrace();  

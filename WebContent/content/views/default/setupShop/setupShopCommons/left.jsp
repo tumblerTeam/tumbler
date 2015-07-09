@@ -39,7 +39,7 @@
                 	<h4 onClick="f1(this,son1)"><img src="content/static/images/zk.png"/><span>店铺管理</span></h4>
                     <ul id="son1">
                     	<%if((Shop)request.getSession().getAttribute("shop")==null) {%>
-                    	<li><a href="proscenium/openShop">我要开店<%=(Shop)request.getSession().getAttribute("shop") %></a></li>
+                    	<li><a href="proscenium/openShop">我要开店</a></li>
                     	<%}else if((Shop)request.getSession().getAttribute("shop")!=null){
                     		shop = (Shop)request.getSession().getAttribute("shop");
                     		if(!shop.getIsPermit()){%>
