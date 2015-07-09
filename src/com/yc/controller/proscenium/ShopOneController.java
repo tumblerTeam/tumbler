@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -132,22 +133,56 @@ public class ShopOneController {
 	
 	//免费开店
 	@RequestMapping("openShop")
-	public ModelAndView openShop(){
+	public ModelAndView openShop(HttpServletRequest req){
+		if (req.getSession().getAttribute("loginUser")!=null) {
+			AppUser appuser = (AppUser) req.getSession().getAttribute("loginUser");
+			Shop shop = shopService.getShopByUser(appuser.getId());
+			if (shop!=null) {
+				req.getSession().setAttribute("shop", shop);
+				System.out.println("得到店铺："+shop.getIsPermit());
+			}
+			System.out.println("店铺session信息："+req.getSession().getAttribute("shop"));
+		}
+		
 		return new ModelAndView("setupShop/openShop");
 	}
 	
 	//开个人店
 	@RequestMapping("open_geren")
-	public String open_geren(){
+	public String open_geren(HttpServletRequest req){
+		if (req.getSession().getAttribute("loginUser")!=null) {
+			AppUser appuser = (AppUser) req.getSession().getAttribute("loginUser");
+			Shop shop = shopService.getShopByUser(appuser.getId());
+			if (shop!=null) {
+				if (shop.getIsPermit()) {
+					req.getSession().setAttribute("shop", shop);
+				}
+			}
+		}
 		return "setupShop/open_geren";
 	}
 	
 	//开企业店
 	@RequestMapping("open_qiye")
-	public String open_qiye(){
+	public String open_qiye(HttpServletRequest req){
+		if (req.getSession().getAttribute("loginUser")!=null) {
+			AppUser appuser = (AppUser) req.getSession().getAttribute("loginUser");
+			Shop shop = shopService.getShopByUser(appuser.getId());
+			if (shop!=null) {
+				if (shop.getIsPermit()) {
+					req.getSession().setAttribute("shop", shop);
+				}
+			}
+		}
 		return "setupShop/open_qiye";
 	}
-	//开企业店
+	//免费开店
+	@RequestMapping("verify")
+	public String verify(){
+		return "verify";
+	}
+	
+	//消息管理
 	@RequestMapping("missionPlan")
 	public String missionPlan(){
 		
@@ -165,6 +200,7 @@ public class ShopOneController {
 	public ModelAndView releaseCommoidty(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//AppUser user = (AppUser) request.getSession().getAttribute("appUser");
 		ModelMap mode = new ModelMap();
+		Shop shop = (Shop)request.getSession().getAttribute("shop");
 		Integer cateOne = 1;
 		if (request.getParameter("cateOne")!=null&&!request.getParameter("cateOne").equals("")) {
 			cateOne = Integer.parseInt(request.getParameter("cateOne"));
@@ -185,22 +221,21 @@ public class ShopOneController {
 		//显示所有名庄
 		List<FamousManor> famousManors = famousManorService.getAll();
 		mode.put("famousManors", famousManors);
-		Shop shop = shopService.getShopByUser(1);//user.getId(),现在设为1
 		System.out.println("LIST的大小为："+list.size());
 		mode.put("shop", shop);
-		request.getSession().setAttribute("shop", shop);
 		return new ModelAndView("setupShop/releaseCommoidty", mode);
 	}
 	
 	//保存商品+编辑商品
 	@RequestMapping("saveCommodity")
 	public String saveCommodity(@RequestParam MultipartFile [] myfile,ShopCommodityAttribute commAttribute ,HttpServletRequest req , HttpServletResponse resp) throws IOException{
-		/**
-		 * 以下两句为模拟shop，表示已经存在shop对象。
-		 */
-		Shop shop = shopService.findById(1);
-		req.getSession().setAttribute("shop", shop);
+//		/**
+//		 * 以下两句为模拟shop，表示已经存在shop对象。
+//		 */
+//		Shop shop = shopService.findById(1);
+//		req.getSession().setAttribute("shop", shop);
 		
+		Shop shop = (Shop)req.getSession().getAttribute("shop");
 		//是否已经开店判断
 		if (req.getSession().getAttribute("shop")!=null) {
 			String commoidtyName = req.getParameter("commoidtyName");
@@ -439,12 +474,12 @@ public class ShopOneController {
 	//出售中的商品+仓库中的商品
 	@RequestMapping("chushou")
 	public ModelAndView chushou(HttpServletRequest req, HttpServletResponse resp){
-		/**
-		 * 以下两句为模拟shop，表示已经存在shop对象。
-		 */
-		Shop shop = shopService.findById(1);
-		req.getSession().setAttribute("shop", shop);
-		
+//		/**
+//		 * 以下两句为模拟shop，表示已经存在shop对象。
+//		 */
+//		Shop shop = shopService.findById(1);
+//		req.getSession().setAttribute("shop", shop);
+		Shop shop = (Shop)req.getSession().getAttribute("shop");
 		ModelMap mode = new ModelMap();
 		//若flag为1表示出售中的商品，若flag为0表示仓库
 		String flag = req.getParameter("flag");
@@ -568,12 +603,12 @@ public class ShopOneController {
 		shopCommodity.setShelves(false);
 		shopCommodityService.update(shopCommodity);
 		
-		/**
-		 * 以下两句为模拟shop，表示已经存在shop对象。
-		 */
-		Shop shop = shopService.findById(1);
-		req.getSession().setAttribute("shop", shop);
-		
+//		/**
+//		 * 以下两句为模拟shop，表示已经存在shop对象。
+//		 */
+//		Shop shop = shopService.findById(1);
+//		req.getSession().setAttribute("shop", shop);
+		Shop shop = (Shop)req.getSession().getAttribute("shop");
 		ModelMap mode = new ModelMap();
 		List<ShopCommodity> commodities = null;
 		commodities = shopCommodityService.getAllByCondition("shelves", true, shop.getId());
@@ -591,12 +626,13 @@ public class ShopOneController {
 		shopCommodity.setShelves(true);
 		shopCommodityService.update(shopCommodity);
 		
-		/**
-		 * 以下两句为模拟shop，表示已经存在shop对象。
-		 */
-		Shop shop = shopService.findById(1);
-		req.getSession().setAttribute("shop", shop);
-		
+//		/**
+//		 * 以下两句为模拟shop，表示已经存在shop对象。
+//		 */
+//		Shop shop = shopService.findById(1);
+//		req.getSession().setAttribute("shop", shop);
+
+		Shop shop = (Shop)req.getSession().getAttribute("shop");
 		ModelMap mode = new ModelMap();
 		List<ShopCommodity> commodities = null;
 		commodities = shopCommodityService.getAllByCondition("shelves", false, shop.getId());
@@ -651,11 +687,12 @@ public class ShopOneController {
 	//已卖出的商品
 	@RequestMapping("soldComm")
 	public ModelAndView soldComm(HttpServletRequest req , HttpServletResponse resp){
-		/**
-		 * 以下两句为模拟shop，表示已经存在shop对象。
-		 */
-		Shop shop = shopService.findById(1);
-		req.getSession().setAttribute("shop", shop);
+//		/**
+//		 * 以下两句为模拟shop，表示已经存在shop对象。
+//		 */
+//		Shop shop = shopService.findById(1);
+//		req.getSession().setAttribute("shop", shop);
+		Shop shop = (Shop)req.getSession().getAttribute("shop");
 		ModelMap mode = new ModelMap();
 		//1.查询3个月之内的订单
 		List<OrderForm> order3Month = orderFormService.getShopOrderByShop(shop.getId());
@@ -695,7 +732,10 @@ public class ShopOneController {
 		String lastDate = req.getParameter("lastDate");
 		String uname = req.getParameter("uname");
 		String orderStatusFrom = req.getParameter("orderStatusFrom");
-		Integer orderId = Integer.valueOf(req.getParameter("orderId"));
+		Integer orderId = 0;
+		if (req.getParameter("orderId")!=null&&!req.getParameter("orderId").equals("")) {
+			orderId = Integer.valueOf(req.getParameter("orderId"));
+		}
 		map.put("nameOfGoods", commName);
 		map.put("uname", uname);
 		map.put("orderId", orderId);
@@ -744,11 +784,12 @@ public class ShopOneController {
 	@RequestMapping("evaluationManage")
 	public ModelAndView evaluationManage(HttpServletRequest req){
 		ModelMap mode = new ModelMap();
-		/**
-		 * 以下两句为模拟shop，表示已经存在shop对象。
-		 */
-		Shop shop = shopService.findById(1);
-		req.getSession().setAttribute("shop", shop);
+//		/**
+//		 * 以下两句为模拟shop，表示已经存在shop对象。
+//		 */
+//		Shop shop = shopService.findById(1);
+//		req.getSession().setAttribute("shop", shop);
+		Shop shop = (Shop)req.getSession().getAttribute("shop");
 		//得到来自买家的评论
 		List<ShopReviews> reviews = reviewsService.getReviewsByShop(shop.getId());
 		mode.put("reviews", reviews);
@@ -779,11 +820,12 @@ public class ShopOneController {
 	@RequestMapping("refund")
 	public ModelAndView refund(HttpServletRequest req) throws ParseException{
 		ModelMap mode = new ModelMap();
-		/**
-		 * 以下两句为模拟shop，表示已经存在shop对象。
-		 */
-		Shop shop = shopService.findById(1);
-		req.getSession().setAttribute("shop", shop);
+//		/**
+//		 * 以下两句为模拟shop，表示已经存在shop对象。
+//		 */
+//		Shop shop = shopService.findById(1);
+//		req.getSession().setAttribute("shop", shop);
+		Shop shop = (Shop)req.getSession().getAttribute("shop");
 		//我收到的退款申请
 		Map<String, Object> map = new HashMap<String,Object>();
 		map.put("orderStatusRefunding", "refundOrderForm");
@@ -804,13 +846,17 @@ public class ShopOneController {
 	@RequestMapping("searchRefund")
 	public ModelAndView searchRefund(HttpServletRequest req) throws ParseException{
 		ModelMap mode = new ModelMap();
-		/**
-		 * 以下两句为模拟shop，表示已经存在shop对象。
-		 */
-		Shop shop = shopService.findById(1);
-		req.getSession().setAttribute("shop", shop);
+//		/**
+//		 * 以下两句为模拟shop，表示已经存在shop对象。
+//		 */
+//		Shop shop = shopService.findById(1);
+//		req.getSession().setAttribute("shop", shop);
+		Shop shop = (Shop)req.getSession().getAttribute("shop");
 		
-		Integer orderFormID = Integer.parseInt(req.getParameter("orderFormID")); 
+		Integer orderFormID = 0;
+		if (req.getParameter("orderFormID")!=null&&!req.getParameter("orderFormID").equals("")) {
+			orderFormID = Integer.parseInt(req.getParameter("orderFormID")); 
+		}
 		String nameOfGoods = req.getParameter("nameOfGoods");
 		String orderStatusFrom = req.getParameter("orderStatusFrom");
 		String paymentDateLeft = req.getParameter("paymentDateLeft");
@@ -830,11 +876,12 @@ public class ShopOneController {
 	@RequestMapping("accountManage")
 	public ModelAndView accountManage(HttpServletRequest req){
 		ModelMap mode = new ModelMap();
-		/**
-		 * 以下两句为模拟shop，表示已经存在shop对象。
-		 */
-		Shop shop = shopService.findById(1);
-		req.getSession().setAttribute("shop", shop);
+//		/**
+//		 * 以下两句为模拟shop，表示已经存在shop对象。
+//		 */
+//		Shop shop = shopService.findById(1);
+//		req.getSession().setAttribute("shop", shop);
+		Shop shop = (Shop)req.getSession().getAttribute("shop");
 		mode.put("shop", shop);
 		List<Address> addresses = addressService.getAll();
 		mode.put("addresses", addresses);
@@ -869,11 +916,12 @@ public class ShopOneController {
 	@RequestMapping("saveAddress")
 	public ModelAndView saveAddress(HttpServletRequest req){
 		ModelMap mode = new ModelMap();
-		/**
-		 * 以下两句为模拟shop，表示已经存在shop对象。
-		 */
-		Shop shop = shopService.findById(1);
-		req.getSession().setAttribute("shop", shop);
+//		/**
+//		 * 以下两句为模拟shop，表示已经存在shop对象。
+//		 */
+//		Shop shop = shopService.findById(1);
+//		req.getSession().setAttribute("shop", shop);
+		Shop shop = (Shop)req.getSession().getAttribute("shop");
 		mode.put("shop", shop);
 		String toName = req.getParameter("toName");
 		String toEmail = req.getParameter("toEmail");
@@ -915,11 +963,12 @@ public class ShopOneController {
 	@RequestMapping("modAddress")
 	public ModelAndView modAddress(HttpServletRequest req){
 		ModelMap mode = new ModelMap();
-		/**
-		 * 以下两句为模拟shop，表示已经存在shop对象。
-		 */
-		Shop shop = shopService.findById(1);
-		req.getSession().setAttribute("shop", shop);
+//		/**
+//		 * 以下两句为模拟shop，表示已经存在shop对象。
+//		 */
+//		Shop shop = shopService.findById(1);
+//		req.getSession().setAttribute("shop", shop);
+		Shop shop = (Shop)req.getSession().getAttribute("shop");
 		Integer aid = Integer.parseInt(req.getParameter("aid"));
 		Address address = addressService.findById(aid);
 		mode.put("shop", shop);
@@ -931,11 +980,12 @@ public class ShopOneController {
 	@RequestMapping("modAddressInfo")
 	public ModelAndView modAddressInfo(HttpServletRequest req){
 		ModelMap mode = new ModelMap();
-		/**
-		 * 以下两句为模拟shop，表示已经存在shop对象。
-		 */
-		Shop shop = shopService.findById(1);
-		req.getSession().setAttribute("shop", shop);
+//		/**
+//		 * 以下两句为模拟shop，表示已经存在shop对象。
+//		 */
+//		Shop shop = shopService.findById(1);
+//		req.getSession().setAttribute("shop", shop);
+		Shop shop = (Shop)req.getSession().getAttribute("shop");
 		mode.put("shop", shop);
 		Integer aid = Integer.parseInt(req.getParameter("aid"));
 		Address address = addressService.findById(aid);
@@ -977,11 +1027,12 @@ public class ShopOneController {
 	@RequestMapping("delAddress")
 	public ModelAndView delAddress(HttpServletRequest req){
 		ModelMap mode = new ModelMap();
-		/**
-		 * 以下两句为模拟shop，表示已经存在shop对象。
-		 */
-		Shop shop = shopService.findById(1);
-		req.getSession().setAttribute("shop", shop);
+//		/**
+//		 * 以下两句为模拟shop，表示已经存在shop对象。
+//		 */
+//		Shop shop = shopService.findById(1);
+//		req.getSession().setAttribute("shop", shop);
+		Shop shop = (Shop)req.getSession().getAttribute("shop");
 		mode.put("shop", shop);
 		Integer aid = Integer.parseInt(req.getParameter("aid"));
 		addressService.delete(aid);
@@ -994,11 +1045,12 @@ public class ShopOneController {
 	@RequestMapping("setDefaultAddress")
 	public ModelAndView setDefaultAddress(HttpServletRequest req){
 		ModelMap mode = new ModelMap();
-		/**
-		 * 以下两句为模拟shop，表示已经存在shop对象。
-		 */
-		Shop shop = shopService.findById(1);
-		req.getSession().setAttribute("shop", shop);
+//		/**
+//		 * 以下两句为模拟shop，表示已经存在shop对象。
+//		 */
+//		Shop shop = shopService.findById(1);
+//		req.getSession().setAttribute("shop", shop);
+		Shop shop = (Shop)req.getSession().getAttribute("shop");
 		mode.put("shop", shop);
 		//消除默认地址
 		List<Address> allAddress = addressService.getAll();
@@ -1019,11 +1071,12 @@ public class ShopOneController {
 	@RequestMapping("evaluteUser")
 	public ModelAndView evaluteUser(HttpServletRequest req){
 		ModelMap mode = new ModelMap();
-		/**
-		 * 以下两句为模拟shop，表示已经存在shop对象。
-		 */
-		Shop shop = shopService.findById(1);
-		req.getSession().setAttribute("shop", shop);
+//		/**
+//		 * 以下两句为模拟shop，表示已经存在shop对象。
+//		 */
+//		Shop shop = shopService.findById(1);
+//		req.getSession().setAttribute("shop", shop);
+		Shop shop = (Shop)req.getSession().getAttribute("shop");
 		mode.put("shop", shop);
 		Integer userId = Integer.parseInt(req.getParameter("userId"));
 		Integer orderFormID = Integer.parseInt(req.getParameter("orderFormID"));
@@ -1096,11 +1149,12 @@ public class ShopOneController {
 	@RequestMapping("addtoEvaluteUser")
 	public ModelAndView addtoEvaluteUser(HttpServletRequest req){
 		ModelMap mode = new ModelMap();
-		/**
-		 * 以下两句为模拟shop，表示已经存在shop对象。
-		 */
-		Shop shop = shopService.findById(1);
-		req.getSession().setAttribute("shop", shop);
+//		/**
+//		 * 以下两句为模拟shop，表示已经存在shop对象。
+//		 */
+//		Shop shop = shopService.findById(1);
+//		req.getSession().setAttribute("shop", shop);
+		Shop shop = (Shop)req.getSession().getAttribute("shop");
 		mode.put("shop", shop);
 		Integer shopReviewID = Integer.parseInt(req.getParameter("shopReviewID"));
 		String additionalBusinessreply = req.getParameter("additionalBusinessreply");
@@ -1114,11 +1168,12 @@ public class ShopOneController {
 	@RequestMapping("messageCenter")
 	public ModelAndView messageCenter(HttpServletRequest req){
 		ModelMap mode = new ModelMap();
-		/**
-		 * 以下两句为模拟shop，表示已经存在shop对象。
-		 */
-		Shop shop = shopService.findById(1);
-		req.getSession().setAttribute("shop", shop);
+//		/**
+//		 * 以下两句为模拟shop，表示已经存在shop对象。
+//		 */
+//		Shop shop = shopService.findById(1);
+//		req.getSession().setAttribute("shop", shop);
+		Shop shop = (Shop)req.getSession().getAttribute("shop");
 		mode.put("shop", shop);
 		List<MissionPlan> missionPlans = missionPlanService.getAll();
 		List<MissionPlan> usermp = new ArrayList<MissionPlan>();
@@ -1138,11 +1193,12 @@ public class ShopOneController {
 	@RequestMapping("delMessage")
 	public ModelAndView delMessage(HttpServletRequest req){
 		ModelMap mode = new ModelMap();
-		/**
-		 * 以下两句为模拟shop，表示已经存在shop对象。
-		 */
-		Shop shop = shopService.findById(1);
-		req.getSession().setAttribute("shop", shop);
+//		/**
+//		 * 以下两句为模拟shop，表示已经存在shop对象。
+//		 */
+//		Shop shop = shopService.findById(1);
+//		req.getSession().setAttribute("shop", shop);
+		Shop shop = (Shop)req.getSession().getAttribute("shop");
 		mode.put("shop", shop);
 		
 		Integer mid = Integer.parseInt(req.getParameter("mid"));
@@ -1172,11 +1228,12 @@ public class ShopOneController {
 		Integer mid = Integer.parseInt(req.getParameter("mid"));
 		MissionPlan missionPlan = missionPlanService.findById(mid);
 		missionPlan.setAdvState(AdvState.Read);		
-		/**
-		 * 以下两句为模拟shop，表示已经存在shop对象。
-		 */
-		Shop shop = shopService.findById(1);
-		req.getSession().setAttribute("shop", shop);
+//		/**
+//		 * 以下两句为模拟shop，表示已经存在shop对象。
+//		 */
+//		Shop shop = shopService.findById(1);
+//		req.getSession().setAttribute("shop", shop);
+		Shop shop = (Shop)req.getSession().getAttribute("shop");
 		mode.put("shop", shop);
 		List<MissionPlan> missionPlans = missionPlanService.getAll();
 		List<MissionPlan> usermp = new ArrayList<MissionPlan>();
@@ -1197,11 +1254,12 @@ public class ShopOneController {
 	@RequestMapping("myShop")
 	public ModelAndView myShop(HttpServletRequest req){
 		ModelMap mode = new ModelMap();
-		/**
-		 * 以下两句为模拟shop，表示已经存在shop对象。
-		 */
-		Shop shop = shopService.findById(1);
-		req.getSession().setAttribute("shop", shop);
+//		/**
+//		 * 以下两句为模拟shop，表示已经存在shop对象。
+//		 */
+//		Shop shop = shopService.findById(1);
+//		req.getSession().setAttribute("shop", shop);
+		Shop shop = (Shop)req.getSession().getAttribute("shop");
 		mode.put("shop", shop);
 		//通过店铺Id得到所有商品：
 		List<ShopCommodity> commodities = shopCommodityService.getAllByShop(shop.getId());
@@ -1285,11 +1343,12 @@ public class ShopOneController {
 	@RequestMapping("searchTheShopComm")
 	public ModelAndView searchTheShopComm(HttpServletRequest req){
 		ModelMap mode = new ModelMap();
-		/**
-		 * 以下两句为模拟shop，表示已经存在shop对象。
-		 */
-		Shop shop = shopService.findById(1);
-		req.getSession().setAttribute("shop", shop);
+//		/**
+//		 * 以下两句为模拟shop，表示已经存在shop对象。
+//		 */
+//		Shop shop = shopService.findById(1);
+//		req.getSession().setAttribute("shop", shop);
+		Shop shop = (Shop)req.getSession().getAttribute("shop");
 		mode.put("shop", shop);
 		String keyValue = req.getParameter("serach1");
 		//得到商家ID：
@@ -1303,11 +1362,12 @@ public class ShopOneController {
 	@RequestMapping("goods")
 	public ModelAndView goods(HttpServletRequest req) throws UnsupportedEncodingException{
 		ModelMap mode = new ModelMap();
-		/**
-		 * 以下两句为模拟shop，表示已经存在shop对象。
-		 */
-		Shop shop = shopService.findById(1);
-		req.getSession().setAttribute("shop", shop);
+//		/**
+//		 * 以下两句为模拟shop，表示已经存在shop对象。
+//		 */
+//		Shop shop = shopService.findById(1);
+//		req.getSession().setAttribute("shop", shop);
+		Shop shop = (Shop)req.getSession().getAttribute("shop");
 		mode.put("shop", shop);
 		String key = req.getParameter("key");
 		Integer flag = Integer.parseInt(req.getParameter("flag"));
@@ -1322,18 +1382,17 @@ public class ShopOneController {
 		if (flag == 2) {
 			commodities = new ArrayList<ShopCommodity>();
 			List<ShopCommodity> allComms = shopCommodityService.getAll();
-			System.out.println("得到所有商品个数："+allComms.size());
+			System.out.println("得到所有商品个数2："+allComms.size());
 			for (int i = 0; i < allComms.size(); i++) {
 				if (allComms.get(i).getShopCategory()!=null) {
-					if (allComms.get(i).getShopCategory().getParentLevel()
-							.getCategory().equals(key)) {
-						commodities.add(allComms.get(i));
-						System.out.println(allComms.get(i).getShopCategory().getParentLevel()
+					System.out.println("得到商品类型2："+allComms.get(i).getShopCategory()
 							.getCategory());
+					if (allComms.get(i).getShopCategory().getCategory().equals(key)) {
+						commodities.add(allComms.get(i));
 					}
 				}
 			}
-			System.out.println("得到所有商品个数："+commodities.size());
+			System.out.println("得到所有商品个数2："+commodities.size());
 		}
 		//搜索 一级级分类：flag = 3
 		System.out.println("要搜索的值是："+key);
@@ -1351,8 +1410,12 @@ public class ShopOneController {
 					}
 				}
 			}
-		}		
+		}
+		System.out.println(key+"得到所有的商品个数：：："+commodities.size());
+		mode.put("commodities", commodities);
 		
+		//以下为了加载红色导航：
+		commodities = shopCommodityService.getAllByShop(shop.getId());
 		Map<String, String> mapRed = new HashMap<String, String>();
 		Map<String, String> mapWhite = new HashMap<String, String>();
 		Map<String, String> mapPi = new HashMap<String, String>();
@@ -1427,8 +1490,6 @@ public class ShopOneController {
 		mode.put("mapFood",mapFood);
 		mode.put("shopId", shop.getId());
 		
-		System.out.println(key+"得到所有的商品个数：：："+commodities.size());
-		mode.put("commodities", commodities);
 		return new ModelAndView("setupShop/goods",mode);
 	}
 	
@@ -1436,12 +1497,13 @@ public class ShopOneController {
 	@RequestMapping("setupPeronShop")
 	public String setupPeronShop(@RequestParam MultipartFile [] myfile ,HttpServletRequest req , HttpServletResponse resp) throws IOException{
 		System.out.println("已经加载到setupPersonShop！");
+		AppUser appuser = (AppUser)req.getSession().getAttribute("loginUser");
 		String name = req.getParameter("name");
 		String sex = req.getParameter("sex"); 
 		String birthday = req.getParameter("birthday"); 
-		String province = req.getParameter("province"); 
-		String city = req.getParameter("city"); 
-		String area = req.getParameter("area"); 
+		String province = req.getParameter("cmbProvince"); 
+		String city = req.getParameter("cmbCity"); 
+		String area = req.getParameter("cmbArea"); 
 		String juridicalCard = req.getParameter("juridicalCard"); 
 		String idCard = req.getParameter("idCard"); 
 		String foodCriLis = req.getParameter("foodCriLis"); 
@@ -1456,14 +1518,16 @@ public class ShopOneController {
 		shop.setShopType(ShopType.individual);
 		shop.setFoodCriLis(foodCriLis);
 		shop.setTaxReg(taxReg);
+		//设置店铺所属用户：
+		shop.setUser(appuser);		
 		//显示待审核：
 		shop.setIsPermit(false);
-		String pathStr = "D:/tumbler/images/"+shop.getIdCard()+"/";
-		File path = new File(pathStr).getCanonicalFile();
-		shop.setIdCardUrl(path+"/shenfenzheng"+".jpg");
-		shop.setTaxRegUrl(path+"/shuiwudengji"+".jpg");
-		shop.setFoodCriLisUrl(path+"/shipinliutongxuke"+".jpg");
 		shopService.save(shop);
+		//用户设置店铺：
+		AppUser user = userService.findById(appuser.getId());
+		user.setShop(shop);
+		userService.save(user);
+		
 		req.getSession().setAttribute("shop", shop);
 		//判断file数组不能为空并且长度大于0  
         if(myfile!=null&&myfile.length>0){  
@@ -1490,24 +1554,34 @@ public class ShopOneController {
     			String name2 = file.getOriginalFilename();
     			// 得到要上传文件的后缀名
     			endType = name2.substring(name2.lastIndexOf("."),name2.length());
-            	String pathStr = "D:/tumbler/images/"+shop.getIdCard()+"/";
-            	File path = new File(pathStr).getCanonicalFile();
-            	if (!path.exists() || path.isFile()) {
-        			path.mkdir();
+    			String root = req.getSession().getServletContext().getRealPath("../");
+    			File uploadDir = new File(root, "images/").getCanonicalFile();
+            	if (!uploadDir.exists() || uploadDir.isFile()) {
+            		uploadDir.mkdir();
         		}
-                // 转存文件  
-                System.out.println("文件的保存路径："+path);
-                
+            	uploadDir = new File(root, "images/"+shop.getIdCard()+"/").getCanonicalFile();
+            	if (!uploadDir.exists() || uploadDir.isFile()) {
+            		uploadDir.mkdir();
+        		}            	
+            	
+                // 转存文件                  
             	if (i == 0) {
-					file.transferTo(new File(path,"shenfenzheng"+endType));
-					System.out.println("存储数据库0:"+path+"shenfenzheng"+endType);
+					file.transferTo(new File(uploadDir,"shenfenzheng"+endType));
+					System.out.println("存储数据库0:"+uploadDir+"shenfenzheng"+endType);
+
+					shop.setIdCardUrl("images/"+shop.getIdCard()+"/shenfenzheng"+endType);
 				}if (i == 1) {
-					file.transferTo(new File(path,"shuiwudengji"+endType));
-					System.out.println("存储数据库1:"+path+"shuiwudengji"+endType);
+					file.transferTo(new File(uploadDir,"shuiwudengji"+endType));
+					System.out.println("存储数据库1:"+uploadDir+"shuiwudengji"+endType);
+					
+					shop.setTaxRegUrl("images/"+shop.getIdCard()+"/shuiwudengji"+endType);
 				}if (i == 2) {
-					file.transferTo(new File(path,"shipinliutongxuke"+endType));
-					System.out.println("存储数据库2:"+path+"shipinliutongxuke"+endType);
+					file.transferTo(new File(uploadDir,"shipinliutongxuke"+endType));
+					System.out.println("存储数据库2:"+uploadDir+"shipinliutongxuke"+endType);
+
+					shop.setFoodCriLisUrl("images/"+shop.getIdCard()+"/shipinliutongxuke"+endType);
 				}
+				shopService.update(shop);
                 return true;
             } catch (Exception e) {  
                 e.printStackTrace();  
@@ -1520,6 +1594,7 @@ public class ShopOneController {
 	@RequestMapping("setupCompanyShop")
 	public String setupCompanyShop(@RequestParam MultipartFile [] myfile ,HttpServletRequest req , HttpServletResponse resp) throws IOException{
 		System.out.println("已经加载到setupPersonShop！");
+		AppUser appuser = (AppUser)req.getSession().getAttribute("loginUser");
 		String cname = req.getParameter("cname");
 		String province = req.getParameter("province");
 		String city = req.getParameter("city");
@@ -1529,22 +1604,15 @@ public class ShopOneController {
 		shop.setComName(cname);
 		shop.setAddress(province+" "+city+" "+area);
 		shop.setIdCard(idCard);
-		String pathStr = "D:/tumbler/images/"+shop.getIdCard()+"/";
-		File path = new File(pathStr).getCanonicalFile();
-		shop.setIdCardUrl(path+"/shenfenzheng"+".jpg");
-		shop.setBusinesslisUrl(path+"/yingyezhizhao"+".jpg");
-		shop.setAuthorizeUrl(path+"/shouquanweituo"+".jpg");
-		shop.setFoodCriLisUrl(path+"/shipinliutong"+".jpg");
-		shop.setTaxRegUrl(path+"/shuiwudengji"+".jpg");
-		shop.setProRunPermitCardUrl(path+"/shengchanjingyingxuke"+".jpg");
-		shop.setQsIdentityUrl(path+"/guojiaQSrenzheng"+".jpg");
-		shop.setAlcoholMultiPermitUrl(path+"/zizhiqujiuleipifa"+".jpg");
-		shop.setAlcoholSellContractUrl(path+"/jiuleijingxiaohetong"+".jpg");
-		shop.setSellAuthorizeUrl(path+"/jingxiaoshouquan"+".jpg");
-		shop.setAlcoholRunPermitUrl(path+"/jiuleijingyingxuke"+".jpg");
-		shop.setRetailRecordRegUrl(path+"/lingshoubeiandengji"+".jpg");
 		shop.setShopType(ShopType.company);
+		//设置用户：
+		shop.setUser(appuser);		
 		shopService.save(shop);
+		//用户设置店铺：
+		AppUser user = userService.findById(appuser.getId());
+		user.setShop(shop);
+		userService.update(user);
+		
 		req.getSession().setAttribute("shop", shop);
 		if(myfile!=null&&myfile.length>0){  
             //循环获取file数组中得文件  
@@ -1563,45 +1631,58 @@ public class ShopOneController {
 	    // 判断文件是否为空  
 	    if (!file.isEmpty()) {  
 	        try {
-	//	                // 文件保存路径  
-	//	                String filePath = req.getSession().getServletContext().getRealPath("/") + ""  
-	//	                        + file.getOriginalFilename();
 				String name2 = file.getOriginalFilename();
 				// 得到要上传文件的后缀名
 				endType = name2.substring(name2.lastIndexOf("."),name2.length());
-	        	String pathStr = "D:/tumbler/images/"+shop.getIdCard()+"/";
-	        	File path = new File(pathStr).getCanonicalFile();
-	        	if (!path.exists() || path.isFile()) {
-	    			path.mkdir();
-	    		}
-	            // 转存文件  
-	            System.out.println("文件的保存路径："+path);
-	            
+
+    			String root = req.getSession().getServletContext().getRealPath("../");
+    			File uploadDir = new File(root, "images/").getCanonicalFile();
+            	if (!uploadDir.exists() || uploadDir.isFile()) {
+            		uploadDir.mkdir();
+        		}
+            	uploadDir = new File(root, "images/"+shop.getIdCard()+"/").getCanonicalFile();
+            	if (!uploadDir.exists() || uploadDir.isFile()) {
+            		uploadDir.mkdir();
+        		} 
+	            // 转存文件  	            
 	        	if (i == 0) {
-					file.transferTo(new File(path,"shenfenzheng"+endType));
+					file.transferTo(new File(uploadDir,"shenfenzheng"+endType));
+					shop.setIdCardUrl("images/"+shop.getIdCard()+"/shenfenzheng"+".jpg");
 				}if (i == 1) {
-					file.transferTo(new File(path,"yingyezhizhao"+endType));
+					file.transferTo(new File(uploadDir,"yingyezhizhao"+endType));
+					shop.setBusinesslisUrl("images/"+shop.getIdCard()+"/yingyezhizhao"+".jpg");
 				}if (i == 2) {
-					file.transferTo(new File(path,"shouquanweituo"+endType));
+					file.transferTo(new File(uploadDir,"shouquanweituo"+endType));
+					shop.setAuthorizeUrl("images/"+shop.getIdCard()+"/shouquanweituo"+".jpg");
 				}if (i == 3) {
-					file.transferTo(new File(path,"shipinliutongxuke"+endType));
+					file.transferTo(new File(uploadDir,"shipinliutongxuke"+endType));
+					shop.setFoodCriLisUrl("images/"+shop.getIdCard()+"/shipinliutong"+".jpg");
 				}if (i == 4) {
-					file.transferTo(new File(path,"shuiwudengji"+endType));
+					file.transferTo(new File(uploadDir,"shuiwudengji"+endType));
+					shop.setTaxRegUrl("images/"+shop.getIdCard()+"/shuiwudengji"+".jpg");
 				}if (i == 5) {
-					file.transferTo(new File(path,"shengchanjingyingxuke"+endType));
+					file.transferTo(new File(uploadDir,"shengchanjingyingxuke"+endType));
+					shop.setProRunPermitCardUrl("images/"+shop.getIdCard()+"/shengchanjingyingxuke"+".jpg");
 				}if (i == 6) {
-					file.transferTo(new File(path,"guojiaQSrenzheng"+endType));
+					file.transferTo(new File(uploadDir,"guojiaQSrenzheng"+endType));
+					shop.setQsIdentityUrl("images/"+shop.getIdCard()+"/guojiaQSrenzheng"+".jpg");
 				}if (i == 7) {
-					file.transferTo(new File(path,"zizhiqujiuleipifa"+endType));
+					file.transferTo(new File(uploadDir,"zizhiqujiuleipifa"+endType));
+					shop.setAlcoholMultiPermitUrl("images/"+shop.getIdCard()+"/zizhiqujiuleipifa"+".jpg");
 				}if (i == 8) {
-					file.transferTo(new File(path,"jiuleijingxiaohetong"+endType));
+					file.transferTo(new File(uploadDir,"jiuleijingxiaohetong"+endType));
+					shop.setAlcoholSellContractUrl("images/"+shop.getIdCard()+"/jiuleijingxiaohetong"+".jpg");
 				}if (i == 9) {
-					file.transferTo(new File(path,"jingxiaoshouquan"+endType));
+					file.transferTo(new File(uploadDir,"jingxiaoshouquan"+endType));
+					shop.setSellAuthorizeUrl("images/"+shop.getIdCard()+"/jingxiaoshouquan"+".jpg");
 				}if (i == 10) {
-					file.transferTo(new File(path,"jiuleijingyingxuke"+endType));
+					file.transferTo(new File(uploadDir,"jiuleijingyingxuke"+endType));
+					shop.setAlcoholRunPermitUrl("images/"+shop.getIdCard()+"/jiuleijingyingxuke"+".jpg");
 				}if (i == 11) {
-					file.transferTo(new File(path,"lingshoubeiandengji"+endType));
+					file.transferTo(new File(uploadDir,"lingshoubeiandengji"+endType));
+					shop.setRetailRecordRegUrl("images/"+shop.getIdCard()+"/lingshoubeiandengji"+".jpg");
 				}
+				shopService.update(shop);
 	            return true;
 	        } catch (Exception e) {  
 	            e.printStackTrace();  

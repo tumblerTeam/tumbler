@@ -69,26 +69,8 @@ function buyCat() {
 </head>
 
 <body>
-<!--顶部内容-->
-<div class="header">
-	<div class="header_box">
-    	<ul class="header_nav">
-            <li class="nav1">
-                <a href="open.html"><img src="images/header_hot.jpg"/>免费开店</a>
-          	</li>
-            <li class="nav2" onClick="tiaozhuan('1')" id="zc1" style="cursor:pointer;">快速注册</li>
-             <li class="nav3" id="dl1" style="margin-top:-10px; width:30px; line-height:37px; margin-left:0px;">
-            	<a href="login.html" >登录</a>
-            </li>
-           <li class="nav4">
-            	<a href="personal.html">我的酒翁</a>
-            </li>
-            <li class="nav5">
-            	<a href="shopcar.html">购物车</a>
-            </li>
-        </ul>
-    </div>
-</div>
+<!-- 顶部部分 -->
+<jsp:include page="setupShopCommons/header.jsp" />
 <!--头部内容-->
 <div class="head">
 	<div class="head_box">
@@ -139,10 +121,10 @@ function buyCat() {
 	<div class="menu_nav">
 		<div class="menu_left">
         	<div class="list">
-            	<h2><a href="#">葡萄酒</a></h2>
+            	<h2><a href="proscenium/goods?flag=3&shopId=${shopId}&key=葡萄酒">葡萄酒</a></h2>
                 <div class="list_con">
 	                <c:forEach items="${mapRed}" var="entry" varStatus="vs" begin="0">
-	                	<a href="#">${entry.value}</a>
+	                	<a href="proscenium/goods?flag=2&shopId=${shopId}&key=${entry.value}">${entry.value}</a>
 	                	
 	                	<c:if test="${vs.index%3 == 2}"><br/></c:if>
 	                </c:forEach>
@@ -150,37 +132,40 @@ function buyCat() {
             </div>
             
             <div class="list">
-            	<h2><a href="#">白酒</a></h2>
+            	<h2><a href="proscenium/goods?flag=3&shopId=${shopId}&key=白酒">白酒</a></h2>
                 <div class="list_con">
                 	<c:forEach items="${mapWhite}" var="entry">
-	                	<a href="#">${entry.value}</a>
+	                	<a href="proscenium/goods?flag=2&shopId=${shopId}&key=${entry.value}">${entry.value}</a>
+	                	<c:if test="${vs.index%3 == 2}"><br/></c:if>
 	                </c:forEach>
                 </div>
             </div>
             
             <div class="list">
-            	<h2><a href="#">啤酒</a></h2>
+            	<h2><a href="proscenium/goods?flag=3&shopId=${shopId}&key=啤酒">啤酒</a></h2>
                 <div class="list_con">
                 	<c:forEach items="${mapPi}" var="entry">
-	                	<a href="#">${entry.value}</a>
+	                	<a href="proscenium/goods?flag=2&shopId=${shopId}&key=${entry.value}">${entry.value}</a>
+	                	<c:if test="${vs.index%3 == 2}"><br/></c:if>
 	                </c:forEach>
                 </div>
             </div>
             
             <div class="list">
-            	<h2><a href="#">洋酒</a></h2>
+            	<h2><a href="proscenium/goods?flag=3&shopId=${shopId}&key=洋酒">洋酒</a></h2>
                 <div class="list_con">
                 	<c:forEach items="${mapYang}" var="entry">
-	                	<a href="#">${entry.value}</a>
+	                	<a href="proscenium/goods?flag=2&shopId=${shopId}&key=${entry.value}">${entry.value}</a>
+	                	<c:if test="${vs.index%3 == 2}"><br/></c:if>
 	                </c:forEach>
                 </div>
             </div>
             
             <div class="list">
-            	<h2><a href="#">小食品</a></h2>
+            	<h2><a href="proscenium/goods?flag=3&shopId=${shopId}&key=小食品">小食品</a></h2>
                 <div class="list_con">
                 	<c:forEach items="${mapFood}" var="entry">
-	                	<a href="#">${entry.value}</a>
+	                	<a href="proscenium/goods?flag=2&shopId=${shopId}&key=${entry.value}">${entry.value}</a>
 	                </c:forEach>
                 </div>
             </div>
