@@ -59,8 +59,8 @@
                         *出生年月：<input type="date" name="birthday"/><br />	 
                         <div>  
                         *居住地：
-						 省：<select id="cmbProvince"></select> 市：<select id="cmbCity"></select>
-						区：<select id="cmbArea"></select><br>
+						 省：<select id="cmbProvince" name="cmbProvince"></select> 市：<select id="cmbCity" name="cmbCity"></select>
+						区：<select id="cmbArea" name="cmbArea"></select><br>
 						<script type="text/javascript">
 							addressInit('cmbProvince', 'cmbCity', 'cmbArea', '新疆', '乌鲁木齐市', '新市区');
 						</script> 

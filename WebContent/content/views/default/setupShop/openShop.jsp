@@ -1,3 +1,4 @@
+<%@page import="com.yc.entity.Shop"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -6,6 +7,7 @@
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
+	Shop shop = null;
 %>
 <!DOCTYPE html>
 <html lang="zh">
@@ -32,6 +34,7 @@
 <jsp:include page="setupShopCommons/header.jsp" />
 <!-- 左边部分 -->
 <jsp:include page="setupShopCommons/left.jsp" />  
+	<%if((Shop)request.getSession().getAttribute("shop")==null) {%>
         <div class="bread" >
         	<div class="left1"><a href="#">我是卖家</a> < 申请开店</div>
             <a href="#"><span class="right1">开店帮助</span></a>
@@ -78,7 +81,7 @@
                 	<li>
                     	<img src="content/static/images/geren.png" /> 
                         <div  class="box1">
-                        	<h4>个人店铺权益<%=request.getSession().getAttribute("loginUser") %></h4>
+                        	<h4>个人店铺权益</h4>
                              <hr style="border-style:dashed; border-color:#666;" />
                             <p>免费使用图片空间</p>
                             <p>免费使用图片空间</p>
@@ -100,10 +103,14 @@
                 </ul>
             </div>
         </div>
-      
-      <!--中间结束-->  
-    </div>
-</div>
+      <%}else if((Shop)request.getSession().getAttribute("shop")!=null){
+  		shop = (Shop)request.getSession().getAttribute("shop");
+  		if(!shop.getIsPermit()){%>
+  			<h2 style="padding:40px;">等待审核!审核大约需要2-4天，请稍等！</h2>
+  		<%}else if(shop.getIsPermit()){%>
+  			<h2 style="padding:40px;">恭喜你，开店成功！<%=request.getSession().getAttribute("shop")==null%></h2>        		
+  		<%} %>
+  	<%} %>
 <!-- 页脚部分 -->
 <jsp:include page="../frontDesk/foot.jsp"/>
 
