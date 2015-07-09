@@ -320,9 +320,11 @@ public class ShopCommodityService extends GenericService<ShopCommodity> implemen
 		return query.getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ShopCommodity> getActivityCommodity() {
 		StringBuffer hql = new StringBuffer("select * from ShopCommodity comm right join Activity act on comm.activity_id = act.activityId ");
-		return null;
+		Query query = ShopCommodityDao.getEntityManager().createNativeQuery(hql.toString(), ShopCommodity.class);
+		return query.getResultList();
 	}
 }

@@ -2,9 +2,11 @@ package com.yc.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,20 +33,20 @@ public class Activity {
 	private String activityName;//活动名称
 	
 	@Column
-	private boolean isOpenOrClose;
+	private Boolean isOpenOrClose = false;
 	
 	@ManyToOne
 	@JoinColumn(name="activityStyle_id")
 	private ActivityStyle activityStyle;//活动类型
 	
-	@OneToMany(mappedBy="activity")
+	@OneToMany(mappedBy="activity",cascade = {CascadeType.REFRESH},fetch=FetchType.EAGER)
 	private List<ShopCommodity> commodities;//商品
-
-	public boolean isOpenOrClose() {
+	
+	public Boolean getIsOpenOrClose() {
 		return isOpenOrClose;
 	}
 
-	public void setOpenOrClose(boolean isOpenOrClose) {
+	public void setIsOpenOrClose(Boolean isOpenOrClose) {
 		this.isOpenOrClose = isOpenOrClose;
 	}
 

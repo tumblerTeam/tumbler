@@ -53,7 +53,8 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title"></h3>
-				<a href="management/addActivity">活动方式<span class="badge navbar-right">添加&nbsp;+</span></a>
+				<a href="management/addActivity">活动方式<span
+					class="badge navbar-right">添加&nbsp;+</span></a>
 			</div>
 			<div class="container-fluid">
 				<div class="row-fluid">
@@ -66,34 +67,39 @@
 									<th style="text-align: center;">活动类型</th>
 									<th style="text-align: center;">开始日期</th>
 									<th style="text-align: center;">截止日期</th>
+									<th style="text-align: center;">状态</th>
 									<th style="text-align: center;"></th>
 								</tr>
 							</thead>
-					<c:forEach var="activity" items="${activitys}" varStatus="loop">
-						<c:choose>
-							<c:when test="${loop.index%2==0 }">
-								<tr>
-							</c:when>
-							<c:otherwise>
-								<tr class="success">
-							</c:otherwise>
-						</c:choose>
-						<td style="text-align: center;">${activity.activityName}</td>
-						<td style="text-align: center;">${activity.activityStyle.activityStyle}</td>
-						<td style="text-align: center;">${activity.startDate}</td>
-						<td style="text-align: center;">${activity.endDate}</td>
-						<td style="text-align: center;">
-							<a href="management/updateActivity?page=update&activityId=${activity.activityId}"><span class="badge">修改</span></a>
-							<a href="management/deleteActivity?id=${activity.activityId}"><span class="badge">删除</span></a></td>
-							<a href="management/manageActivity?activityId=${activity.activityId}"><span class="badge">开启/关闭</span></a>
-						</tr>
-					</c:forEach>
+							<c:forEach var="activity" items="${activitys }" varStatus="loop">
+								<c:choose>
+									<c:when test="${loop.index%2==0 }">
+										<tr>
+									</c:when>
+									<c:otherwise>
+										<tr class="success">
+									</c:otherwise>
+								</c:choose>
+								<td style="text-align: center;">${activity.activityName}</td>
+								<td style="text-align: center;">${activity.activityStyle.activityType}</td>
+								<td style="text-align: center;">${activity.startDate}</td>
+								<td style="text-align: center;">${activity.endDate}</td>
+								<td style="text-align: center;"><c:if test="${activity.isOpenOrClose == 'true'}">开启</c:if><c:if test="${activity.isOpenOrClose == 'false'}">关闭</c:if></td>
+								<td style="text-align: center;"><a
+									href="management/updateActivity?page=update&activityId=${activity.activityId}"><span
+										class="badge">修改</span></a> <a
+									href="management/manageActivity?activityId=${activity.activityId}"><span
+										class="badge">开启/关闭</span></a> <a
+									href="management/deleteActivity?id=${activity.activityId}"><span
+										class="badge">删除</span></a></td>
+								</tr>
+							</c:forEach>
 						</table>
 					</div>
 				</div>
 			</div>
 			<script type="text/javascript">
-				function onUpdateManor(url){
+				function onUpdateManor(url) {
 					location.href = url;
 				}
 			</script>

@@ -150,8 +150,8 @@ public class ServiceTools {
 				Date now = sdf.parse(sdf.format(new Date()));// 现在时间
 				Date endDate = sdf.parse(activity.getEndDate());// 活动截止时间
 				Boolean sign = endDate.before(now);// 判断截止日期(endDate)是否当前日期(now)之前，false即活动进行中
-				System.out.println("activityStyleName===" + activityStyle.getActivityStyleId() + "  " + activityStyle.getActivityStyle() + " " + sign);
-				if (activityStyle.getActivityStyle().equals("限时抢购")) {
+				System.out.println("activityStyleName===" + activityStyle.getActivityStyleId() + "  " + activityStyle.getActivityType() + " " + sign);
+				if (activityStyle.getActivityType().equals("限时抢购")) {
 					if (sign == false) {
 						carcommodity.setUnitPrice(shopcommodity.getSpecialPrice());// 把购物车商品更新为限时活动价位
 						carcommodity.setPrice(shopcommodity.getSpecialPrice() * carcommodity.getAmount());// 重新计算购物车总价
@@ -165,7 +165,7 @@ public class ServiceTools {
 						shopcommodityService.update(shopcommodity);
 						handleCarCommodities.add(carcommodity);
 					}
-				} else if (activityStyle.getActivityStyle().equals("限量抢购")) {
+				} else if (activityStyle.getActivityType().equals("限量抢购")) {
 					Integer activityamount = shopcommodity.getActivityAmount();// 活动数量
 					if (sign == false) {
 						if (activityamount > 0) {
@@ -203,7 +203,7 @@ public class ServiceTools {
 							handleCarCommodities.add(carcommodity);
 						}
 					}
-				} else if (activityStyle.getActivityStyle().equals("团购")) {
+				} else if (activityStyle.getActivityType().equals("团购")) {
 					List<AppUser> appUserList = shopcommodity.getUsers();// 抢到活动商品的的用户
 					Integer activityAmount = shopcommodity.getActivityAmount();// 参加团购活动的商品数量
 					if (sign == false) {

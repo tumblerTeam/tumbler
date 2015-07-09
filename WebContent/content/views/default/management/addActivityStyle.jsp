@@ -68,7 +68,7 @@
 						<label class="col-sm-2 control-label">活动方式:</label>
 						<div class="col-sm-8">
 							<input type="text" class="form-control" id="activityStyle"
-								name="activityStyle" value="${style.activityStyle }"><br> <input
+								name="activityStyle" value="${style.activityType }"><br> <input
 								type="hidden" id="activityStyleId" name="activityStyleId"
 								value="${style.activityStyleId }">
 						</div>

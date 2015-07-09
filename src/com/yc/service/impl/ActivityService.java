@@ -1,5 +1,7 @@
 package com.yc.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,4 +19,8 @@ public class ActivityService extends GenericService<Activity> implements IActivi
 		return ActivityDao;
 	}
 
+	@Override
+	public List<Activity> getAllByOpenOrClose(boolean b) {
+		return ActivityDao.getBy("isOpenOrClose", b?1:0);
+	}
 }
