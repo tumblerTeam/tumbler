@@ -202,16 +202,16 @@ public class ActivityManageController {
 	@RequestMapping(value = "addCommActivity", method = RequestMethod.POST)
 	public String addCommActivity(Integer activityId,Integer commID,String link,@RequestParam("actityImage") MultipartFile actityImage,Integer activityAmount, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = actityImage.getOriginalFilename();
-		String pathDir = "content/static/img/activityImage/";
+		String pathDir = "../images/activityImage/";
 		ShopCommodity shopCommodity = shopCommodityService.findById(commID);
 		Activity activity = activityService.findById(activityId);
 		List<ShopCommodity> list = activity.getCommodities();
 		if (!name.equals("") && shopCommodity != null && activity != null) {
 			String logoRealPathDir = request.getSession().getServletContext().getRealPath(pathDir);
-			File file1 = new File(logoRealPathDir);
+			File file1 = new File(logoRealPathDir,pathDir).getCanonicalFile();
 			if (!file1.exists())
 				file1.mkdirs();
-			File file = new File(logoRealPathDir, name);
+			File file = new File(logoRealPathDir, name).getCanonicalFile();
 			if (file.getParentFile() == null)
 				file.mkdirs();
 			actityImage.transferTo(file);
@@ -256,7 +256,7 @@ public class ActivityManageController {
 		    activityService.update(activity);
 		}
 		String name = actityImage.getOriginalFilename();
-		String pathDir = "content/static/img/activityImage/";
+		String pathDir = "../images/activityImage/";
 		ShopCommodity shopCommodity = shopCommodityService.findById(commID);
 		Activity activity = activityService.findById(activityId);
 		List<ShopCommodity> list = activity.getCommodities();

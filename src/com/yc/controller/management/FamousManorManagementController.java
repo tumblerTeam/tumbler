@@ -97,7 +97,7 @@ public class FamousManorManagementController {
 	@RequestMapping(value = "addManor", method = RequestMethod.POST)
 	public String addManorPost(@RequestParam("path") MultipartFile sendFile, String manorName, String describes, String isForbidden, String title,  HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = sendFile.getOriginalFilename();
-		String pathDir = "content/static/img/manor/";
+		String pathDir = "../images/manor/";
 		String logoRealPathDir = request.getSession().getServletContext().getRealPath(pathDir);
 		File file1 = new File(logoRealPathDir);
 		if (!file1.exists())
@@ -130,13 +130,13 @@ public class FamousManorManagementController {
 		FamousManor famousManor = famousManorService.findById(id);
 		if (famousManor != null) {
 			String name = sendFile.getOriginalFilename();
-			String pathDir = "content/static/img/manor/";
+			String pathDir = "../images/manor/";
 			if (name != null && !name.equals("")) {
 				String logoRealPathDir = request.getSession().getServletContext().getRealPath(pathDir);
-				File file1 = new File(logoRealPathDir);
+				File file1 = new File(logoRealPathDir).getCanonicalFile();
 				if (!file1.exists())
 					file1.mkdirs();
-				File file = new File(logoRealPathDir, name);
+				File file = new File(logoRealPathDir, name).getCanonicalFile();
 				if (file.getParentFile() == null)
 					file.mkdirs();
 				sendFile.transferTo(file);

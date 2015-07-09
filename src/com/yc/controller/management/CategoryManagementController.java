@@ -243,7 +243,7 @@ public class CategoryManagementController {
 		ShopCategory cate = categoryService.findById(categoryID);
 		if (cate != null) {
 			String name = sendFile.getOriginalFilename();
-			String pathDir = "content/static/img/brand/";
+			String pathDir = "../images/brand/";
 			if (!name.equals("")) {
 				String logoRealPathDir = request.getSession().getServletContext().getRealPath(pathDir);
 				File file1 = new File(logoRealPathDir);
@@ -300,13 +300,13 @@ public class CategoryManagementController {
 	public String updateBrand(@RequestParam("sendFile") MultipartFile sendFile,Integer categoryID,Integer brandID, String brandName,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (brandID !=null && !brandID.equals("")) {
 			String name = sendFile.getOriginalFilename();
-			String pathDir = "content/static/img/brand/";
+			String pathDir = "images/brand/";
 			if (!name.equals("")) {
-				String logoRealPathDir = request.getSession().getServletContext().getRealPath(pathDir);
-				File file1 = new File(logoRealPathDir);
+				String logoRealPathDir = request.getSession().getServletContext().getRealPath("../");
+				File file1 = new File(logoRealPathDir).getCanonicalFile();
 				if (!file1.exists())
 					file1.mkdirs();
-				File file = new File(logoRealPathDir, name);
+				File file = new File(logoRealPathDir+pathDir, name).getCanonicalFile();
 				if (file.getParentFile() == null)
 					file.mkdirs();
 				sendFile.transferTo(file);
