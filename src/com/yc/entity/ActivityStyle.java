@@ -20,7 +20,7 @@ public class ActivityStyle {
 	private Integer activityStyleId;
 	
 	@Column
-	private String activityStyle;//活动方式
+	private String activityType;//活动方式
 	
 	@OneToMany(mappedBy="activityStyle")
 	private List<Activity> activitys;//对应的活动列表
@@ -33,12 +33,12 @@ public class ActivityStyle {
 		this.activityStyleId = activityStyleId;
 	}
 
-	public String getActivityStyle() {
-		return activityStyle;
+	public String getActivityType() {
+		return activityType;
 	}
 
-	public void setActivityStyle(String activityStyle) {
-		this.activityStyle = activityStyle;
+	public void setActivityType(String activityType) {
+		this.activityType = activityType;
 	}
 
 	public List<Activity> getActivitys() {

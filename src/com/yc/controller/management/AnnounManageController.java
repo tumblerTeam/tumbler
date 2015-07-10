@@ -277,13 +277,13 @@ public class AnnounManageController {
 				}
 				if(advertisements.size()<=advertiseDistribution.getNum()){
 					String name = imagePath.getOriginalFilename();
-					String pathDir = "content/static/img/advertiseImage/";
+					String pathDir = "../images/advertiseImage/";
 					if (!name.equals("")) {
 						String logoRealPathDir = request.getSession().getServletContext().getRealPath(pathDir);
 						File file1 = new File(logoRealPathDir);
 						if (!file1.exists())
 							file1.mkdirs();
-						File file = new File(logoRealPathDir, name);
+						File file = new File(logoRealPathDir, name);;
 						if (file.getParentFile() == null)
 							file.mkdirs();
 						imagePath.transferTo(file);
@@ -325,7 +325,7 @@ public class AnnounManageController {
 			List<Advertisement> advertisements = advertiseDistribution.getAdvertisementList();
 			if(advertisements.size()<=advertiseDistribution.getNum()){
 				String name = imagePath.getOriginalFilename();
-				String pathDir = "content/static/img/advertiseImage/";
+				String pathDir = "../images/advertiseImage/";
 				Advertisement advertisement = advertisementService.findById(id);
 				if (!name.equals("")) {
 					if(advertisement != null){

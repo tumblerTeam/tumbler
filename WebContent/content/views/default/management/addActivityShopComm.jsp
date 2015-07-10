@@ -56,7 +56,7 @@
 	src="content/static/js/datetime/bootstrap-clockpicker.min.js"></script>
 <script type="text/javascript"
 	src="content/static/js/datetime/jquery.datetimepicker.js"></script>
-	
+
 <jsp:include page='../common/header.jsp' />
 <br />
 <br />
@@ -67,45 +67,62 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title" style="height: 16px;">
-					<a href="management/activityStyle">活动类型添加<span
+					<a href="management/activityShopCommodity">活动商品添加<span
 						class="badge navbar-right">返回</span></a>
 				</h3>
 			</div>
 			<div class="panel-body">
 				<form class="form-horizontal" role="form" method="post"
-					id="noticeForm" name="form">
-					<div class="form-group">
-						<label class="col-sm-2 control-label">活动方式:</label>
-						<div class="col-sm-8">
-							<select id="activityStyleId" name="activityStyleId">
-								<c:forEach items="${activityStyles }" var="style">
-									<option value="${style.activityStyleId }" <c:if test="${activity.activityStyle.activityStyleId == style.activityStyleId }">selected</c:if>>${style.activityType }
-								</c:forEach>
-							</select><br> <input type="hidden" id="activityId"
-								name="activityId" value="${activity.activityId }">
-						</div>
-					</div>
+					id="noticeForm" name="form" enctype="multipart/form-data">
 					<div class="form-group">
 						<label class="col-sm-2 control-label">活动名称:</label>
 						<div class="col-sm-8">
-							<input name="activityName" id="activityName"
-								value="${activity.activityName }" 
+							<select id="activityId" name="activityId"  class="form-control">
+								<c:forEach items="${activitys }" var="style">
+									<option value="${style.activityId }"
+										<c:if test="${shopcommodity.activity.activityId == style.activityId }">selected</c:if>>${style.activityName }
+								</c:forEach>
+							</select><br> <input type="hidden" id="commCode" name="commCode"
+								value="${shopcommodity.commCode }">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">商品ID:</label>
+						<div class="col-sm-8">
+							<input name="commID" id="commID"
+								value="${shopcommodity.commCode }" class="form-control">
+							<br>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">商品数目:</label>
+						<div class="col-sm-8">
+							<input name="activityAmount" id="activityAmount"
+								value="${shopcommodity.activityAmount }" class="form-control">
+							<br>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">商品链接:</label>
+						<div class="col-sm-8">
+							<input name="link" id="link" value="${shopcommodity.link }"
 								class="form-control"> <br>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label">开始日期:</label>
+						<label class="col-sm-2 control-label">活动照片:</label>
 						<div class="col-sm-8">
-							<input name="startDate" id="startDate"
-								value="${activity.startDate }" onclick="dateInfoxxx('startDate')"
-								class="form-control"> <br>
+							<input name="actityImage" id="actityImage"
+								value="${shopcommodity.actityImage }" class="form-control"
+								type="file" onchange="PreviewImage(this);"> <br>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label">截止日期:</label>
-						<div class="col-sm-8">
-							<input name="endDate" id="endDate" value="${activity.endDate }"
-								onclick="dateInfoxxx('endDate')" class="form-control"> <br>
+						<label for="inputEmail3" class="col-sm-2 control-label"> </label>
+						<div class="col-sm-8" id="brandLogo">
+							<c:if test="${shopcommodity.actityImage != null}">
+								<img alt="" src="${shopcommodity.actityImage }">
+							</c:if>
 						</div>
 					</div>
 					<div class="form-group">
@@ -123,6 +140,27 @@
 	</div>
 </div>
 <script type="text/javascript">
+	function PreviewImage(imgFile) {
+		var pattern = /(\.*.jpg$)|(\.*.png$)|(\.*.jpeg$)|(\.*.gif$)|(\.*.bmp$)/;
+		if (!pattern.test(imgFile.value)) {
+			alert("系统仅支持jpg/jpeg/png/gif/bmp格式的照片！");
+			imgFile.focus();
+		} else {
+			var path;
+			if (document.all)//IE 
+			{
+				imgFile.select();
+				path = document.selection.createRange().text;
+				document.getElementById("brandLogo").innerHTML = "";
+				document.getElementById("brandLogo").style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='scale',src=\""
+						+ path + "\")";//使用滤镜效果 
+			} else//FF 
+			{
+				path = URL.createObjectURL(imgFile.files[0]);
+				document.getElementById("brandLogo").innerHTML = "<img name='picshow' src='"+path+"'/>";
+			}
+		}
+	}
 	function dateInfoxxx(obj) {
 		var date = obj;
 		$('#' + date).datetimepicker({
@@ -140,10 +178,10 @@
 	}
 	function onclickBut(obj) {
 		if (obj == 'update') {
-			document.form.action = "management/updateActivity";
+			document.form.action = "management/updateCommActivity";
 			document.form.submit();
 		} else {
-			document.form.action = "management/addActivity";
+			document.form.action = "management/addCommActivity";
 			document.form.submit();
 		}
 	}
