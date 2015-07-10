@@ -69,53 +69,10 @@ function buyCat() {
 </head>
 
 <body>
-<!-- 顶部部分 -->
-<jsp:include page="setupShopCommons/header.jsp" />
-<!--头部内容-->
-<div class="head">
-	<div class="head_box">
-		<div class="logo"><a href="index.html"><img src="images/logo.png"></a></div>
-        <div class="sj_logo" style="width:205px; height:40px; border:1px red solid; margin-left:100px; margin-top:115px; position:absolute;">商家logo</div>
-        
-        <div class="search" >
-        	<input class="text" placeholder="红酒" id="hj">
-           <a href="#"><img src="images/search_text.jpg" /></a>
-           <div  class="zi"><span><a href="#">拉菲</a></span><span><a href="#">奔富</a></span><span><a href="#">名庄</a></span></div> 
-           <div class="">
-           </div>
-        </div>
-        
-        <div class="wx">
-        	<div class="wx_app">
-            	<h1>APP用户</br>专享优惠</h1>
-                <p>扫一扫有惊喜</p>	
-            </div>
-            <div class="wx_2">
-            	<img src="images/wx.jpg">
-            </div>
-        </div>
-   	</div>
-</div>
+<!--头部-->
+<jsp:include page="../frontDesk/header.jsp"/>
+
 <!--导航内容-->
-<div class="nav">
-	<div class="nav_box">
-    	<div class="nav_btn"><a href="#" id="fen">全部商品分类</a>
-        </div>
-        <div class="nav_list">
-            <a href="#" style="padding-left:30px; color:#a40c59">首页</a>
-            <a href="#">名庄特卖</a>
-            <a href="#">品牌专区</a>
-            <a href="#">整箱购</a>
-            <a href="#">商城精选</a>
-            <a href="#">酒翁精品</a>
-            <a href="#">小食品</a>
-     	</div>
-  </div>
-</div>
-<!--面包屑-->
-<div class="breadCrumb">
-  <div class="con"> <a href="#">首页</a> > <a>商品详情</a> </div>
-</div>
 <!--banner-->
 <div class="banner" style="height:500px;">
 	<div class="menu_nav">

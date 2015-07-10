@@ -11,7 +11,7 @@
 <html lang="zh">
 <head>
 <meta charset="utf-8" />
-<base href="<%=basePath%>" />
+<base href="<%=basePath%>"/>
 <meta name="GENERATOR" content="MSHTML 8.00.7600.16535">
 <title>不倒翁首页</title>
 <link rel="stylesheet" type="text/css" href="content/static/css/seller.css">
@@ -30,8 +30,8 @@ function setTab(name,m,n){
 </head>
 
 <body>
-<!-- 顶部部分 -->
-<jsp:include page="setupShopCommons/header.jsp" />
+<!--头部-->
+<jsp:include page="../frontDesk/header.jsp"/>
 <!-- 左边部分 -->
 <jsp:include page="setupShopCommons/left.jsp" />
 <!--中间内容-->

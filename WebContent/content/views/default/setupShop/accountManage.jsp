@@ -43,37 +43,17 @@
 
 <body>
 
-<!-- 顶部部分 -->
-<jsp:include page="setupShopCommons/header.jsp" />
+<!--头部-->
+<jsp:include page="../frontDesk/header.jsp"/>
 <!--中间内容-->
-<div class="seller">
-	<div class="top">
-    	<div class="logo">卖家中心</div>
-        <div class="search1">
-        	<div class="zi">
-            	<ul>
-                	<li>服务</li>
-                    <li>货源</li>
-                    <li>商品</li>
-                    <li>店铺</li>
-                    <li>帮助</li>
-                </ul>
-            </div>
-            <div class="text">
-            	<form>
-                	<input type="search" class="box" name="search1" />
-                    <input type="image" class="img" src="img/search_text.jpg" name="image" />
-                </form>
-            </div>
-        </div>
-    </div>
+<div class="seller" style="margin:30px 0 0 190px;">
     <div class="center">
     	<div class="top_nav">
         	<div class="top_nav_class">
                 <ul>
                     <a href="proscenium/openShop"><li>我是卖家</li></a>
                     <li style="background-color:#a40c59; color:#fff;">账号管理</li>
-                    <a href="xxzx.html"><li>消息中心</li></a> 
+                    <a href="proscenium/messageCenter"><li>消息中心</li></a>
                 </ul>
             </div>
             <a href="personal.html"><div class="lianjie">我的不倒翁>></div></a>

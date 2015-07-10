@@ -30,8 +30,8 @@
 
 <body>
 
-<!-- 顶部部分 -->
-<jsp:include page="setupShopCommons/header.jsp" />
+<!--头部-->
+<jsp:include page="../frontDesk/header.jsp"/>
 <!--中间内容-->
 <div class="seller">
 	<div class="top">

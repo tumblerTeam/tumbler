@@ -47,46 +47,9 @@ function buyCat() {
 </head>
 
 <body>
-<!-- 顶部部分 -->
-<jsp:include page="setupShopCommons/header.jsp" />
-<!--头部内容-->
-<div class="head">
-	<div class="head_box">
-		<div class="logo"><a href="index.html"><img src="images/logo.png"></a>
-		</div>
-        
-        <div class="search" >
-        	<input value="输入您想购买的商品名称" class="text">
-           <a href="#"><img src="content/static/images/search_text.jpg" /></a>
-        </div>
-        
-        <div class="wx">
-        	<div class="wx_app">
-            	<h1>APP用户</br>专享优惠</h1>
-                <p>扫一扫有惊喜</p>	
-            </div>
-            <div class="wx_2">
-            	<img src="images/wx.jpg">
-            </div>
-        </div>
-   	</div>
-</div>
-<!--导航内容-->
-<div class="nav">
-	<div class="nav_box">
-    	<div class="nav_btn"><a href="#">全部商品分类</a>
-        </div>
-        <div class="nav_list">
-            <a href="#" style="padding-left:30px; color:#a40c59">首页</a>
-            <a href="#">名庄特卖</a>
-            <a href="#">品牌专区</a>
-            <a href="#">整箱购</a>
-            <a href="#">商城精选</a>
-            <a href="#">酒翁精品</a>
-            <a href="#">小食品</a>
-     	</div>
-  </div>
-</div>
+<!--头部-->
+<jsp:include page="../frontDesk/header.jsp"/>
+
 <!--banner-->
 <div class="banner" style="height:500px;">
 	<div class="menu_nav">

@@ -51,4 +51,10 @@ public class ShopService extends GenericService<Shop> implements IShopService {
 		StringBuffer hql = new StringBuffer("SELECT * FROM shop WHERE ID "+(b?"IN":"NOT IN")+" ( SELECT famousmanorandshop.shop_id FROM famousmanorandshop LEFT JOIN shop ON shop.id = famousmanorandshop.shop_id) AND isPermit = 1 AND shop.blacklist_id IS NULL");
 		return shopDao.getEntityManager().createNativeQuery(hql.toString(), Shop.class).getResultList();
 	}
+
+	@Override
+	public Shop getShoByIdCard(String idcard) {
+		// TODO Auto-generated method stub
+		return shopDao.getFirstRecord("idCard", idcard);
+	}
 }
