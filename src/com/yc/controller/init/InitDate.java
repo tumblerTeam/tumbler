@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import com.yc.entity.ShopCategory;
 import com.yc.entity.user.Personnel;
-import com.yc.entity.user.User;
 import com.yc.service.IPersonnelService;
 import com.yc.service.IShopCategoryService;
 
