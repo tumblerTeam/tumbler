@@ -36,8 +36,13 @@
 </script>
 <style type="text/css">
 tr {
-	font-size: 14px;	
-	height:50px;
+	display: table-row;
+	vertical-align: inherit;
+	border-color: inherit;
+}
+td{
+	padding:8px 10px;
+	vertical-align:top;	
 }
 </style>
 </head>
@@ -63,29 +68,32 @@ tr {
 
 					</ul>
 				</div>
-					<table>
+					<table style="border:1px solid #bbb;width:850px">
 						<c:forEach items="${orderForms}" var="o">
-							<tr>
-								<td style="width:100px;">商品信息：</td>
+							<tr style="background-color:#e8f2ff;">
+								<td colspan="18" style="width:850px;padding:8px 10px;vertical-align:top;">
+									<span class="order-number">订单编号：${o.orderFormID}</span>
+									<span class="order-number">创建时间：${o.orderDate } ${o.orderTime}</span>
+								</td>
 							</tr>
-							<tr style="width: 850px;height: 30px;margin-top: 7px;background-color: #ededed;line-height: 30px;font-size: 20px;">
-								<th style="width: 250px;">商品</th>
-								<th style="width: 100px;">单价（元）</th>
-								<th>数量</th>
-								<th>规格</th>
-								<th>买家</th>
-								<th>交易状态</th>
-								<th style="width: 100px;">实收款（元）</th>
-								<th>评价</th>
+							
+							<tr style="width: 850px;height: 30px;margin-top: 7px;line-height: 30px;font-size: 14px;">
+								
+								<th style="width: 40%;">商品</th>
+								<th style="width: 10%;">单价（元）</th>
+								<th style="width: 5%;">数量</th>
+								<th style="width: 5%;">规格</th>
+								<th style="width: 10%;">买家</th>
+								<th style="width:20%;">交易状态</th>
+								<th style="width: 10%;">实收款（元）</th>
 							</tr>
-							<tr>
-								<c:forEach items="${o.commodities }" var="c">
-									<td
-										style="line-height: 20px; text-align: left; float: left;">
+								<c:forEach items="${o.commodities}" var="c">
+								<tr>
+									<td style="line-height: 20px; text-align: left; float: left;">
 										<img src="images/quan.jpg" width="50px" height="40px"
 										style="margin-left: 15px;" />
 										<div style="float: right; margin-right: 20px;">
-											${c.commItem }<br />${c.nameOfGoods }
+											${c.shopCommodity.commItem }<br />${c.shopCommodity.commoidtyName }
 										</div>
 									</td>
 									<td style="width: 100px;">￥${c.price}</td>
@@ -94,13 +102,14 @@ tr {
 									<td>${o.orderUser.userName}</td>
 										<td>等待卖家发货</td>
 									<td style="width: 100px;">￥${c.money}</td>
-									<td>${c.comment }</td>
-								</c:forEach>
-							</tr>
+									<td></td>
+								</tr>
+							</c:forEach>
+							
 							<tr>
-								<td style="width:100px;">收货地址：</td>
+								<td colspan="18" style="width:100%;background-color: #e8f2ff;">收货地址：</td>
 							</tr>
-							<tr style="width: auto;height: 30px;margin-top: 7px;background-color: #ededed;line-height: 30px;font-size: 20px;">
+							<tr style="width: auto;height: 30px;margin-top: 7px;line-height: 30px;font-size: 14px;">
 								<th>国家</th>
 								<th>省</th>
 								<th>市</th>
@@ -111,42 +120,31 @@ tr {
 								<th>邮件</th>
 								<th>备注</th>
 							</tr>
+							<c:if test="${o.delivery.address!=null}">
+								<tr>
+									<td>${o.delivery.address.country}</td>
+									<td>${o.delivery.address.provience}</td>
+									<td>${o.delivery.address.city}</td>
+									<td>${o.delivery.address.district}</td>
+									<td>${o.delivery.address.street}</td>
+									<td>${o.delivery.address.toName}</td>
+									<td>${o.delivery.address.phone}</td>
+									<td>${o.delivery.address.toEmail}</td>
+									<td>${o.delivery.address.orther}</td>
+								</tr>
+							</c:if>
 							<tr>
-								<td>${o.address.country}</td>
-								<td>${o.address.provience}</td>
-								<td>${o.address.city}</td>
-								<td>${o.address.district}</td>
-								<td>${o.address.street}</td>
-								<td>${o.address.toName}</td>
-								<td>${o.address.phone}</td>
-								<td>${o.address.toEmail}</td>
-								<td>${o.address.orther}</td>
-							</tr>
-							<tr>
-								<td style="width:100px;">开始发货：</td>
+								<td colspan="18" style="width:100%;background-color: #e8f2ff;">开始发货：</td>
 							</tr>
 							<form action="proscenium/deliveryComm" method="post">
 								<tr style="">
 									<td>快递公司</td>
-									<td>${o.delivery.deliveryName }</td>
+									<td><input type="text" name="deliveryName" placeholder="快递名称"/></td>
 								</tr>
 								<tr>
 									<td>运单号</td>
 									<td><input type="text" placeholder="运单号" name="packageCode"/></td>
 								</tr>
-								<tr>
-									<td>总重量</td>
-									<td><input type="text" placeholder="总重量" name="totalWeight"/></td>
-								</tr>
-								<tr>
-									<td>毛重量</td>
-									<td><input type="text" placeholder="毛重量" name="grossWeight"/></td>
-								</tr>
-								<tr>
-									<td>运输费</td>
-									<td><input type="text" placeholder="运输费" name="transportFee"/></td>
-								</tr>
-								<tr>
 									<input type="hidden" name="orderFormID" value="${o.orderFormID}"/>
 									<td><input type="submit" value="提交发货"/></td>
 								</tr>

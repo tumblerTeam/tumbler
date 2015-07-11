@@ -52,7 +52,7 @@
 <!--头部-->
 <jsp:include page="../frontDesk/header.jsp"/>
 <!--中间内容-->
-<div class="seller" style="margin:30px 0 0 190px;">
+<div class="seller" style="margin:30px 0 0 190px;font-size: 12px;">
     <div class="center">
     	<div class="top_nav">
         	<div class="top_nav_class">

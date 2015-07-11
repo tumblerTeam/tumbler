@@ -1,3 +1,4 @@
+<%@page import="com.yc.entity.user.AppUser"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -121,7 +122,10 @@ function setTab(name,m,n){
         <!--中间开始-->
         <div>
          <div class="bread" >
-        	<div class="left1"><a href="open.html">我是卖家</a> < <font style="font-weight:700;">已卖出的商品</font></div>
+         <% 
+         	AppUser user = (AppUser)request.getSession().getAttribute("loginUser");
+         %>
+        	<div class="left1"><a href="proscenium/soldComm">我是卖家</a> < <font style="font-weight:700;">已卖出的商品</font></div>
             <a href="#"><span class="right1">买家交易学习专区</span></a>
         </div>
         <div class="sold" style="padding-bottom: 20px;">
@@ -162,7 +166,8 @@ function setTab(name,m,n){
 				</div>
 				<div class="nav1">
 					<ul>
-						<li style="width: 250px;">商品</li>
+						<li style="width: 50px;">操作</li>
+						<li style="width: 150px;">商品</li>
 						<li style="width: 100px;">单价（元）</li>
 						<li>数量</li>
 						<li>售后</li>
@@ -172,22 +177,26 @@ function setTab(name,m,n){
 						<li>评价</li>
 					</ul>
 				</div>
-				<form action="proscenium/multiDelivery" method="get">
+				<form action="proscenium/multiDelivery" onsubmit="return checkedMulti();" method="get">
+					<div class="nav_class" style="display: none;" id="text3">
 					<div class="nav2">
 						<ul>
-							<li><input type="checkbox" name="quan" />全选</li>
-							<li><input type="submit" value="批量发货" /></li>
+							<li>
+								<input style="width:50px;height:25px;background:#0864f1;color:white; border:0;border-radius:10px;" size="6" type="submit" value="发货" />
+							</li>
+							<li><label id="tishi" style="color:red;"></label></li>
 						</ul>
 					</div>
-					<div class="nav_class" style="display: none;" id="text3">
 						<c:forEach items="${waitDelivery}" var="o">
-							<div style="padding: 50px 0px 1px 10px;">
-								<input type="checkbox" name="checkbox" value="${o.orderFormID }" />
-							</div>
-							<ul>
-								<c:forEach items="${o.commodities }" var="c">
-									<li
-										style="width: 250px; line-height: 20px; text-align: left; float: left;">
+							<c:forEach items="${o.commodities }" var="c" begin="0" varStatus="vs">
+							  <ul>
+							  	<c:if test="${vs.index==0}">
+									<li><input style="width: 50px;" type="checkbox" name="checkbox" value="${o.orderFormID}" /></li>
+								</c:if>
+								<c:if test="${vs.index!=0}">
+									<li></li>
+								</c:if>
+									<li style="width: 150px; line-height: 20px; text-align: left; float: left;">
 										<img src="images/quan.jpg" width="50px" height="40px"
 										style="margin-left: 15px;" />
 										<div style="float: right; margin-right: 20px;">${c.shopCommodity.commoidtyName }<br />1
@@ -195,6 +204,7 @@ function setTab(name,m,n){
 									</li>
 									<li style="width: 100px;">￥${c.price}</li>
 									<li>${c.quantity }</li>
+									<li></li>
 									<li>${o.orderUser.userName}</li>
 									<li><c:if test="${o.orderstatus == 'waitPayment'}">等待买家付款</c:if>
 										<c:if test="${o.orderstatus == 'BuyersHavePaid'}">买家已付款</c:if>
@@ -214,11 +224,31 @@ function setTab(name,m,n){
 											</c:if>
 										</c:if>
 									</c:forEach>
+									<li></li>
+								 </ul>
 								</c:forEach>
-							</ul>
 						</c:forEach>
 					</div>
 				</form>
+				<script type="text/javascript">
+					function checkedMulti(){
+						var tishi =$("#tishi"); 
+						var chk_value =[]; 
+						$("input[name='checkbox']:checked").each(function (){
+							chk_value.push($(this).val());
+						});
+						if (chk_value.length==0) {
+							tishi.text("请选中一个");
+							return false;
+						}if (chk_value.length>1) {
+							tishi.text("请只选中一个");
+							return false;
+						}if (chk_value.length==1) {
+							return true;
+						}
+					}
+				</script>
+				
 				<div class="nav_class" style="border: 0" id="text1">
 					<c:forEach items="${order3Month}" var="o">
 						<ul>

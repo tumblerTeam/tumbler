@@ -161,7 +161,6 @@
       		var alcoJingyingPerFile = $("#alcoJingyingPerFile").val();
       		var beianRegFile = $("#beianRegFile").val();
       		var thisSelect = $("#thisSelect option:selected").val();
-      		alert(thisSelect);
       		
       		var promptComName = $("#promptComName");
       		var promptIdCard = $("#promptIdCard");
