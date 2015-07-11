@@ -2,6 +2,7 @@ body, ol, ul, h1, h2, h3, h4, h5, h6, p, th, td, dl, dd, form, fieldset, legend,
 	margin: 0;
 	padding: 0
 }
+
 body {
 	font: 12px, "宋体", "Arial Narrow", HELVETICA;
 	background: #fff;
@@ -121,16 +122,17 @@ p {
 .search {
 	float: left;
 	display: inline;
-	width: 455px;
-	height: 34px;
+	width: 510px;
+	height: 50px;
 	margin-top: 50px;
 	margin-left: 150px;
 }
 .search .text {
 	width: 392px;
-	height: 30px;
-font-size:
- border: 1px solid #901531;
+	float:left;
+	height: 33px;
+	
+ border: 3px solid #BB2923;;
 }
 .search img {
 	float: right;
@@ -148,14 +150,21 @@ font-size:
 	margin-top: -20px;
 	background-color: #fff;
 }
+.search .zi{ width:100%; height:30px;  margin-top:40px; }
+.search .zi span{  margin-left:11px;}
+.search .zi .pp{ color:#BB2822; font-size:12px;}
+.search .zi a{ margin-right:11px;color:#666;font-size:12px; clear:both;}
 /*微信扫码*/
 .wx {
-	width: 270px;
-	height: 140px;
+	width: 155px;
+	height: 38px;
 	display: inline-block;
 	float: right;
-	margin-top: 5px;
+	margin-top: 49px; margin-right:145px; background-color:#FAF2F1;border:1px #EC9A9A solid;
 }
+.wx img{ margin:3px 0px 0px 10px;}
+.wx .span1{ color:#BB2822; margin-top:8px; position:absolute; margin-left:5px;}
+.wx .span2{ color:#EC9B9B; margin-top:-2px; position:absolute; margin-left:90px; font-size:28px}
 .wx_app {
 	width: 130px;
 	height: 140px;
@@ -190,12 +199,13 @@ font-size:
 }
 .nav_btn {
 	width: 208px;
-	height: 35px;
+	height: 34px;
 	float: left;
-	background: #901531;
+	background: #BB2923;
 	text-align: center;
 	line-height: 35px;
 	display: block;
+    border-bottom:1px #89120C solid;
 }
 .nav_btn a {
 	color: #FFF;
@@ -215,7 +225,7 @@ font-size:
 /*banner样式*/
 .banner {
 	width: 100%;
-	height: 571px;
+	height: 450px;
 	background-color: #3f3f3f;
 }
 .menu_nav {
@@ -226,8 +236,9 @@ font-size:
 .menu_left {
 	position: absolute;
 	width: 208px;
-	height: 571px;
-	background: #901531;
+	height: 450px;
+	background: #A21812;
+	color:#fff;
 	overflow: hidden;
 	z-index: 2;
 }
@@ -240,9 +251,17 @@ font-size:
 
 .list {
 	width: 192px;
-	height: 94px;
+	height:68px;
+	border:1px solid #000;
+	border-top-color:#C1261E;
+	border-bottom-color:#89120C;
+	border-left:none;
+	color:#fff;
 	overflow: hidden;
 	padding: 10px 8px;
+}
+.list li{
+	color:#fff;
 }
 .list h2 {
 	color: #ffc5d2;
@@ -254,25 +273,31 @@ font-size:
 	color: #ffc5d2;
 }
 .list_con {
-	height: 70px;
+	height: auto;
 	line-height: 25px;
+  font-size: 12px;
+  font-family: "Microsoft YaHei";
+  color:#fff;
+  z-index: 53;
+
 }
 .showdivs {
 	position: absolute;
 	z-index: 9999;
 	margin-left: 208px;
 	float: right;
-	background-color: #A71234;
+	background-color: #BB2923;
 	display: none;
 	width: 500px;
-	height: 570px;
+	height: 450px;
 }
 .list_con a {
-	color: #fd7a98;
+	color: #fff;
 	display: inline-block;
 	vertical-align: middle;
 	overflow: hidden;
-	padding-right: 3px;
+	padding-left:8px;
+	padding-right: 8px;
 	font: 12px 'Lucida Grande', tahoma, arial, 宋体;
 }
 .content {
@@ -337,7 +362,8 @@ font-size:
 }
 .tab_list {
 	height: 282px;
-	background: #fff;
+	width:101.5%;
+	background: #FAFAFA;
 	margin-top: 5px;
 	overflow: hidden;
 }
@@ -452,7 +478,7 @@ font-size:
 }
 .column_01 {
 	width: 1205px;
-	height: 900px;
+	height: 530px;
 	margin: 10px auto;
 	padding: 0;
 	list-style: none;
@@ -466,7 +492,7 @@ font-size:
 	background: #FFF;
 }
 .column_01 li:hover{
-	border:1px solid red;
+	border:1px solid 901531;box-shadow: 1.5px 2.598px 10px 0px #901531;
 }
 .column_01 li h1 {
 	color: #909090;
@@ -518,7 +544,7 @@ font-size:
 }
 .main_02 {
 	width: 1200px;
-	height: 500px;
+	height: 544px;
 	overflow: hidden;
 }
 .jg1 {
@@ -610,18 +636,21 @@ font-size:
 /*酒馆商品列表*/
 .jg3 {
 	width: 1200px;
-	height: 245px;
+	height: 289px;
 	margin: 0px;
 	margin-top: 255px;
 	padding: 0px;
 }
 .jg3 li {
-	width: 199px;
-	height: 245px;
+	width: 195px;
+	height: 284px;
 	float: left;
 	background: #fff;
-	margin-right: 1px;
+	margin-right:5px;
 	list-style: none;
+}
+.jg3 li:hover{
+	box-shadow:0px 3px 6px 3px #999;
 }
 .p_img {
 	width: 193px;
@@ -632,35 +661,37 @@ font-size:
 	height: auto;
 }
 .p_img img {
-	height: 220px;
-	margin-top: 18px;
+	height: 180px;
+	margin-top: 15px;
 }
-.p_name {
-	width: 100%;
-	height: 86px;
-	background: #fff;
-	opacity: 0.8;
-	margin-top: 159px;
-	text-align: center;
-	display: block;
-	position: relative;
+.p_name{
+	height:94px;	
+	width:100%;
+	overflow:hidden;
 }
-.p_name_text {
-	margin-top: 25px;
-	position: absolute;
-	width: 100%;
-	height: 50px;
+.p_name_text{
+	width:140px;	
+	height:94px;
+	margin:0 auto;
+	position:relative;
+	overflow:hidden;
 }
-.p_name_text p {
-	font-size: 12px;
-	color: #000;
+.p_name_text p{
+	position:absolute;	
+	top:5px;
+	color:#333;
+	font-size:14px;
 }
-.p_name_text p:hover {
-	color: #f00;
+.p_name_text p:hover{
+	color:#bc2a24;	
 }
-.p_name_text span {
-	font-size: 14px;
+.p_name_text span{
+	position:absolute;
+	color:#bb2822;
+	top:50px;
+	font-size:18px;
 }
+
 /*白酒馆*/
 .column_03 {
 	width: 1200px;
@@ -1150,6 +1181,140 @@ border：1px #eee solid;
 	margin-left: 10px;
 	margin-top: 10px;
 }
+.mall .tg{
+	width: 1200px;	
+	height:auto;
+}
+.mall .tg_tt{
+	font-size: 26px;	
+	color:#333;
+	line-height:32px;
+	font-weight:600;
+}
+
+.mall .tg .hotsale_1{
+	width: 1200px;	
+	height:400px;
+	margin:0 auto;
+	margin-top:10px;
+	margin-bottom:40px;
+	box-shadow: 0 0 1px #ddd;	
+}
+.mall .tg .hotsale_1 .left_pic{
+	position: relative;
+	zoom: 1;
+	float: left;
+	width: 585px;
+	cursor: pointer;
+	background:#fff;	
+}
+.mall .tg .hotsale_1 .left_pic img{
+	width:585px;	
+	height:400px;
+	background:#fff;
+}
+.mall .tg .hotsale_1 .right_box{
+	width: 545px;
+	height:350px;
+	float:left;
+	position: relative;
+	padding:20px 35px 30px 35px; 
+	background:#fff;
+}
+.mall .tg .hotsale_1 .right_box .tg_time{
+	position: absolute;
+	z-index: 1;
+	left: 35px;
+	top: 35px;
+	line-height: 24px;
+	padding: 0;
+	color: #BB2923;
+	font-weight:bold;
+}
+.mall .tg .hotsale_1 .right_box .tg_brand{
+	padding: 0 0 10px;
+	height:50px;
+	border-bottom:1px solid #ebebeb;	
+}
+.mall .tg .hotsale_1 .right_box .p_tt{
+	margin: 14px 0 6px;
+	font-size: 26px;
+	line-height: 34px;
+	max-height: 68px;
+	overflow: hidden;
+	font-weight: 400;
+}
+.mall .tg .hotsale_1 .right_box .p_tt a{
+	color:#333;
+}
+.mall .tg .hotsale_1 .right_box .p_tt a:hover{	
+	text-decoration:underline;		
+}
+.mall .tg .hotsale_1 .right_box .desc{
+	margin: 10px 0 14px;
+	font-size: 16px;
+	line-height: 26px;
+	height: 100px;
+	overflow: hidden;
+	color: #333;	
+}
+.mall .tg .hotsale_1 .right_box .tg_price{
+	position: absolute;
+	left: 35px;
+	bottom: 30px;
+	color:#999;
+}
+.mall .tg .hotsale_1 .right_box .tg_price strong{
+	font-size: 32px;
+	font-weight: 700;
+	margin: 0 10px 0 10px;
+	color:#BB2923;	
+}
+.mall .tg .hotsale_1 .right_box .tg_price span b{
+	font-size:22px;	
+	color:#fff;
+}
+.mall .tg .hotsale_1 .right_box .tg_price .tg_price1{
+	margin: 0 20px 0 0;
+	line-height:40px;
+	color:#999;
+	font-size:14px;
+}
+.mall .tg .hotsale_1 .right_box .tg_price .tg_price1 del{
+	font-size: 16px;
+	color: #333;
+	font-weight:bold;	
+}
+.mall .tg .hotsale_1 .right_box .tg_price .tg_price2{
+	top: -3px;
+	white-space: nowrap;
+	color: #fff;
+	line-height: 28px;
+	padding: 5px 0 3px 22px;
+	width: 70px;
+	height: 28px;	
+	background:url(../img/biaoqian.png);
+}
+.mall .tg .hotsale_1 .right_box .tg_btn{
+	display: block;
+	width: 50px;
+	height: 50px;
+	overflow: hidden;
+	position:absolute;
+	right:35px;
+	top:300px;	
+}
+.mall .tg .hotsale_1 .right_box .tg_btn img{
+	height:50px;	
+}
+.mall .tg .hotsale_2{
+	width: 1200px;	
+	height:400px;
+	margin:0 auto;
+	margin-top:50px;
+	box-shadow: 0 0 1px #ddd;	
+}
+
 /*个人中心*/
 .personal {
 	width: 1200px;

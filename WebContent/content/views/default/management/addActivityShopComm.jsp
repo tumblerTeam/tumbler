@@ -89,8 +89,14 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">商品ID:</label>
 						<div class="col-sm-8">
-							<input name="commID" id="commID"
+							<c:if test="${page == 'update' }">
+							<input name="commID" id="commID" readonly="readonly"
 								value="${shopcommodity.commCode }" class="form-control">
+							</c:if>
+							<c:if test="${page != 'update' }">
+							<input name="commID" id="commID" 
+								value="${shopcommodity.commCode }" class="form-control">
+							</c:if>
 							<br>
 						</div>
 					</div>

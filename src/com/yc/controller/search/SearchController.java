@@ -274,5 +274,14 @@ public class SearchController {
 		mode.put("nvabar", strs.substring(0, strs.length() - 1));
 		return new ModelAndView("search/result", mode);
 	}
+	
+	//搜索栏
+	@RequestMapping(value = "searchParam", method =RequestMethod.GET)
+	public ModelAndView searchParam(String params, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<ShopCommodity> list =  shopCommService.searchShopComm(params);
+		ModelMap mode = new ModelMap();
+		mode.put("list", list);
+		return new ModelAndView("search/result", mode);
+	}
 
 }

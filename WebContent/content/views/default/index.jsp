@@ -15,8 +15,7 @@
 <base href="<%=basePath%>" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>不倒翁</title>
-<meta name="description"
-	content="CSS3 Full Screen Vertical Scroller with jQuery animation fallback" />
+<meta name="description" content="CSS3 Full Screen Vertical Scroller with jQuery animation fallback" />
 <meta name="viewport" content="width=device-width, user-scalable=no" />
 <script type="text/javascript" src="content/static/js/lib/jquery.min.js"></script>
 <script type="text/javascript" src="content/static/js/tumbler/jquery-1.7.2.min.js"></script>
@@ -24,7 +23,6 @@
 <link rel="stylesheet" type="text/css" href="content/static/css/style.css" />
 <link rel="stylesheet" type="text/css" href="content/static/css/right.css" />
 <link rel="stylesheet" type="text/css" href="content/static/css/daxuewen1012.css" />
-<link href="content/static/css/daxuewen1012.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="content/static/css/animation.css" />
 <link rel="stylesheet" type="text/css" href="content/static/css/b_style.css" />
 <style>
@@ -36,7 +34,9 @@
 .yslia {
 	background: url(content/static/images/tab.png) scroll 0px 25px no-repeat;
 }
-
+.bgimg {
+	opacity: 0.3;
+	}
 </style>
 <!--搜索框-->
 <script>
@@ -51,54 +51,54 @@
 <script type="text/javascript">
          $(function(){
         	 $.getJSON(
-        		  "/toJsonFmatUtil/getAdvertisement",
+        		  "toJsonFmatUtil/getAdvertisement",
         		  {
-        			  whichPage: "homePage"
+        			  whichPage: "首页"
         		   }, function(json) {
         			   $.each(json.advertisementList, function(i,item){
 //         				   alert(item.id);	//id
 //         				   alert(item.imagePath);//宣传图片
 //         				   alert(item.link);//链接
 //         				   alert(item.adverDistribution.position);//广告所在位置
-                                  if(item.adverDistribution.position==1){
+                                  if(item.adverDistribution.position=='首页大眼睛'){
                                 	    $("#Adv_1").append("<li><a href=\""+item.link+"\"><div class=\"m-width\"style=\"width: 100%; height: 571px; background: url("+item.imagePath+") center center;\"></div></a></li>");
-                                  }else if(item.adverDistribution.position==2){
+                                  }else if(item.adverDistribution.position=='首页强力推荐A1'){
                                 	     $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 185px;margin-top: 5px;background: url("+item.imagePath+") center center;\"></div></a>");
-                                  }else if(item.adverDistribution.position==3){
+                                  }else if(item.adverDistribution.position=='首页强力推荐A2'){
                                 	     $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 185px;margin-top: 5px;background: url("+item.imagePath+") center center;\"></div></a>");
-                                  }else if(item.adverDistribution.position==4){
+                                  }else if(item.adverDistribution.position=='首页强力推荐A3'){
                                 	     $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 185px;margin-top: 5px;background: url("+item.imagePath+") center center;\"></div></a>");
-                                  }else if(item.adverDistribution.position==5){
+                                  }else if(item.adverDistribution.position=='首页网站热卖A'){
                                 	     $("#test1_1").append("<dd><a href=\""+item.link+"\"><div class=\"list_box\"><img src=\""+item.imagePath+"\"/></div></a></dd>");
-                                  }else if(item.adverDistribution.position==6){
+                                  }else if(item.adverDistribution.position=='首页网站热卖B'){
                                 	     $("#test1_2").append("<dd><a href=\""+item.link+"\"><div class=\"list_box\"><img src=\""+item.imagePath+"\"/></div></a></dd>");
-                                  }else if(item.adverDistribution.position==7){
+                                  }else if(item.adverDistribution.position=='首页网站热卖C'){
                                 	     $("#test1_3").append("<dd><a href=\""+item.link+"\"><div class=\"list_box\"><img src=\""+item.imagePath+"\"/></div></a></dd>");
-                                  }else if(item.adverDistribution.position==8){
+                                  }else if(item.adverDistribution.position=='首页网站小促销'){
                                 	     $("#Adv_8").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 115px; background: url("+item.imagePath+") center center;\"></div></a>");
-                                  }else if(item.adverDistribution.position==9){
+                                  }else if(item.adverDistribution.position=='名庄推荐'){
                                 	     $("#Adv_9").append("<li><a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a></li>");
-                                  }else if(item.adverDistribution.position==10){
+                                  }else if(item.adverDistribution.position=='红酒馆主推'){
                                 	     $("#Adv_10").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a>");
-                                  }else if(item.adverDistribution.position==11){
+                                  }else if(item.adverDistribution.position=='红酒馆单品'){
                                 	     $("#Adv_11").append( "<li class=\"jgca\"><a href=\""+item.link+"\"><div class=\"p_img\"><img src=\""+item.imagePath+"\"/></div></a></li>");
-                                  }else if(item.adverDistribution.position==12){
+                                  }else if(item.adverDistribution.position=='白酒馆主推'){
                                 	     $("#Adv_12").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a>");
-                                  }else if(item.adverDistribution.position==13){
+                                  }else if(item.adverDistribution.position=='白酒馆单品'){
                                 	     $("#Adv_13").append( "<li class=\"jgca\"><a href=\""+item.link+"\"><div class=\"p_img\"><img src=\""+item.imagePath+"\"/></div></a></li>");
-                                  }else if(item.adverDistribution.position==14){
+                                  }else if(item.adverDistribution.position=='洋酒馆主推'){
                                 	     $("#Adv_14").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a>");
-                                  }else if(item.adverDistribution.position==15){
+                                  }else if(item.adverDistribution.position=='洋酒馆单品'){
                                 	     $("#Adv_15").append( "<li class=\"jgca\"><a href=\""+item.link+"\"><div class=\"p_img\"><img src=\""+item.imagePath+"\"/></div></a></li>");
-                                  }else if(item.adverDistribution.position==16){
+                                  }else if(item.adverDistribution.position=='啤酒馆主推'){
                                 	     $("#Adv_16").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a>");
-                                  }else if(item.adverDistribution.position==17){
+                                  }else if(item.adverDistribution.position=='啤酒馆单品'){
                                 	     $("#Adv_17").append( "<li class=\"jgca\"><a href=\""+item.link+"\"><div class=\"p_img\"><img src=\""+item.imagePath+"\"/></div></a></li>");
-                                  }else if(item.adverDistribution.position==18){
+                                  }else if(item.adverDistribution.position=='首页滚动条幅'){
                                 	     $("#Adv_18").append(   "<li><a href=\""+item.link+"\"><div class=\"m-width\"style=\"width: 100%; height: 100px; background: url("+item.imagePath+") center center;\"></div></a></li>");
-                                  }else if(item.adverDistribution.position==16){
+                                  }else if(item.adverDistribution.position=='周边主推'){
                                 	     $("#Adv_19").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a>");
-                                  }else if(item.adverDistribution.position==17){
+                                  }else if(item.adverDistribution.position=='周边单品'){
                                 	     $("#Adv_20").append( "<li class=\"jgca\"><a href=\""+item.link+"\"><div class=\"p_img\"><img src=\""+item.imagePath+"\"/></div></a></li>");
                                   }
         			   });//动态生成广告
@@ -139,11 +139,6 @@
 </head>
 <body>
 
-<style>
-.bgimg {
-	opacity: 0.3;
-}
-</style>
 	<script>
 		$(function() {
 			$("#csdiv")
@@ -442,7 +437,7 @@
 										test="${cate2.parentLevel.categoryID == category.categoryID}">
 										<c:forEach items="${cate2.children }" var="cate3">
 											<c:set var="loop" value="${loop + 1 }"></c:set>
-											<c:if test="${loop < 12 }">
+											<c:if test="${loop < 7 }">
 												<a href="search/result?id=${cate3.categoryID }">${cate3.category }</a>
 											</c:if>
 										</c:forEach>
@@ -459,7 +454,7 @@
 							<div class="list_con">
 								<c:forEach items="${category.brands }" var="brand"
 									varStatus="loop">
-									<c:if test="${loop.index < 10 }">
+									<c:if test="${loop.index < 7 }">
 										<a
 											href="search/result?cateid=${category.categoryID }&brand=brand-${brand.brandID }">${brand.brandName }</a>
 									</c:if>

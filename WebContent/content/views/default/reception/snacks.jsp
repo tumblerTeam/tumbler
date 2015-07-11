@@ -13,27 +13,71 @@
 			+ path + "/";
 %>
 <base href="<%=basePath%>" />
-
+<script type="text/javascript" src="content/static/js/lib/jquery.min.js"></script>
+<script type="text/javascript" src="content/static/js/tumbler/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="content/static/js/tumbler/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript" src="content/static/js/tumbler/StackBlur.js"></script>
+<script type="text/javascript" src="content/static/js/tumbler/tz.js"></script>
+<link rel="stylesheet" type="text/css" href="content/static/css/style.css"/>
+<link rel="stylesheet" type="text/css" href="content/static/css/right.css"/>
+<link rel="stylesheet" type="text/css" href="content/static/css/b_style.css" />
 <link rel="stylesheet" type="text/css" href="content/static/css/sf.css" />
-<link rel="stylesheet" type="text/css" href="content/static/css/style.css" />
-<link rel="stylesheet" type="text/css" href="content/static/css/right.css" />
-
 <!--全部分类js-->
-<script>
-	window.onload = function() {
-		var fen = document.getElementById("fen");
-		var fen_class = document.getElementById("fen_class");
-		var timer = null;
-		fen_class.onmouseover = fen.onmouseover = function() {
-			clearTimeout(timer);
-			fen_class.style.display = "block";
-		};
-		fen_class.onmouseout = fen.onmouseout = function() {
-			timer = setTimeout(function() {
-				fen_class.style.display = "none";
-			}, 500);
-		};
-	}
+<script type="text/javascript">
+         $(function(){
+        	 $.getJSON(
+        		  "toJsonFmatUtil/getAdvertisement",
+        		  {
+        			  whichPage: "周边和食品"
+        		   }, function(json) {
+        			   $.each(json.advertisementList, function(i,item){
+//         				   alert(item.id);	//id
+        				//   alert(item.imagePath);//宣传图片
+//         				   alert(item.link);//链接
+//         				   alert(item.adverDistribution.position);//广告所在位置
+        				   if(item.adverDistribution.position=='周边和食品大眼睛'){
+                       	    $("#Adv_1").append("<li><a href=\""+item.link+"\"><div class=\"m-width\"style=\"width: 100%; height: 571px; background: url("+item.imagePath+") center center;\"></div></a></li>");
+                         }else if(item.adverDistribution.position=='周边和食品强力推荐A1'){
+                       	     $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 185px;margin-top: 5px;background: url("+item.imagePath+") center center;\"></div></a>");
+                         }else if(item.adverDistribution.position=='周边和食品强力推荐A2'){
+                       	     $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 185px;margin-top: 5px;background: url("+item.imagePath+") center center;\"></div></a>");
+                         }else if(item.adverDistribution.position=='周边和食品强力推荐A3'){
+                        	 $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 185px;margin-top: 5px;background: url("+item.imagePath+") center center;\"></div></a>");
+                         }else if(item.adverDistribution.position=='周边和食品主推A1'){
+                        	 $("#Adv_2").append( "<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+                         }else if(item.adverDistribution.position=='周边和食品主推A2'){
+                        	 $("#Adv_3").append( "<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+                         }else if(item.adverDistribution.position=='周边和食品单品A1'){
+                        	 $("#Adv_4").append( "<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+                         }else if(item.adverDistribution.position=='周边和食品单品A2'){
+                        	 $("#Adv_5").append( "<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+                         }else if(item.adverDistribution.position=='周边和食品单品A3'){
+                        	 $("#Adv_6").append( "<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+                         }
+                         
+                           $("#csdiv").animate({
+		        					width : 290
+		        				}, 5000).css("transition", "all 0.5s").css("right", "350px");
+                           
+		        				$(".prev,.next").hover(function() {
+		        					$(this).stop(true, false).fadeTo("show", 0.9);
+		        				}, function() {
+		        					$(this).stop(true, false).fadeTo("show", 0.4);
+		        				});
+		        	            
+		        				$(".banner-box").slide({
+		        					titCell : ".hd ul",	
+		        					mainCell : ".bd ul",
+		        					effect : "fold",
+		        					interTime : 3500,
+		        					delayTime : 500,
+		        					autoPlay : true,
+		        					autoPage : true,
+		        					trigger : "click"
+		        				});
+   			   });
+   		   });
+    });
 </script>
 </head>
 
@@ -41,70 +85,43 @@
 	<!--顶部内容-->
 	<jsp:include page="../frontDesk/header.jsp" />
 	<div class="banner">
-		<jsp:include page="../frontDesk/cate.jsp" />
-		<!--banner内容-->
-		<div class="banner_box"></div>
+  <div class="banner-box">
+	        <div id="csdiv" style="border: 0px solid red; width: 290px; height: 570px; float: left; position: absolute; z-index: 9999; right: -300px;"></div>
+		    <jsp:include page="../frontDesk/cate.jsp" />
+	    	<div class="bd">
+				<ul id="Adv_1">
+				</ul>
+			</div>
+			<div class="banner-btn">
+				 <a class="prev" href="javascript:void(0);"></a>
+                 <a class="next" href="javascript:void(0);"></a> 
+			</div>
+			<div class="hd">
+				<ul></ul>
+			</div>
+		</div>
 	</div>
 	<!--小食品列表-->
 	<div class="content">
 		<div class="main_sf">
 			<div class="item_1">
-				<div class="item_1_left">
-					<a href="#"><img src="content/static/img/sf_01.jpg" /></a>
+				<div class="item_1_left" id="Adv_2">
 				</div>
-				<div class="item_1_right">
-					<a href="#"><img src="content/static/img/sf_02.jpg" /></a>
+				<div class="item_1_right" id="Adv_3">
 				</div>
 			</div>
 			<div class="item_2">
 				<div style="width: 344px; height: 300px; float: left; background: url(content/static/img/sf_bg.jpg); padding-top: 30px;">
-					<div class="img1">
-						<a href="#"><img src="content/static/img/sf_03.png" /></a>
-					</div>
-					<div class="inf">
-						<h3>
-							<a href="#">美国进口Kirkland整粒蓝莓干</a>
-						</h3>
-						<div class="price">
-							零售参考价:<span>¥120</span>
-						</div>
-						<div class="sale">
-							<em>不倒翁价：</em> <span>¥89</span>
-						</div>
+					<div class="img1" id="Adv_4">
 					</div>
 
 				</div>
 				<div style="width: 423px; height: 300px; float: left; margin-left: 5px; background: url(content/static/img/sf_bg.jpg); padding-top: 30px;">
-					<div class="img1">
-						<a href="#"><img src="content/static/img/sf_03.png"></a>
-					</div>
-					<div class="inf">
-						<h3>
-							<a href="#">美国进口Kirkland整粒蓝莓干</a>
-						</h3>
-						<div class="price">
-							零售参考价:<span>¥120</span>
-						</div>
-						<div class="sale">
-							<em>不倒翁价：</em> <span>¥89</span>
-						</div>
+					<div class="img1" id="Adv_5">
 					</div>
 				</div>
-				<div
-					style="width: 423px; height: 300px; float: right; margin-left: 5px; background: url(content/static/img/sf_bg.jpg); padding-top: 30px;">
-					<div class="img1">
-						<a href="#"><img src="content/static/img/sf_03.png" /></a>
-					</div>
-					<div class="inf">
-						<h3>
-							<a href="#">美国进口Kirkland整粒蓝莓干</a>
-						</h3>
-						<div class="price">
-							零售参考价:<span>¥120</span>
-						</div>
-						<div class="sale">
-							<em>不倒翁价：</em> <span>¥89</span>
-						</div>
+				<div style="width: 423px; height: 300px; float: right; margin-left: 5px; background: url(content/static/img/sf_bg.jpg); padding-top: 30px;">
+					<div class="img1" id="Adv_6">
 					</div>
 				</div>
 			</div>

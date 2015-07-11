@@ -208,20 +208,35 @@ public class ActivityManageController {
 		List<ShopCommodity> list = activity.getCommodities();
 		if (!name.equals("") && shopCommodity != null && activity != null) {
 			String logoRealPathDir = request.getSession().getServletContext().getRealPath(pathDir);
-			File file1 = new File(logoRealPathDir,pathDir).getCanonicalFile();
+			File file1 = new File(logoRealPathDir).getCanonicalFile();
 			if (!file1.exists())
 				file1.mkdirs();
 			File file = new File(logoRealPathDir, name).getCanonicalFile();
 			if (file.getParentFile() == null)
 				file.mkdirs();
 			actityImage.transferTo(file);
-			shopCommodity.setActivity(activity);
-			shopCommodity.setActityImage(pathDir+name);
-			shopCommodity.setLink(link);
-			shopCommodity.setActivityAmount(activityAmount);
-			shopCommodity = shopCommodityService.update(shopCommodity);
-			list.add(shopCommodity);
-			activity.setCommodities(list);
+			boolean isok = true;
+			if(activity.getCommodities().size()>0){
+				for (int i = 0; i < activity.getCommodities().size(); i++) {
+					if(activity.getCommodities().get(i).getCommCode() == shopCommodity.getCommCode()){
+						activity.getCommodities().get(i).setActivity(activity);
+						activity.getCommodities().get(i).setActityImage(pathDir+name);
+						activity.getCommodities().get(i).setLink(link);
+						activity.getCommodities().get(i).setActivityAmount(activityAmount);
+						shopCommodityService.update(activity.getCommodities().get(i));
+						isok =false;
+					}
+				}
+			}
+			if(isok){
+				shopCommodity.setActivity(activity);
+				shopCommodity.setActityImage(pathDir+name);
+				shopCommodity.setLink(link);
+				shopCommodity.setActivityAmount(activityAmount);
+				shopCommodity = shopCommodityService.save(shopCommodity);
+				list.add(shopCommodity);
+				activity.setCommodities(list);
+			}
 			activityService.update(activity);
 		}
 		return "redirect:/management/activityShopCommodity";
@@ -240,64 +255,42 @@ public class ActivityManageController {
 	
 	@RequestMapping(value = "updateCommActivity", method = RequestMethod.POST)
 	public String updateCommActivity(Integer commCode, Integer activityId,Integer commID,String link,@RequestParam("actityImage") MultipartFile actityImage,Integer activityAmount, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ShopCommodity commodity = null;
-		if(commCode != commID){
-			commodity = shopCommodityService.findById(commCode); //旧的
-			Activity activity = commodity.getActivity();
-			commodity.setActivity(null);
-			shopCommodityService.update(commodity);
-		    List<ShopCommodity> list = activity.getCommodities();
-		    for (int i = 0; i < list.size(); i++) {
-		    	if(list.get(i).getCommCode() == commCode){
-		    		list.remove(list.get(i));
-		    	}
-			}
-		    activity.setCommodities(list);
-		    activityService.update(activity);
-		}
 		String name = actityImage.getOriginalFilename();
 		String pathDir = "../images/activityImage/";
 		ShopCommodity shopCommodity = shopCommodityService.findById(commID);
 		Activity activity = activityService.findById(activityId);
 		List<ShopCommodity> list = activity.getCommodities();
-		if (shopCommodity != null && activity != null) {
-			if(name.equals("") && commodity != null){
-				shopCommodity.setActityImage(commodity.getActityImage());
-			}
-			if(!name.equals("")){
-				String logoRealPathDir = request.getSession().getServletContext().getRealPath(pathDir);
-				File file1 = new File(logoRealPathDir);
-				if (!file1.exists())
-					file1.mkdirs();
-				File file = new File(logoRealPathDir, name);
-				if (file.getParentFile() == null)
-					file.mkdirs();
-				actityImage.transferTo(file);
-				shopCommodity.setActityImage(pathDir+name);
-			}
-			for (int i = 0; i < list.size(); i++) {
-				if (list.get(i).getCommCode() == shopCommodity.getCommCode()){
-					System.out.println("list.get(i)==="+list.get(i));
-					System.out.println("shopCommodity==="+shopCommodity);
-					System.out.println("size========"+list.size());
-					shopCommodity.setActivity(null);
-					shopCommodityService.update(shopCommodity);
-					list.remove(list.get(i));
-					System.out.println("list.get(0)"+list);
-					System.out.println("list.get(i)"+list);
-					System.out.println("size========"+list.size());
-					activity.setCommodities(list);
-				    activityService.update(activity);
+		if (!name.equals("") && shopCommodity != null && activity != null) {
+			String logoRealPathDir = request.getSession().getServletContext().getRealPath(pathDir);
+			File file1 = new File(logoRealPathDir).getCanonicalFile();
+			if (!file1.exists())
+				file1.mkdirs();
+			File file = new File(logoRealPathDir, name).getCanonicalFile();
+			if (file.getParentFile() == null)
+				file.mkdirs();
+			actityImage.transferTo(file);
+			boolean isok = true;
+			if(activity.getCommodities().size()>0){
+				for (int i = 0; i < activity.getCommodities().size(); i++) {
+					if(activity.getCommodities().get(i).getCommCode() == shopCommodity.getCommCode()){
+						activity.getCommodities().get(i).setActivity(activity);
+						activity.getCommodities().get(i).setActityImage(pathDir+name);
+						activity.getCommodities().get(i).setLink(link);
+						activity.getCommodities().get(i).setActivityAmount(activityAmount);
+						shopCommodityService.update(activity.getCommodities().get(i));
+						isok =false;
+					}
 				}
 			}
-			shopCommodity.setActivity(activity);
-			shopCommodity.setLink(link);
-			shopCommodity.setActivityAmount(activityAmount);
-			commodity = shopCommodityService.update(shopCommodity);
-			System.out.println("size========"+list);
-			list.add(commodity);
-			System.out.println("size========"+list);
-			activity.setCommodities(list);
+			if(isok){
+				shopCommodity.setActivity(activity);
+				shopCommodity.setActityImage(pathDir+name);
+				shopCommodity.setLink(link);
+				shopCommodity.setActivityAmount(activityAmount);
+				shopCommodity = shopCommodityService.save(shopCommodity);
+				list.add(shopCommodity);
+				activity.setCommodities(list);
+			}
 			activityService.update(activity);
 		}
 		

@@ -218,6 +218,31 @@ public class UserController {
 		collectionService.delete(collectionID);
 		return "redirect:/user/collection";
 	}
+	// 跳转经典红酒
+	@RequestMapping(value = "skipWinePage", method = RequestMethod.GET)
+	public ModelAndView skipWinePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		return new ModelAndView("user/wineRecommend", null);
+	}
+	// 跳转经典白酒
+	@RequestMapping(value = "skipLiqueurPage", method = RequestMethod.GET)
+	public ModelAndView skipLiqueurPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		return new ModelAndView("user/liqueurRecommend", null);
+	}
+	// 跳转经典啤酒
+	@RequestMapping(value = "skipBierPage", method = RequestMethod.GET)
+	public ModelAndView skipBierPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		return new ModelAndView("user/bierRecommend", null);
+	}
+	// 跳转经典洋酒
+	@RequestMapping(value = "skipSpiritsPage", method = RequestMethod.GET)
+	public ModelAndView skipSpiritsPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		return new ModelAndView("user/spiritsRecommend", null);
+	}
+	// 跳转酒具和小菜
+	@RequestMapping(value = "skipToolPage", method = RequestMethod.GET)
+	public ModelAndView skipToolPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		return new ModelAndView("user/wineTool", null);
+	}
 	
 	// 点评
 	@RequestMapping(value = "reviews", method = RequestMethod.POST)
@@ -273,6 +298,11 @@ public class UserController {
 		return "redirect:/user/perscentBonuses?orderDate=-1&orderStatus=-1";
 	}
 	
+	@RequestMapping(value = "wuliu", method = RequestMethod.GET)
+	public ModelAndView wuliu( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		return new ModelAndView("user/wuliu");
+	}
 	// MD5加码。32位
 	public static String MD5(String inStr) {
 		MessageDigest md5 = null;

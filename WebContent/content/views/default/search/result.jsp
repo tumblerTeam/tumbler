@@ -16,14 +16,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>不倒翁</title>
 <script type="text/javascript" src="content/static/js/lib/jquery.min.js"></script>
-<script type="text/javascript"
-	src="content/static/js/lib/jquery-1.11.1.min.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="content/static/css/style.css" />
-<link rel="stylesheet" type="text/css"
-	href="content/static/css/right.css" />
+<script type="text/javascript" src="content/static/js/tumbler/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="content/static/js/tumbler/tz.js"></script>
+<link rel="stylesheet" type="text/css" href="content/static/css/style.css" />
+<link rel="stylesheet" type="text/css" href="content/static/css/right.css" />
 <link rel="stylesheet" type="text/css" href="content/static/css/jw.css" />
-
 <script type="text/javascript" src="content/static/js/tumbler/lrtk.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -35,14 +32,74 @@
 		});
 	});
 </script>
+<script type="text/javascript">
+         $(function(){
+        	 $.getJSON(
+        		  "toJsonFmatUtil/getAdvertisement",
+        		  {
+        			  whichPage: "分类商品"
+        		   }, function(json) {
+        			   $.each(json.advertisementList, function(i,item){
+//         				   alert(item.id);	//id
+//         				   alert(item.imagePath);//宣传图片
+//         				   alert(item.link);//链接
+//         				   alert(item.adverDistribution.position);//广告所在位置
+        				   if(item.adverDistribution.position=='推荐单品A1'){
+                          	    $("#Adv_1").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='推荐单品A2'){
+        					   $("#Adv_2").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='推荐单品A3'){
+        					   $("#Adv_3").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='推荐单品A4'){
+        					   $("#Adv_4").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='推荐单品B1'){
+        					   $("#Adv_5").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='推荐单品B2'){
+        					   $("#Adv_6").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='推荐单品B3'){
+        					   $("#Adv_7").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='推荐单品B4'){
+        					   $("#Adv_8").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='猜你喜欢红酒A1'){
+        					   $("#Adv_9").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='猜你喜欢红酒A2'){
+        					   $("#Adv_10").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='猜你喜欢红酒A3'){
+        					   $("#Adv_11").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='猜你喜欢红酒A4'){
+        					   $("#Adv_12").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='猜你喜欢白酒A1'){
+        					   $("#Adv_13").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='猜你喜欢白酒A2'){
+        					   $("#Adv_14").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='猜你喜欢白酒A3'){
+        					   $("#Adv_15").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='猜你喜欢白酒A4'){
+        					   $("#Adv_16").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='猜你喜欢啤酒A1'){
+        					   $("#Adv_17").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='猜你喜欢啤酒A2'){
+        					   $("#Adv_18").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='猜你喜欢啤酒A3'){
+        					   $("#Adv_19").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='猜你喜欢啤酒A4'){
+        					   $("#Adv_20").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='猜你喜欢洋酒A1'){
+        					   $("#Adv_21").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='猜你喜欢洋酒A2'){
+        					   $("#Adv_22").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='猜你喜欢洋酒A3'){
+        					   $("#Adv_23").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='猜你喜欢洋酒A4'){
+        					   $("#Adv_24").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }
+        				   
+           			   });
+           		   });
+            });
+</script>
 <!--更多分类-->
 <script type="text/ecmascript">
-	
-	
-	
-	
-	
-	
 var boolean=true;
 	function fddd(){
 	var gd=document.getElementsByClassName("disdiv");
@@ -637,78 +694,30 @@ var boolean=true;
 		<div class="left_ad">
 			<div class="product">
 				<div class="tuijian">为你推荐</div>
-				<div class="shop_class">
-					<div class="img">
-						<img src="images/shop1.jpg" />
-					</div>
-					<div class="jieshao">
-						查梅尔庄园干红葡萄酒<br />Chateau Charmail<br />Chateau Charmail
-					</div>
+				<div class="shop_class" id="Adv_1">
 				</div>
 				<hr />
-				<div class="shop_class">
-					<div class="img">
-						<img src="images/shop1.jpg" />
-					</div>
-					<div class="jieshao">
-						查梅尔庄园干红葡萄酒<br />Chateau Charmail<br />Chateau Charmail
-					</div>
+				<div class="shop_class" id="Adv_2">
 				</div>
 				<hr />
-				<div class="shop_class">
-					<div class="img">
-						<img src="images/shop1.jpg" />
-					</div>
-					<div class="jieshao">
-						查梅尔庄园干红葡萄酒<br />Chateau Charmail<br />Chateau Charmail
-					</div>
+				<div class="shop_class" id="Adv_3">
 				</div>
 				<hr />
-				<div class="shop_class">
-					<div class="img">
-						<img src="images/shop1.jpg" />
-					</div>
-					<div class="jieshao">
-						查梅尔庄园干红葡萄酒<br />Chateau Charmail<br />Chateau Charmail
-					</div>
+				<div class="shop_class" id="Adv_4">
 				</div>
 			</div>
 			<div class="product">
 				<div class="tuijian">为你推荐</div>
-				<div class="shop_class">
-					<div class="img">
-						<img src="images/shop1.jpg" />
-					</div>
-					<div class="jieshao">
-						查梅尔庄园干红葡萄酒<br />Chateau Charmail<br />Chateau Charmail
-					</div>
+				<div class="shop_class" id="Adv_5">
 				</div>
 				<hr />
-				<div class="shop_class">
-					<div class="img">
-						<img src="images/shop1.jpg" />
-					</div>
-					<div class="jieshao">
-						查梅尔庄园干红葡萄酒<br />Chateau Charmail<br />Chateau Charmail
-					</div>
+				<div class="shop_class" id="Adv_6">
 				</div>
 				<hr />
-				<div class="shop_class">
-					<div class="img">
-						<img src="images/shop1.jpg" />
-					</div>
-					<div class="jieshao">
-						查梅尔庄园干红葡萄酒<br />Chateau Charmail<br />Chateau Charmail
-					</div>
+				<div class="shop_class" id="Adv_7">
 				</div>
 				<hr />
-				<div class="shop_class">
-					<div class="img">
-						<img src="images/shop1.jpg" />
-					</div>
-					<div class="jieshao">
-						查梅尔庄园干红葡萄酒<br />Chateau Charmail<br />Chateau Charmail
-					</div>
+				<div class="shop_class" id="Adv_8">
 				</div>
 			</div>
 		</div>
@@ -781,37 +790,52 @@ var boolean=true;
 			</div>
 		</div>
 	</div>
-	<!-- 	<div class="last"> -->
-	<!-- 		<div class="tuijian">猜你喜欢</div> -->
-	<!-- 		<div class="tuijain_class"> -->
-	<!-- 			<div class="arrow1"> -->
-	<!-- 				<img src="images/arrow_left.png" /> -->
-	<!-- 			</div> -->
-	<!-- 			<ul> -->
-	<!-- 				<li><img src="images/tuijian.png" /> -->
-	<!-- 					<div class="name">桑塔丽塔120加本力桃红 2011 Santa Rita 120 Rose</div> -->
-	<!-- 					<div class="price1">零售参考价：124元</div> -->
-	<!-- 					<div class="price2">不倒翁价：69</div></li> -->
-	<!-- 				<li><img src="images/tuijian.png" /> -->
-	<!-- 					<div class="name">桑塔丽塔120加本力桃红 2011 Santa Rita 120 Rose</div> -->
-	<!-- 					<div class="price1">零售参考价：124元</div> -->
-	<!-- 					<div class="price2">不倒翁价：69</div></li> -->
-	<!-- 				<li><img src="images/tuijian.png" /> -->
-	<!-- 					<div class="name">桑塔丽塔120加本力桃红 2011 Santa Rita 120 Rose</div> -->
-	<!-- 					<div class="price1">零售参考价：124元</div> -->
-	<!-- 					<div class="price2">不倒翁价：69</div></li> -->
-	<!-- 				<li><img src="images/tuijian.png" /> -->
-	<!-- 					<div class="name">桑塔丽塔120加本力桃红 2011 Santa Rita 120 Rose</div> -->
-	<!-- 					<div class="price1">零售参考价：124元</div> -->
-	<!-- 					<div class="price2">不倒翁价：69</div></li> -->
-	<!-- 			</ul> -->
-	<!-- 			<div class="arrow1"> -->
-	<!-- 				<img src="images/arrow_right.png" /> -->
-	<!-- 			</div> -->
-	<!-- 		</div> -->
-	<!-- 	</div> -->
-
-	</div>
+<!--    滚动广告 -->
+<div class="bottom1">
+    	<div class="tuijian">猜你喜欢</div>
+        <div class="box">
+            <div class="picbox"> 
+                <ul class="piclist mainlist">
+                    <li id="Adv_9" >
+                    </li>
+                    <li id="Adv_10" >
+                    </li>
+                    <li id="Adv_11" >
+                    </li>
+                    <li id="Adv_12" >
+                    </li>
+                    <li id="Adv_13" >
+                    </li>
+                    <li id="Adv_14" >
+                    </li>
+                    <li id="Adv_15" >
+                    </li>
+                    <li id="Adv_16" >
+                    </li>
+                    <li id="Adv_17">
+                    </li>
+                    <li id="Adv_18" >
+                    </li>
+                    <li id="Adv_19" >
+                    </li>
+                    <li id="Adv_20" >
+                    </li>
+                    <li id="Adv_21" >
+                    </li>
+                    <li id="Adv_22">
+                    </li>
+                    <li id="Adv_23" >
+                    </li>
+                     <li id="Adv_24">
+                    </li>
+                </ul>
+                <ul class="piclist swaplist"></ul>
+            </div>
+	<div class="og_prev"></div>
+	<div class="og_next"></div>
+  </div>  
+</div>
+<!-- 滚动广告end -->
 	<jsp:include page="../frontDesk/foot.jsp" />
 
 </body>

@@ -63,17 +63,20 @@
 						src="content/static/images/header_icon1.png" /></a></li>
 			</c:if>
 			<c:if test="${loginUser != null }">
-				<li class="nav4"><a href="javascript:void(0);" id="zh1">我的酒翁<img
-						src="content/static/images/header_icon1.png" /></a>
-					<div class="zh" id="zh2" style="display: none;">
-						<a href="user/personalCenter"><div
-								style="margin-left: 20px; margin-top: 5px;">个人中心</div></a> <a
-							href="user/logout"><div
-								style="margin-left: 20px; margin-top: 8px;">退出账号</div></a>
-					</div></li>
+				 <li class="nav4" id="nav3">
+	            	<a href="javascript:void(0);" id="zh1">
+	            	<c:if test="${loginUser.userName ==null }">给我个名吧</c:if>
+	            	<c:if test="${loginUser.userName !=null }">${loginUser.userName }</c:if>
+	            	<img src="content/static/images/header_icon1.png"></a>
+	                <div class="zh" id="zh2" style="display:none;">
+	                    <a href="#"><div style="margin-left:20px;  margin-top:15px;">个人中心</div></a>
+	                    <a href="#"><div style="margin-left:20px; margin-top:12px;">退出账号</div></a>
+	                </div>
+	            </li>
+				<li class="nav4"><a href="javascript:void(0);" id="zh1">我的酒翁</a>
+				</li>
 			</c:if>
-			<li class="nav5"><a href="user/reCarCommodity">购物车<img
-					src="content/static/images/header_icon1.png" /></a></li>
+			<li class="nav5"><a href="user/reCarCommodity">购物车</a></li>
 		</ul>
 	</div>
 </div>
@@ -109,8 +112,8 @@
 		</div>
 		<div class="nav_list">
 			<a href="index" style="padding-left: 30px; color: #a40c59">首页</a> <a
-				href="famousManor/index">名庄特卖</a> <a href="brand">品牌专区</a> <a href="#">整箱购</a>
-			<a href="#">商城精选</a> <a href="#">酒翁精品</a> <a href="getSnacks?categoryID=5">小食品</a>
+				href="famousManor/index">名庄特卖</a> <a href="brand">品牌专区</a> <a href="fclBuy">整箱购</a>
+			   <a href="boutique">酒翁精品</a> <a href="getSnacks?categoryID=5">小食品</a>
 		</div>
 	</div>
 </div>

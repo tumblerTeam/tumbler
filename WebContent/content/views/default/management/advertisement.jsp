@@ -92,7 +92,7 @@
 							<td>${advertisement.adverDistribution.whichPage}</td>
 							<td>${advertisement.adverDistribution.position}</td>
 							<td>${advertisement.commodity.commoidtyName}</td>
-							<td><img alt="" src="${advertisement.imagePath}"></td>
+							<td>${advertisement.imagePath}</td>
 							<td>${advertisement.link}</td>
 							<td>${advertisement.expenditure}</td>
 							<td>${advertisement.income}</td>

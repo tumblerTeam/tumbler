@@ -26,29 +26,29 @@
 <script type="text/javascript"  src="content/static/js/tumbler/tz.js"></script>
 <script type="text/javascript">
          $(function(){
-        	 $.getJSON(
-        		  "/toJsonFmatUtil/getAdvertisement",
+        	   $.getJSON(
+        		  "toJsonFmatUtil/getAdvertisement",
         		  {
-        			  whichPage: "famousManor"
+        			  whichPage: "名庄特卖"
         		   }, function(json) {
         			   $.each(json.advertisementList, function(i,item){
 //         				   alert(item.id);	//id
 //         				   alert(item.imagePath);//宣传图片
 //         				   alert(item.link);//链接
 //         				   alert(item.adverDistribution.position);//广告所在位置
-        				   if(item.adverDistribution.position==1){
+        				   if(item.adverDistribution.position=='名庄特卖大眼睛'){
                        	    $("#Adv_1").append("<li><a href=\""+item.link+"\"><div class=\"m-width\"style=\"width: 100%; height: 571px; background: url("+item.imagePath+") center center;\"></div></a></li>");
-                         }else if(item.adverDistribution.position==2){
+                         }else if(item.adverDistribution.position=='名庄特卖强力推荐A1'){
                        	     $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 185px;margin-top: 5px;background: url("+item.imagePath+") center center;\"></div></a>");
-                         }else if(item.adverDistribution.position==3){
+                         }else if(item.adverDistribution.position=='名庄特卖强力推荐A2'){
                        	     $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 185px;margin-top: 5px;background: url("+item.imagePath+") center center;\"></div></a>");
-                         }else if(item.adverDistribution.position==4){
+                         }else if(item.adverDistribution.position=='名庄特卖强力推荐A3'){
                        	     $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 185px;margin-top: 5px;background: url("+item.imagePath+") center center;\"></div></a>");
-                         }else if(item.adverDistribution.position==5){
+                         }else if(item.adverDistribution.position=='名庄特卖名庄单品A'){
                        	     $("#Adv_5").append("<div class=\"bander_class\" style=\"border-top:none; border-left:none;\"><a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a></div>");
-                         }else if(item.adverDistribution.position==6){
+                         }else if(item.adverDistribution.position=='名庄特卖名庄单品B'){
                        	     $("#Adv_6").append("<div class=\"bander_class\" style=\"border-top:none; border-left:none;\"><a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a></div>");
-                         }else if(item.adverDistribution.position==7){
+                         }else if(item.adverDistribution.position=='名庄特卖名庄单品C'){
                        	     $("#Adv_7").append("<div class=\"bander_class\" style=\"border-top:none; border-left:none;\"><a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a></div>");
                          }
                          

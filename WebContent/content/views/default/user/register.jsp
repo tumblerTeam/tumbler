@@ -13,20 +13,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
-<link rel="stylesheet" type="text/css"
-	href="content/static/css/style.css">
-<link rel="stylesheet" type="text/css"
-	href="content/static/css/animation.css">
-<link rel="stylesheet" type="text/css"
-	href="content/static/css/login.css">
-<link rel="stylesheet" type="text/css"
-	href="content/static/css/base.css" />
-<link type="text/css" rel="stylesheet" href="content/static/css/aa.css"
-	source="widget" />
-
+<link rel="stylesheet" type="text/css" href="content/static/css/style.css">
+<link rel="stylesheet" type="text/css" href="content/static/css/animation.css">
+<link rel="stylesheet" type="text/css" href="content/static/css/login.css">
+<link rel="stylesheet" type="text/css" href="content/static/css/base.css" />
+<link type="text/css" rel="stylesheet" href="content/static/css/aa.css" source="widget" />
+<script type="text/javascript" src="css/js/--login.pge.js,login.pge.init.js" ></script>
+<script src="js/tz.js"></script>
 <script type="text/javascript" src="content/static/js/lib/jquery.min.js"></script>
-<!-- <script type="text/javascript" -->
-<!-- 	src="css/js/--login.pge.js,login.pge.init.js"></script> -->
 <script src="content/static/js/tumbler/tz.js"></script>
 <style type="text/css">
 .frred {
@@ -44,6 +38,29 @@
 	font-size: 12px;
 }
 </style>
+<script type="text/javascript">
+         $(function(){
+        	 $.getJSON(
+        		  "toJsonFmatUtil/getAdvertisement",
+        		  {
+        			  whichPage: "登录注册"
+        		   }, function(json) {
+        			   $.each(json.advertisementList, function(i,item){
+//         				   alert(item.id);	//id
+//         				   alert(item.imagePath);//宣传图片
+//         				   alert(item.link);//链接
+//         				   alert(item.adverDistribution.position);//广告所在位置
+        				   if(item.adverDistribution.position=='登录注册大眼睛A1'){
+                       	       $("#Big_Slide_0").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='登录注册大眼睛A2'){
+        					   $("#Big_Slide_1").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }else if(item.adverDistribution.position=='登录注册大眼睛A3'){
+        					   $("#Big_Slide_2").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+        				   }
+          			   });
+           		   });
+            });
+  </script>
 <script>
 	window.onload = function() {
 		var url = window.location.href;
@@ -61,18 +78,150 @@
 		}
 	}
 </script>
+<script>
+	$(function(){
+	var Big_Slide_boxWidth=$("#Big_Slide").width();//获取幻灯片外部div宽度
+	var Big_Slide_boxHeight=$("#Big_Slide").height();//获取幻灯片外部div高度
+	var Big_Slide_LiWidth=$("#Big_Slide").children("ul").children("li").eq(0).width();//获取幻灯片Li的宽度
+	var Big_Slide_liNubr=$("#Big_Slide").find('li').length;//获取幻灯片Li的数量
+	var Big_Slide_Speed=4000;//滚动速度
+	var Big_Slide_Tab_Contne="";//初始化tab按钮
+	var Big_Slide_Last_NextHeight=$("#Big_Slide_Last").height();//获取按钮高度
+	//tab 条宽度
+	var Big_Slide_Tab_AWidth=(1/Big_Slide_liNubr)*100;
+	var Big_Slide_TabWidth=$("#Big_Slide_Tab").width();//tab的宽度
+	var Big_SlideWidth=$("#Big_Slide").width();//Big_Slide的宽度
+	$("#Big_Slide_Tab").css("left",(Big_SlideWidth-Big_Slide_TabWidth)*0.5);//Big_Slide_Tab定位
+	$("#Big_Slide_Last").css("top",(Big_Slide_boxHeight-Big_Slide_Last_NextHeight)*0.5);
+	$("#Big_Slide_Next").css("top",(Big_Slide_boxHeight-Big_Slide_Last_NextHeight)*0.5);
+	$("#prevL").css("left",-Big_Slide_LiWidth);
+	$("#prevR").css("right",-Big_Slide_LiWidth);
+	
+	for(var i=0;i<parseInt(Big_Slide_liNubr);i++){
+		$("#Big_Slide").children("ul").children("li").eq(i).css("left",(i-1)*Big_Slide_LiWidth);//初始化Li位置
+		
+		if(i==1){
+			Big_Slide_Tab_Contne=Big_Slide_Tab_Contne+"<a class='"+"TabOn' id='"+"TabOn"+i+"' style='width:"+Big_Slide_Tab_AWidth+"%'></a>";
+			}else{
+				Big_Slide_Tab_Contne=Big_Slide_Tab_Contne+"<a id='TabOn"+i+"' style='width:"+Big_Slide_Tab_AWidth+"%'></a>";//生成tab按钮
+				}
+		}
+	$("#Big_Slide_Tab").html(Big_Slide_Tab_Contne);//写入tab按钮
+	
+	var Slide_Run = setInterval(Slide_Next,Big_Slide_Speed)//设置滚动器
+	
+	function Slide_Next(){
+		for(var k=0;k<parseInt(Big_Slide_liNubr);k++){
+			if(parseInt($("#Big_Slide").children("ul").children("li").eq(k).css("left"))==-Big_Slide_LiWidth)//判断LI是否有位移到0，防止同时多次点击出错
+			{
+				
+				var Big_Slide_liSeat=0;//位置参数归零
+				for(var j=0;j<parseInt(Big_Slide_liNubr);j++){
+					if(parseInt($("#Big_Slide").children("ul").children("li").eq(j).css("left"))==-Big_Slide_LiWidth){//判断是否第一个
+						
+						$("#Big_Slide").children("ul").children("li").eq(j).css("left",Big_Slide_LiWidth*(Big_Slide_liNubr-2));//第一个回到最后一个
+
+						}else{
+							
+						Big_Slide_liSeat=parseInt($("#Big_Slide").children("ul").children("li").eq(j).css("left"))-Big_Slide_LiWidth;//获取位移位置
+						$("#Big_Slide").children("ul").children("li").eq(j).animate({left:Big_Slide_liSeat},"slow");//进行位移动画
+
+						}
+					}
+					
+				}
+			}
+	}
+	
+	function Slide_Last(){
+		for(var k=0;k<parseInt(Big_Slide_liNubr);k++){
+			if(parseInt($("#Big_Slide").children("ul").children("li").eq(k).css("left"))==0)//判断LI是否有位移到0，防止同时多次点击出错
+			{
+				
+				var Big_Slide_liSeat=0;//位置参数归零
+				for(var j=0;j<parseInt(Big_Slide_liNubr);j++){
+					if(parseInt($("#Big_Slide").children("ul").children("li").eq(j).css("left"))==Big_Slide_LiWidth*(Big_Slide_liNubr-2)){//判断是否第一个
+						
+						$("#Big_Slide").children("ul").children("li").eq(j).css("left",-Big_Slide_LiWidth);//第一个回到最后一个
+						
+						}else{
+							
+						Big_Slide_liSeat=parseInt($("#Big_Slide").children("ul").children("li").eq(j).css("left"))+Big_Slide_LiWidth;//获取位移位置
+						$("#Big_Slide").children("ul").children("li").eq(j).animate({left:Big_Slide_liSeat},"slow");//进行位移动画
+						
+						}
+					}
+					
+				}
+			}
+	}
+	
+	setInterval(function(){
+		for(var n=0;n<parseInt(Big_Slide_liNubr);n++){
+			if(parseInt($("#Big_Slide").children("ul").children("li").eq(n).css("left"))==0){
+				if((n-1)<0){
+					$("#TabOn"+(Big_Slide_liNubr-1)).removeClass("TabOn");
+					$("#TabOn"+(n+1)).removeClass("TabOn");
+					$("#TabOn"+n).addClass("TabOn");
+					}else {
+						$("#TabOn0").removeClass("TabOn");
+						$("#TabOn"+(n-1)).removeClass("TabOn");
+						$("#TabOn"+(n+1)).removeClass("TabOn");
+						$("#TabOn"+n).addClass("TabOn");
+							}
+				}
+			}
+		},1)
+	
+	$("#Big_Slide_Next").click(Slide_Next);//下一张按钮
+	$("#Big_Slide_Last").click(Slide_Last);//上一张按钮
+	$("#Big_Slide_box").mouseenter(function(){clearInterval(Slide_Run)});//鼠标在幻灯片上，停止滚动
+	$("#Big_Slide_box").mouseleave(function(){Slide_Run = setInterval(Slide_Next,Big_Slide_Speed)})//鼠标不在幻灯哦上，开始滚动
+	
+})		
+</script>
+ <style>
+#Big_Slide_box{width:590px;  float:left;overflow:hidden;}
+#Big_Slide{width:590px;position: relative; margin:-15px auto; height:315px; }
+#Big_Slide ul li{width:980px; margin-left:0px; height:300px; position: absolute;}
+#Big_Slide_Last,#Big_Slide_Next{width:46px; height:131px; color:#333; font-size:18px; position: absolute;z-index:9999; cursor:pointer; opacity:0.5;}
+#Big_Slide_Last:hover,#Big_Slide_Next:hover{opacity:1;}
+#Big_Slide_Last{left:-100px; background:url(../images/lastIco.png) no-repeat center top;}
+#Big_Slide_Next{right:-100px; background:url(../images/nextIco.png) no-repeat center top;}
+#Big_Slide_Tab{position: absolute; bottom:12px; height:1px; margin:0 auto; width:240px;}
+#Big_Slide_Tab a{display:block; background:#000; float:left; height:1px; overflow:hidden; z-index:9999; }
+#Big_Slide_Tab .TabOn{ background:#fff;} 
+#Big_Slide .prev{position:absolute; width:980px; height:335px; background:#fff; top:0px; z-index:99; opacity:0;}
+</style>
 <title>不倒翁登录</title>
 </head>
 
 <body>
 
+
 	<div class="center">
-		<div class="logos">
-			<a href="index"><img src="content/static/images/logo.png"></a>
-			<div class="logowz">
-				<span>欢迎登录</span>
+			     <div class="logos"><a href="index.html"><img src="content/static/images/logo.png"></a>
+		        	<div class="logowz">
+		            	<span>欢迎登录</span>
+		            </div>
+				</div>	
+		         
+        <div id="Big_Slide_box" style=" position:absolute; top:200px; left:410px;">
+			<div id="Big_Slide"  >
+			<ul >
+			<li style="background: #E81216;" id="Big_Slide_0"></li>
+			<li style="background: #000000;" id="Big_Slide_1"></li>
+			<li style="background: #4144D7;" id="Big_Slide_2"></li>
+			</ul>
+			<a id="Big_Slide_Last"></a><a id="Big_Slide_Next"></a>
+			<div id="Big_Slide_Tab">
 			</div>
-		</div>
+			<div id="prevL" class="prev">
+			</div>
+			<div id="prevR" class="prev">
+			</div>
+			</div>	
+			</div>			
 		<div class="llr">
 			<div class="title">
 				<div class="dl" onclick="qhdiv('dl','zc')">
@@ -84,8 +233,7 @@
 			</div>
 			<div class="titltezw">
 				<div id="dl" class="dlshow">
-					<div class="dlimg">
-						<img src="content/static/img/banner.jpg" />
+					<div class="dlimg" id="Adv_1">
 					</div>
 					<div class="login-form">
 						<div class="login-box">
@@ -170,8 +318,8 @@
 				</div>
 			</div>
 			<div id="zc" class="zcshow">
-				<div class="dlimg">
-					<img src="content/static/img/banner.jpg" />
+				<div class="dlimg"  id="Adv_2">
+				
 				</div>
 				<div class="login-form">
 					<div class="login-box">

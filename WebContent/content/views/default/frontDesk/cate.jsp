@@ -201,7 +201,7 @@
 								test="${cate2.parentLevel.categoryID == category.categoryID}">
 								<c:forEach items="${cate2.children }" var="cate3">
 									<c:set var="loop" value="${loop + 1 }"></c:set>
-									<c:if test="${loop < 12 }">
+									<c:if test="${loop < 7 }">
 										<a href="search/result?id=${cate3.categoryID }">${cate3.category }</a>
 									</c:if>
 								</c:forEach>
@@ -218,7 +218,7 @@
 					<div class="list_con">
 						<c:forEach items="${category.brands }" var="brand"
 							varStatus="loop">
-							<c:if test="${loop.index < 10 }">
+							<c:if test="${loop.index < 7 }">
 								<a
 									href="search/result?cateid=${category.categoryID }&brand=brand-${brand.brandID }">${brand.brandName }</a>
 							</c:if>
