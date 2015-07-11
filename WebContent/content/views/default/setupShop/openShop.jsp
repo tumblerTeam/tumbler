@@ -30,8 +30,8 @@
 </head>
 
 <body>
-<!-- 顶部部分 -->
-<jsp:include page="setupShopCommons/header.jsp" />
+<!--头部-->
+<jsp:include page="../frontDesk/header.jsp"/>
 <!-- 左边部分 -->
 <jsp:include page="setupShopCommons/left.jsp" />  
 	<%if((Shop)request.getSession().getAttribute("shop")==null) {%>
@@ -108,7 +108,7 @@
   		if(!shop.getIsPermit()){%>
   			<h2 style="padding:40px;">等待审核!审核大约需要2-4天，请稍等！</h2>
   		<%}else if(shop.getIsPermit()){%>
-  			<h2 style="padding:40px;">恭喜你，开店成功！<%=request.getSession().getAttribute("shop")==null%></h2>        		
+  			<h2 style="padding:40px;">恭喜你，开店成功!</h2>        		
   		<%} %>
   	<%} %>
 <!-- 页脚部分 -->

@@ -195,6 +195,22 @@ public class ShopOneController {
 		return "setupShop/publishComm";
 	}
 	
+	//发布商品主分类界面
+	@RequestMapping("checkIdCard")
+	@ResponseBody
+	public Map<String, Object> checkIdCard(HttpServletRequest req){
+		ModelMap mode = new ModelMap();
+		String idcard = req.getParameter("idcard");
+		System.out.println("得到身份证："+idcard);
+		Shop shop = shopService.getShoByIdCard(idcard);
+		if (shop!=null) {
+			mode.put("success", "false");
+		}if (shop==null) {
+			mode.put("success", "true");
+		}
+		return mode;
+	}
+	
 	// 发布商品
 	@RequestMapping("releaseCommoidty")
 	public ModelAndView releaseCommoidty(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -247,6 +263,7 @@ public class ShopOneController {
 			if (!req.getParameter("perBoxnum").equals("")) {
 				perBoxnum = Integer.parseInt(req.getParameter("perBoxnum"));
 			}
+			
 			/**
 			 * 得到该商品的商品分类categoryID
 			 * 下面对应表shopCommodity与表shopCategory关系
@@ -307,24 +324,29 @@ public class ShopOneController {
 				commoditySpecs = new ShopCommoditySpecs();
 			}
 			String commSpec = "";
-			for (int i = 0; i < shop.getShopCat().getSpecifications().size(); i++) {
-				String commSpecName = "";
-				int flag = i+1;
-				commSpecName = req.getParameter("commspecName"+flag);
-				System.out.println("得到规格是：：：：："+commSpecName);
-				String commSpecValue = req.getParameter(commSpecName);
-				System.out.println("得到规格值是：："+commSpecValue);
-				commSpec =commSpec+commSpecName+"-"+commSpecValue +",";
-				System.out.println("得到最终规格：：：："+commSpec);
+			if (shop.getShopCat()!=null) {
+				for (int i = 0; i < shop.getShopCat().getSpecifications().size(); i++) {
+					String commSpecName = "";
+					int flag = i+1;
+					commSpecName = req.getParameter("commspecName"+flag);
+					System.out.println("得到规格是：：：：："+commSpecName);
+					String commSpecValue = req.getParameter(commSpecName);
+					System.out.println("得到规格值是：："+commSpecValue);
+					commSpec =commSpec+commSpecName+"-"+commSpecValue +",";
+					System.out.println("得到最终规格：：：："+commSpec);
+				}
+
+				//设置规格字段：
+				commoditySpecs.setCommSpec(commSpec);
+				//保存规格对象：
+				if (edit.equals("1")) { //如果是编辑商品
+					commoidtySpecsService.update(commoditySpecs);				
+				}else { //如果是保存新商品
+					commoidtySpecsService.save(commoditySpecs);
+				}
+				commodity.setCommsPecs(commoditySpecs);	
 			}
-			//设置规格字段：
-			commoditySpecs.setCommSpec(commSpec);
-			//保存规格对象：
-			if (edit.equals("1")) { //如果是编辑商品
-				commoidtySpecsService.update(commoditySpecs);				
-			}else { //如果是保存新商品
-				commoidtySpecsService.save(commoditySpecs);
-			}			
+					
 			commodity.setCommoidtyName(commoidtyName);
 			commodity.setCommItem(commItem);
 			commodity.setStock(stock);
@@ -344,7 +366,6 @@ public class ShopOneController {
 			//设置名庄：
 			FamousManor manor = famousManorService.findById(manorId);
 			commodity.setFamousManor(manor);
-			commodity.setCommsPecs(commoditySpecs);
 			/**设置商品所属店面：setBelongTo
 			 * commodity.setBelongTo(belongTo);
 			 */
@@ -417,51 +438,60 @@ public class ShopOneController {
 					MultipartFile file = myfile[i];
 	            	//利用时间解决文件覆盖问题：
 	            	Long fname = System.currentTimeMillis();
-					saveFileOfCommImage(fname,commodity,req ,file);
+					saveFileOfCommImage(fname,shop,commodity,req ,file);
 	    			String name2 = file.getOriginalFilename();
 	    			// 得到要上传文件的后缀名
 	    			endType = name2.substring(name2.lastIndexOf("."),name2.length());
-	    			System.out.println("得到的EndTYPE是：：：：：："+endType);
-	    			// root是得到本项目在服务器的路径：“D:\tomcat\apache-tomcat-7.0.52\webapps\tourGonglue\”
-	    			String root = req.getSession().getServletContext().getRealPath("/");
-	    			// getCanonicalFile()方法是返回路径名的规范形式。
-	    			File uploadDir = new File(root, "goodsImg/")
-	    					.getCanonicalFile();
-	    			if (!uploadDir.exists() || uploadDir.isFile()) {
-	    				uploadDir.mkdir();
-	    			}
+	    			String root = req.getSession().getServletContext().getRealPath("../");
+	    			File uploadDir = new File(root, "images/").getCanonicalFile();
+	            	if (!uploadDir.exists() || uploadDir.isFile()) {
+	            		uploadDir.mkdir();
+	        		}
+	            	uploadDir = new File(root, "images/"+shop.getId()+"/").getCanonicalFile();
+	            	if (!uploadDir.exists() || uploadDir.isFile()) {
+	            		uploadDir.mkdir();
+	        		}
+	            	uploadDir = new File(root, "images/"+shop.getId()+"/"+commodity.getCommCode()+"/").getCanonicalFile();
+	            	if (!uploadDir.exists() || uploadDir.isFile()) {
+	            		uploadDir.mkdir();
+	        		}
 	    			
-					commImage.setImagePath("goodsImg/"+fname+endType);
+					commImage.setImagePath("images/"+shop.getId()+"/"+commodity.getCommCode()+"/"+fname+endType);
 					commImage.setShopCommoidty(commodity);
 					shopCommImageService.save(commImage);
 				}
 			}
-			return "success";
+			return "setupShop/publishComm";
 		}else{
 			return "failure";
 		}
 	}
 	
 	//保存文件：
-	private boolean saveFileOfCommImage(Long fname ,ShopCommodity commodity ,HttpServletRequest req, MultipartFile file) {  
+	private boolean saveFileOfCommImage(Long fname ,Shop shop, ShopCommodity commodity ,HttpServletRequest req, MultipartFile file) {  
 		String endType = "";
         // 判断文件是否为空  
         if (!file.isEmpty()) {  
             try {
             	// root是得到本项目在服务器的路径：“D:\tomcat\apache-tomcat-7.0.52\webapps\tourGonglue\”
-    			String root = req.getSession().getServletContext().getRealPath("/");
-    			// getCanonicalFile()方法是返回路径名的规范形式。
-    			File uploadDir = new File(root, "goodsImg/")
-    					.getCanonicalFile();
-    			if (!uploadDir.exists() || uploadDir.isFile()) {
-    				uploadDir.mkdir();
-    			}
-    			
+            	String root = req.getSession().getServletContext().getRealPath("../");
+    			File uploadDir = new File(root, "images/").getCanonicalFile();
+            	if (!uploadDir.exists() || uploadDir.isFile()) {
+            		uploadDir.mkdir();
+        		}
+            	uploadDir = new File(root, "images/"+shop.getId()+"/").getCanonicalFile();
+            	if (!uploadDir.exists() || uploadDir.isFile()) {
+            		uploadDir.mkdir();
+        		}
+            	uploadDir = new File(root, "images/"+shop.getId()+"/"+commodity.getCommCode()+"/").getCanonicalFile();
+            	if (!uploadDir.exists() || uploadDir.isFile()) {
+            		uploadDir.mkdir();
+        		}
+            	
     			String name2 = file.getOriginalFilename();
     			// 得到要上传文件的后缀名
     			endType = name2.substring(name2.lastIndexOf("."),name2.length());
                 // 转存文件  
-                System.out.println("文件的保存路径："+uploadDir);
 				file.transferTo(new File(uploadDir,fname+endType));
                 return true;
             } catch (Exception e) {

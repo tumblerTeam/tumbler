@@ -34,5 +34,12 @@ public interface IShopService extends IGenericService<Shop> {
 	 * @return
 	 */
 	List<Shop> getShopManorByBool(boolean b);
+	
+	/**
+	 * 通过idCard查询商家是否存在
+	 * @param idcard String
+	 * @return shop
+	 */
+	Shop getShoByIdCard(String idcard);
 
 }

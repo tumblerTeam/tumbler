@@ -44,8 +44,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	src="content/static/js/datetime/jquery.datetimepicker.js"></script>
 </head>
 <body >
-<!-- 顶部部分 -->
-<jsp:include page="setupShopCommons/header.jsp" />
+<!--头部-->
+<jsp:include page="../frontDesk/header.jsp"/>
 <!-- 左边部分 -->
 <jsp:include page="setupShopCommons/left.jsp" />
 
