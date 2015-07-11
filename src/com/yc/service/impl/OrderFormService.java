@@ -241,7 +241,7 @@ public class OrderFormService extends GenericService<OrderForm> implements IOrde
 		        }
 		    hql.append(" and o.orderDate in ("+takeDates.toString()+")"); 
 		}
-		if (map.get("paymentDateLeft") != null && map.get("paymentDateRight") != null) {
+		if (map.get("paymentDateLeft") != null && !map.get("paymentDateLeft").equals("") && map.get("paymentDateRight") != null && !map.get("paymentDateRight").equals("")) {
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(sdf.parse(map.get("paymentDateRight").toString()));
 			Date d1 = cal.getTime();
@@ -335,6 +335,15 @@ public class OrderFormService extends GenericService<OrderForm> implements IOrde
 		Query query =  orderFormDao.getEntityManager().createNativeQuery(hql.toString(), OrderForm.class);
 		OrderForm newstOrderForm=(OrderForm) query.getSingleResult();
 		return newstOrderForm;
+	}
+
+	@Override
+	public List<OrderForm> getAllByOrderStatusAndShopId(String orderStatus,
+			Integer shopId) {
+		//StringBuffer hql = new StringBuffer("select DISTINCT o.* from OrderForm o right join Commodity com on com.orderform_id = o.orderFormID  where com.seller_name = "+shopId);
+		String hql = " from OrderForm o where o.orderstatus = '"+orderStatus+"'"+" and o.orderUser.shop.id="+shopId;
+		System.out.println("到了所有订单查询通过店铺ID！！！！！！！！");
+		return orderFormDao.find(hql, null, null);
 	}
 
 

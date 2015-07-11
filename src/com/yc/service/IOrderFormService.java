@@ -59,6 +59,13 @@ public interface IOrderFormService extends IGenericService<OrderForm>{
 	 * @return
 	 */
 	List<OrderForm> getAllByOrderStatus(String orderStatus);
+	
+	/***
+	 * 通过订单状态查询订单
+	 * @param orderStatus 订单状态,shopId 店铺Id
+	 * @return
+	 */
+	List<OrderForm> getAllByOrderStatusAndShopId(String orderStatus,Integer shopId);
 
 	/***
 	 * 通过订单状态和下单日期查询订单
