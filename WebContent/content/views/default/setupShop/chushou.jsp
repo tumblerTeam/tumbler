@@ -16,6 +16,7 @@
 <title>不倒翁首页</title>
 <link rel="stylesheet" type="text/css" href="content/static/css/seller.css">
 <link rel="stylesheet" type="text/css" href="content/static/css/style.css">
+<script type="text/javascript" src="content/static/js/datetime/jquery.js"></script>
 <!--选项卡js-->
 <!--<script type="text/javascript"> 
 function setTab(name,m,n){ 
@@ -62,14 +63,14 @@ function setTab(name,m,n){
                         <li>操作</li>
                     </ul>
                 </div>
-                <form action="proscenium/multiDelComm">
+                <form action="proscenium/multiDelComm" onsubmit="return checkDel();">
 	                <div class="all_nav1">
-	                	<input type="checkbox" name="quan" />全选
-	                    <input type="submit" value="删除" style="margin:15px 0px 0px 15px;">	
+<!-- 	                	<input type="checkbox" name="quan" />全选 -->
+	                    <input type="submit" value="删除" style="margin:15px 0px 0px 15px;">
+	                    <label id="tishi" style="color: red;"></label>	
 	                </div>
 	                <script type="text/javascript">
 	                	function multiDownComm(){
-	                		alert(1);
 	                		document.forms[0].action = "proscenium/multiDownComm";
 	                		document.forms[0].submit();
 	                	}
@@ -101,9 +102,21 @@ function setTab(name,m,n){
             </div>
         </div>
       </div>
-      <!--中间结束-->
-    </div>
-</div>
+      <script type="text/javascript">
+      	function checkDel(){
+      		var tishi =$("#tishi");
+      		var chk_value =[]; 
+      		$("input[name='checkbox']:checked").each(function (){
+				chk_value.push($(this).val());
+			});
+      		if (chk_value.length==0) {
+      			tishi.text("请至少选择一个");
+      			return false;
+			}else{
+	      		return true;
+			}
+      	}
+      </script>
 <!-- 页脚部分 -->
 <jsp:include page="../frontDesk/foot.jsp"/>
 

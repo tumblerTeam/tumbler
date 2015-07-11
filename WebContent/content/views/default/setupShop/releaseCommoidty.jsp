@@ -18,9 +18,8 @@
 <link rel="stylesheet" type="text/css" href="content/static/css/seller.css"/>
 <link rel="stylesheet" type="text/css" href="content/static/css/style.css"/>
 <link rel="stylesheet" type="text/css" href="content/static/css/datetime/jquery.mobile.flatui.css"/>
-<link rel="stylesheet" type="text/css" href="content/static/js/datetime/jquery.mobile-1.4.0-rc.1.js"/>
-<link rel="stylesheet" type="text/css" href="content/static/js/map/jsAddress.js"/>
-<link rel="stylesheet" type="text/css" href="content/static/js/datetime/jquery.js"/>
+<script type="text/javascript" src="content/static/js/datetime/jquery.js"></script>
+<script type="text/javascript" src="content/static/js/map/jsAddress.js"></script>
 
 <link href="content/static/css/reception/css.css" rel="stylesheet"
 	type="text/css" />
@@ -43,8 +42,6 @@
 </head>
 
 <body>
-<!--头部-->
-<jsp:include page="../frontDesk/header.jsp"/>
 <!-- 左边部分 -->
 <jsp:include page="setupShopCommons/left.jsp" />
         

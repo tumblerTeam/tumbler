@@ -87,13 +87,6 @@ function setTab(name,m,n){
                         <li>评价</li>
                     </ul>
                 </div>
-                <div class="nav2">
-                	<ul>
-                    	<li><form><input type="checkbox" name="quan" />全选</form></li>
-                        <li>批量发货</li>
-                        <li></li>
-                    </ul>
-                </div>
              
                 <div class="nav_class" id="text1">
                 	<ul>

@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.yc.entity.Address;
 import com.yc.entity.AdvState;
 import com.yc.entity.Brand;
+import com.yc.entity.Delivery;
 import com.yc.entity.FamousManor;
 import com.yc.entity.MissionPlan;
 import com.yc.entity.OrderForm;
@@ -51,6 +52,7 @@ import com.yc.service.IBrandService;
 import com.yc.service.IBuyCarService;
 import com.yc.service.ICarCommodityService;
 import com.yc.service.ICommodityService;
+import com.yc.service.IDeliveryService;
 import com.yc.service.IFamousManorService;
 import com.yc.service.IMissionPlanService;
 import com.yc.service.IOrderFormService;
@@ -62,6 +64,7 @@ import com.yc.service.IShopCommoidtySpecsService;
 import com.yc.service.IShopReviewsService;
 import com.yc.service.IShopService;
 import com.yc.service.ISpecificationsService;
+import com.yc.service.impl.DeliveryAddressService;
 
 //前台
 @Controller
@@ -100,6 +103,9 @@ public class ShopOneController {
 	
 	@Autowired
 	IMissionPlanService missionPlanService; //消息
+	
+	@Autowired
+	IDeliveryService deliveryService;
 	
 	@Autowired
 	IShopCommImageService shopCommImageService;
@@ -571,7 +577,6 @@ public class ShopOneController {
 	public ModelAndView delShopCommImage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ModelMap mode = new ModelMap();
 		
-		System.out.println("已经加载到。。。。delShopImage");
 		Integer imgId = Integer.valueOf(req.getParameter("imgId"));
 		shopCommImageService.delete(imgId);
 		
@@ -620,9 +625,12 @@ public class ShopOneController {
 			for (int j = 0; j < commImages.size(); j++) {
 				shopCommImageService.delete(commImages.get(j).getImageID());
 			}
+			if (commodity.getCommsPecs()!=null) {
+				commodity.getCommsPecs().setShopCommSpecs(null);
+			}
 			shopCommodityService.delete(id);
 		}
-		return "success";
+		return "redirect:chushou?flag=1";
 	}
 	
 	//商品下架
@@ -672,18 +680,18 @@ public class ShopOneController {
 		return new ModelAndView("setupShop/chushou",mode);
 	}
 	
-	//批量商品下架
-	@RequestMapping("multiDownComm")
-	public String multiDownComm(HttpServletRequest req , HttpServletResponse resp){
-		String name[] = req.getParameterValues("checkbox");
-		for (String i : name) {
-			int id = Integer.parseInt(i);
-			ShopCommodity shopCommodity = shopCommodityService.findById(id);
-			shopCommodity.setShelves(false);
-			shopCommodityService.update(shopCommodity);
-		}
-		return "success";
-	}
+//	//批量商品下架
+//	@RequestMapping("multiDownComm")
+//	public String multiDownComm(HttpServletRequest req , HttpServletResponse resp){
+//		String name[] = req.getParameterValues("checkbox");
+//		for (String i : name) {
+//			int id = Integer.parseInt(i);
+//			ShopCommodity shopCommodity = shopCommodityService.findById(id);
+//			shopCommodity.setShelves(false);
+//			shopCommodityService.update(shopCommodity);
+//		}
+//		return "success";
+//	}
 	
 	//出售中的商品搜索栏：map commoidtyName商品名称、commItem商品货号、commCode商品编码
 	@RequestMapping("searchCommName")
@@ -749,6 +757,7 @@ public class ShopOneController {
 		//8.查询关闭订单
 		List<OrderForm> closeTransaction = orderFormService.getAllByOrderStatus("closeTransaction");	
 		mode.put("closeTransaction", closeTransaction);
+		System.out.println("到达soldCOmm页面！！！！！！！！！！！！！！！");
 		return new ModelAndView("setupShop/soldComm",mode);
 	}
 	
@@ -799,13 +808,31 @@ public class ShopOneController {
 		ModelMap mode = new ModelMap();
 		Integer orderFormID = Integer.parseInt(req.getParameter("orderFormID"));
 		String packageCode = req.getParameter("packageCode");
-		String totalWeight = req.getParameter("totalWeight");
-		String grossWeight = req.getParameter("grossWeight");
-		String transportFee = req.getParameter("transportFee");
+		String deliveryName = req.getParameter("deliveryName");
+//		String totalWeight = req.getParameter("totalWeight");
+//		String grossWeight = req.getParameter("grossWeight");
+//		String transportFee = req.getParameter("transportFee");
+		
 		//创建日期：
 		Date date = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String dateFormat = format.format(date);
+		format = new SimpleDateFormat("HH:mm:ss");
+		String timeFormat = format.format(date);
 		OrderForm orderForm = orderFormService.findById(orderFormID);
+		Delivery delivery = null;
+		
+		if (orderForm.getDelivery()!=null) {
+			if (orderForm.getDelivery().getAddress()!=null) {
+				delivery = orderForm.getDelivery();
+				delivery.setPackAgeTpek(packageCode);
+				delivery.setDeliveryName(deliveryName);
+				deliveryService.update(delivery);
+			}
+		}
 		orderForm.setOrderstatus(OrderStatus.transitGoods);
+		orderForm.setOrderDate(dateFormat);
+		orderForm.setOrderTime(timeFormat);
 		orderFormService.update(orderForm);
 		return new ModelAndView("setupShop/deliveryComm",mode);
 	}
