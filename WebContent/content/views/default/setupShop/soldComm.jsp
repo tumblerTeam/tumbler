@@ -12,7 +12,7 @@
 <html lang="zh">
 <head>
 <meta charset="utf-8" />
-<base href="<%=basePath%>" />
+<base href="<%=basePath%>"/>
 <title>不倒翁首页</title>
 <link rel="stylesheet" type="text/css" href="content/static/css/seller.css">
 <link rel="stylesheet" type="text/css" href="content/static/css/style.css">
@@ -58,7 +58,28 @@ function setTab(name,m,n){
 			menu.className = i==m?"on":""; 
 			showDiv.style.display = i==m?"block":"none"; 
 			} 
-	} 
+	}
+
+$(function(){
+	
+	$(".pingjia").click(event,function(){
+				for(var i=0;i<$(".pingjia").length;i++){
+					if(i==$(".pingjia").index($(this))){
+						$(".ping").eq(i).css("transition","all 0.5s").css("display","block");
+					}else{
+						$(".ping").eq(i).css("transition","all 0.5s").css("display","none");
+					}
+					
+				}
+			});
+	$(".bu").click(event,function(){
+		for(var i=0;i<$(".bu").length;i++){
+			if(i==$(".bu").index($(this))){
+				$(".ping").eq(i).css("transition","all 0.5s").css("display","none");
+			}
+		}
+		});
+});
 </script>
 <!--退出js-->
 <script>
@@ -79,16 +100,7 @@ function setTab(name,m,n){
 					},500);
 				};
 				
-			$(".pingjia").click(event,function(){
-				for(var i=0;i<$(".pingjia").length;i++){
-					if(i==$(".pingjia").index($(this))){
-						$(".ping").eq(i).css("transition","all 0.5s").css("display","block");
-					}else{
-						$(".ping").eq(i).css("transition","all 0.5s").css("display","none");
-					}
-					
-				}
-			});
+			
 // 		$(".fa").click(event,function(){
 // 			for(var i=0;i<$(".fa").length;i++){
 // 				if(i==$(".fa").index($(this))){
@@ -96,13 +108,7 @@ function setTab(name,m,n){
 // 				}
 // 			}
 // 			});
-		$(".bu").click(event,function(){
-			for(var i=0;i<$(".bu").length;i++){
-				if(i==$(".bu").index($(this))){
-					$(".ping").eq(i).css("transition","all 0.5s").css("display","none");
-				}
-			}
-			});
+		
 		}
 </script>
 
@@ -456,7 +462,7 @@ function setTab(name,m,n){
 									<c:if test="${o.orderstatus == 'closeTransaction'}">退款中的订单</c:if>
 									<c:if test="${o.orderstatus == 'refundSuccess'}">退款成功</c:if> <c:if
 										test="${o.orderstatus == 'refundFailed'}">退款失败</c:if></li>
-								<li>￥${c.money}</li>
+								<li>￥${c.money} </li>
 								<%
 									int flag = 0;
 								%>
@@ -481,9 +487,9 @@ function setTab(name,m,n){
 									<form action="proscenium/evaluteUser" method="post">
 										<div class="content" style="height:250px;">
 											<div style="text-align: center;">
-												<input type="hidden" name="userId" value="${o.orderUser.id}" />
-												<input type="hidden" name="orderFormID" value="${o.orderFormID}" />
-												<input type="hidden" name="commCode" value="${c.shopCommodity.commCode}" /> 
+												<input type="text" name="userId" value="${o.orderUser.id}" />
+												<input type="text" name="orderFormID" value="${o.orderFormID}" />
+												<input type="text" name="commCode" value="${c.shopCommodity.commCode}" /> 
 												评价： <input type="radio" name="reviewsRank" value="good" checked="checked"/>好评 
 													 <input type="radio" name="reviewsRank" value="better" />中评 
 													 <input type="radio" name="reviewsRank" value="bad" />差评

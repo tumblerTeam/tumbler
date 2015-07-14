@@ -77,7 +77,7 @@
                             	 	var rd = "${shop.sex}";
                         	 		if(rd=='male'){
                         	 			document.getElementById("male").checked = 'checked';
-                        	 		}else{
+                        	 		}else if(rd=='female'){
                         	 			document.getElementById("female").checked = 'checked';
                         	 		}
                         	 	}
