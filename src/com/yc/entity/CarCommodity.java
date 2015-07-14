@@ -15,7 +15,7 @@ import com.yc.entity.user.Personnel;
 
 @Entity
 @DiscriminatorValue("carcommoidty")//购物车商品
-@JsonIgnoreProperties(value={"buyCar","shopCommodity","carCategory","shop","currency","personnel"})
+@JsonIgnoreProperties(value={"buyCar","carCategory","shop","currency","personnel"})
 public class CarCommodity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

@@ -77,7 +77,10 @@ public class CategoryManagementController {
 	@RequestMapping(value = "addOrUpdateDep", method = RequestMethod.POST)
 	public String addOrUpdateDep(String page, Integer departmentID, String departmentname, String describes, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ShopCategory department = categoryService.findById(departmentID);
-		addDepartment(department, departmentname);
+		department = addDepartment(department, departmentname);
+		if(departmentID == null){
+			departmentID = department.getCategoryID();
+		}
 		return "redirect:/management/getAgriculturalsSort?id=" + departmentID+"&page=sortList";
 	}
 	

@@ -6,7 +6,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,10 +16,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import com.yc.entity.user.AppUser;
 
 @Entity
-@DiscriminatorValue("shopCommoidty")//商品表
+@DiscriminatorValue("shopCommoidty")//商品表carCommodities
+@JsonIgnoreProperties(value={"commodities","shopCategory","famousManor","brand","belongTo","users","carCommodities","shopreviews"})
 public class ShopCommodity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -53,7 +55,6 @@ public class ShopCommodity {
 	@Column
 	private Float unitPrice = 0f;//单价
 
-	
 	@Column
 	private String commUnit;//商品单位：瓶1、箱0perBoxnum
 
@@ -138,7 +139,7 @@ public class ShopCommodity {
 	@JoinTable(name = "AppUser_shopCommodity",   
      joinColumns ={@JoinColumn(name = "shopCommodity_ID", referencedColumnName = "commCode") },   
      inverseJoinColumns = { @JoinColumn(name = "appUser_ID", referencedColumnName = "id") })  
-	private List<AppUser> users  ;//团购商品的用户集合
+	private List<AppUser> users;//团购商品的用户集合
 	
 	@Column
 	private String link;

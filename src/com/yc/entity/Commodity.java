@@ -15,7 +15,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 //订单item商品
 @Entity
 @DiscriminatorValue("commodity")
-@JsonIgnoreProperties(value = { "purchase", "storeRoom", "orderNumber", "imagePaths", })
+@JsonIgnoreProperties(value = { "purchase", "storeRoom", "orderNumber", "imagePaths" })
 public class Commodity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

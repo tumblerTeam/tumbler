@@ -23,6 +23,9 @@
 <link rel="stylesheet" type="text/css" href="content/static/css/jw.css"/>
 <link rel="stylesheet" type="text/css" href="content/static/css/b_style.css" />
 <!--全部分类js-->
+<style>
+	.bgimg{ opacity:0.3;}
+</style>
 <script type="text/javascript">
          $(function(){
         	 $.getJSON(
@@ -36,13 +39,11 @@
 //         				   alert(item.link);//链接
 //         				   alert(item.adverDistribution.position);//广告所在位置
         				   if(item.adverDistribution.position=='酒翁精品大眼睛'){
-                       	    $("#Adv_1").append("<li><a href=\""+item.link+"\"><div class=\"m-width\"style=\"width: 100%; height: 571px; background: url("+item.imagePath+") center center;\"></div></a></li>");
+                       	    $("#Adv_1").append("<li><a href=\""+item.link+"\"><div class=\"m-width\"style=\"width: 100%; height: 450px; background: url("+item.imagePath+") center center;\"></div></a></li>");
                          }else if(item.adverDistribution.position=='酒翁精品强力推荐A1'){
-                       	     $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 185px;margin-top: 5px;background: url("+item.imagePath+") center center;\"></div></a>");
+                       	     $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 225px;border-bottom:1px #ccc dashed;background: url("+item.imagePath+") center center;\"></div></a>");
                          }else if(item.adverDistribution.position=='酒翁精品强力推荐A2'){
-                       	     $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 185px;margin-top: 5px;background: url("+item.imagePath+") center center;\"></div></a>");
-                         }else if(item.adverDistribution.position=='酒翁精品强力推荐A3'){
-                        	 $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 185px;margin-top: 5px;background: url("+item.imagePath+") center center;\"></div></a>");
+                       	     $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 225px;background: url("+item.imagePath+") center center;\"></div></a>");
                          }else if(item.adverDistribution.position=='酒庄精品主推'){
                         	 $("#Adv_2").append("<a href=\""+item.link+"\"  class=\"jw_banner1\"><img src=\""+item.imagePath+"\" /></a>");
                          }else if(item.adverDistribution.position=='酒庄推荐A1'){
@@ -78,19 +79,32 @@
                          }else if(item.adverDistribution.position=='品牌展示A10'){
                         	 $("#Adv_18").append( "<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
                          }
-                         
-        				    
-                           $("#csdiv").animate({
-		        					width : 290
-		        				}, 5000).css("transition", "all 0.5s").css("right", "350px");
-                           
-		        				$(".prev,.next").hover(function() {
-		        					$(this).stop(true, false).fadeTo("show", 0.9);
-		        				}, function() {
-		        					$(this).stop(true, false).fadeTo("show", 0.4);
-		        				});
-		        	            
-		        				$(".banner-box").slide({
+        			   });//动态生成广告
+        			   if(window.screen.width<=1680){
+        					$("#csdiv").animate(
+        								{width:190},5000).css("transition","all 0.5s").css("right","120px");
+        						}else{
+        					$("#csdiv").animate(
+        								{width:190},5000).css("transition","all 0.5s").css("right","350px");
+        						}
+        						 		
+        					$(".prev,.next").hover(function(){
+        						$(this).stop(true,false).fadeTo("show",0.9);
+        					},function(){
+        						$(this).stop(true,false).fadeTo("show",0.4);
+        					});
+        					
+        					$(".banner-box").slide({
+        						titCell:".hd ul",
+        						mainCell:".bd ul",
+        						effect:"fold",
+        						interTime:3500,
+        						delayTime:500,
+        						autoPlay:true,
+        						autoPage:true, 
+        						trigger:"click" 
+        					});
+		        				$(".banner-box2").slide({
 		        					titCell : ".hd ul",	
 		        					mainCell : ".bd ul",
 		        					effect : "fold",
@@ -100,9 +114,27 @@
 		        					autoPage : true,
 		        					trigger : "click"
 		        				});
-   			   });
-   		   });
-    });
+		        				//start
+		        				$("#csdiv").children(this).hover(function(){
+		            				var index=$("#csdiv").children(this).index($(this)); //当前鼠标悬停索引
+		            				var a = new Array(2);
+		            				a[0]=0;
+		            				a[1]=1;
+		            			
+		            				for(var i=0;i<a.length;i++){
+		            					if(index==i){
+		    		            			$("#csdiv").children(this).eq(i).children($("#csdiv").children(this).eq(i)).html("");
+		            						}else{
+		            							$("#csdiv").children(this).eq(i).children($("#csdiv").children(this).eq(i)).html("<img class='bgimg' src='content/static/images/bgblack.jpg'/>");
+		            							}
+		            					}
+		            				},function(){
+		            			$(this).css("position","all 0.1s").css("marginLeft","0px");
+		            			$("#csdiv").children(this).children($("#csdiv").children(this)).find("img").remove();
+		            				});
+		            			//end
+        		   });
+         });
 </script>
 </head>
 <body>
@@ -112,7 +144,7 @@
 
 	<div class="banner">
   <div class="banner-box">
-	        <div id="csdiv" style="border: 0px solid red; width: 290px; height: 570px; float: left; position: absolute; z-index: 9999; right: -300px;"></div>
+	        <div id="csdiv" style="border: 0px solid red; width: 190px; height: 450px; float: left; position: absolute; z-index: 9999; right: -300px;"></div>
 		    <jsp:include page="../frontDesk/cate.jsp" />
 	    	<div class="bd">
 				<ul id="Adv_1">

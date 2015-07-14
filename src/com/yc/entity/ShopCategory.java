@@ -20,7 +20,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @Entity
 @DiscriminatorValue("shopCategory")//商品类别表
-@JsonIgnoreProperties(value = { "shops", "shopCommoidties", "brands", "specifications","commodity" })
+@JsonIgnoreProperties(value = { "shops", "shopCommoidties", "brands", "specifications","commodity","children","carCommoidties","manorAndShops" })
 public class ShopCategory {
 
 	@Id

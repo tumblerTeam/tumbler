@@ -21,7 +21,7 @@ import com.yc.entity.CarCommodity;
 
 @Entity
 @DiscriminatorValue("personnel")//员工
-@JsonIgnoreProperties(value = { "commOperators", "unCommOperators", "purchases", "orderForms" ,"transitSites"})
+@JsonIgnoreProperties(value = { "commOperators", "unCommOperators", "purchases", "orderForms" ,"transitSites","carcommodities","departAndPositions"})
 public class Personnel {
 
 	@Id

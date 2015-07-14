@@ -20,6 +20,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+import com.yc.entity.BuyCar;
 import com.yc.entity.Collection;
 import com.yc.entity.MissionPlan;
 import com.yc.entity.OrderForm;
@@ -28,6 +31,7 @@ import com.yc.entity.ShopCommodity;
 
 @Entity
 @DiscriminatorValue("user")//用户
+@JsonIgnoreProperties(value = { "activityCommodities","collections","orderForms","missionPlans" })
 public class AppUser {
 
 	@Id
@@ -80,6 +84,17 @@ public class AppUser {
 
 	@OneToMany(mappedBy = "toUser")
 	private List<MissionPlan> missionPlans;//消息
+
+	@OneToOne(mappedBy = "appUser")
+	private BuyCar buyCar;
+	
+	public BuyCar getBuyCar() {
+		return buyCar;
+	}
+
+	public void setBuyCar(BuyCar buyCar) {
+		this.buyCar = buyCar;
+	}
 
 	public List<MissionPlan> getMissionPlans() {
 		return missionPlans;

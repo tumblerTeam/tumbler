@@ -222,6 +222,7 @@ public class BuyCarController {
 				}
 			}
 			List<CarCommodity> handleCarCommodities=serviceTools.handleCarCommodity(carCommodityList, user.getPhone());
+			System.out.println("handleCarCommodities  === "+handleCarCommodities.size());
 			mode.put("list",handleCarCommodities);
 			List<Address> addresses = addressService.getAllByUser(user.getId());
 			mode.put("addresses", addresses);

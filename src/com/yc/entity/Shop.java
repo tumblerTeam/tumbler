@@ -21,7 +21,7 @@ import com.yc.entity.user.AppUser;
 
 @Entity
 @DiscriminatorValue("shop")//商店
-@JsonIgnoreProperties(value = { "shopCommoidties" })
+@JsonIgnoreProperties(value = { "shopCommoidties","carCommoidties","blacklist","manorAndShops" })
 public class Shop {
 	
 	@Id
