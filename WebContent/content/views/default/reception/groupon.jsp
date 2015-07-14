@@ -12,7 +12,7 @@
 %>
 <base href="<%=basePath%>" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>不倒翁</title>
+<title>倒翁精品</title>
 <script type="text/javascript" src="content/static/js/lib/jquery.min.js"></script>
 <script type="text/javascript" src="content/static/js/tumbler/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="content/static/js/tumbler/jquery.SuperSlide.2.1.1.js"></script>
@@ -24,7 +24,6 @@
 <script>
 	stackBlurImage( "blur", "canvas", 50, false );
 </script>
-<!--全部分类js-->
 <style>
 	.bgimg{ opacity:0.3;}
 </style>
@@ -33,36 +32,34 @@
         	 $.getJSON(
         		  "toJsonFmatUtil/getAdvertisement",
         		  {
-        			  whichPage: "整箱特惠"
+        			  whichPage: "团购"
         		   }, function(json) {
         			   $.each(json.advertisementList, function(i,item){
 //         				   alert(item.id);	//id
 //         				   alert(item.imagePath);//宣传图片
 //         				   alert(item.link);//链接
 //         				   alert(item.adverDistribution.position);//广告所在位置
-        				   if(item.adverDistribution.position=='整箱特惠大眼睛'){
+        				   if(item.adverDistribution.position=='团购大眼睛'){
                        	    $("#Adv_1").append("<li><a href=\""+item.link+"\"><div class=\"m-width\"style=\"width: 100%; height: 450px; background: url("+item.imagePath+") center center;\"></div></a></li>");
-                         }else if(item.adverDistribution.position=='整箱特惠强力推荐A1'){
+                         }else if(item.adverDistribution.position=='团购强力推荐A1'){
                        	     $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 225px;border-bottom:1px #ccc dashed;background: url("+item.imagePath+") center center;\"></div></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠强力推荐A2'){
+                         }else if(item.adverDistribution.position=='团购强力推荐A2'){
                        	     $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 225px;background: url("+item.imagePath+") center center;\"></div></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠强力推荐A3'){
-                        	 $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 185px;margin-top: 5px;background: url("+item.imagePath+") center center;\"></div></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠推荐A1'){
+                         }else if(item.adverDistribution.position=='团购推荐A1'){
                         	 $("#Adv_2").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠推荐A2'){
+                         }else if(item.adverDistribution.position=='团购推荐A2'){
                         	 $("#Adv_3").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠单品A4'){
+                         }else if(item.adverDistribution.position=='团购单品A4'){
                         	 $("#Adv_4").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"  width=\"238px\"/></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠单品A5'){
+                         }else if(item.adverDistribution.position=='团购单品A5'){
                         	 $("#Adv_5").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"  width=\"238px\"/></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠单品A1'){
+                         }else if(item.adverDistribution.position=='团购单品A1'){
                         	 $("#Adv_6").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"  width=\"238px\"/></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠单品A2'){
+                         }else if(item.adverDistribution.position=='团购单品A2'){
                         	 $("#Adv_7").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"  width=\"238px\"/></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠单品A3'){
+                         }else if(item.adverDistribution.position=='团购单品A3'){
                         	 $("#Adv_8").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"  width=\"238px\"/></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠推荐A3'){
+                         }else if(item.adverDistribution.position=='团购推荐A3'){
                         	 $("#Adv_9").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" height=\"202px\"  width=\"478px\"/></a>");
                          }else if(item.adverDistribution.position=='品牌展示滚动A1'){
                         	 $("#Adv_10").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a>");
@@ -78,40 +75,7 @@
                         	 $("#Adv_15").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a>");
                          }else if(item.adverDistribution.position=='品牌展示滚动A7'){
                         	 $("#Adv_16").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠推荐A1'){
-                        	 $("#Adv_17").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠推荐A2'){
-                        	 $("#Adv_18").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠单品A4'){
-                        	 $("#Adv_19").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"  width=\"238px\"/></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠单品A5'){
-                        	 $("#Adv_20").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"  width=\"238px\"/></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠单品A1'){
-                        	 $("#Adv_21").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"  width=\"238px\"/></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠单品A2'){
-                        	 $("#Adv_22").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"  width=\"238px\"/></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠单品A3'){
-                        	 $("#Adv_23").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"  width=\"238px\"/></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠推荐A3'){
-                        	 $("#Adv_24").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" height=\"202px\"  width=\"478px\"/></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠推荐A1'){
-                        	 $("#Adv_25").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠推荐A2'){
-                        	 $("#Adv_26").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠单品A4'){
-                        	 $("#Adv_27").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"  width=\"238px\"/></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠单品A5'){
-                        	 $("#Adv_28").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"  width=\"238px\"/></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠单品A1'){
-                        	 $("#Adv_29").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"  width=\"238px\"/></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠单品A2'){
-                        	 $("#Adv_30").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"  width=\"238px\"/></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠单品A3'){
-                        	 $("#Adv_31").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"  width=\"238px\"/></a>");
-                         }else if(item.adverDistribution.position=='整箱特惠推荐A3'){
-                        	 $("#Adv_32").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" height=\"202px\"  width=\"478px\"/></a>");
                          }
-        				    
         			   });//动态生成广告
         			   if(window.screen.width<=1680){
         					$("#csdiv").animate(
@@ -170,13 +134,10 @@
          });
 </script>
 </head>
-
 <body>
-<!--顶部内容-->
-<!--头部内容-->
 	<jsp:include page="../frontDesk/header.jsp" />
-<!--banner-->
-	<div class="banner">
+     <!--banner内容-->
+<div class="banner">
   <div class="banner-box">
 	        <div id="csdiv" style="border: 0px solid red; width: 190px; height: 450px; float: left; position: absolute; z-index: 9999; right: -300px;"></div>
 		    <jsp:include page="../frontDesk/cate.jsp" />
@@ -196,7 +157,7 @@
 <!--商城精选-->
 <div class="main_box">
 	<div class="mall">
-    	<div class="title"><b>整箱特惠</b> Mall of Selected</font></div>
+    	<div class="title"><b>团购精选</b> Hotsale of Selected</font></div>
 		<div class="mall_box">
             <div class="ad" id="Adv_2" ></div>
             <div class="ad" id="Adv_3" ></div>
@@ -212,6 +173,10 @@
           </div>
             <div class="ad1" id="Adv_9"></div>  
       </div>
+      
+      
+      
+      
        <div class="logo_box" >
        		<div class="logo_img" style="margin-left:5px; border-left:none;" id="Adv_10"></div>
             <div class="logo_img" id="Adv_11"></div>
@@ -221,37 +186,97 @@
             <div class="logo_img" id="Adv_15"></div>
             <div class="logo_img" style="border-right:none;" id="Adv_16"></div> 
        </div>
-     <div class="mall_box">
-            <div class="ad" id="Adv_17" ></div>
-            <div class="ad" id="Adv_18" ></div>
-            <div class="pro" id="Adv_19">
-           </div>
-           <div class="pro" id="Adv_20">
-           </div>
-           <div class="pro1" id="Adv_21">
-          </div>
-           <div class="pro1" id="Adv_22">
-          </div>
-           <div class="pro1" id="Adv_23">
-          </div>
-            <div class="ad1" id="Adv_24"></div>  
-      </div>
-      
-    <div class="mall_box">
-            <div class="ad" id="Adv_25" ></div>
-            <div class="ad" id="Adv_26" ></div>
-            <div class="pro" id="Adv_27">
-           </div>
-           <div class="pro" id="Adv_28">
-           </div>
-           <div class="pro1" id="Adv_29">
-          </div>
-           <div class="pro1" id="Adv_30">
-          </div>
-           <div class="pro1" id="Adv_31">
-          </div>
-            <div class="ad1" id="Adv_32"></div>  
-      </div>
+      <!--团购-->
+      <h2 class="tg_tt">每日团购</h2>
+      <ul class="tg">
+      		<li class="hotsale_1">
+            	<a class="left_pic">
+                	<img src="images/shop/tg_1.jpg" />
+                </a>
+            	<div class="right_box">
+                	<div class="tg_time">
+                    	限时团购
+                        <strong class="day">00</strong>
+                        <span>天</span>
+                        <strong class="hour">00</strong>
+                        <span>时</span>
+                        <strong class="min">00</strong>
+                        <span>分</span>
+                        <strong class="sec">00</strong>
+                        <span>秒</span>
+                    </div>
+                	<div class="tg_brand">
+                    </div>
+                    <h3 class="p_tt">
+                    	<a href="#"><strong>拉菲传奇波尔多干红葡萄酒</strong> 2012</a>
+                  	</h3>
+                    <p class="desc">
+                    	拉菲位于法国梅多克地区，占地达178公顷的葡萄酒庄园。该庄出产的葡萄酒是享誉世界的波尔多葡萄酒之一，法国波尔多五大名庄之一1354年拉菲创园。被称为葡萄酒王国 中的“皇后”。历经几个世纪的变迁，拉菲红酒作为世界顶级葡萄酒的质量和声誉维持至今。
+                    </p>
+                    <p class="tg_price">
+                    	团购价
+                        <strong>¥158</strong>
+                        <span class="tg_price2">
+                        	<b>8.0</b>
+                       	折
+                        </span>
+                        <br />
+                        <span class="tg_price1">
+                        	不倒翁原价
+                            <del>¥198</del>
+                        </span>
+                        参考价 ¥208
+                    </p>
+                    <a class="tg_btn" href="#">
+                    	<img src="content/static/images/sc.png" />
+                    </a>
+                </div>	
+      		</li>
+            <li class="hotsale_1">
+            	<a class="left_pic">
+                	<img src="images/shop/tg_1.jpg" />
+                </a>
+            	<div class="right_box">
+                	<div class="tg_time">
+                    	限时团购
+                        <strong class="day">00</strong>
+                        <span>天</span>
+                        <strong class="hour">00</strong>
+                        <span>时</span>
+                        <strong class="min">00</strong>
+                        <span>分</span>
+                        <strong class="sec">00</strong>
+                        <span>秒</span>
+                    </div>
+                	<div class="tg_brand">
+                    </div>
+                    <h3 class="p_tt">
+                    	<a href="#"><strong>拉菲传奇波尔多干红葡萄酒</strong> 2012</a>
+                  	</h3>
+                    <p class="desc">
+                    	拉菲位于法国梅多克地区，占地达178公顷的葡萄酒庄园。该庄出产的葡萄酒是享誉世界的波尔多葡萄酒之一，法国波尔多五大名庄之一1354年拉菲创园。被称为葡萄酒王国 中的“皇后”。历经几个世纪的变迁，拉菲红酒作为世界顶级葡萄酒的质量和声誉维持至今。
+                    </p>
+                    <p class="tg_price">
+                    	团购价
+                        <strong>¥158</strong>
+                        <span class="tg_price2">
+                        	<b>8.0</b>
+                       	折
+                        </span>
+                        <br />
+                        <span class="tg_price1">
+                        	不倒翁原价
+                            <del>¥198</del>
+                        </span>
+                        参考价 ¥208
+                    </p>
+                    <a class="tg_btn" href="#">
+                    	<img src="content/static/images/sc.png" />
+                    </a>
+                </div>	
+      		</li>
+      </ul>
+     
     </div>
 </div>
 <!--脚部-->

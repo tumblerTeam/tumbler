@@ -75,7 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="list-group-item">
 				<p class="list-group-item-text">
 					<br>
-					<form class="form-horizontal" action="management/addOrUpdateDep"  id="form" name="form" 
+					<form class="form-horizontal" id="form" name="form" 
 						method="POST"  enctype="multipart/form-data">
 						<div class="form-group">
 							<label class="col-sm-2 control-label">上级分类:</label>
@@ -104,7 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-8" style="text-align: center;">
-								<button type="submit" class="btn btn-default">添加下级分类</button>
+								<button type="button" class="btn btn-default" onclick="addOrUpdateDep();">添加下级分类</button>
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<button type="button" class="btn btn-default" onclick="updateDepartmen();">修改此分类</button>
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -119,6 +119,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 		function onclickID(id) {
 			location.href = 'management/getAgriculturalsSort?id=' + id+"&page=sortList";
+		}
+		function addOrUpdateDep(){
+			document.form.action="management/addOrUpdateDep";
+			document.form.submit();
 		}
 		function updateDepartmen(){
 			document.form.action="management/updateDepartmen?departmentId="+$('#departmentID').val();

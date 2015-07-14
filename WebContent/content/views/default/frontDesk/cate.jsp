@@ -155,7 +155,7 @@
 			<div class="showdivs">
 				<div class="showdivs_left" style="width: 220px; float: left;">
 					<c:forEach items="${categories }" var="category">
-						<c:if test="${category.categoryID == 5 }">
+						<c:if test="${category.categoryID == 6 }">
 							<c:forEach var="cate1" items="${category.children }">
 								<c:if test="${not empty cate1.children }">
 									<h2
@@ -173,7 +173,7 @@
 				</div>
 				<div class="showdivs_right" style="float: right; width: 220px">
 					<c:forEach items="${categories }" var="category">
-						<c:if test="${category.categoryID == 5 }">
+						<c:if test="${category.categoryID == 6 }">
 							<c:if test="${not empty category.brands }">
 								<h2 style="font-family: 微软雅黑; color: #fff; margin-left: 10px; margin-top: 20px; font-size: 13px;">品牌</h2>
 								<hr    style="float:none; border-color:#FFF; " width="200"  />

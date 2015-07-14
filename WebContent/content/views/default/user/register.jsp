@@ -66,7 +66,7 @@
 		var url = window.location.href;
 		url.toString();
 		var a = url.charAt(url.lastIndexOf("1"));
-		if (a.trim() != "1".trim()) {
+		if (a.trim() == "1".trim()) {
 			document.getElementsByClassName('zc').item(0).style.backgroundColor = "#f5f5f5";
 			document.getElementsByClassName('zc').item(0).style.borderBottom = "1px solid #f5f5f5";
 			var div = document.getElementById('zc');
@@ -224,16 +224,12 @@
 			</div>			
 		<div class="llr">
 			<div class="title">
-				<a onclick="javascript(0);" style="text-decoration: none;cursor:pointer;">
-					<div class="dl" onclick="qhdiv('dl','zc')">
-						<span>登录</span>
-					</div>
-				</a>
-				<a onclick="javascript(0);" style="text-decoration: none;cursor:pointer;">
-					<div class="zc" onclick="qhdiv('zc','dl')">
-						<span>注册</span>
-					</div>
-				</a>
+				<div class="dl" onclick="qhdiv('dl','zc')">
+					<span>登录</span>
+				</div>
+				<div class="zc" onclick="qhdiv('zc','dl')">
+					<span>注册</span>
+				</div>
 			</div>
 			<div class="titltezw">
 				<div id="dl" class="dlshow">
@@ -255,7 +251,7 @@
 							</div>
 							<div class="mc">
 								<div class="form">
-									<form id="formlogin" name="formlogin" method="post">
+									<form id="formlogin" name="formlogin" method="post" >
 										<input type="hidden" id="uuid" name="uuid"
 											value="a59566c1-83f0-4a93-a0ca-c95e0d0ebb45" /> <input
 											type="hidden" name="machineNet" id="machineNet" value=""
@@ -341,7 +337,7 @@
 						</div>
 						<div class="mc">
 							<div class="form">
-								<form id="formRegist" name="formRegist" method="post" onsubmit="checkAll();">
+								<form id="formRegist" name="formRegist" method="post">
 									<input type="hidden" id="uuid" name="uuid"
 										value="a59566c1-83f0-4a93-a0ca-c95e0d0ebb45" />
 									<div class="item item-fore1">
@@ -419,126 +415,9 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-	function checkAll(){
-		//var uname = $("#mobile1").val();
-		//var validateCode = $("#mobile_code").val();
-		//var pwd = $("#inputPassword3").val();
-		//var confirmpwd = $("#inputPassword4").val();
-		//验证用户名：
-		var fname = document.getElementById("mobile");
-		var ftname = document.getElementById("sname");
-		if (fname.value == "" || fname.value.length != 11) {
-			ftname.className = "frred";
-			//fname.focus();
-			ftname.innerHTML = "× 请输入11位手机号";
-		} else {
-			if (!/^[+|-]?\d+\.?\d*$/.test(fname.value) && fname.value != '') {
-				ftname.className = "frred";
-				//fname.focus();
-				ftname.innerHTML = "x 手机号不可用!";
-			} else {
-				ftname.className = "fgren";
-				ftname.innerHTML = "√用户名可用!";
-			}
-		}
-		//验证验证码
-		
-		//验证密码
-		var fpwd = document.getElementById("inputPassword3");
-		var ftpwd = document.getElementById("spwd");
-		if (fpwd.value == "" || fpwd.value.length<6||fpwd.value.length>20) {
-			ftpwd.className = "frred";
-			//fpwd.focus();
-			ftpwd.innerHTML = "× 请输入6-20位用户密码！";
-		} else {
-			ftpwd.className = "fgren";
-			ftpwd.innerHTML = "√密码可用！"
-		}
-		//验证再次输入密码
-		var fpwd = document.getElementById("inputPassword3");
-		var frpwd = document.getElementById("inputPassword4");
-		var ftrpwd = document.getElementById("srpwd");
-		if (frpwd.value == "") {
-			ftrpwd.className = "frred";
-			//frpwd.focus();
-			$("#loginsubmit").attr("onclick", "null");
-			ftrpwd.innerHTML = "× 请输入您的重复密码！"
-		} else {
-			if (frpwd.value != fpwd.value) {
-				ftrpwd.className = "frred";
-				//fpwd.focus();
-				$("#loginsubmit").attr("onclick", "null");
-				ftrpwd.innerHTML = "× 俩次密码输入不一致，请重新输入！";
-			} else {
-				ftrpwd.className = "fgren";
-				ftrpwd.innerHTML = " √ 密码输入正确";
-				$("#loginsubmit").attr("onclick", "register();");
-			}
-		}
-		
-	}
 	function register(){
 		document.formRegist.action = "user/regist";
-		var flag = 0;
-		//验证用户名：
-		var fname = document.getElementById("mobile");
-		var ftname = document.getElementById("sname");
-		if (fname.value == "" || fname.value.length != 11) {
-			ftname.className = "frred";
-			//fname.focus();
-			flag = 1;
-			ftname.innerHTML = "× 请输入11位手机号";
-		} else {
-			if (!/^[+|-]?\d+\.?\d*$/.test(fname.value) && fname.value != '') {
-				ftname.className = "frred";
-				//fname.focus();
-				flag = 1;
-				ftname.innerHTML = "x 手机号不可用!";
-			} else {
-				ftname.className = "fgren";
-				ftname.innerHTML = "√用户名可用!";
-			}
-		}
-		//验证验证码
-		
-		//验证密码
-		var fpwd = document.getElementById("inputPassword3");
-		var ftpwd = document.getElementById("spwd");
-		if (fpwd.value == "" || fpwd.value.length<6||fpwd.value.length>20) {
-			ftpwd.className = "frred";
-			//fpwd.focus();
-			flag = 1;
-			ftpwd.innerHTML = "× 请输入6-20位用户密码！";
-		} else {
-			ftpwd.className = "fgren";
-			ftpwd.innerHTML = "√密码可用！"
-		}
-		//验证再次输入密码
-		var fpwd = document.getElementById("inputPassword3");
-		var frpwd = document.getElementById("inputPassword4");
-		var ftrpwd = document.getElementById("srpwd");
-		if (frpwd.value == "") {
-			ftrpwd.className = "frred";
-			//frpwd.focus();
-			$("#loginsubmit").attr("onclick", "null");
-			ftrpwd.innerHTML = "× 请输入您的重复密码！";
-			flag = 1;
-		} else {
-			if (frpwd.value != fpwd.value) {
-				ftrpwd.className = "frred";
-				//fpwd.focus();
-				$("#loginsubmit").attr("onclick", "null");
-				ftrpwd.innerHTML = "× 俩次密码输入不一致，请重新输入！";
-				flag = 1;
-			} else {
-				ftrpwd.className = "fgren";
-				ftrpwd.innerHTML = " √ 密码输入正确";
-				$("#loginsubmit").attr("onclick", "register();");
-			}
-		}
-		if (flag==0) {
-			document.formRegist.submit();
-		}		
+		document.formRegist.submit();
 	}
 	function loginIng(){
 		document.formlogin.action = "user/login";
@@ -549,7 +428,7 @@
 		var ftpwd = document.getElementById("spwd");
 		if (fpwd.value == "" || fpwd.value.length<6||fpwd.value.length>20) {
 			ftpwd.className = "frred";
-			//fpwd.focus();
+			fpwd.focus();
 			ftpwd.innerHTML = "× 请输入6-20位用户密码！";
 		} else {
 			ftpwd.className = "fgren";
@@ -562,13 +441,13 @@
 		var ftrpwd = document.getElementById("srpwd");
 		if (frpwd.value == "") {
 			ftrpwd.className = "frred";
-			//frpwd.focus();
+			frpwd.focus();
 			$("#loginsubmit").attr("onclick", "null");
 			ftrpwd.innerHTML = "× 请输入您的重复密码！"
 		} else {
 			if (frpwd.value != fpwd.value) {
 				ftrpwd.className = "frred";
-				//fpwd.focus();
+				fpwd.focus();
 				$("#loginsubmit").attr("onclick", "null");
 				ftrpwd.innerHTML = "× 俩次密码输入不一致，请重新输入！";
 			} else {
@@ -583,12 +462,12 @@
 			var ftname = document.getElementById("sname");
 			if (fname.value == "" || fname.value.length != 11) {
 				ftname.className = "frred";
-				//fname.focus();
+				fname.focus();
 				ftname.innerHTML = "× 请输入11位手机号";
 			} else {
 				if (!/^[+|-]?\d+\.?\d*$/.test(fname.value) && fname.value != '') {
 					ftname.className = "frred";
-					//fname.focus();
+					fname.focus();
 					ftname.innerHTML = "x 手机号不可用!";
 				} else {
 					ftname.className = "fgren";
@@ -602,12 +481,12 @@
 			var ftname = document.getElementById("sname1");
 			if (fname.value == "" || fname.value.length != 11) {
 				ftname.className = "frred";
-				//fname.focus();
+				fname.focus();
 				ftname.innerHTML = "× 请输入11位手机号";
 			} else {
 				if (!/^[+|-]?\d+\.?\d*$/.test(fname.value) && fname.value != '') {
 					ftname.className = "frred";
-					//fname.focus();
+					fname.focus();
 					ftname.innerHTML = "x 手机号不可用!";
 				} else {
 					ftname.className = "fgren";

@@ -97,4 +97,35 @@ public class OtherController {
 		mode.put("snacksList", snacksList);
 		return new ModelAndView("reception/snacks", mode);
 	}
+	
+	/**
+	 * 地方名酒
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "areaWine", method = RequestMethod.GET)
+	public ModelAndView areaWine(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		ModelMap mode = new ModelMap();
+	  	List<ShopCategory> list = categoryService.getAllByParent();
+    	mode.put("categories", list);
+		return new ModelAndView("reception/areaWine", mode);
+	}
+	/**
+	 * 团购页面
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "groupon", method = RequestMethod.GET)
+	public ModelAndView  groupon(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		ModelMap mode = new ModelMap();
+	  	List<ShopCategory> list = categoryService.getAllByParent();
+    	mode.put("categories", list);
+		return new ModelAndView("reception/groupon", mode);
+	}
 }

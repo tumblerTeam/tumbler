@@ -61,6 +61,10 @@ public class InitDate implements ApplicationListener{
 			cate5.setCategory("小食品");
 			cate5.setIsForbidden(false);
 			categoryService.save(cate5);
+			ShopCategory cate6 = new ShopCategory();
+			cate6.setCategory("养生酒");
+			cate6.setIsForbidden(false);
+			categoryService.save(cate6);
 		}
 	}
 

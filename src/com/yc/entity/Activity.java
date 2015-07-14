@@ -14,11 +14,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 //活动列表
 @Entity
 @DiscriminatorValue("activity")
+@JsonIgnoreProperties(value={"commodities"})
 public class Activity {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer activityId;

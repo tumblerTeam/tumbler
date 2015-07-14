@@ -1,11 +1,7 @@
 package com.yc.util;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -14,8 +10,7 @@ import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import net.sf.json.JSONObject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,11 +21,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yc.entity.AdvertiseDistribution;
 import com.yc.entity.Advertisement;
+import com.yc.entity.CarCommodity;
 import com.yc.entity.Collection;
 import com.yc.entity.CollectionType;
 import com.yc.entity.Shop;
+import com.yc.entity.ShopCommImage;
 import com.yc.entity.ShopCommodity;
 import com.yc.entity.user.AppUser;
+import com.yc.model.CarCommdityModel;
 import com.yc.service.IAdvertisementDistributionService;
 import com.yc.service.IAdvertisementService;
 import com.yc.service.IBuyCarService;
@@ -191,64 +189,43 @@ public class ToJsonFmatUtil {
 		return mode;
 	}
 
-	@RequestMapping(value = "wuliu", method = RequestMethod.GET)
+	@RequestMapping(value = "getBuyCatNum", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> wuliu(String whichPage, HttpServletRequest request) throws ServletException, IOException {
-		String city = "suzhou";//参数
-		String url = "http://web.juhe.cn:8080/environment/air/cityair?city=";//url为请求的api接口地址
-	    String key= "################################";//申请的对应key
-		String urlAll = new StringBuffer(url).append(city).append("&key=").append(key).toString(); 
-		String charset ="UTF-8";
-		String jsonResult = get(urlAll, charset);//得到JSON字符串
-		JSONObject object = JSONObject.fromObject(jsonResult);//转化为JSON类
-		String code = object.getString("error_code");//得到错误码
-		//错误码判断
-		if(code.equals("0")){
-			//根据需要取得数据
-			JSONObject jsonObject =  (JSONObject)object.getJSONArray("result").get(0);
-			System.out.println(jsonObject.getJSONObject("citynow").get("AQI"));
-			return jsonObject;
+	public Map<String, Object> getBuyCatNum(HttpServletRequest request) throws ServletException, IOException, ParseException {
+		ModelMap mode = new ModelMap();
+		HttpSession session = request.getSession();
+		AppUser user = (AppUser) session.getAttribute("loginUser");
+		List<CarCommdityModel> list = new ArrayList<CarCommdityModel>();
+		if (user != null) {
+			List<CarCommodity> carCommodityList=carCommodityService.getCarCommodityByUserName(user.getPhone());
+			List<CarCommodity> handleCarCommodities=serviceTools.handleCarCommodity(carCommodityList, user.getPhone());
+			for (int i = 0; i < handleCarCommodities.size(); i++) {
+				CarCommdityModel carCommdity = new CarCommdityModel();
+				carCommdity.setAmount(handleCarCommodities.get(i).getAmount());
+				carCommdity.setCommoidtyName(handleCarCommodities.get(i).getShopCommodity().getCommoidtyName());
+				carCommdity.setId(handleCarCommodities.get(i).getId());
+				carCommdity.setPrice(handleCarCommodities.get(i).getPrice());
+				carCommdity.setUnitPrice(handleCarCommodities.get(i).getUnitPrice()); 
+				List<ShopCommImage> images = handleCarCommodities.get(i).getShopCommodity().getShopCommImages();
+				System.out.println("images==========="+images.size());
+				if(images != null && images.size()>0){
+					for (int j = 0; j < images.size(); j++) {
+						if(images.get(j) != null && images.get(j).getImagePath() != null){
+							carCommdity.setImagePath(images.get(j).getImagePath());
+						}
+					}
+				}
+				list.add(carCommdity);
+			}
+			System.out.println("handleCarCommodities.size()========"+handleCarCommodities.size());
+			mode.put("list", list);
+			mode.put("num",handleCarCommodities.size());
+			mode.put("success", "true");
+			return mode;
 		}else{
-			ModelMap mode = new ModelMap();
-			mode.put("massage", "查询失败！！！");
-			System.out.println("error_code:"+code+",reason:"+object.getString("reason"));
+			mode.put("success", "true");
+			mode.put("num", 0);
 			return mode;
 		}
 	}
-
-	/**
-	    * 
-	    * @param urlAll:请求接口
-	    * @param charset:字符编码
-	    * @return 返回json结果
-	    */
-	   public static String get(String urlAll,String charset){
-		   BufferedReader reader = null;
-		   String result = null;
-		   StringBuffer sbf = new StringBuffer();
-		   String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";//模拟浏览器
-		   try {
-			   URL url = new URL(urlAll);
-			   HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-			   connection.setRequestMethod("GET");
-			   connection.setReadTimeout(30000);
-			   connection.setConnectTimeout(30000);
-			   connection.setRequestProperty("User-agent",userAgent);
-			   connection.connect();
-			   InputStream is = connection.getInputStream();
-			   reader = new BufferedReader(new InputStreamReader(
-						is, charset));
-				String strRead = null;
-				while ((strRead = reader.readLine()) != null) {
-					sbf.append(strRead);
-					sbf.append("\r\n");
-				}
-				reader.close();
-				result = sbf.toString();
-			   
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		   return result;
-	   }
 }

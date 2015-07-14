@@ -459,8 +459,44 @@ div.zoomMask {
 						success : function(data) {
 							if (data.message == 'success') {
 								alert("添加成功");
+								jQuery.ajax({
+									type : 'GET',
+									contentType : 'application/json',
+									url : 'toJsonFmatUtil/getBuyCatNum',
+									dataType : 'json',
+									success : function(data) {
+										if (data.success == 'true') {
+											if(data.buyCar != ''){
+												$('#buyCatNum').html("购物车(" + data.num + ")");
+												alert(data.buyCar.carCommodities);
+//						 						$.each(data.buyCars,function(i, buyCar) {
+													
+//						 						});
+											}
+											$('#buyCatNum').html("购物车(" + data.num + ")");
+										}
+									}
+								});
 							} else if (data.message == 'existed') {
 								alert("再次添加成功");
+								jQuery.ajax({
+									type : 'GET',
+									contentType : 'application/json',
+									url : 'toJsonFmatUtil/getBuyCatNum',
+									dataType : 'json',
+									success : function(data) {
+										if (data.success == 'true') {
+											if(data.buyCar != ''){
+												$('#buyCatNum').html("购物车(" + data.num + ")");
+												alert(data.buyCar.carCommodities);
+//						 						$.each(data.buyCars,function(i, buyCar) {
+													
+//						 						});
+											}
+											$('#buyCatNum').html("购物车(" + data.num + ")");
+										}
+									}
+								});
 							} else if (data.message == "nouser") {
 								if (confirm('您还没有登录哦！')) {
 									var url = "user/regist";

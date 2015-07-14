@@ -36,7 +36,7 @@ public class CarCommodityService extends GenericService<CarCommodity> implements
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<CarCommodity> getCarCommodityByUserName(String userName) {
-		StringBuffer hql = new StringBuffer("SELECT c.* FROM BuyCar b LEFT JOIN AppUser au ON au.id = b.appuser_id RIGHT JOIN carcommodity c ON c.car_id = b.catID WHERE au.phone = '"+userName+"'");
+		StringBuffer hql = new StringBuffer("SELECT c.* FROM BuyCar b LEFT JOIN AppUser au ON au.id = b.appuser_id RIGHT JOIN carcommodity c ON c.car_id = b.catID WHERE au.phone = '"+userName+"' order by c.id desc");
 		Query query =  carCommoidtyDao.getEntityManager().createNativeQuery(hql.toString(),CarCommodity.class);
 		return query.getResultList();
 	}

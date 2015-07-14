@@ -43,6 +43,7 @@ public class IndexController {
     @RequestMapping(value = "index", method = RequestMethod.GET)
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	List<ShopCategory> list = categoryService.getAllByParent();
+    	System.out.println("list========="+list.size());
     	List<News> news = newService.getNewsByIsThrough(true);
     	//改，以后 top 8
     	List<FamousManor> famouss =  famousManorService.getAll();

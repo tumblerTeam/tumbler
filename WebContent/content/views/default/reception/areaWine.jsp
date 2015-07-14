@@ -32,24 +32,24 @@
         	   $.getJSON(
         		  "toJsonFmatUtil/getAdvertisement",
         		  {
-        			  whichPage: "名庄特卖"
+        			  whichPage: "地方名酒"
         		   }, function(json) {
         			   $.each(json.advertisementList, function(i,item){
 //         				   alert(item.id);	//id
 //         				   alert(item.imagePath);//宣传图片
 //         				   alert(item.link);//链接
 //         				   alert(item.adverDistribution.position);//广告所在位置
-        				   if(item.adverDistribution.position=='名庄特卖大眼睛'){
+        				   if(item.adverDistribution.position=='地方名酒大眼睛'){
                        	    $("#Adv_1").append("<li><a href=\""+item.link+"\"><div class=\"m-width\"style=\"width: 100%; height: 450px; background: url("+item.imagePath+") center center;\"></div></a></li>");
-                         }else if(item.adverDistribution.position=='名庄特卖强力推荐A1'){
+                         }else if(item.adverDistribution.position=='地方名酒强力推荐A1'){
                        	     $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 225px;border-bottom:1px #ccc dashed;background: url("+item.imagePath+") center center;\"></div></a>");
-                         }else if(item.adverDistribution.position=='名庄特卖强力推荐A2'){
+                         }else if(item.adverDistribution.position=='地方名酒强力推荐A2'){
                        	     $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 225px;background: url("+item.imagePath+") center center;\"></div></a>");
-                         }else if(item.adverDistribution.position=='名庄特卖名庄单品A'){
+                         }else if(item.adverDistribution.position=='地方名酒名庄单品A'){
                        	     $("#Adv_5").append("<div class=\"bander_class\" style=\"border-top:none; border-left:none;\"><a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a></div>");
-                         }else if(item.adverDistribution.position=='名庄特卖名庄单品B'){
+                         }else if(item.adverDistribution.position=='地方名酒名庄单品B'){
                        	     $("#Adv_6").append("<div class=\"bander_class\" style=\"border-top:none; border-left:none;\"><a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a></div>");
-                         }else if(item.adverDistribution.position=='名庄特卖名庄单品C'){
+                         }else if(item.adverDistribution.position=='地方名酒名庄单品C'){
                        	     $("#Adv_7").append("<div class=\"bander_class\" style=\"border-top:none; border-left:none;\"><a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a></div>");
                          }
         			   });//动态生成广告
@@ -133,25 +133,25 @@
 <!--酒内容-->
 <div class="main_box">
 <div class="content" >
-  <div class="title"><b>名庄特卖</b><font> Chateau Sale</font></div>
+  <div class="title"><b>地方名酒</b><font> Chateau Sale</font></div>
     <div class="box"  id="Adv_5">
 	<a href="javascript:void(0)"><div class="bander">
-    	<img src="content/static/images/band1_03.jpg"/>
-        <div class="bander_zi">拉菲位于法国梅多克地区，占地达178公顷的葡萄酒庄园。改庄出产的葡萄酒是享誉世界的波多尔葡萄酒之一。拉菲位于法国梅多克地区，占地达178公顷的葡萄酒庄园。改庄出产的葡萄酒是享誉世界的波多尔葡萄酒之一。拉菲位于法国梅多克地区，占地达178公顷的葡萄酒庄园。改庄出产的葡萄酒是享誉世界的波多尔葡萄酒之一。</div>
+    	<img src="content/static/images/yili.jpg"/>
+        <div class="bander_zi">男人的故事，就是一瓶酒。几分豪气，几分义气，时间珍酿，情义自然真切。一瓶酒，品味一生。岁月如酒醇香，情义地久天长，52度伊力老窖。小酌天地方圆，尽享精致人生；大隐浮华喧市，智品世间百态；心自远，天地宽。小老窖，大智慧，46度伊力老窖。 </div>
     </div>
     </a>
     
   </div>     
    <div class="box"  id="Adv_6">
 	<div class="bander">
-    	<a href="#"><img src="content/static/images/band1_03.jpg"></a>
-        <a href="#"><div class="bander_zi">奔富酒庄的故事就是一部欧洲人一名澳洲分都有成功的历史，反映了澳洲过去二百年的发展。有荒芜的大陆成为现在稳站世界舞台的先进国家。创办人克里斯多夫.洛神.奔富医生一百六十多年期来到澳洲，开始了葡萄酒传奇之路</div></a>
+    	<a href="#"><img src="content/static/images/wu.jpg"></a>
+        <div class="bander_zi">四川酿酒自古兴盛，酿酒的原料、水性、土质和气候条件得天独厚。临邛酒早在汉代即远近驰名；西川郫筒酒，工艺独特，享誉四方；宋代宜宾的荔枝酒，颇负盛名。并创造出许多酒的传说和活动。汉代文君酒当垆、相如涤器，传为千古美谈；宋代诗人黄庭坚在宜宾凿池流觞，至今遗址犹存。四川名酒荟萃，五粮液、泸州老窖特曲、剑南春、郎酒、全兴大曲、沱牌曲酒被评为全国名酒，人称“六朵金花”。</div>
     </div>
   </div>
     <div class="box" id="Adv_7">
 	<div class="bander">
-    	<a href="#"><img src="content/static/images/band1_03.jpg"></a>
-        <a href="#"><div class="bander_zi">拉菲位于法国梅多克地区，占地达178公顷的葡萄酒庄园。改庄出产的葡萄酒是享誉世界的波多尔葡萄酒之一。拉菲位于法国梅多克地区，占地达178公顷的葡萄酒庄园。改庄出产的葡萄酒是享誉世界的波多尔葡萄酒之一。拉菲位于法国梅多克地区，占地达178公顷的葡萄酒庄园。改庄出产的葡萄酒是享誉世界的波多尔葡萄酒之一。</div></a>
+    	<img src="content/static/images/yili.jpg">
+        <div class="bander_zi">男人的故事，就是一瓶酒。几分豪气，几分义气，时间珍酿，情义自然真切。一瓶酒，品味一生。岁月如酒醇香，情义地久天长，52度伊力老窖。小酌天地方圆，尽享精致人生；大隐浮华喧市，智品世间百态；心自远，天地宽。小老窖，大智慧，46度伊力老窖。 </div>
     </div>
     </div>
 </div>

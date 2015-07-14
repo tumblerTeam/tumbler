@@ -1,38 +1,53 @@
 .sidebar{
 	position:fixed;	
 	display:block;
-	z-index:9999999;
+	z-index:9999999999999;
 	width:100px;
 	height:156px;
-	right:0%;
+	right:0.5%;
 	top:15%
 }
 .car{
-	background:url(../images/cart_03.jpg) no-repeat;
-	width:100px;
+	background:url(../images/cart_03.png) no-repeat;
+	width:120px;
 	height:50px;
+	right:-60px;
+	transition:all 0.5s;
 	position:relative;
 	margin:0px;
 }
-
+	.bar:hover{
+	right:0px;
+	}
+	.car:hover{
+	right:0px;
+	}
 .cars{
 	background:url(../images/cart_03.jpg) no-repeat;
-	width:100px;
+	width:110px;
 	height:50px;
 	position:relative;
 	margin-top:3px;	
 }
 .bar{
-	background:url(../images/bar01.jpg) no-repeat;
-	width:100px;
+	background:url(../images/bar01.png) no-repeat;
+	width:110px;
+	transition:all 0.5s;
 	height:50px;
+	right:-60px;
 	position:relative;
 	margin-top:3px;	
 }
 .cs{
-	background:url(../images/cs.jpg) no-repeat;
-	width:100px;
+	background:url(../images/cs.png) no-repeat;
+	width:180px;
 	height:50px;
+	right:-60px;
+	transition:all  0.5s;
 	position:relative;	
 	margin-top:3px;	
 }
+.csimg{
+	margin-left:70px;
+	margin-top:-55px;
+	}
