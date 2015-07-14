@@ -333,11 +333,13 @@
 			shopcateThree.options[shopcateThree.options.length] = objOptionT;
 			<c:forEach items="${list2 }" var="leiBieTwo">
 				if ('${leiBieTwo.parentLevel.categoryID }' == Code) {
+					alert(Code+":"+'${leiBieTwo.parentLevel.categoryID }'+'${leiBieTwo.category}');
 					var objOption = new Option("${leiBieTwo.category}",'${leiBieTwo.categoryID}');
 					shopcateThree.options[shopcateThree.options.length] = objOption;
 				}
 			</c:forEach>
 		}
+		
 		function shopcate(obj) {
 			var language = $("#language").val();
 			var Code = obj.value;
