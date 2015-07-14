@@ -69,7 +69,7 @@
 	            	<c:if test="${loginUser.userName !=null }">${loginUser.userName }</c:if>
 	            	<img src="content/static/images/header_icon1.png"></a>
 	                <div class="zh" id="zh2" style="display:none;">
-	                    <a href="#"><div style="margin-left:20px;  margin-top:15px;">个人中心</div></a>
+<!-- 	                    <a href="#"><div style="margin-left:20px;  margin-top:15px;">个人中心</div></a> -->
 	                    <a href="#"><div style="margin-left:20px; margin-top:12px;">退出账号</div></a>
 	                </div>
 	            </li>

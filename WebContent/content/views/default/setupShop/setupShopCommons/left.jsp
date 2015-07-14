@@ -8,7 +8,7 @@
         	<div class="top_nav_class">
                 <ul>
                     <a href="proscenium/openShop"><li style="background-color:#a40c59; color:#fff;">我是卖家</li></a>
-                    <a href="proscenium/accountManage"><li>账号管理</li></a>
+<!--                     <a href="proscenium/accountManage"><li>账号管理</li></a> -->
                     <a href="proscenium/messageCenter"><li>消息中心</li></a>
                 </ul>
             </div>

@@ -203,9 +203,9 @@
 							<span>所属品牌</span><select name="brandName"
 								style="height: 35px; width: 303px; border: 1px solid #ccc; margin-left: 7px">
 								<option value="-1">----请选择----</option>
-								<c:forEach items="${listBrand }" var="shopcate"
+								<c:forEach items="${listBrand }" var="b"
 									varStatus="loop">
-										<option value="${shopcate.categoryID}">${shopcate.category}</option>
+										<option value="${b.brandID}">${b.brandName}</option>
 								</c:forEach>
 							</select>
 						</dd>

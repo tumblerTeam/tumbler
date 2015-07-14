@@ -227,23 +227,27 @@ public class ShopOneController {
 		if (request.getParameter("cateOne")!=null&&!request.getParameter("cateOne").equals("")) {
 			cateOne = Integer.parseInt(request.getParameter("cateOne"));
 		}
-		//1.葡萄酒;2.白酒;3.啤酒;4,洋酒;5.小食品
+		//1.葡萄酒;2.白酒;3.啤酒;4,洋酒;5.小食品,6,养生酒
 		List<ShopCategory> list = shopCategService.getAllByParentLevel(cateOne);
 		mode.put("shopCategories", list);
 		//后期改
 		List<ShopCategory> listtemp = new ArrayList<ShopCategory>();
 		List<ShopCategory> list2 = new ArrayList<ShopCategory>();
-		for (int i = 1; i < list.size(); i++) {
-			listtemp = shopCategService.getAllByParentLevel(list.get(i).getCategoryID());
-			list2.addAll(listtemp);
+		List<Brand> brands = new ArrayList<Brand>();
+		if (list!=null) {
+			for (int i = 1; i < list.size(); i++) {
+				listtemp = shopCategService.getAllByParentLevel(list.get(i).getCategoryID());
+				list2.addAll(listtemp);
+			}
 		}
+		ShopCategory category =  shopCategService.findById(cateOne);
+		
 		mode.put("list2", list2);
 		//设置表shopcategory的每个类型（红酒、啤酒等）的第一个字段category为“品牌”
-		mode.put("listBrand", shopCategService.getAllByParentLevel(list.get(0).getCategoryID()));
+		mode.put("listBrand", category.getBrands());
 		//显示所有名庄
 		List<FamousManor> famousManors = famousManorService.getAll();
 		mode.put("famousManors", famousManors);
-		System.out.println("LIST的大小为："+list.size());
 		mode.put("shop", shop);
 		return new ModelAndView("setupShop/releaseCommoidty", mode);
 	}
@@ -416,8 +420,12 @@ public class ShopOneController {
 						getAllByCommItemAndShop(commodity.getCommItem(), shop.getId());
 				//得到商品ID commID
 				Integer commID = comm.getCommCode();
+				Integer category = 0;
 				//得到类别ID category
-				Integer category = comm.getShopCategory().getCategoryID();
+				if (comm.getShopCategory()!=null) {
+					category = comm.getShopCategory().getCategoryID();
+				}
+				
 				//得到店铺ID shopID
 				Integer shopID = shop.getId();
 				//得到商品名称 commoName
@@ -432,7 +440,9 @@ public class ShopOneController {
 				 */
 				//保存商品规格
 				commoditySpecs.setShopCommSpecs(commodity);
-				commoidtySpecsService.update(commoditySpecs);
+				if (commoditySpecs!=null) {
+					commoidtySpecsService.update(commoditySpecs);
+				}
 				//保存商品属性
 				commAttribute.setShopCommodity(commodity);
 				shopCommAttributeService.save(commAttribute);
@@ -735,7 +745,6 @@ public class ShopOneController {
 		//1.查询3个月之内的订单
 		List<OrderForm> order3Month = orderFormService.getShopOrderByShop(shop.getId());
 		mode.put("order3Month", order3Month);
-		System.out.println("三个月以内的订单数量："+order3Month.size()); 
 		//2.查询等待买家付款订单
 		List<OrderForm> waitPayment = orderFormService.getAllByOrderStatus("waitPayment");	
 		mode.put("waitPayment", waitPayment);
@@ -1139,8 +1148,13 @@ public class ShopOneController {
 		Integer orderFormID = Integer.parseInt(req.getParameter("orderFormID"));
 		OrderForm orderForm = orderFormService.findById(orderFormID);
 		if(orderForm != null){
-			Integer commCode = Integer.parseInt(req.getParameter("commCode"));
-			String reviewsRank = req.getParameter("reviewsRank");
+			Integer commCode = 0;
+			String reviewsRank = "";
+			if(!req.getParameter("commCode").equals("")){
+				commCode = Integer.parseInt(req.getParameter("commCode"));
+			}if(!req.getParameter("reviewsRank").equals("")){
+				reviewsRank = req.getParameter("reviewsRank");
+			}
 			String businessreply = req.getParameter("businessreply");
 			Date date = new Date();
 			//时间格式化：
@@ -1172,33 +1186,7 @@ public class ShopOneController {
 			//保存评论
 			shopReviewsService.save(shopReviews);
 		}
-		
-//		//1.查询3个月之内的订单
-//		List<OrderForm> order3Month = orderFormService.getShopOrderByShop(shop.getId());
-//		mode.put("order3Month", order3Month);
-//		System.out.println("三个月以内的订单数量："+order3Month.size()); 
-//		//2.查询等待买家付款订单
-//		List<OrderForm> waitPayment = orderFormService.getAllByOrderStatus("waitPayment");	
-//		mode.put("waitPayment", waitPayment);
-//		//3.查询等待卖家发货订单
-//		List<OrderForm> waitDelivery = orderFormService.getAllByOrderStatus("waitDelivery");	
-//		mode.put("waitDelivery", waitDelivery);
-//		//4.查询已发货订单
-//		List<OrderForm> transitGoods = orderFormService.getAllByOrderStatus("transitGoods");	
-//		mode.put("transitGoods", transitGoods);
-//		//5.查询退款中订单
-//		List<OrderForm> refundOrderForm = orderFormService.getAllByOrderStatus("refundOrderForm");	
-//		mode.put("refundOrderForm", refundOrderForm);
-//		//6.查询退款成功订单
-//		List<OrderForm> refundSuccess = orderFormService.getAllByOrderStatus("refundSuccess");	
-//		mode.put("refundSuccess", refundSuccess);
-//		//7.查询成功订单
-//		List<OrderForm> completionTransaction = orderFormService.getAllByOrderStatus("completionTransaction");	
-//		mode.put("completionTransaction", completionTransaction);
-//		//8.查询关闭订单
-//		List<OrderForm> closeTransaction = orderFormService.getAllByOrderStatus("closeTransaction");	
-//		mode.put("closeTransaction", closeTransaction);
-		
+				
 		return new ModelAndView("success",mode);
 	}
 

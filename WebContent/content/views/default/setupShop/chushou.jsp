@@ -94,7 +94,7 @@ function setTab(name,m,n){
 	                        </li>
 	                        <li>
 	                        	<div class="l5"><a href="proscenium/editCommoidty?commid=${c.commCode }">编辑商品</a></div>
-	                            <div class="l6"><a href="#">复制链接</a></div>
+	                            <div class="l6"><input type="text" name="btn2" value="<%=basePath%>${c.link}" /><a href="javascript;" onclick="copyURL();">复制链接</a></div>
 	                        </li>
 	               		</c:forEach></ul>
 	               </div>
@@ -103,6 +103,11 @@ function setTab(name,m,n){
         </div>
       </div>
       <script type="text/javascript">
+      function copyURL(){
+    	  alert(1);
+    	  var clipBoardContent=this.location.href;
+    	  window.clipboardData.setData("Text",clipBoardContent);
+      }
       	function checkDel(){
       		var tishi =$("#tishi");
       		var chk_value =[]; 
