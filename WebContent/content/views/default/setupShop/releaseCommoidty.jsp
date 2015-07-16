@@ -26,6 +26,7 @@
 <link rel="stylesheet" href="content/static/css/bootstrap/bootstrap.min.css" />
 <script type="text/javascript" src="content/static/js/lib/bootstrap.min.js"></script>
 <link rel="stylesheet" href="content/static/css/bootstrap/font-awesome.min.css" />
+<link rel="stylesheet" href="content/static/css/bootstrap/elements.less" />
 
   <link rel="stylesheet" href="content/static/css/bootstrap/summernote.css"/>
   <script type="text/javascript" src="content/static/js/lib/summernote.js"></script>

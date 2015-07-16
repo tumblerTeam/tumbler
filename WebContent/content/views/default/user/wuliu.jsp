@@ -51,30 +51,34 @@
 						jQuery.ajax({
 							type : 'GET',
 							contentType : 'application/json',
-							url : 'http://v.juhe.cn/exp/com?key=key',
-							dataType : 'json',
+							url : 'http://v.juhe.cn/exp/com?key=56da3d699d0582892ec1982d84ac3c98',
+							dataType : 'JSONP',
 							success : function(data) {
 								var $guige2 = "";
+								alert(1);
 								if(data.resultcode == 200){
-									$.each(data.list,function(i, item) {
+									$.each(data.result,function(i, item) {
 										$guige2 = $guige2 +"<option value='"+item.no+"'>"+item.com+"</option>";
 									});
+									alert($guige2);
 									$('#searchParam').append($guige2);
 								}
 							}});
 						
 					});
 					function search() {
+						alert("http://v.juhe.cn/exp/index?key=56da3d699d0582892ec1982d84ac3c98&com="+$('#searchParam').val()+"&no="+$('#wuliuParam').val());
 						$(document).ready(function() {
 							jQuery.ajax({
 								type : 'GET',
 								contentType : 'application/json',
-								url : "http://v.juhe.cn/exp/index?key=key&com="+$('#searchParam').val()+"&no="+$('#wuliuParam').val(),
-								dataType : 'json',
+								url : "http://v.juhe.cn/exp/index?key=56da3d699d0582892ec1982d84ac3c98&com="+$('#searchParam').val()+"&no="+$('#wuliuParam').val(),
+								dataType : 'JSONP',
 								success : function(data) {
+									alert(data);
 									var $guige2 = "";
 									if(data.resultcode == 200){
-										$.each(data.list,function(i, item) {
+										$.each(data.result,function(i, item) {
 											$guige2 = $guige2 + "<div class='info_class1'><span class='sp1'>"+item.datetime+"</span> <span class='sp2'>"+item.remark+"</span><span class='sp3'>"+item.zone+"</span></div>";
 										});
 										$('.info').append($guige2);
@@ -93,54 +97,7 @@
 						})
 					}
 				</script>
-				<div class="info_class1">
-					<span class="sp1">2015-06-16 周二</span> <span class="sp2">15:35:25</span>
-					<span class="sp3">商家正通知快递公司揽件</span>
-				</div>
-				<div class="info_class2">
-					<span class="sp2">21:33:26</span> <span class="sp3">【深圳市】中通快递
-						深圳布吉收件员 已揽件</span>
-				</div>
-				<div class="info_class1">
-					<span class="sp1">2015-06-17 周三</span> <span class="sp2">01:44:24</span>
-					<span class="sp3">【深圳市】深圳布吉 已发出</span>
-				</div>
-				<div class="info_class2">
-					<span class="sp2">01:47:47</span> <span class="sp3">【深圳市】深圳布吉
-						已发出</span>
-				</div>
-				<div class="info_class2">
-					<span class="sp2">02:27:58</span> <span class="sp3">【深圳市】深圳布吉
-						已发出</span>
-				</div>
-				<div class="info_class2">
-					<span class="sp2">03:38:43</span> <span class="sp3">【深圳市】快件已到达
-						深圳中心</span>
-				</div>
-				<div class="info_class2">
-					<span class="sp2">03:39:46</span> <span class="sp3">【深圳市】深圳中心
-						已发出</span>
-				</div>
-				<div class="info_class1">
-					<span class="sp1">2015-06-18 周四</span> <span class="sp2">15:15:27</span>
-					<span class="sp3">【成都市】快件已到达 成都中转</span>
-				</div>
-				<div class="info_class2">
-					<span class="sp2">18:59:38</span> <span class="sp3">【成都市】成都中转
-						已发出</span>
-				</div>
-				<div class="info_class1">
-					<span class="sp1">2015-06-19 周五</span> <span class="sp2">01:01:59</span>
-					<span class="sp3">【成都市】快件已到达 温江</span>
-				</div>
-				<div class="info_class2">
-					<span class="sp2">08:40:50</span> <span class="sp3">【成都市】温江派件员正在为您派件</span>
-				</div>
-				<div class="info_class2">
-					<span class="sp2">13:45:45</span> <span class="sp3"
-						style="color: #971634;">【成都市】快件已签收
-						签收人拍照签收，感谢使用中通快递，期待再次为您服务</span>
-				</div>
+				
 			</div>
 			<hr style="margin-top: 20px;" />
 			<div class="xinxi_info">
