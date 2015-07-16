@@ -264,7 +264,6 @@
 							});
 			$('#params').val(nums);
 			if ($('#params').val() != '') {
-				alert($('#params').val());
 				$('#formConfirm').submit();
 			} else {
 				alert('您还没有选择商品呢！');

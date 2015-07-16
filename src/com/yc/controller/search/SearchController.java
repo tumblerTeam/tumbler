@@ -18,12 +18,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yc.entity.Brand;
 import com.yc.entity.FamousManor;
 import com.yc.entity.ShopCategory;
 import com.yc.entity.ShopCommodity;
+import com.yc.entity.Specifications;
+import com.yc.service.IBrandService;
 import com.yc.service.IFamousManorService;
 import com.yc.service.IShopCategoryService;
 import com.yc.service.IShopCommodityService;
+import com.yc.service.ISpecificationsService;
 
 //公告管理
 @Controller
@@ -40,6 +44,12 @@ public class SearchController {
 	
 	@Autowired
 	IFamousManorService famousManorService;
+	
+	@Autowired
+	ISpecificationsService specificationsService;
+	
+	@Autowired
+	IBrandService brandService;
 
 	@RequestMapping(value = "result", method =RequestMethod.GET)
 	public ModelAndView result(String brand, Integer cateid, Integer id, String famousid, String spec, String params,String orderByPice, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -276,12 +286,12 @@ public class SearchController {
 	}
 	
 	//搜索栏
-	@RequestMapping(value = "searchParam", method =RequestMethod.GET)
-	public ModelAndView searchParam(String params, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<ShopCommodity> list =  shopCommService.searchShopComm(params);
-		ModelMap mode = new ModelMap();
+	@RequestMapping(value = "searchForName", method = RequestMethod.GET)
+    public ModelAndView searchForName(String paramName,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+ 		List<ShopCommodity> list = shopCommService.searchShopComm(paramName);
+ 		ModelMap mode = new ModelMap();
 		mode.put("list", list);
 		return new ModelAndView("search/result", mode);
-	}
+    }
 
 }
