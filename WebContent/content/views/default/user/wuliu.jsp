@@ -55,19 +55,17 @@
 							dataType : 'JSONP',
 							success : function(data) {
 								var $guige2 = "";
-								alert(1);
 								if(data.resultcode == 200){
 									$.each(data.result,function(i, item) {
 										$guige2 = $guige2 +"<option value='"+item.no+"'>"+item.com+"</option>";
 									});
-									alert($guige2);
 									$('#searchParam').append($guige2);
 								}
 							}});
 						
 					});
 					function search() {
-						alert("http://v.juhe.cn/exp/index?key=56da3d699d0582892ec1982d84ac3c98&com="+$('#searchParam').val()+"&no="+$('#wuliuParam').val());
+						$('.info').html("");
 						$(document).ready(function() {
 							jQuery.ajax({
 								type : 'GET',
@@ -75,10 +73,9 @@
 								url : "http://v.juhe.cn/exp/index?key=56da3d699d0582892ec1982d84ac3c98&com="+$('#searchParam').val()+"&no="+$('#wuliuParam').val(),
 								dataType : 'JSONP',
 								success : function(data) {
-									alert(data);
 									var $guige2 = "";
 									if(data.resultcode == 200){
-										$.each(data.result,function(i, item) {
+										$.each(data.result.list,function(i, item) {
 											$guige2 = $guige2 + "<div class='info_class1'><span class='sp1'>"+item.datetime+"</span> <span class='sp2'>"+item.remark+"</span><span class='sp3'>"+item.zone+"</span></div>";
 										});
 										$('.info').append($guige2);
