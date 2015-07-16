@@ -137,6 +137,11 @@ public class ShopOneController {
 	@Autowired
 	IBuyCarService buyCarService;
 	
+	//test:测试开始：
+	
+	
+	
+	
 	@RequestMapping("checkCommItem")
 	@ResponseBody
 	public Map<String, Object> checkCommItem(HttpServletRequest req){
