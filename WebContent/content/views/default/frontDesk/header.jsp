@@ -87,6 +87,13 @@
 			}
 		});
 	});
+	function searchName(){
+		var name = $('#hj').val();
+		if(name == ''){
+			name = '葡萄酒';
+		}
+		location.href = "search/searchForName?paramName="+name;
+	}
 </script>
 <!--头部内容-->
 <div class="head">
@@ -97,7 +104,7 @@
 		<div class="search">
 			<input class="text"
 				style="padding-left: 15px; font-size: 16px; font-family: '微软雅黑';"
-				placeholder="葡萄酒" id="hj"> <a href="#"><div
+				placeholder="葡萄酒" id="hj"> <a href="javascript:void(0);" onclick="searchName();"><div
 					style="width: 95px; font-family: '微软雅黑'; font-size: 18px; text-align: center; color: #fff; line-height: 39px; float: left; height: 39px; background-color: #BB2923;">搜索</div></a>
 			<div class="zi">
 				<span><a href="#">伏特加</a>|</span> <span><a href="#"

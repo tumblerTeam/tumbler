@@ -66,4 +66,5 @@ public class IndexController {
     public ModelAndView homePage(String page,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
  		return new ModelAndView("personnel/login");
     }
+ 	
 }
