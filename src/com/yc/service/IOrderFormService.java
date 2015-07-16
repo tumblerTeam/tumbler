@@ -117,4 +117,14 @@ public interface IOrderFormService extends IGenericService<OrderForm>{
 	 * @return
 	 */
 	OrderForm searchNewst();
+	
+	/**
+	 * 
+	 * @param map
+	 * @param shopID
+	 * @return
+	 * @throws ParseException
+	 */
+	List<OrderForm> getShopOrderByParamAndShopId(Map<String, Object> map,
+			Integer shopID) throws ParseException;
 }

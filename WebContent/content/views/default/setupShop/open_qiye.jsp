@@ -43,6 +43,9 @@
         	<h2>企业免费开店</h2>
             <div class="box">
             	<form action="<%=path%>/proscenium/setupCompanyShop" onsubmit="return validateCompany();" method="post" enctype="multipart/form-data">
+                        <label style="color: red;">*</label>店铺名：<input id="sname" name="sname" style="width:150px; height:25px; margin-left:75px;"  />
+                        <label style="color: red;" id="promptSname"></label>
+                       	<br/>
                         <label style="color: red;">*</label>企业名称：<input id="cname" name="cname" style="width:150px; height:25px; margin-left:65px;"  />
                         <label style="color: red;" id="promptComName"></label>
                         <br />	
@@ -139,7 +142,7 @@
                                    	零售备案登记证：<input onchange="checkFileSize(this,'promptBeianRegFile');" type="file" name="myfile" id="beianRegFile" />
                                    <label style="color: red;" id="promptBeianRegFile"></label>
 						      </div>
-                             <button class="sq">申请开店</button>   
+                             <button id="applyShop" class="sq">申请开店</button>   
                     </form>
             </div>
         </div>
@@ -147,6 +150,7 @@
       	function validateCompany(obj){
       		var flag = 0;
       		var comName = $("#cname").val();
+      		var sname = $("#sname").val();
       		var idCard = $("#idCard").val();
       		var idCardFile = $("#idCardFile").val();
       		var yingyeFile = $("#yingyeFile").val();
@@ -163,6 +167,7 @@
       		var thisSelect = $("#thisSelect option:selected").val();
       		
       		var promptComName = $("#promptComName");
+      		var promptSname = $("#promptSname");
       		var promptIdCard = $("#promptIdCard");
       		var promptIdCardFile = $("#promptIdCardFile");
       		var promptYingyeFile = $("#promptYingyeFile");
@@ -176,13 +181,21 @@
       		var promptShouquanFile = $("#promptShouquanFile");
       		var promptAlcoJingyingPerFile = $("#promptAlcoJingyingPerFile");
       		var promptBeianRegFile = $("#promptBeianRegFile");
-
+			
+      		if(sname==''){
+      			promptSname.text("店铺名称不得为空");
+          		return false;
+      		}else if(comName!=''){
+      			promptSname.text("");
+      		}
+      		
       		if(comName==''){
           		promptComName.text("企业名称不得为空");
           		return false;
       		}else if(comName!=''){
           		promptComName.text("");
       		}
+      		
       		//身份证验证
       		var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
       		if(reg.test(idCard)==false){
@@ -191,6 +204,7 @@
       		}else if(reg.test(idCard)){
       			promptIdCard.text("");
       		}
+      		
       		//验证身份证是否存在
       		$.ajax({
       			type:'GET',
@@ -239,6 +253,7 @@
           	}
       		if(comName!=''&&reg.test(idCard)&&flag==0&&f==0){
       			return true;
+      			$("#applyShop").disabled = true;
       		}else{
       			return false;
       		}

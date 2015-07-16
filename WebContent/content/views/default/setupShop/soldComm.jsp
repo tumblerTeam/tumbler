@@ -131,18 +131,18 @@ $(function(){
          <% 
          	AppUser user = (AppUser)request.getSession().getAttribute("loginUser");
          %>
-        	<div class="left1"><a href="proscenium/soldComm">我是卖家</a> < <font style="font-weight:700;">已卖出的商品</font></div>
+        	<div class="left1"><a href="proscenium/openShop">我是卖家</a> < <font style="font-weight:700;">已卖出的商品</font></div>
             <a href="#"><span class="right1">买家交易学习专区</span></a>
         </div>
         <div class="sold" style="padding-bottom: 20px;">
         	<div class="top" style="height:auto;">
-            	<form action="proscenium/searchAlrdyComm" method="get">
+            	<form action="proscenium/searchAlrdyComm" method="post">
                 	商品名称：<input type="text" name="commName" /> 
                     成交时间：从<input type="date" name="firstDate"/> 
                         到<input type="date" name="lastDate"/><br>
                         买家昵称：<input type="text" name="uname" />
                         订单状态：<select name="orderStatusFrom">
-           			<option value="">全部</option>
+           			<option value="all">全部</option>
                        <option value="waitPayment">等待买家付款</option>
                        <option value="BuyersHavePaid">买家已付款</option>
                        <option value="transitGoods">卖家已发货</option>
@@ -151,7 +151,7 @@ $(function(){
                        <option value="closeTransaction">交易关闭</option>
                        <option value="refundOrderForm">退款中的订单</option>
          			</select>
-            	订单编号：<input type="text" name="orderId" />
+<!--             	订单编号：<input type="text" name="orderId" /> -->
                       <br />
                        <input type="submit" value="搜索"/>
                 </form>

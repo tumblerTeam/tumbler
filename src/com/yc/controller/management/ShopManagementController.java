@@ -240,4 +240,40 @@ public class ShopManagementController {
 			return "redirect:/management/blacklistGoods";
 		}
 	}
+	
+	/**
+	 * 跳转驳回页面
+	 * @param id
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "rejectReason", method = RequestMethod.GET)
+	public ModelAndView rejectReason(Integer ShopId,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ModelMap mode=new ModelMap();
+	    Shop shop=shopService.findById(ShopId);
+	    mode.put("shop", shop);
+		return new ModelAndView("management/rejectReason",mode);
+	}
+	
+	/**
+	 * 保存驳回理由
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "addRejectReason", method = RequestMethod.POST)
+	public void addRejectReason(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String shopId=request.getParameter("shopId");
+		String context=request.getParameter("context");
+		System.out.println("ShopId1===="+shopId);
+		System.out.println("context===="+context);
+		int Id=Integer.parseInt(shopId);
+		Shop shop=shopService.findById(Id);
+		shop.setRejectReason(context);
+		shopService.update(shop);
+	}
 }

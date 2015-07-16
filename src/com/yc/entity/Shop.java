@@ -127,6 +127,9 @@ public class Shop {
 	@Column
 	private String money;//钱
 	
+	@Column
+	private String rejectReason;//驳回的理由
+	
 	@Column( unique = true, updatable = false)
 	private String blankAccount;//公司账户
 	
@@ -166,6 +169,14 @@ public class Shop {
 
 	@OneToMany(mappedBy = "shop")
 	private List<FamousManorAndShop> manorAndShops;//名庄
+   
+	public String getRejectReason() {
+		return rejectReason;
+	}
+
+	public void setRejectReason(String rejectReason) {
+		this.rejectReason = rejectReason;
+	}
 
 	public String getFoodCriLis() {
 		return foodCriLis;

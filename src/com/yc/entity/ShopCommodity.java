@@ -32,7 +32,7 @@ public class ShopCommodity {
 	private String commoidtyName;//商品名称
 	
 	@Column(unique=true)
-	private String commItem;// 货号
+	private String commItem;// 商品条形码号
 	
 	@Column
 	private Integer salesVolume; //销量
@@ -110,7 +110,7 @@ public class ShopCommodity {
 	@OneToMany(mappedBy = "shopCommoidty")
 	private List<ShopCommImage> shopCommImages;//商品照片
 	
-	@Column
+	@Column(length=60000)
 	private String describes;//描述
 	
 	@Column

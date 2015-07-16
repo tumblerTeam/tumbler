@@ -52,13 +52,17 @@
         <div class="geren" style="font-size: 12px;">
         	<h2>个人免费开店</h2>
             <div class="box">
-            	<form id="form1" action = "<%=path%>/proscenium/setupPeronShop" onsubmit="return validation();" enctype="multipart/form-data" method="post"> 
+            	<form id="form1" name="form1" action = "<%=path%>/proscenium/setupPeronShop" onsubmit="return validation();" enctype="multipart/form-data" method="post"> 
                         <label style="color: red;">*</label>
+                        	店铺名：<input id="sname" name="sname" style="width:150px; height:25px; margin-left:60px;"  />
+                        	<label style="color: red;" id="promptSname"></label>
+							<br />
+						<label style="color: red;">*</label>
                         	姓名：<input id="uname" name="name" style="width:150px; height:25px; margin-left:75px;"  />
                         	<label style="color: red;" id="promptUname"></label>
 							<br />
                         <label style="color: red;">*</label>性别：
-                        <input name="sex" value="1" type="radio" style="margin-left:80px;"/> 男
+                        <input name="sex" value="1" type="radio" style="margin-left:80px;" checked="checked"/> 男
                        	<input name="sex" value="0" type="radio"/> 女
                        	<label style="color: red;" id="promptSex"></label>
                         <br />
@@ -79,28 +83,27 @@
 							addressInit('cmbProvince', 'cmbCity', 'cmbArea', '新疆', '乌鲁木齐市', '新市区');
 						</script>
 					</div>
-                        	 
-                              <div class="file-box" style="width:700px;"> 
-                             		   <label style="color: red;">*</label>
-                             		   身  份  证 ：<input id="idcard" onchange="checkIdcard(this);" style="margin-left: 50px;" type="text" name="idCard"/>
-                             		    <span><input id="idcardFile" onchange="checkFileSize(this,'promptIdcardFile');" type="file" name="myfile" id="required" /></span>
-                        				<label style="color: red;" id="promptIdcardFile"></label>
-                        				<br/><label style="color: red;" id="promptIdcard"></label>
-                                      	<br />
-						      </div>
-						      <div class="file-box" style="width:700px;"> 
-                                   <label style="color: red;">*</label>
-                                   	食品流通许可证：<input id="foodCriLis" style="margin-left: 18px;" type="text" name="foodCriLis"/>
-                                   <span><input id="liutongFile" type="file" onchange="checkFileSize(this,'promptLiutong');" name="myfile" id="required" /></span>
-                                   <label style="color: red;" id="promptLiutong"></label>
-						      </div>
-                              <div class="file-box" style="width:700px;"> 
-                                   <label style="color: red;">*</label>
-                                   	税务登记证：<input id="taxReg" style="margin-left: 50px;" type="text" name="taxReg"/>
-                                   <span><input id="taxRegFile" type="file" onchange="checkFileSize(this,'promptTaxReg');" name="myfile" id="required" /></span>
-                                   <label style="color: red;" id="promptTaxReg"></label>
-						      </div>
-                             <input id="applyShop" class="sq" type="submit" value="申请开店"/>   
+                           <div class="file-box" style="width:700px;"> 
+                          		   <label style="color: red;">*</label>
+                          		   身  份  证 ：<input id="idcard" onchange="checkIdcard(this);" style="margin-left: 50px;" type="text" name="idCard"/>
+                          		    <span><input id="idcardFile" onchange="checkFileSize(this,'promptIdcardFile');" type="file" name="myfile" id="required" /></span>
+                     				<label style="color: red;" id="promptIdcardFile"></label>
+                     				<br/><label style="color: red;" id="promptIdcard"></label>
+                                   	<br />
+			      			</div>
+			      			<div class="file-box" style="width:700px;"> 
+                                <label style="color: red;">*</label>
+                                	食品流通许可证：<input id="foodCriLis" style="margin-left: 18px;" type="text" name="foodCriLis"/>
+                                <span><input id="liutongFile" type="file" onchange="checkFileSize(this,'promptLiutong');" name="myfile" id="required" /></span>
+                                <label style="color: red;" id="promptLiutong"></label>
+			      			</div>
+                            <div class="file-box" style="width:700px;"> 
+                                <label style="color: red;">*</label>
+                                	税务登记证：<input id="taxReg" style="margin-left: 50px;" type="text" name="taxReg"/>
+                                <span><input id="taxRegFile" type="file" onchange="checkFileSize(this,'promptTaxReg');" name="myfile" id="required" /></span>
+                                <label style="color: red;" id="promptTaxReg"></label>
+			      			</div>
+                          <input id="applyShop" name="applyShop" class="sq" type="submit" value="申请开店"/>
                     </form>
             </div>
         </div>
@@ -108,6 +111,7 @@
         	function validation(){
         		var flag=0;
         		var uname = $("#uname").val();
+        		var sname = $("#sname").val();
         		var sex = $("input:radio[name=sex]:checked").val();
         		var birthday = $("#birthday").val();
         		var idcard = $("#idcard").val();
@@ -116,13 +120,19 @@
         		var taxRegFile = $("#taxRegFile").val();
         		
         		var promptUname = $("#promptUname");
+        		var promptSname = $("#promptSname");
         		var promptSex = $("#promptSex");
         		var promptBirthday = $("#promptBirthday");
         		var promptIdcard = $("#promptIdcard");
         		var promptIdcardFile = $("#promptIdcardFile");
         		var promptLiutong = $("#promptLiutong");
         		var promptTaxReg = $("#promptTaxReg");
-        		
+        		if(sname==''){
+        			flag = 1;
+        			promptSname.text("店铺名称不得为空");
+        		}else{
+        			promptSname.text("");
+        		}
         		if (uname=='') {
         			flag=1;
         			promptUname.text("姓名不得为空");
@@ -183,6 +193,7 @@
               	}
           		if (flag==0) {
 					return true;
+		        	document.form1.applyShop.disabled = true;
 				}else{
 					return false;
 				}

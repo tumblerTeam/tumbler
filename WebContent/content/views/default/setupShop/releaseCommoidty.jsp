@@ -17,9 +17,21 @@
 <base href="<%=basePath%>" />
 <link rel="stylesheet" type="text/css" href="content/static/css/seller.css"/>
 <link rel="stylesheet" type="text/css" href="content/static/css/style.css"/>
-<link rel="stylesheet" type="text/css" href="content/static/css/datetime/jquery.mobile.flatui.css"/>
 <script type="text/javascript" src="content/static/js/datetime/jquery.js"></script>
-<script type="text/javascript" src="content/static/js/map/jsAddress.js"></script>
+
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" />
+<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+
+<link rel="stylesheet" href="content/static/css/bootstrap/bootstrap.min.css" />
+<script type="text/javascript" src="content/static/js/lib/bootstrap.min.js"></script>
+<link rel="stylesheet" href="content/static/css/bootstrap/font-awesome.min.css" />
+
+  <link rel="stylesheet" href="content/static/css/bootstrap/summernote.css"/>
+  <script type="text/javascript" src="content/static/js/lib/summernote.js"></script>
+  <script type="text/javascript" src="content/static/js/lib/summernote-zh-CN.js"></script>
+
+
 
 <link href="content/static/css/reception/css.css" rel="stylesheet"
 	type="text/css" />
@@ -27,18 +39,21 @@
 	type="text/css" />
 <link href="content/static/css/reception/gr.css" rel="stylesheet"
 	type="text/css" />
-<link href="content/static/css/reception/persc.css" rel="stylesheet"
-	type="text/css" />
+<!-- <link href="content/static/css/reception/persc.css" rel="stylesheet" -->
+<!-- 	type="text/css" /> -->
 	
-<script type="text/javascript"
-	src="content/static/js/reception/png.js"></script>
-<script type="text/javascript"
-	src="content/static/js/reception/sdmenu.js"></script>
-<script type="text/javascript"
-	src="content/static/js/reception/jquery-1.4.2.min.js"></script>
-<script type="text/javascript"
-	src="content/static/js/reception/js.js"></script>
-<script type="text/javascript" src="content/static/js/reception/ScrollPic.js"></script>
+<!-- <script type="text/javascript" -->
+<!-- 	src="content/static/js/reception/png.js"></script> -->
+<!-- <script type="text/javascript" -->
+<!-- 	src="content/static/js/reception/sdmenu.js"></script> -->
+<!-- <script type="text/javascript" -->
+<!-- 	src="content/static/js/reception/jquery-1.4.2.min.js"></script> -->
+<!-- <script type="text/javascript" -->
+<!-- 	src="content/static/js/reception/js.js"></script> -->
+<!-- <script type="text/javascript" src="content/static/js/reception/ScrollPic.js"></script> -->
+
+
+
 </head>
 
 <body>
@@ -52,18 +67,20 @@
 				商品新增：
 			</h3>
 			<div class="kd_yz_cont">
-				<form action="proscenium/saveCommodity" enctype="multipart/form-data"
+				<form action="proscenium/saveCommodity" enctype="multipart/form-data" onsubmit="return validateComm();"
 					method="post">
 					<input type="hidden" name="edit" value="0"/>
 					<dl>
 						<dd>
-							<span>商品名称</span><input type="text" value="" name="commoidtyName" />
+							<span>商品名称&nbsp<label style="color:red">*</label></span><input id="cname" type="text" value="" name="commoidtyName" />
+							<label style="color:red" id="promptcname"></label>
 						</dd>
 						<dd>
-							<span>货号</span><input type="text" value="" name="commItem" />
+							<span>商品条形码号：</span>&nbsp<label style="color:red">*</label><input onchange="changeValidateCommItem();" id="citem" type="text" value="" name="commItem" />
+							<label style="color:red" id="promptcitem"></label>
 						</dd>
 						<dd>
-							<span>商品分类</span> <select onchange="shopcateOne(this);" id="shopcateTwo"
+							<span>商品分类</span>&nbsp<label style="color:red">*</label> <select onchange="shopcateOne(this);" id="shopcateTwo"
 								style="height: 35px; width: 303px; border: 1px solid #ccc; margin-left: 7px">
 								<option value="-1">----请选择----</option>
 								<c:forEach items="${shopCategories }" var="shopcate"
@@ -71,9 +88,10 @@
 										<option value="${shopcate.categoryID}">${shopcate.category}</option>
 								</c:forEach>
 							</select>
+							<label style="color:red" id="promptshopcateTwo"></label>
 						</dd>
 						<dd>
-							<span>商品分类</span> <select name = "categoryid"  id="shopcateThree"
+							<span>商品分类</span>&nbsp<label style="color:red">*</label> <select name = "categoryid"  id="shopcateThree"
 								style="height: 35px; width: 303px; border: 1px solid #ccc; margin-left: 7px">
 								<option value="-1">----请选择----</option>
 								<c:forEach items="${list2 }" var="shopcate"
@@ -81,17 +99,20 @@
 										<option value="${shopcate.categoryID}">${shopcate.category}</option>
 								</c:forEach>
 							</select>
+							<label style="color:red" id="promptshopcateThree"></label>
 						</dd>
 						<!-- 新增开始 -->
 						<dd>
-							<span>酒精度</span><input type="text" style="width: 100px;"
-								value="" name="alcoholDegree" onblur="checkvalue(this);" />
-							<span>净含量</span><input type="text" style="width: 100px;"
-								value="" name="Weight" />
+							<span>酒精度</span>&nbsp<label style="color:red">*</label><input id="calcohol" type="text" style="width: 100px;"
+								value="" name="alcoholDegree" onblur="checkvalue(this);" /><label>%</label>
+							<label style="color:red" id="promptcalcohol"></label>
+							<span>净含量</span>&nbsp<label style="color:red">*</label><input id="cweights" type="text" style="width: 100px;"
+								value="" name="Weight" /><label>ml(毫升)</label>
+							<label style="color:red" id="promptcweights"></label>
 						</dd>
 						<dd>
 							<span>保质期</span><input type="text" style="width: 100px;"
-								value="" name="deadline" />
+								value="" name="deadline" />天
 							<span>包装方式</span><input type="text" style="width: 100px;"
 								value="" name="packManner" />
 						</dd>
@@ -108,53 +129,63 @@
 								value="" name="drinkTemperature" onblur="checkvalue(this);" /><label>℃</label>
 						</dd>
 						<dd>
-							<span>生产日期</span><input type="date"
+							<span>生产日期</span>&nbsp<label style="color:red">*</label><input id="cdate" type="date"
 								value="" name="productTime"/>
+								<label style="color:red" id="promptcdate"></label>
 						</dd>
 						<dd>
 							<span>年份</span><input type="text"
 								value="" name="particularYear" onblur="checkvalue(this);" />
 						</dd>
 						<dd>
-							<span>配料表</span><input type="text"
+							<span>配料表</span>&nbsp<label style="color:red">*</label><input id="cmixture" type="text"
 								value="" name="mixtureSheet"/>
+							<label style="color:red" id="promptcmixture"></label>
 						</dd>
 						<dd>
-							<span>储藏方法</span><input type="text"
+							<span>储藏方法</span>&nbsp<label style="color:red">*</label><input id="cstockway" type="text"
 								value="" name="stockWay" />
+							<label style="color:red" id="promptcstockway"></label>
 						</dd>
 						<dd>
-							<span>食品添加剂</span><input type="text"
+							<span>食品添加剂</span>&nbsp&nbsp<label style="color:red">*</label><input id="cfood" type="text"
 								value="" name="foodAdditive" />
+								<label style="color:red" id="promptcfood"></label>
 						</dd>
 						<dd>
-							<span>生产许可证编号</span><input type="text"
+							<span>生产许可证编号</span>&nbsp<label style="color:red">*</label><input id="cproduct" type="text"
 								value="" name="productPerimitNum" />
+							<label style="color:red" id="promptcproduct"></label>
 						</dd>
 						<dd>
 							<span>生产标准号</span><input type="text"
 								value="" name="productStddNum" />
 						</dd>
 						<dd>
-							<span>生产厂名</span><input type="text"
+							<span>生产厂名</span>&nbsp<label style="color:red">*</label><input id="cfactoryname" type="text"
 								value="" name="productFactoryName" />
+							<label style="color:red" id="promptcfactoryname"></label>
 						</dd>
 						<dd>
-							<span>生产厂址</span><input type="text"
+							<span>生产厂址</span>&nbsp<label style="color:red">*</label><input id="cproductaddress" type="text"
 								value="" name="productFactoryAddress" />
+							<label style="color:red" id="promptcproductaddress"></label>
 						</dd>
 						<!-- 新增结束 -->
 						<dd>
-							<span>库存数量</span><input type="text" style="width: 100px;"
+							<span>库存数量</span>&nbsp<label style="color:red">*</label><input id="cstock" type="text" style="width: 100px;"
 								value="" name="stock" onblur="checkvalue(this);" />
+								<label style="color:red" id="promptcstock"></label>
 								<select id="commUnit" name="commUnit" onchange="commUnitHandle();">
 									<option value="1">瓶</option>
 									<option value="0">箱</option>
 								</select>
+								<label style="color:red" id="promptcommUnit"></label>
 						</dd>
 						<dd id="ddUnit" style="display: none">
-							<span>每箱</span><input type="text" style="width: 100px;"
+							<span>每箱</span>&nbsp<label style="color:red">*</label><input id="cperbox" type="text" style="width: 100px;"
 							 name="perBoxnum" onblur="checkvalue(this);" />瓶
+							<label style="color:red" id="promptcperbox"></label>
 						</dd>
 						<script>
 							function commUnitHandle(){
@@ -168,10 +199,12 @@
 						</script>
 						
 						<dd>
-							<span>单价</span><input type="text" style="width: 100px;" value=""
-								name="unitPrice"  onblur="checkvalue(this);"/>
-							<span>大概重量</span><input type="text"
-								style="width: 100px;" value="" name="probablyWeight"  onblur="checkvalue(this);"/>
+							<span>单价</span>&nbsp<label style="color:red">*</label><input id="cprice" type="text" style="width: 100px;" value=""
+								name="unitPrice"  onblur="checkvalue(this);"/>元
+							<label style="color:red" id="promptcprice"></label>
+							<span>单瓶重量</span>&nbsp<label style="color:red">*</label><input id="cperweight" type="text"
+								style="width: 100px;" value="" name="probablyWeight"  onblur="checkvalue(this);"/>kg(公斤)
+							<label style="color:red" id="promptcperweight"></label>
 						</dd>
 						<dd>
 							<span>是否上架</span><input type="radio"
@@ -188,11 +221,12 @@
 								name="iscChoice" checked="checked" />普通
 						</dd>
 						<dd id="checkShow">
-							<span>是否团购</span><input type="radio"
-								style="width: 15px; height: 15px;" value="true" name="auction"
-								checked="checked" />团购&nbsp;&nbsp;&nbsp;&nbsp;<input
-								style="width: 15px; height: 15px;" type="radio" value="false"
-								name="auction" checked="checked" />不团购&nbsp;&nbsp;&nbsp;&nbsp;
+<!-- 							<span>是否团购</span><input type="radio" -->
+<!-- 								style="width: 15px; height: 15px;" value="true" name="auction" -->
+<!-- 								checked="checked" />团购&nbsp;&nbsp;&nbsp;&nbsp;<input -->
+<!-- 								style="width: 15px; height: 15px;" type="radio" value="false" -->
+<!-- 								name="auction" checked="checked" />不团购&nbsp;&nbsp;&nbsp;&nbsp; -->
+								
 								<span>是否折扣</span><input style="width: 15px; height: 15px;" type="radio" value="false"
 								name="isSpecial" checked="checked" id="noIsSpecial"/>不折扣<input
 								type="radio" style="width: 15px; height: 15px;" value="true"
@@ -200,7 +234,7 @@
 								value="" name="special" id="special" onblur="checkvalue(this);"/>
 						</dd>
 						<dd>
-							<span>所属品牌</span><select name="brandName"
+							<span>所属品牌</span><select id="cbrand" name="brandName"
 								style="height: 35px; width: 303px; border: 1px solid #ccc; margin-left: 7px">
 								<option value="-1">----请选择----</option>
 								<c:forEach items="${listBrand }" var="b"
@@ -208,6 +242,7 @@
 										<option value="${b.brandID}">${b.brandName}</option>
 								</c:forEach>
 							</select>
+							<label style="color:red" id="promptcbrand"></label>
 						</dd>
 						<dd>
 							<span>是否名庄</span><select name="famousManorId"
@@ -227,23 +262,276 @@
 							</dd>
 						</c:forEach>	
 						<dd>
-							<span>照片上传</span><input type="file" name="myfile" />
+							<span>照片上传</span>&nbsp<label style="color:red">*</label><input style="margin-left: 126px;" id="uploadfile" type="file" name="myfile" />
+							<label style="color:red" id="promptuploadfile"></label>
 						</dd>
-						<div id="newUpload2"></div>
+							<div id="newUpload2" style="padding-top: 50px;"></div>
 						<dd>
 							<span></span><input type="button" id="btn_add2"
-								style="height: 35px; width: 80px;" value="再增加一张">
+								style="height: 35px; width: 80px;margin-left: 200px;" value="再增加一张">
 						</dd>
-						<dd>
-							<span></span>
-							<button type="submit">添加</button>
+						
+						<dd style="height:0px;">
+							<button type="submit" class="btn" style="float:left;margin-top:300px; background-color: #901531; color:#fff; border:none; font-size:14px; ">添加</button>
+							<label style="color:red" id="promptallsub"></label>
 						</dd>
+						<span>商品详情</span>
+						<div class="form-group" id="text">
+							<div class="col-sm-10">
+								<textarea class="summernote" name="describes"></textarea>
+								<input type="hidden" name="effect" id="effect">
+							</div>
+						</div>
+						<script type="text/javascript">
+							$(function() {
+								$('.summernote').summernote({
+									height : 100,
+									minHeight : null, // set minimum height of editor
+									maxHeight : null, // set maximum height of editor
+									focus : true,
+									lang : 'zh-CN'
+								});
+							});
+						</script>
+						
 					</dl>
 				</form>
 			</div>
 		</div>
 	</div>
-	</div>
+	<script type="text/javascript">
+		function changeValidateCommItem(){
+			var citem = $("#citem").val();
+			//验证货号
+      		$.ajax({
+      			type:'GET',
+      			contentType:'application/json',
+      			url:'proscenium/checkCommItem?citem='+citem,
+      			dataType:'json',
+      			success:function(data){
+      				if(data.success=='true'){
+      					$("#promptcitem").text("数据库中已存在该货号,请换一个货号");
+      					return false;
+      				}if(data.success=='false'){
+      					$("#promptcitem").text("该货号可用");
+      				}
+      			}
+      		});
+		}
+		function validateComm(){
+			var flag = 0;
+			var cname = $("#cname").val();
+			if(cname==''){
+				flag = 1;
+				$("#promptcname").text("不得为空");
+				return false;
+			}else{
+				$("#promptcname").text("");
+			}
+			
+			var citem = $("#citem").val();
+			if(citem==''){
+				flag = 1;
+				$("#promptcitem").text("不得为空");
+				return false;
+			}else {
+				$("#promptcitem").text("");
+			}
+			
+			//验证货号
+      		$.ajax({
+      			type:'GET',
+      			contentType:'application/json',
+      			url:'proscenium/checkCommItem?citem='+citem,
+      			dataType:'json',
+      			success:function(data){
+      				if(data.success=='true'){
+      					flag = 1;
+      					$("#promptcitem").text("数据库中已存在该货号,请换一个货号");
+      					return false;
+      				}if(data.success=='false'){
+      					$("#promptcitem").text("该货号可用");
+      				}
+      			}
+      		});
+						
+			var shopcateTwo = $("#shopcateTwo option:selected").val();
+			if(shopcateTwo==-1){
+				flag = 1;
+				$("#promptshopcateTwo").text("请选择类别");
+				return false;
+			}else{
+				$("#promptshopcateTwo").text("");
+			}
+			var shopcateThree = $("#shopcateThree option:selected").val();
+			if(shopcateThree==-1){
+				flag = 1;
+				$("#promptshopcateThree").text("请选择类别");
+				return false;
+			}else{
+				$("#promptshopcateThree").text("");
+			}
+			
+			var calcohol = $("#calcohol").val();
+			if (calcohol=='') {
+				flag = 1;
+				$("#promptcalcohol").text("不得为空");
+				return false;
+			}else{
+				$("#promptcalcohol").text("");
+			}
+			
+			var cweight = $("#cweights").val();
+			if(cweight==''){
+				flag = 1;
+				$("#promptcweights").text("不得为空");
+				return false;
+			}else if(cweight!=null){
+				$("#promptcweights").text("");
+			}
+			
+			var cdate = $("#cdate").val();
+			if(cdate==''){
+				flag = 1;
+				$("#promptcdate").text("不得为空");
+				return false;
+			}else{
+				$("#promptcdate").text("");
+			}
+			
+			var cmixture = $("#cmixture").val();
+			if(cmixture==''){
+				flag = 1;
+				$("#promptcmixture").text("不得为空");
+				return false;	
+			}else{
+				$("#promptcmixture").text("");
+			}
+			
+			var cweight = $("#cweight").val();
+			if(cweight==''){
+				flag = 1;
+				$("#promptcweight").text("不得为空");	
+				return false;
+			}else{
+				$("#promptcweight").text("");
+			}
+			
+			var cstockway = $("#cstockway").val();
+			if(cstockway==''){
+				flag = 1;
+				$("#promptcstockway").text("不得为空");
+				return false;
+			}else{
+				$("#promptcstockway").text("");
+			}
+			
+			var cfood = $("#cfood").val();
+			if(cfood==''){
+				flag = 1;
+				$("#promptcfood").text("不得为空");
+				return false;
+			}else{
+				$("#promptcfood").text("");
+			}
+			
+			var cproduct = $("#cproduct").val();
+			if(cproduct==''){
+				flag = 1;
+				$("#promptcproduct").text("不得为空");
+				return false;
+			}else{
+				$("#promptcproduct").text("");
+			}
+			
+			var cfactoryname = $("#cfactoryname").val();
+			if (cfactoryname=='') {
+				flag = 1;
+				$("#promptcfactoryname").text("不得为空");
+				return false;
+			}else{
+				$("#promptcfactoryname").text("");
+			}
+			
+			var cproductaddress = $("#cproductaddress").val();
+			if(cproductaddress==''){
+				flag = 1;
+				$("#promptcproductaddress").text("不得为空");
+				return false;
+			}else{
+				$("#promptcproductaddress").text("");
+			}
+			
+			var cstock = $("#cstock").val();
+			if(cstock==''){
+				flag = 1;
+				$("#promptcstock").text("不得为空");
+				return false;
+			}else{
+				$("#promptcstock").text("");
+			}
+			
+			var commUnit = $("#commUnit").val();
+			var commUnitoption = $("#commUnit option:selected").val();
+			alert(commUnitoption);
+			if(commUnitoption==1){
+				if(commUnit==''){
+					$("#promptcommUnit").text("");
+				}
+			}
+			if(commUnitoption==0){
+				if(commUnit==''){
+					flag = 1;
+					$("#promptcommUnit").text("不得为空");
+					return false;
+				}
+				var cperbox = $("#cperbox").val();
+				if(cperbox==''){
+					flag = 1;
+					$("#promptcperbox").text("不得为空");
+					return false;
+				}else{
+					$("#promptcperbox").text("");
+				}
+			}
+			
+			
+			
+			var cprice = $("#cprice").val();
+			if(cprice==''){
+				flag = 1;
+				$("#promptcprice").text("不得为空");
+				return false;
+			}else{
+				$("#promptcprice").text("");
+			}
+			
+			var cperweight = $("#cperweight").val();
+			if(cperweight==''){
+				flag = 1;
+				$("#promptcperweight").text("不得为空");
+				return false;
+			}else{
+				$("#promptcperweight").text("");
+			}
+			
+			var uploadfile = $("#uploadfile").val();
+			alert(uploadfile);
+			if (uploadfile=='') {
+				flag = 1;
+				$("#promptuploadfile").text("需至少上传一张图片");
+				return false;
+			}else if (uploadfile!='') {
+				$("#promptuploadfile").text("");
+			}
+			if(flag == 1){
+				$("#promptallsub").text("带*的选项务必填写");
+				return false;
+			}else if(flag == 0){
+				return true;
+			}
+		}
+	</script>
 	<script type="text/javascript">
 		j = 1;
 		$(document)
@@ -253,7 +541,7 @@
 									.click(
 											function() {
 												document
-														.getElementById("newUpload2").innerHTML += '<div id="div_'+j+'"><dd><span></span><input  name="myfile" type="file"  /><input type="button"  style="width: 35px; height: 35px;" value="删除"  onclick="del_2('
+														.getElementById("newUpload2").innerHTML += '<div id="div_'+j+'"><dd style="height:80px;"><span></span><input  name="myfile" type="file" style="margin-left:126px;"  /><input type="button"  style="width: 35px; height: 35px;margin:6px 0px 50px 126px;" value="删除"  onclick="del_2('
 														+ j + ')"/></dd></div>';
 												j = j + 1;
 											});
@@ -333,7 +621,7 @@
 			shopcateThree.options[shopcateThree.options.length] = objOptionT;
 			<c:forEach items="${list2 }" var="leiBieTwo">
 				if ('${leiBieTwo.parentLevel.categoryID }' == Code) {
-					alert(Code+":"+'${leiBieTwo.parentLevel.categoryID }'+'${leiBieTwo.category}');
+					//alert(Code+":"+'${leiBieTwo.parentLevel.categoryID }'+'${leiBieTwo.category}');
 					var objOption = new Option("${leiBieTwo.category}",'${leiBieTwo.categoryID}');
 					shopcateThree.options[shopcateThree.options.length] = objOption;
 				}

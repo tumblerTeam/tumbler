@@ -148,10 +148,11 @@ function buyCat() {
     			<input id="commID" type="hidden" value="" value="${r.commCode }"/>
 	    			<input id="buyAmount" type="hidden" value="1"/>
                 <a href="<%=path%>/${r.link}">
-	                <c:forEach items="${r.shopCommImages }" var="i" begin="0" end="1">
-	                	<img src="<%=path%>${i.imagePath}" />
+	                <c:forEach items="${r.shopCommImages }" var="i" begin="0" end="0">
+	                	<img src="<%=path%>userImg/${i.imagePath}" />
 	    			</c:forEach>
     			</a>
+    			
                 <div class="name">${r.commoidtyName}<br /></div>
                 <div class="price">￥${r.unitPrice }</div>
 <!--                 <div class="btn">加入购物车</div> -->

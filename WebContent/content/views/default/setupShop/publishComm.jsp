@@ -70,7 +70,7 @@ function f1(div1,div2){
         <!--中间开始-->
         <div>
         <div class="bread" >
-        	<div class="left1"><a href="open.html">我是卖家</a> < 发布商品</div>
+        	<div class="left1"><a href="proscenium/openShop">我是卖家</a> < 发布商品</div>
             <a href="#"><span class="right1">买家交易学习专区</span></a>
         </div>
         

@@ -38,19 +38,19 @@ function setTab(name,m,n){
 <!--中间内容-->
         <div>
          <div class="bread" >
-        	<div class="left1"><a href="open.html">我是卖家</a> < <span style="font-weight:700;">出售中的商品</span></div>
+        	<div class="left1"><a href="proscenium/openShop">我是卖家</a> < <span style="font-weight:700;">出售中的商品</span></div>
             <a href="#"><span class="right1">买家交易学习专区</span></a>
         </div>
         <div class="sold">
         	<div class="top" style="height:90px;">
-        		<form action="proscenium/searchCommNameCateBrand" method="get">
-					商品（品牌、类别）名称：<input type="text" name="name" /> 
+        		<form action="proscenium/searchCommItem" method="get">
+					商品条形码号：<input type="text" name="commItem" /> 
                     <input type="submit" value="搜索"/>
                  </form>
-            	<form action="proscenium/searchCommName" method="get">
-                	商品名称：<input type="text" name="commoidtyName" style="margin-right:10px;"/> 
-			                    商家编码：<input type="text" name="commCode" style="margin-right:10px;"/>
-			                    商家货号：<input type="text" name="commItem" />
+            	<form action="proscenium/searchCommName" method="post">
+                	商品名称：<input type="text" name="cname" style="margin-right:10px;"/> 
+<!-- 			                    品牌名称：<input type="text" name="bname" style="margin-right:10px;"/> -->
+			                    类别名称：<input type="text" name="category" style="margin-right:10px;"/>
 			        <input type="submit" value="搜索"/>
         		</form>
             </div>
@@ -94,7 +94,12 @@ function setTab(name,m,n){
 	                        </li>
 	                        <li>
 	                        	<div class="l5"><a href="proscenium/editCommoidty?commid=${c.commCode }">编辑商品</a></div>
-	                            <div class="l6"><input type="text" name="btn2" value="<%=basePath%>${c.link}" /><a href="javascript;" onclick="copyURL();">复制链接</a></div>
+	                            <div class="l6">
+	                            	<input id="btn${c.commCode }" type="text" name="btn2" value="<%=basePath%>${c.link}" size="12px;"/>
+	                            	<a href="javascript:void(0)" onclick="copyURL('${c.commCode }');">复制链接</a>
+	                            	<label id="promptcopy${c.commCode }" style="color:#0080FF; width:120px;float:right;"></label>
+	                            </div>
+	                            
 	                        </li>
 	               		</c:forEach></ul>
 	               </div>
@@ -103,10 +108,15 @@ function setTab(name,m,n){
         </div>
       </div>
       <script type="text/javascript">
-      function copyURL(){
-    	  alert(1);
-    	  var clipBoardContent=this.location.href;
-    	  window.clipboardData.setData("Text",clipBoardContent);
+      function copyURL(cid){
+    	  var url = $("#btn"+cid);
+    	  url.select();
+    	  document.execCommand("Copy");
+    	  $("#promptcopy"+cid).text("复制成功！");
+    	  //alert(cid);
+    	  //var clipBoardContent=$("#btn"+cid).val();
+    	  //alert(clipBoardContent);
+    	 // window.clipboardData.setData("Text",clipBoardContent);
       }
       	function checkDel(){
       		var tishi =$("#tishi");

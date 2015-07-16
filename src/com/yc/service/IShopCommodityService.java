@@ -135,4 +135,20 @@ public interface IShopCommodityService extends IGenericService<ShopCommodity> {
 	 */
 	List<ShopCommodity> getActivityCommodity();
 
+	/**
+	 * 通过commItem搜索商品
+	 * @return
+	 */
+	List<ShopCommodity> getCommBycommItem(String commItem);
+
+	/**
+	 * 
+	 * @param cname 商品名称
+	 * @param bname 品牌名称
+	 * @param category 类别名称
+	 * @param shopId 店铺ID
+	 * @return
+	 */
+	List<ShopCommodity> searchShopCommBrand(String cname, String category, Integer shopId);
+	
 }

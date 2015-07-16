@@ -1,7 +1,10 @@
 <%@page import="com.yc.entity.Shop"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%Shop shop = null; %>
+<%
+	Shop shop = null;
+	shop = (Shop)request.getSession().getAttribute("shop");
+%>
 <div class="seller" style="margin:30px 0 0 190px;font-size: 12px;">
     <div class="center">
     	<div class="top_nav">
@@ -12,7 +15,7 @@
                     <a href="proscenium/messageCenter"><li>消息中心</li></a>
                 </ul>
             </div>
-            <a href="personal.html"><div class="lianjie">我的不倒翁>></div></a>
+            <a href="user/personalCenter" target="_blank"><div class="lianjie">我的不倒翁>></div></a>
         </div>
         <div class="left_nav">
         		<div class="box">
@@ -25,7 +28,7 @@
                     		if(!shop.getIsPermit()){%>
                     			<li><a href="proscenium/verify">等待审核</a></li>
                     		<%}else {%>
-                    			<li><a href="proscenium/myShop" target="_black">我的店铺</a></li>                    		
+                    			<li><a href="proscenium/myShop?sid=<%=shop.getId()%>" target="_black">我的店铺</a></li>                    		
                     		<%} %>
                     	<%} %>
                     </ul>

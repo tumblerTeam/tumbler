@@ -19,10 +19,11 @@
 <script src="content/static/js/datetime/jquery-1.11.1.min.js"></script>
 
 <!--退出js-->
-<script>
-	window.onload=function(){
-			
-			$(".pingjia").click(event,function(){
+<script type="text/javascript">
+	
+$(function(){
+	
+	$(".pingjia").click(event,function(){
 				for(var i=0;i<$(".pingjia").length;i++){
 					if(i==$(".pingjia").index($(this))){
 						$(".ping").eq(i).css("transition","all 0.5s").css("display","block");
@@ -32,21 +33,15 @@
 					
 				}
 			});
-// 		$(".fa").click(event,function(){
-// 			for(var i=0;i<$(".fa").length;i++){
-// 				if(i==$(".fa").index($(this))){
-// 					$(".ping").eq(i).css("transition","all 0.5s").css("display","none");
-// 				}
-// 			}
-// 			});
-		$(".bu").click(event,function(){
-			for(var i=0;i<$(".bu").length;i++){
-				if(i==$(".bu").index($(this))){
-					$(".ping").eq(i).css("transition","all 0.5s").css("display","none");
-				}
+	$(".bu").click(event,function(){
+		for(var i=0;i<$(".bu").length;i++){
+			if(i==$(".bu").index($(this))){
+				$(".ping").eq(i).css("transition","all 0.5s").css("display","none");
 			}
-			});
 		}
+		});
+	});
+
 </script>
 <style type="text/css">
 .ping .content #fa {
@@ -74,20 +69,7 @@
         <!--中间开始-->
         <div>
       		<div class="pjgl">
-            	<div class="nav">
-                </div>
-                <div class="left1">
-                	<h4 style="margin-left:5px;">个人信息</h4>
-                    <hr style="border:1px dashed #ccc;"/>
-                    <p style="margin-left:25px;">会员名：${shop.user.userName }</p>
-                    <p style="margin-left:10px;">联系方式：${shop.user.phone }</p>
-                    <p style="margin-left:40px;">Email：${shop.user.email }</p>
-                    <p style="margin-left:10px;">
-                    	认证信息：${shop.shopType}
-                    </p>
-                </div>
-               
-               <div class="right1">
+               <div class="right1" style="float:left;">
                		<h5 style="margin-left:15px; margin-top:0px;margin-bottom:0px;">买家累积信用</h5>
                     <div class="box">
                     	<table>
@@ -138,25 +120,14 @@
                		<div class="rating_class">
                         <ul>
                             <li id="tow1" class="on" onclick='setTab("tow",1,3)'>来自买家的评价</li>
-                            <li id="tow2" onclick='setTab("tow",2,3)'>来自卖家的评价</li>
-                            <li id="tow3" onclick='setTab("tow",3,3)'>给他人的评价</li>
+<!--                             <li id="tow2" onclick='setTab("tow",2,3)'>来自卖家的评价</li> -->
+<!--                             <li id="tow3" onclick='setTab("tow",3,3)'>给他人的评价</li> -->
                         </ul><hr />   
        				 </div>
                       <div class="nav1">
                         <ul> 
                             <li style="width:220px;">
-                                <select>
-                                        <option>评价</option>
-                                        <option>好评</option>
-                                        <option>中评</option>
-                                        <option>差评</option>
-                                </select>
-                                <select>
-                                        <option>评论</option>
-                                        <option>有评论内容</option>
-                                        <option>无评论内容</option>
-                                        <option>有追加评论内容</option>
-                                </select>
+                            	评论等级/评论内容
                             </li>
                             <li>评论人</li>
                             <li>商品信息</li>
@@ -203,12 +174,9 @@
 										</div>
 									</form>
 								</div>
-
-
 							</c:forEach>
                             </ul>
                         </div>
-                        
                         
                         <script>
                <!--第一个-->

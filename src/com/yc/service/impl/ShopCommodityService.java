@@ -327,4 +327,20 @@ public class ShopCommodityService extends GenericService<ShopCommodity> implemen
 		Query query = ShopCommodityDao.getEntityManager().createNativeQuery(hql.toString(), ShopCommodity.class);
 		return query.getResultList();
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ShopCommodity> getCommBycommItem(String commItem) {
+		StringBuffer hql = new StringBuffer("select * from ShopCommodity comm where comm.commItem = '"+commItem+"'");
+		Query query = ShopCommodityDao.getEntityManager().createNativeQuery(hql.toString(), ShopCommodity.class);
+		return query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ShopCommodity> searchShopCommBrand(String cname,String category,Integer shopId) {
+		StringBuffer hql = new StringBuffer(" select * from ShopCommodity comm left join ShopCategory c ON comm.shopcategory_id = c.categoryID left join Brand b on b.brandID = comm.brand_id left join Shop s on comm.shop_id = s.id where comm.commoidtyName like '%"+cname+"%' and c.category like '%"+category+"%' "+"and s.id = "+shopId);
+		Query query = ShopCommodityDao.getEntityManager().createNativeQuery(hql.toString(), ShopCommodity.class);
+		return query.getResultList();		
+	}
 }

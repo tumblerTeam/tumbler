@@ -58,7 +58,7 @@
         	<div class="top_nav_class">
                 <ul>
                     <a href="proscenium/openShop"><li>我是卖家</li></a>
-                    <a href="proscenium/accountManage"><li>账号管理</li></a>
+<!--                     <a href="proscenium/accountManage"><li>账号管理</li></a> -->
                     <a href="proscenium/messageCenter"><li style="background-color:#a40c59; color:#fff;">消息中心</li></a>
                 </ul>
             </div>
@@ -68,7 +68,7 @@
         <!--中间开始-->
         <div class="xxzx">
         	<h2>消息提醒</h2><span>（共${Usize}条）</span>
-        	<input type="checkbox" style="margin-bottom:10px; margin-left:5px;"/> 全选
+<!--         	<input type="checkbox" style="margin-bottom:10px; margin-left:5px;"/> 全选 -->
             <div class="nav">
             	<ul>
                 	<li style="width:100px;">消息来源</li>
@@ -107,6 +107,7 @@
         		var ulcontent = document.getElementById("ulcontent"+flag);
         			ulcontent.style.display = '';
         	}
+        	
         	function shouqi(flag){
         		var ulcontent = document.getElementById("ulcontent"+flag);
         			ulcontent.style.display = 'none';

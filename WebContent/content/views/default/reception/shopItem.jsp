@@ -305,9 +305,9 @@ div.zoomMask {
 				<div class="shop_left">
 					<div class="shop_box">
 						<div class="tb-booth tb-pic tb-s310">
-							<a href="${shopCommoidty.shopCommImages[0].imagePath }"><img
-								src="${shopCommoidty.shopCommImages[0].imagePath }"
-								rel="${shopCommoidty.shopCommImages[0].imagePath }"
+							<a href="userImg/${shopCommoidty.shopCommImages[0].imagePath }"><img
+								src="userImg/${shopCommoidty.shopCommImages[0].imagePath }"
+								rel="userImg/${shopCommoidty.shopCommImages[0].imagePath }"
 								class="jqzoom" /></a>
 						</div>
 						<ul class="tb-thumb" id="thumblist">
@@ -321,7 +321,7 @@ div.zoomMask {
 								</c:if>
 								<div class="tb-pic tb-s40">
 									<a href="javascript:void(0);"> <img
-										src="${imageCommo.imagePath }" /></a>
+										src="userImg/${imageCommo.imagePath }" /></a>
 								</div>
 								</li>
 							</c:forEach>
@@ -585,29 +585,64 @@ div.zoomMask {
 									</div>
 								</c:if>
 							</c:forEach>
-							<li>重量： ${shopCommoidty.probablyWeight }</li>
-							<li>度数：${shopCommoidty.commAttribute.alcoholDegree}°</li>
-							<li>年份：${shopCommoidty.commAttribute.particularYear}年</li>
-							<li>保质期：${shopCommoidty.commAttribute.deadline}</li>
-							<li>储藏方法：${shopCommoidty.commAttribute.stockWay}</li>
-							<li>食品添加剂：${shopCommoidty.commAttribute.foodAdditive}</li>
-							<li>产地：${shopCommoidty.commAttribute.productPlace}</li>
-							<li>省份：${shopCommoidty.commAttribute.productProvince}</li>
-							<li>包装：${shopCommoidty.commAttribute.packManner}</li>
-							<li>配料：${shopCommoidty.commAttribute.mixtureSheet}</li>
-							<li>醒酒时间：${shopCommoidty.commAttribute.soberTime}</li>
-							<li>饮用温度：${shopCommoidty.commAttribute.drinkTemperature}</li>
-							<li>生产许可编号：${shopCommoidty.commAttribute.productPerimitNum}</li>
-							<li>生产标准号：${shopCommoidty.commAttribute.productStddNum}</li>
-							<li>生产厂名：${shopCommoidty.commAttribute.productFactoryName}</li>
-							<li>生产工厂地址：${shopCommoidty.commAttribute.productFactoryAddress}</li>
-							<li>生产时期：${shopCommoidty.commAttribute.productTime}</li>
+							<c:if test="${shopCommoidty.probablyWeight != null && shopCommoidty.probablyWeight != ''}">
+								<li>重量： ${shopCommoidty.probablyWeight }kg</li>
+							</c:if>
+							<c:if test="${shopCommoidty.commAttribute!=null}">
+								<c:if test="${shopCommoidty.commAttribute.alcoholDegree != null}">
+									<li>度数：${shopCommoidty.commAttribute.alcoholDegree}%</li>
+								</c:if>
+								<li>年份：${shopCommoidty.commAttribute.particularYear}年</li>
+								<c:if test="${shopCommoidty.commAttribute.deadline != null && shopCommoidty.commAttribute.deadline !=''}">
+									<li>保质期：${shopCommoidty.commAttribute.deadline}天</li>
+								</c:if>
+								<c:if test="${shopCommoidty.commAttribute.stockWay != null && shopCommoidty.commAttribute.stockWay !=''}">
+									<li>储藏方法：${shopCommoidty.commAttribute.stockWay}</li>
+								</c:if>
+								<c:if test="${shopCommoidty.commAttribute.foodAdditive != null && shopCommoidty.commAttribute.foodAdditive !=''}">
+									<li>食品添加剂：${shopCommoidty.commAttribute.foodAdditive}</li>
+								</c:if>
+								<c:if test="${shopCommoidty.commAttribute.productPlace != null && shopCommoidty.commAttribute.productPlace != ''}">
+									<li>产地：${shopCommoidty.commAttribute.productPlace}</li>
+								</c:if>
+								<c:if test="${shopCommoidty.commAttribute.productProvince != null && shopCommoidty.commAttribute.productProvince != ''}">
+									<li>省份：${shopCommoidty.commAttribute.productProvince}</li>
+								</c:if>
+								<c:if test="${shopCommoidty.commAttribute.packManner != null && shopCommoidty.commAttribute.packManner !=''}">
+									<li>包装：${shopCommoidty.commAttribute.packManner}</li>
+								</c:if>
+								<c:if test="${shopCommoidty.commAttribute.packManner != null && shopCommoidty.commAttribute.packManner !=''}">
+									<li>配料：${shopCommoidty.commAttribute.packManner}</li>
+								</c:if>
+								<c:if test="${shopCommoidty.commAttribute.soberTime != null && shopCommoidty.commAttribute.soberTime !=''}">
+									<li>醒酒时间：${shopCommoidty.commAttribute.soberTime}h</li>
+								</c:if>
+								<c:if test="${shopCommoidty.commAttribute.drinkTemperature != null && shopCommoidty.commAttribute.drinkTemperature != ''}">
+									<li>饮用温度：${shopCommoidty.commAttribute.drinkTemperature}℃</li>
+								</c:if>
+								<c:if test="${shopCommoidty.commAttribute.drinkTemperature != null && shopCommoidty.commAttribute.drinkTemperature != ''}">
+									<li>生产许可编号：${shopCommoidty.commAttribute.drinkTemperature}</li>
+								</c:if>
+								<c:if test="${shopCommoidty.commAttribute.productStddNum != null && shopCommoidty.commAttribute.productStddNum !=''}">
+									<li>生产标准号：${shopCommoidty.commAttribute.productStddNum}</li>
+								</c:if>
+								<c:if test="${shopCommoidty.commAttribute.productStddNum != null && shopCommoidty.commAttribute.productStddNum !=''}">
+									<li>生产厂名：${shopCommoidty.commAttribute.productStddNum}</li>
+								</c:if>
+								<c:if test="${shopCommoidty.commAttribute.productFactoryAddress != null && shopCommoidty.commAttribute.productFactoryAddress != ''}">
+									<li>生产工厂地址：${shopCommoidty.commAttribute.productFactoryAddress}</li>
+								</c:if>
+								<c:if test="${shopCommoidty.commAttribute.productTime != null && shopCommoidty.commAttribute.productTime != ''}">
+									<li>生产时期：${shopCommoidty.commAttribute.productTime}</li>
+								</c:if>
+							</c:if>
 						</ul>
 					</div>
 
 					<div class="shop_banner">
-						<img src="content/static/img/shop/1.jpg" /> <img
-							src="content/static/img/shop/2.jpg" />
+<!-- 						<img src="content/static/img/shop/1.jpg" /> <img -->
+<!-- 							src="content/static/img/shop/2.jpg" /> -->
+						${shopCommoidty.describes}
 					</div>
 					<div class="description"></div>
 				</div>

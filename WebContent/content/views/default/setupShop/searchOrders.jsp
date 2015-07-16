@@ -94,7 +94,7 @@ function setTab(name,m,n){
 	                		<c:forEach items="${o.commodities }" var="c">
 	                			<li style="width:250px; line-height:20px; text-align:left; float:left;">
 	                            <img src="images/quan.jpg" width="50px" height="40px" style="margin-left:15px;"/>
-	                            <div style="float:right; margin-right:20px;">${c.commItem }<br />${c.nameOfGoods }</div>
+	                            <div style="float:right; margin-right:20px;">${c.shopCommodity.commItem }<br />${c.shopCommodity.commoidtyName }</div>
 		                        </li>
 		                        <li style="width:100px;">￥${c.price}</li>
 	                        	<li>${c.quantity }</li>
@@ -105,16 +105,23 @@ function setTab(name,m,n){
 	                        	<c:if test="${o.orderstatus == 'BuyersHavePaid'}">买家已付款</c:if>
 	                        	<c:if test="${o.orderstatus == 'waitDelivery'}">等待卖家发货</c:if>
 	                        	<c:if test="${o.orderstatus == 'transitGoods'}">卖家已发货</c:if>
-	                        	<c:if test="${o.orderstatus == 'consigneeSigning'}">等待收货人签单</c:if>
 	                        	<c:if test="${o.orderstatus == 'completionTransaction'}">完成交易</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundOrderForm'}">关闭交易</c:if>
+	                        	<c:if test="${o.orderstatus == 'ApplicationForRefund'}">申请退款</c:if>
 	                        	<c:if test="${o.orderstatus == 'closeTransaction'}">退款中的订单</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundSuccess'}">退款成功</c:if>
 	                        	<c:if test="${o.orderstatus == 'refundFailed'}">退款失败</c:if>
 	                        </li>
-	                        <li></li>
-	                        <li style="width:100px;">￥${c.money}(运费${o.deliveryMoney})</li>
-	                        <li>${c.comment }</li>
+	                        <li style="width:100px;">￥${c.money}</li>
+	                        	<c:forEach items="${c.shopCommodity.shopreviews}" var="re">
+										<c:if test="${re.user.id == o.orderUser.id}">
+											<c:if test="${re.orderForm.orderFormID == o.orderFormID}">
+												<li>${re.reviewsRank}</li>
+											</c:if>
+										</c:if>
+									</c:forEach>
+
+
 	                		</c:forEach>
 	                	</c:forEach>
                     </ul>

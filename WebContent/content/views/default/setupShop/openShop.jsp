@@ -14,7 +14,7 @@
 <head>
 <meta charset="utf-8" />
 <base href="<%=basePath%>" />
-<title>不倒翁首页</title>
+<title>不倒翁</title>
 <link rel="stylesheet" type="text/css" href="content/static/css/seller.css">
 <link rel="stylesheet" type="text/css" href="content/static/css/style.css">
 <!--<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>-->

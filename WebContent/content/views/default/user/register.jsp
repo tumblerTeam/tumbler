@@ -269,7 +269,7 @@
 										</div>
 										<div id="entry" class="item item-fore2">
 											<label class="login-label pwd-label" for="nloginpwd"></label>
-											</label> <input type="password" id="inputPasw" name="password"
+											</label> <input type="password" id="inputPasw" name="password" onkeydown="KeyDown()"
 												class="itxt itxt-error" tabindex="2" autocomplete="off"
 												placeholder="密码" /> <input type="hidden" name="loginpwd"
 												id="loginpwd" value="" class="hide" /> <span
@@ -416,6 +416,13 @@
 		</div>
 	</div>
 	<script type="text/javascript">
+	function KeyDown(){
+		if (event.keyCode == 13)
+		  {
+			document.formlogin.action = "user/login";
+			document.formlogin.submit();
+		  }
+	}
 	function checkAll(){
 		//var uname = $("#mobile1").val();
 		//var validateCode = $("#mobile_code").val();

@@ -36,13 +36,24 @@
 <script type="text/javascript" src="content/static/js/lib/scripts.js"></script>
 </head>
 <script type="text/javascript">
-	function popupWindow(url) {
-		popupWindow = window
-				.open(
-						url,
-						'popUpWindow',
-						'height=600,width=600,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
-	}
+function popupwindow(url) {
+	var w = 700;
+	var h = 800;
+	var title = "";
+	var left = (screen.width / 2) - (w / 2);
+	var top = (screen.height / 2) - (h / 2);
+	return window
+			.open(
+					url,
+					title,
+					'directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=yes,resizable=yes, width='
+							+ w
+							+ ', height='
+							+ h
+							+ ', top='
+							+ top
+							+ ', left=' + left);
+}
 </script>
 <jsp:include page='../common/header.jsp' />
 <div class="row clearfix">
@@ -92,7 +103,10 @@
 									<td>${shop.phone }</td>
 									<td>${shop.createDate }</td>
 									<td><button
-											onclick="onIspalm('management/updateIsPermit?id=${shop.user.id}&isPermit=true');">同意开店</button></td>
+											onclick="onIspalm('management/updateIsPermit?id=${shop.user.id}&isPermit=true');">同意开店</button>
+										<button onclick="popupwindow('management/rejectReason?ShopId=${shop.id}')">驳回</button>	
+									</td>
+									
 									</tr>
 								</tbody>
 							</c:forEach>
