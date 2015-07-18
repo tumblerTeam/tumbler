@@ -294,8 +294,7 @@
 			</div>
 		</div>
 	</div>
-	</div>
-	<jsp:include page="../frontDesk/foot.jsp" />
+	<jsp:include page="../frontDesk/foot.jsp"/>
 	<script type="text/javascript">
 		function orderGenerate(){
 			$('#mudidi').val($('#addressChange').val());

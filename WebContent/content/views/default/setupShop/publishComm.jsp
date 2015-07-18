@@ -76,6 +76,28 @@ function f1(div1,div2){
         
         <div class="fabu">
              <div class="center">
+             <!-- 测试微支付功能： -->
+<!--              	<form action="https://api.mch.weixin.qq.com/pay/unifiedorder" method="post"> -->
+<!--              		<input type="text" name="appid" value=""/> -->
+<!--              		<input type="text" name="mch_id" value=""/> -->
+<!--              		<input type="text" name="nonce_str" value=""/> -->
+<!--              		<input type="text" name="sign" value=""/> -->
+<!--              		<input type="text" name="body" value="Ipad mini  16G  白色"/> -->
+<!--              		<input type="text" name="detail" value="Ipad mini  16G  白色"/> -->
+<!--              		<input type="text" name="fee_type" value="CNY"/> -->
+<!--              		<input type="text" name="total_fee" value="200"/> -->
+<!--              		<input type="text" name="time_start" value=""/> -->
+<!--              		<input type="text" name="total_fee" value=""/> -->
+<!--              		<input type="text" name="time_expire" value=""/> -->
+<!--              		<input type="text" name="trade_type" value="JSAPI"/> -->
+<!--              		<input type="text" name="openid" value=""/> -->
+<!--              		<input type="text" name="appid" value=""/> -->
+<!--              		<input type="text" name="appid" value=""/> -->
+             	
+<!--              	</form> -->
+             
+             
+             <!-- 支付结束 -->
              	<h3 style="margin:10px 0px 0px 15px;">请选择商品类型：</h3>
              	<div class="first" style="margin-left: auto;margin-right: auto;float:none;">
                 	<ul>
