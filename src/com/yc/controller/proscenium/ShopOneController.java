@@ -136,7 +136,7 @@ public class ShopOneController {
 
 	@Autowired
 	IBuyCarService buyCarService;
-	
+		
 	@RequestMapping("checkCommItem")
 	@ResponseBody
 	public Map<String, Object> checkCommItem(HttpServletRequest req){
@@ -452,7 +452,10 @@ public class ShopOneController {
 				ShopCommodity comm = shopCommodityService.
 						getAllByCommItemAndShop(commodity.getCommItem(), shop.getId());
 				//得到商品ID commID
-				Integer commID = comm.getCommCode();
+				Integer commID = 0;
+				if (comm!=null) {
+					commID = comm.getCommCode();
+				}				
 				Integer category = 0;
 				//得到类别ID category
 				if (comm.getShopCategory()!=null) {
@@ -1369,16 +1372,19 @@ public class ShopOneController {
 		List<ShopCommodity> yangComms = new ArrayList<ShopCommodity>();
 		List<ShopCommodity> foodComms = new ArrayList<ShopCommodity>();
 		//葡萄酒：
-		for (int i = 0; i < commodities.size()&&commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory().equals("葡萄酒"); i++) {
-			if (commodities.get(i).getShelves()) {
-				//得到商品的类别的三级目录
-				mapRed.put(commodities.get(i).getShopCategory().getCategory()+"", commodities.get(i).getShopCategory().getCategory());
-				System.out.println("商品的类别是：3：：："+commodities.get(i).getShopCategory().getCategory());
-				//得到商品的类别的一级目录
-				System.out.println("商品的类别是：1：：："+commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory());
-				redComms.add(commodities.get(i));
-			}			
+		if (commodities!=null) {
+			for (int i = 0; i < commodities.size()&&commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory().equals("葡萄酒"); i++) {
+				if (commodities.get(i).getShelves()) {
+					//得到商品的类别的三级目录
+					mapRed.put(commodities.get(i).getShopCategory().getCategory()+"", commodities.get(i).getShopCategory().getCategory());
+					System.out.println("商品的类别是：3：：："+commodities.get(i).getShopCategory().getCategory());
+					//得到商品的类别的一级目录
+					System.out.println("商品的类别是：1：：："+commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory());
+					redComms.add(commodities.get(i));
+				}			
+			}
 		}
+		
 		mode.put("redComms", redComms);
 		mode.put("mapRed",mapRed);
 		

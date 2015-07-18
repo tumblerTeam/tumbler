@@ -474,7 +474,7 @@
 			
 			var commUnit = $("#commUnit").val();
 			var commUnitoption = $("#commUnit option:selected").val();
-			alert(commUnitoption);
+// 			alert(commUnitoption);
 			if(commUnitoption==1){
 				if(commUnit==''){
 					$("#promptcommUnit").text("");
@@ -497,7 +497,6 @@
 			}
 			
 			
-			
 			var cprice = $("#cprice").val();
 			if(cprice==''){
 				flag = 1;
@@ -517,7 +516,7 @@
 			}
 			
 			var uploadfile = $("#uploadfile").val();
-			alert(uploadfile);
+// 			alert(uploadfile);
 			if (uploadfile=='') {
 				flag = 1;
 				$("#promptuploadfile").text("需至少上传一张图片");
