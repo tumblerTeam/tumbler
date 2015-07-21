@@ -159,9 +159,9 @@ $(function(){
 			<div class="last" id="tab">
 				<div class="nav">
 					<ul>
-						<li id="tow3" onclick='setTab("tow",3,9)'>等待发货</li>
 						<li id="tow1" class="on" onclick='setTab("tow",1,9)'>近三个月订单</li>
 						<li id="tow2" onclick='setTab("tow",2,9)'>等待买家付款</li>
+						<li id="tow3" onclick='setTab("tow",3,9)'>等待发货</li>
 						<li id="tow4" onclick='setTab("tow",4,9)'>已发货</li>
 						<li id="tow5" onclick='setTab("tow",5,9)'>退款中</li>
 						<li id="tow6" onclick='setTab("tow",6,9)'>退款成功</li>
