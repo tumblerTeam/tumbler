@@ -1,7 +1,6 @@
 package com.yc.pay.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedMap;
@@ -12,10 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.methods.GetMethod;
+
 
 import com.yc.util.http.HttpConnect;
 import com.yc.util.http.HttpResponse;
@@ -24,7 +26,10 @@ import com.yc.util.pay.RequestHandler;
 import com.yc.util.pay.Sha1Util;
 import com.yc.util.pay.TenpayUtil;
 
-import net.sf.json.JSONObject;
+
+
+
+
 
 
 public class TopayServlet extends HttpServlet {
@@ -56,7 +61,7 @@ public class TopayServlet extends HttpServlet {
 		System.out.println("得到TEMP是否为空："+temp==null);
 		String tempValue="";
 		if( temp == null){
-				response.sendRedirect("/weChatpay/error.jsp");
+				response.sendRedirect("content/views/default/error.jsp");
 		}else{
 			try {
 				tempValue = temp.getStringResult();
@@ -64,10 +69,11 @@ public class TopayServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			System.out.println("得到tempValue:"+tempValue);
-			JSONObject  jsonObj = JSONObject.fromObject(tempValue);
+			JSONObject jsonObj = JSONObject.fromObject(tempValue);
+			System.out.println("得到的JSON！！！！！！！"+jsonObj);
 			if(jsonObj.containsKey("errcode")){
 				System.out.println(tempValue);
-				response.sendRedirect("/weChatpay/error.jsp");
+				response.sendRedirect("content/views/default/error.jsp");
 			}
 //			openId = jsonObj.getString("openid");
 			openId = (String)jsonObj.get("openid");
@@ -82,7 +88,6 @@ public class TopayServlet extends HttpServlet {
 				String strRandom = TenpayUtil.buildRandom(4) + "";
 				//10位序列号,可以自行调整。
 				String strReq = strTime + strRandom;
-				
 				
 				//商户号
 				String mch_id = partner;
@@ -115,8 +120,7 @@ public class TopayServlet extends HttpServlet {
 //				String goods_tag = "";
 				
 				//这里notify_url是 支付完成后微信发给该链接信息，可以判断会员是否支付成功，改变订单状态等。
-				String notify_url ="http://www.bdweng.com/weChatpay/success.jsp";
-				
+				String notify_url ="http://www.bdweng.com/content/views/default/success.jsp";
 				
 				String trade_type = "JSAPI";
 				String openid = openId;
@@ -154,7 +158,7 @@ public class TopayServlet extends HttpServlet {
 						"<out_trade_no>"+out_trade_no+"</out_trade_no>"+
 						"<attach>"+attach+"</attach>"+
 	//金额，这里写的1 分到时修改
-						"<total_fee>"+1+"</total_fee>"+
+						"<total_fee>"+total_fee+"</total_fee>"+
 //						"<total_fee>"+finalmoney+"</total_fee>"+
 						"<spbill_create_ip>"+spbill_create_ip+"</spbill_create_ip>"+
 						"<notify_url>"+notify_url+"</notify_url>"+
@@ -176,7 +180,7 @@ public class TopayServlet extends HttpServlet {
 					System.out.println("获取到的预支付ID：" + prepay_id);
 					if(prepay_id.equals("")){
 						request.setAttribute("ErrorMsg", "统一支付接口获取预支付订单出错");
-						response.sendRedirect("/weChatpay/error.jsp");
+						response.sendRedirect("content/views/default/error.jsp");
 					}
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -194,7 +198,7 @@ public class TopayServlet extends HttpServlet {
 				finalpackage.put("signType", "MD5");
 				String finalsign = reqHandler.createSign(finalpackage);
 				System.out.println(":::a::"+appid2+":::t:::"+timestamp+":::n::"+nonceStr2+":::p::"+packages+"::f:::"+finalsign);
-				response.sendRedirect("/weChatpay/pay.jsp?appid="+appid2+"&timeStamp="+timestamp+"&nonceStr="+nonceStr2+"&package="+packages+"&sign="+finalsign);
+				request.getRequestDispatcher("toJsonFmatUtil/weiPay?appid="+appid2+"&timeStamp="+timestamp+"&nonceStr="+nonceStr2+"&packages="+packages+"&sign="+finalsign).forward(request, response);
 				return ;
 	}
 

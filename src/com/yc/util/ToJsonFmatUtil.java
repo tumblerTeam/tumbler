@@ -18,6 +18,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.yc.entity.AdvertiseDistribution;
 import com.yc.entity.Advertisement;
@@ -66,6 +67,22 @@ public class ToJsonFmatUtil {
 	@Resource
 	ServiceTools serviceTools;
 
+	@RequestMapping(value = "weiPay", method = RequestMethod.GET)
+	public ModelAndView weiPay(String appid,String timeStamp,String nonceStr,String packages,String sign, HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		ModelMap mode = new ModelMap();
+		System.out.println("appid========="+appid);
+		System.out.println("timeStamp========="+timeStamp);
+		System.out.println("nonceStr========="+nonceStr);
+		System.out.println("packages========="+packages);
+		System.out.println("sign========="+sign);
+		mode.put("appid", appid);
+		mode.put("timeStamp", timeStamp);
+		mode.put("nonceStr", nonceStr);
+		mode.put("packages", packages);
+		mode.put("sign", sign);
+		return new ModelAndView("pay/wxpay",mode);
+	}
+	
 	// 获得所选页面的广告位
 	@RequestMapping(value = "getAdverPositions", method = RequestMethod.GET)
 	@ResponseBody

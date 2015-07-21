@@ -83,7 +83,7 @@
                         	 	}
                         	 	window.onload = check;
                         	 </script>
-                        生日：<input style="margin-left: 40px;" type="date" name="birthday" value='${shop.birthday}'/><br />
+                       生日：<input style="margin-left: 40px;" type="date" name="birthday" value='${shop.birthday}'/><br />
                         	
              		<div> 地址：
 						 省：<select id="cmbProvince" name="province"></select> 
@@ -132,11 +132,11 @@
                                    <option value="青羊区">青羊区</option>
                                     <option value="武侯区">武侯区</option>
                                     <option value="">新市区</option>
-                                 </select><br />
+                                 </select><br/>
                           *详细地址：<input name="street" style="width:400px; height:70px; margin-left:30px;" value="请输入详细信息" /><br />
                           邮政编码：<input name="toEmail" style="margin-left:40px;" /><br />
                           *收货人姓名：<input name="toName" type="text" /><br />
-                          手机号码：
+                          	手机号码：
                                 <input name="phone" type="text" /><br />
                                 <input name="default" type="radio" style="margin-left:150px;" />设置为默认收货地址<br />
                                 <input type="submit" value="保存"/>

@@ -23,14 +23,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.yc.entity.Address;
 import com.yc.entity.Collection;
 import com.yc.entity.OrderForm;
 import com.yc.entity.OrderStatus;
 import com.yc.entity.ReviewsRank;
+import com.yc.entity.Shop;
 import com.yc.entity.ShopCategory;
 import com.yc.entity.ShopCommodity;
 import com.yc.entity.ShopReviews;
 import com.yc.entity.user.AppUser;
+import com.yc.service.IAddressService;
 import com.yc.service.IAppUserService;
 import com.yc.service.ICollectionService;
 import com.yc.service.ICommodityService;
@@ -70,6 +73,9 @@ public class UserController {
 	
 	@Autowired
 	ICommodityService commodityService;
+	
+	@Autowired
+	IAddressService addressService;
 
 	@RequestMapping(value = "login", method = { RequestMethod.POST, RequestMethod.GET })
 	public String login(String page, RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -303,6 +309,49 @@ public class UserController {
 		
 		return new ModelAndView("user/wuliu");
 	}
+	
+	//新增收货地址：
+	@RequestMapping("addNewAddress")
+	public String addNewAddress(HttpServletRequest req){
+		String shopCommId = req.getParameter("shopCommId");
+		String buyAmount = req.getParameter("buyAmount");
+		ModelMap mode = new ModelMap();
+		AppUser user = (AppUser)req.getSession().getAttribute("loginUser");
+		String toName = req.getParameter("toName");
+		String toEmail = req.getParameter("toEmail");
+		String street = req.getParameter("street");
+		String phone = req.getParameter("phone");
+		String province = req.getParameter("province");
+		String city = req.getParameter("city");
+		String area = req.getParameter("area");
+		String defaults = req.getParameter("default");
+		Address address = new Address();
+		address.setToEmail(toEmail);
+		address.setToName(toName);
+		address.setOther(street);
+		address.setPhone(phone);
+		address.setProvience(province);
+		address.setCity(city);
+		address.setDistrict(area);
+		//设置默认地址
+		if (defaults!=null) {
+			List<Address> addresses = addressService.getAll();
+			for (int i = 0; i < addresses.size(); i++) {
+				if (addresses.get(i).getTheDefault()) {
+					addresses.get(i).setTheDefault(false);
+				}
+			}
+			address.setTheDefault(true);
+		}else {
+			address.setTheDefault(false);
+		}
+		address.setUser(user);
+		addressService.save(address);
+		List<Address> addresses = addressService.getAll();
+		mode.put("addresses", addresses);
+		return "redirect:buyCommodity?shopCommId="+shopCommId+"&buyAmount="+buyAmount;
+	}
+		
 	// MD5加码。32位
 	public static String MD5(String inStr) {
 		MessageDigest md5 = null;

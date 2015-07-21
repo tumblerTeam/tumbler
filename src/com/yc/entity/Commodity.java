@@ -20,7 +20,7 @@ public class Commodity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer commodityID;
-	@ManyToOne(cascade={CascadeType.MERGE,CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REFRESH})
+	@ManyToOne
 	@JoinColumn(name = "shopcommodity_id")
 	private ShopCommodity shopCommodity;
 	@Column
@@ -37,11 +37,11 @@ public class Commodity {
 	@Column
 	private String commSpec;// 规格【，颜色-红色，尺寸-12L,】
 
-	@ManyToOne(cascade={CascadeType.MERGE,CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REFRESH})
+	@ManyToOne
 	@JoinColumn(name = "shopcategory")
 	private ShopCategory shopcategory;// 类别
 
-	@ManyToOne(cascade={CascadeType.MERGE,CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REFRESH})
+	@ManyToOne
 	@JoinColumn(name = "seller_name")
 	private Shop seller;// 卖家
 

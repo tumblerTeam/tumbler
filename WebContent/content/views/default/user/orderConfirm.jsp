@@ -22,6 +22,10 @@
 	href="content/static/css/style.css" />
 <script type="text/javascript" src="content/static/js/lib/jquery.min.js"></script>
 <script type="text/javascript" src="content/static/js/tumbler/lrtk.js"></script>
+<script  type="text/javascript"
+	src="content/static/js/datetime/jquery.js">
+<script type="text/javascript"
+	src="content/static/js/datetime/jsAddress.js"></script>
 <title>不倒翁</title>
 
 <script>
@@ -65,7 +69,7 @@
 									<option value="${address.id }"
 										<c:if test="${address.theDefault == true }">selected</c:if>>${address.toName }</option>
 								</c:forEach>
-							</select> <a href="javascript:void(0);" ><font
+							</select> <a href="javascript:void(0);" onclick="newAddress();" ><font
 								color="blue">使用新地址</font></a>
 						</p>
 						<p class="shcaadds" id="addressShow"></p>
@@ -116,34 +120,52 @@
 									</c:forEach>
 									$('#addressShow').append($option);
 								});
+				function newAddress(){
+					$('#newaddress').css("display", "block");
+					$('#xiu').css("display", "none");
+				}
 			</script>
+			
 			<div class="new_address" id="newaddress" style="display: none;">
 				<div class="new">添加送货地址：</div>
-				<img id="guanbi" src="images/guanbi.png" />
-				<form>
-					*收货人：<input type="text" name="name" /><br /> *收货地址：<select
-						style="width: 100px;">
-						<option>请选择</option>
-						<option>四川</option>
-						<option>新疆</option>
-						<option>北京</option>
-					</select> <select>
-						<option>请选择</option>
-						<option>成都</option>
-						<option>广元</option>
-						<option>乌鲁木齐</option>
-					</select> <select>
-						<option>请选择</option>
-						<option>武侯区</option>
-						<option>青川</option>
-						<option>新市区</option>
-					</select><br /> *详细地址：<input type="text" name="add" /><br /> *手机号码：<input
-						type="tel" name="phone" /><br /> 固定电话：<input type="text"
-						name="phone1" />
-				</form>
+				<div class="dizhi">
+					<div class="box1">
+						<div id="dizhi">
+							<form action="user/addNewAddress" method="post">
+								<input type="text" name="shopCommId" value=""/>
+								<input type="hidden" name="buyAmount" value=""/>
+								*所在地区：
+                                <select name="province">
+                        		<option>---</option>
+                                <option value="四川">四川</option>
+                                <option>新疆</option>
+                                    <option>北京</option>
+                                 </select>
+                                 <select name="city">
+                                   <option>---</option>
+                                    <option value="广元">广元</option>
+                                    <option>成都</option>
+                                    <option>乌鲁木齐</option>
+                                 </select>
+                                 <select name="area">
+                                   <option>---</option>
+                                   <option value="青羊区">青羊区</option>
+                                    <option value="武侯区">武侯区</option>
+                                    <option value="">新市区</option>
+                                 </select><br/>
+                          *详细地址：<input name="street" style="width:400px; height:70px; margin-left:30px;" value="请输入详细信息" /><br />
+                          	邮政编码：<input name="toEmail" style="margin-left:40px;" /><br />
+                          *收货人姓名：<input name="toName" type="text" /><br />
+                          	手机号码：
+                                <input name="phone" type="text" /><br />
+                                <input name="default" type="radio" style="margin-left:150px;" />设置为默认收货地址<br />
+                                <input type="submit" value="保存"/>
+                    	</form>
+						</div>
+					</div>
 				<div class="baocun" id="new">保存</div>
 			</div>
-
+			</div>
 			<div class="way">
 				<div class="zi">配送方式</div>
 				<hr />
@@ -165,8 +187,8 @@
 			<div class="list">
 				<div>商品清单</div>
 				<div class="nav">
-					<ul>
-						<li style="width: 560px;">商品名称</li>
+					<ul style="color:#a40c59;">
+						<li style="width: 560px; color:#a40c59;">商品名称</li>
 						<li>商品单价</li>
 						<li style="width: 160px">购买数量</li>
 						<li>优惠金额</li>
@@ -244,7 +266,7 @@
 			<form action="user/orderGenerate" method="post" id="orderGenerateForm">
 				<input name="shouhuoTime" type="hidden" value="工作日、双休日与节假日均可送货"/>
 				<input name="xunshufangshi" type="hidden" value="ems"/>
-				<input name="ids" type="hidden" value="${vars }"/>
+				<input name="ids" type="text" value="${vars }"/>
 				<input name="yunfei" type="hidden" value="${zhongliang * 6 }"/>
 				<input name="mudidi" id="mudidi" type="hidden" value=""/>
 			</form>

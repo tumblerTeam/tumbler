@@ -290,7 +290,46 @@ public class SearchController {
     public ModelAndView searchForName(String paramName,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
  		List<ShopCommodity> list = shopCommService.searchShopComm(paramName);
  		ModelMap mode = new ModelMap();
+ 		if(list != null && list.size()>0){
+ 			if(list.get(0) != null){
+ 				Integer cateid = list.get(0).getShopCategory().getParentLevel().getParentLevel().getCategoryID();
+ 				ShopCategory cate = shopCategService.findById(cateid);
+ 	 			mode.put("brands", cate.getBrands());
+ 	 			Map<String, Object> map = new HashMap<String, Object>();
+ 	 			if (cateid == null) {
+ 	 				map.put("cateid", null);
+ 	 			} else {
+ 	 				map.put("cateid", cateid);
+ 	 			}
+ 	 			mode.put("cateid", cateid);
+ 	 			List<ShopCategory> shopcates = new ArrayList<ShopCategory>();
+ 	 			mode.put("specifications", cate.getSpecifications());
+ 	 			String strs = "";
+ 	 			shopcates.add(cate);
+ 	 			if (cate.getCategoryID() == 1) {
+ 	 				List<FamousManor> famousManors =  famousManorService.getAll();
+ 	 				mode.put("famousManors", famousManors);
+ 	 			}
+ 	 			while (cate.getParentLevel() != null) {
+ 	 				cate = shopCategService.findById(cate.getParentLevel().getCategoryID());
+ 	 				if (cate != null) {
+ 	 					shopcates.add(cate);
+ 	 				}
+ 	 			}
+ 	 			for (int i = shopcates.size() - 1; i >= 0; i--) {
+ 	 				if (i == shopcates.size() - 1) {
+ 	 					cate = shopcates.get(i);
+ 	 				}
+ 	 				strs = strs + shopcates.get(i).getCategoryID() + "-" + shopcates.get(i).getCategory() + "|";
+ 	 			}
+ 	 			shopcates = shopCategService.getAll();
+ 	 			mode.put("shopCategories", shopcates);
+ 	 			mode.put("cate", cate);
+ 	 			mode.put("nvabar", strs.substring(0, strs.length() - 1));
+ 			}
+ 		}
 		mode.put("list", list);
+		mode.put("searchForName", "searchForName");
 		return new ModelAndView("search/result", mode);
     }
 

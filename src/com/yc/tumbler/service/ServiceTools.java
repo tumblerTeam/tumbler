@@ -133,7 +133,8 @@ public class ServiceTools {
 				} else {
 					carcommodity.setUnitPrice(shopcommodity.getUnitPrice());// 把购物车商品更新为现实价位
 					carcommodity.setPrice(shopcommodity.getUnitPrice() * carcommodity.getAmount());// 重新计算购物车总价
-					carcommoidtyService.update(carcommodity);// 更新购物车商品信息
+					carcommodity = carcommoidtyService.update(carcommodity);// 更新购物车商品信息
+					System.out.println("carcommodity======"+carcommodity);
 					if (shopcommodity.getUsers().size() > 0) {
 						for (int j = 0; j < shopcommodity.getUsers().size(); j++) {
 							shopcommodity.getUsers().get(j).getActivityCommodities().remove(shopcommodity);

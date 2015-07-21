@@ -114,7 +114,7 @@
 			</div>
 		</div>
 		<form action="user/orderConfirm" id="formConfirm" method="post">
-			<input type="hidden" name="params" id="params" value=""/>
+			<input type="text" name="params" id="params" value=""/>
 		</form>
 		<script type="text/javascript">
 			function orderConfirm(){

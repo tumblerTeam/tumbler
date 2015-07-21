@@ -58,7 +58,7 @@
 							href="user/logout"><div
 								style="margin-left: 20px; margin-top: 12px;">退出账号</div></a>
 					</div></li>
-				<li class="nav4"><a href="javascript:void(0);" id="zh1">我的酒翁</a>
+				<li class="nav4"><a href="user/personalCenter" id="zh1">我的酒翁</a>
 				</li>
 			</c:if>
 			<li class="nav5" ><a href="user/reCarCommodity" id="buyCatNum">购物车(0)</a></li>

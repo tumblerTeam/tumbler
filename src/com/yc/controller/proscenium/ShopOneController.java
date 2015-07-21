@@ -458,9 +458,11 @@ public class ShopOneController {
 				}				
 				Integer category = 0;
 				//得到类别ID category
-				if (comm.getShopCategory()!=null) {
-					category = comm.getShopCategory().getCategoryID();
-				}
+				if (comm!=null) {
+					if (comm.getShopCategory()!=null) {
+						category = comm.getShopCategory().getCategoryID();
+					}
+				}				
 				
 				//得到店铺ID shopID
 				Integer shopID = shop.getId();
@@ -483,7 +485,7 @@ public class ShopOneController {
 				commAttribute.setShopCommodity(commodity);
 				shopCommAttributeService.save(commAttribute);
 			}
-			String endType = "";
+			//String endType = "";
 			if (myfile!=null&&myfile.length>0) {
 				for (int i = 0; i < myfile.length; i++) {
 					ShopCommImage commImage = new ShopCommImage();
@@ -493,7 +495,7 @@ public class ShopOneController {
 					saveFileOfCommImage(fname,shop,commodity,req ,file);
 	    			String name2 = file.getOriginalFilename();
 	    			// 得到要上传文件的后缀名
-	    			endType = name2.substring(name2.lastIndexOf("."),name2.length());
+	    			//endType = name2.substring(name2.lastIndexOf("."),name2.length());
 	    			String root = req.getSession().getServletContext().getRealPath("../");
 	    			File uploadDir = new File(root, "images/").getCanonicalFile();
 	            	if (!uploadDir.exists() || uploadDir.isFile()) {
@@ -508,7 +510,7 @@ public class ShopOneController {
 	            		uploadDir.mkdir();
 	        		}
 	    			
-					commImage.setImagePath("images/"+shop.getId()+"/"+commodity.getCommCode()+"/"+fname+endType);
+					commImage.setImagePath("images/"+shop.getId()+"/"+commodity.getCommCode()+"/"+name2);
 					commImage.setShopCommoidty(commodity);
 					shopCommImageService.save(commImage);
 				}
@@ -1373,6 +1375,7 @@ public class ShopOneController {
 		List<ShopCommodity> foodComms = new ArrayList<ShopCommodity>();
 		//葡萄酒：
 		if (commodities!=null) {
+			
 			for (int i = 0; i < commodities.size()&&commodities.get(i).getShopCategory().getParentLevel().getParentLevel().getCategory().equals("葡萄酒"); i++) {
 				if (commodities.get(i).getShelves()) {
 					//得到商品的类别的三级目录
@@ -1918,22 +1921,24 @@ public class ShopOneController {
 		ShopCommoditySpecs shopSpecs = shopCommoidty.getCommsPecs();
 		if (shopSpecs != null) {
 			String spec = shopSpecs.getCommSpec();
-			String[] specs = {};
-			if(spec != null){
-				specs = spec.split(",");
-			}
-			if (specs.length > 0) {
-				for (int i = 0; i < specs.length; i++) {
-					if (!specs[i].equals("")) {
-						if (map.containsKey(specs[i].split("-")[0])) {
-							specStrs = map.get(specs[i].split("-")[0]);
-							if (!specStrs.contains(specs[i].split("-")[1])) {
+			if(spec != null && !spec.equals("")){
+				String[] specs = {};
+				if(spec != null){
+					specs = spec.split(",");
+				}
+				if (specs.length > 0) {
+					for (int i = 0; i < specs.length; i++) {
+						if (!specs[i].equals("")) {
+							if (map.containsKey(specs[i].split("-")[0])) {
+								specStrs = map.get(specs[i].split("-")[0]);
+								if (!specStrs.contains(specs[i].split("-")[1])) {
+									specStrs.add(specs[i].split("-")[1]);
+								}
+							} else {
+								specStrs = new ArrayList<String>();
 								specStrs.add(specs[i].split("-")[1]);
+								map.put(specs[i].split("-")[0], specStrs);
 							}
-						} else {
-							specStrs = new ArrayList<String>();
-							specStrs.add(specs[i].split("-")[1]);
-							map.put(specs[i].split("-")[0], specStrs);
 						}
 					}
 				}
