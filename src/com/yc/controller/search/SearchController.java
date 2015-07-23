@@ -18,15 +18,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.yc.entity.Brand;
 import com.yc.entity.FamousManor;
+import com.yc.entity.ReviewsRank;
 import com.yc.entity.ShopCategory;
 import com.yc.entity.ShopCommodity;
-import com.yc.entity.Specifications;
+import com.yc.entity.ShopCommoditySpecs;
+import com.yc.entity.ShopReviews;
+import com.yc.entity.user.AppUser;
 import com.yc.service.IBrandService;
 import com.yc.service.IFamousManorService;
 import com.yc.service.IShopCategoryService;
 import com.yc.service.IShopCommodityService;
+import com.yc.service.IShopReviewsService;
 import com.yc.service.ISpecificationsService;
 
 //公告管理
@@ -51,6 +54,9 @@ public class SearchController {
 	@Autowired
 	IBrandService brandService;
 
+	@Autowired
+	IShopReviewsService shopReviewsService;
+	
 	@RequestMapping(value = "result", method =RequestMethod.GET)
 	public ModelAndView result(String brand, Integer cateid, Integer id, String famousid, String spec, String params,String orderByPice, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ModelMap mode = new ModelMap();
@@ -333,4 +339,80 @@ public class SearchController {
 		return new ModelAndView("search/result", mode);
     }
 
+	@RequestMapping(value = "shopItem", method = RequestMethod.GET)
+	public ModelAndView shopItem(Integer commID, Integer category, Integer shopID, String commoName, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ModelMap mode = new ModelMap();
+		ShopCategory cate = shopCategService.findById(category);
+		List<ShopReviews> reviewslist = shopReviewsService.getAllBycommCode(commID);
+		Integer hao = 0;
+		Integer zhong = 0;
+		Integer cha = 0;
+		for (int i = 0; i < reviewslist.size(); i++) {
+			if (reviewslist.get(i).getReviewsRank() == ReviewsRank.good) {
+				hao = hao + 1;
+			}
+			if (reviewslist.get(i).getReviewsRank() == ReviewsRank.better) {
+				zhong = zhong + 1;
+			}
+			if (reviewslist.get(i).getReviewsRank() == ReviewsRank.bad) {
+				cha = cha + 1;
+			}
+		}
+		mode.put("reviewslist", reviewslist);
+		mode.put("hao", hao);
+		mode.put("zhong", zhong);
+		mode.put("cha", cha);
+		List<ShopCategory> shopcates = new ArrayList<ShopCategory>();
+		shopcates.add(cate);
+		mode.put("specifications", cate.getSpecifications());
+		String strs = "";
+		while (cate.getParentLevel() != null) {
+			cate = shopCategService.findById(cate.getParentLevel().getCategoryID());
+			if (cate != null) {
+				shopcates.add(cate);	
+			}
+		}
+		for (int i = shopcates.size() - 1; i >= 0; i--) {
+			strs = strs + shopcates.get(i).getCategoryID() + "-" + shopcates.get(i).getCategory() + "|";
+		}
+		List<ShopCategory> shopcategories = shopCategService.getAll();
+		mode.put("shopCategories", shopcategories);
+		mode.put("nvabar", strs.substring(0, strs.length() - 1));
+		ShopCommodity shopCommoidty = shopCommService.findById(commID);
+		Map<String, List<String>> map = new HashMap<String, List<String>>();
+		List<String> specStrs = null;
+		mode.put("shopCommoidty", shopCommoidty);
+		ShopCommoditySpecs shopSpecs = shopCommoidty.getCommsPecs();
+		if (shopSpecs != null) {
+			String spec = shopSpecs.getCommSpec();
+			if(spec != null && !spec.equals("")){
+				String[] specs = {};
+				if(spec != null){
+					specs = spec.split(",");
+				}
+				if (specs.length > 0) {
+					for (int i = 0; i < specs.length; i++) {
+						if (!specs[i].equals("")) {
+							if (map.containsKey(specs[i].split("-")[0])) {
+								specStrs = map.get(specs[i].split("-")[0]);
+								if (!specStrs.contains(specs[i].split("-")[1])) {
+									specStrs.add(specs[i].split("-")[1]);
+								}
+							} else {
+								specStrs = new ArrayList<String>();
+								specStrs.add(specs[i].split("-")[1]);
+								map.put(specs[i].split("-")[0], specStrs);
+							}
+						}
+					}
+				}
+			}
+		}
+		List<ShopCategory> list = shopCategService.getAllByParent();
+		mode.put("categories", list);
+		mode.put("map", map);
+		AppUser user = (AppUser) request.getSession().getAttribute("loginUser");
+		mode.put("user", user);
+		return new ModelAndView("reception/shopItem", mode);
+	}
 }

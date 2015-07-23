@@ -15,16 +15,24 @@
 <base href="<%=basePath%>" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>不倒翁</title>
-<meta name="description" content="CSS3 Full Screen Vertical Scroller with jQuery animation fallback" />
+<meta name="description"
+	content="CSS3 Full Screen Vertical Scroller with jQuery animation fallback" />
 <meta name="viewport" content="width=device-width, user-scalable=no" />
 <script type="text/javascript" src="content/static/js/lib/jquery.min.js"></script>
-<script type="text/javascript" src="content/static/js/tumbler/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="content/static/js/tumbler/jquery.SuperSlide.2.1.1.js"></script>
-<link rel="stylesheet" type="text/css" href="content/static/css/style.css" />
-<link rel="stylesheet" type="text/css" href="content/static/css/right.css" />
-<link rel="stylesheet" type="text/css" href="content/static/css/daxuewen1012.css" />
-<link rel="stylesheet" type="text/css" href="content/static/css/animation.css" />
-<link rel="stylesheet" type="text/css" href="content/static/css/b_style.css" />
+<script type="text/javascript"
+	src="content/static/js/tumbler/jquery-1.7.2.min.js"></script>
+<script type="text/javascript"
+	src="content/static/js/tumbler/jquery.SuperSlide.2.1.1.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="content/static/css/style.css" />
+<link rel="stylesheet" type="text/css"
+	href="content/static/css/right.css" />
+<link rel="stylesheet" type="text/css"
+	href="content/static/css/daxuewen1012.css" />
+<link rel="stylesheet" type="text/css"
+	href="content/static/css/animation.css" />
+<link rel="stylesheet" type="text/css"
+	href="content/static/css/b_style.css" />
 <style>
 .left li.ysli {
 	background: url(content/static/images/tab.png) scroll 0px 25px no-repeat;
@@ -36,7 +44,9 @@
 }
 </style>
 <style>
-	.bgimg{ opacity:0.3;}
+.bgimg {
+	opacity: 0.3;
+}
 </style>
 <!--搜索框-->
 <script>
@@ -58,10 +68,6 @@
         			  whichPage: "首页"
         		   }, function(json) {
         			   $.each(json.advertisementList, function(i,item){
-        				//  alert(item.id);	//id
-//         				   alert(item.imagePath);//宣传图片
-//         				   alert(item.link);//链接
-//         				   alert(item.adverDistribution.position);//广告所在位置
                                   if(item.adverDistribution.position=='首页大眼睛'){
                                 	    $("#Adv_1").append("<li><a href=\""+item.link+"\"><div class=\"m-width\"style=\"width: 100%; height: 450px; background: url("+item.imagePath+") center center;\"></div></a></li>");
                                   }else if(item.adverDistribution.position=='首页强力推荐A1'){
@@ -163,7 +169,7 @@
 </head>
 <body>
 
-	
+
 	<!--顶部内容-->
 
 	<script type="text/javascript">
@@ -219,14 +225,17 @@
 		}
 	</script>
 	<jsp:include page="frontDesk/header.jsp" />
-<style>
-	.bgimg{ opacity:0.3;}
+	<style>
+.bgimg {
+	opacity: 0.3;
+}
 </style>
 	<!--banner-->
 	<div class="banner">
-		<div id="csdiv"  style="border:0px solid #fff; width:190px; height:450px; float:left; position:absolute; z-index:9999; right:-300px;" >
+		<div id="csdiv"
+			style="border: 0px solid #fff; width: 190px; height: 450px; float: left; position: absolute; z-index: 9999; right: -300px;">
 		</div>
-		
+
 		<div class="menu_nav" id="menu_nav">
 			<div class="showdivs">
 				<div class="showdivs_left" style="width: 220px; float: left;">
@@ -251,14 +260,16 @@
 				</div>
 				<div class="showdivs_right" style="float: right; width: 220px">
 					<c:forEach items="${categories }" var="category">
-							<c:if test="${category.categoryID == 1 }">
-								<c:if test="${not empty category.brands }">
-								<h2 style="font-family: 微软雅黑; color: #fff; margin-left: 10px; margin-top: 20px; font-size: 13px;">品牌</h2>
-								<hr    style="float:none; border-color:#FFF; " width="200"  />
-	                    		<div class="list_con" style="margin-left:10px;" >
-								<c:forEach items="${category.brands }" var="brand">
-									<a href="search/result?cateid=${category.categoryID }&brand=brand-${brand.brandID }">${brand.brandName }</a> 
-								</c:forEach>
+						<c:if test="${category.categoryID == 1 }">
+							<c:if test="${not empty category.brands }">
+								<h2
+									style="font-family: 微软雅黑; color: #fff; margin-left: 10px; margin-top: 20px; font-size: 13px;">品牌</h2>
+								<hr style="float: none; border-color: #FFF;" width="200" />
+								<div class="list_con" style="margin-left: 10px;">
+									<c:forEach items="${category.brands }" var="brand">
+										<a
+											href="search/result?cateid=${category.categoryID }&brand=brand-${brand.brandID }">${brand.brandName }</a>
+									</c:forEach>
 								</div>
 							</c:if>
 						</c:if>
@@ -290,12 +301,14 @@
 					<c:forEach items="${categories }" var="category">
 						<c:if test="${category.categoryID == 2 }">
 							<c:if test="${not empty category.brands }">
-								<h2 style="font-family: 微软雅黑; color: #fff; margin-left: 10px; margin-top: 20px; font-size: 13px;">品牌</h2>
-								<hr    style="float:none; border-color:#FFF; " width="200"  />
-	                    		<div class="list_con" style="margin-left:10px;" >
-								<c:forEach items="${category.brands }" var="brand">
-									<a href="search/result?cateid=${category.categoryID }&brand=brand-${brand.brandID }">${brand.brandName }</a> 
-								</c:forEach>
+								<h2
+									style="font-family: 微软雅黑; color: #fff; margin-left: 10px; margin-top: 20px; font-size: 13px;">品牌</h2>
+								<hr style="float: none; border-color: #FFF;" width="200" />
+								<div class="list_con" style="margin-left: 10px;">
+									<c:forEach items="${category.brands }" var="brand">
+										<a
+											href="search/result?cateid=${category.categoryID }&brand=brand-${brand.brandID }">${brand.brandName }</a>
+									</c:forEach>
 								</div>
 							</c:if>
 						</c:if>
@@ -327,12 +340,14 @@
 					<c:forEach items="${categories }" var="category">
 						<c:if test="${category.categoryID == 3 }">
 							<c:if test="${not empty category.brands }">
-								<h2 style="font-family: 微软雅黑; color: #fff; margin-left: 10px; margin-top: 20px; font-size: 13px;">品牌</h2>
-								<hr    style="float:none; border-color:#FFF; " width="200"  />
-	                    		<div class="list_con" style="margin-left:10px;" >
-								<c:forEach items="${category.brands }" var="brand">
-									<a href="search/result?cateid=${category.categoryID }&brand=brand-${brand.brandID }">${brand.brandName }</a> 
-								</c:forEach>
+								<h2
+									style="font-family: 微软雅黑; color: #fff; margin-left: 10px; margin-top: 20px; font-size: 13px;">品牌</h2>
+								<hr style="float: none; border-color: #FFF;" width="200" />
+								<div class="list_con" style="margin-left: 10px;">
+									<c:forEach items="${category.brands }" var="brand">
+										<a
+											href="search/result?cateid=${category.categoryID }&brand=brand-${brand.brandID }">${brand.brandName }</a>
+									</c:forEach>
 								</div>
 							</c:if>
 						</c:if>
@@ -365,12 +380,14 @@
 					<c:forEach items="${categories }" var="category">
 						<c:if test="${category.categoryID == 4 }">
 							<c:if test="${not empty category.brands }">
-								<h2 style="font-family: 微软雅黑; color: #fff; margin-left: 10px; margin-top: 20px; font-size: 13px;">品牌</h2>
-								<hr    style="float:none; border-color:#FFF; " width="200"  />
-	                    		<div class="list_con" style="margin-left:10px;" >
-								<c:forEach items="${category.brands }" var="brand">
-									<a href="search/result?cateid=${category.categoryID }&brand=brand-${brand.brandID }">${brand.brandName }</a> 
-								</c:forEach>
+								<h2
+									style="font-family: 微软雅黑; color: #fff; margin-left: 10px; margin-top: 20px; font-size: 13px;">品牌</h2>
+								<hr style="float: none; border-color: #FFF;" width="200" />
+								<div class="list_con" style="margin-left: 10px;">
+									<c:forEach items="${category.brands }" var="brand">
+										<a
+											href="search/result?cateid=${category.categoryID }&brand=brand-${brand.brandID }">${brand.brandName }</a>
+									</c:forEach>
 								</div>
 							</c:if>
 						</c:if>
@@ -380,10 +397,11 @@
 			<div class="showdivs">
 				<div class="showdivs_left" style="width: 220px; float: left;">
 					<c:forEach items="${categories }" var="category">
-						<c:if test="${category.categoryID == 6 }">
+						<c:if test="${category.categoryID == 5 }">
 							<c:forEach var="cate1" items="${category.children }">
 								<c:if test="${not empty cate1.children }">
-									<h2 style="font-family: 微软雅黑; color: #fff; margin-left: 10px; margin-top: 20px; font-size: 13px;">${cate1.category }</h2>
+									<h2
+										style="font-family: 微软雅黑; color: #fff; margin-left: 10px; margin-top: 20px; font-size: 13px;">${cate1.category }</h2>
 									<hr style="float: none; border-color: #FFF;" width="200" />
 									<div class="list_con" style="margin-left: 10px;">
 										<c:forEach items="${cate1.children }" var="cate2">
@@ -397,14 +415,16 @@
 				</div>
 				<div class="showdivs_right" style="float: right; width: 220px">
 					<c:forEach items="${categories }" var="category">
-						<c:if test="${category.categoryID == 6 }">
+						<c:if test="${category.categoryID == 5 }">
 							<c:if test="${not empty category.brands }">
-								<h2 style="font-family: 微软雅黑; color: #fff; margin-left: 10px; margin-top: 20px; font-size: 13px;">品牌</h2>
-								<hr    style="float:none; border-color:#FFF; " width="200"  />
-	                    		<div class="list_con" style="margin-left:10px;" >
-								<c:forEach items="${category.brands }" var="brand">
-									<a href="search/result?cateid=${category.categoryID }&brand=brand-${brand.brandID }">${brand.brandName }</a> 
-								</c:forEach>
+								<h2
+									style="font-family: 微软雅黑; color: #fff; margin-left: 10px; margin-top: 20px; font-size: 13px;">品牌</h2>
+								<hr style="float: none; border-color: #FFF;" width="200" />
+								<div class="list_con" style="margin-left: 10px;">
+									<c:forEach items="${category.brands }" var="brand">
+										<a
+											href="search/result?cateid=${category.categoryID }&brand=brand-${brand.brandID }">${brand.brandName }</a>
+									</c:forEach>
 								</div>
 							</c:if>
 						</c:if>
@@ -513,8 +533,8 @@
 				</ul>
 			</div>
 			<div class="banner-btn">
-			        <a class="prev" style="display:none;" href="javascript:void(0);"></a>
-                    <a class="next" style="display:none;" href="javascript:void(0);"></a>  
+				<a class="prev" style="display: none;" href="javascript:void(0);"></a>
+				<a class="next" style="display: none;" href="javascript:void(0);"></a>
 			</div>
 			<div class="hd">
 				<ul></ul>
@@ -538,13 +558,13 @@
 				</ul>
 
 				<dl class="tab_list" id="test1_1">
-<!-- 				     5号广告位 -->
-			   </dl>
+					<!-- 				     5号广告位 -->
+				</dl>
 				<dl class="tab_list" id="test1_2" style="display: none;">
-<!-- 				     6号广告位 -->
+					<!-- 				     6号广告位 -->
 				</dl>
 				<dl class="tab_list" id="test1_3" style="display: none;">
-<!-- 					 7号广告位 -->
+					<!-- 					 7号广告位 -->
 				</dl>
 
 
@@ -593,14 +613,14 @@
 				</div>
 			</div>
 
-			<ul class="column_01"  id="Adv_9">
+			<ul class="column_01" id="Adv_9">
 			</ul>
 		</div>
 		<!--酒馆-->
 		<div class="column_02">
 			<div class="column_tt">
 				<div class="column_h1">
-					<b>红酒馆</b> <span>Red Wine</span>
+					<b>葡萄酒馆</b>
 				</div>
 				<div class="more_tt">
 					<a href="search/result?cateid=1"><b>进入红酒馆></b></a>
@@ -636,9 +656,8 @@
 						<li><a href="javascript:void(0);">勃艮第</a></li>
 					</ul>
 				</div>
-				<div class="jg2"  id="Adv_10">
-				</div>
-				<ul class="jg3"   id="Adv_11">
+				<div class="jg2" id="Adv_10"></div>
+				<ul class="jg3" id="Adv_11">
 				</ul>
 			</div>
 		</div>
@@ -647,7 +666,7 @@
 		<div class="column_03">
 			<div class="column_tt">
 				<div class="column_h1">
-					<b>白酒馆</b> <span>Red Wine</span>
+					<b>白酒馆</b>
 				</div>
 				<div class="more_tt">
 					<a href="search/result?cateid=2"><b>进入白酒馆></b></a>
@@ -681,8 +700,7 @@
 						<li><a href="javascript:void(0);">北京</a></li>
 					</ul>
 				</div>
-				<div class="jg2" id="Adv_12">
-				</div>
+				<div class="jg2" id="Adv_12"></div>
 				<ul class="jg3" id="Adv_13">
 				</ul>
 			</div>
@@ -691,7 +709,7 @@
 		<div class="column_04">
 			<div class="column_tt">
 				<div class="column_h1">
-					<b>洋酒馆</b> <span>Red Wine</span>
+					<b>洋酒馆</b>
 				</div>
 				<div class="more_tt">
 					<a href="search/result?cateid=4"><b>进入洋酒馆></b></a>
@@ -725,8 +743,7 @@
 						<li><a href="javascript:void(0);">法国</a></li>
 					</ul>
 				</div>
-				<div class="jg2" id="Adv_14">
-				</div>
+				<div class="jg2" id="Adv_14"></div>
 				<ul class="jg3" id="Adv_15">
 				</ul>
 			</div>
@@ -735,7 +752,7 @@
 		<div class="column_05">
 			<div class="column_tt">
 				<div class="column_h1">
-					<b>啤酒馆</b> <span>Red Wine</span>
+					<b>啤酒馆</b>
 				</div>
 				<div class="more_tt">
 					<a href="search/result?cateid=3"><b>进入啤酒馆></b></a>
@@ -768,25 +785,26 @@
 						<li><a href="javascript:void(0);">白啤酒</a></li>
 					</ul>
 				</div>
-				<div class="jg2" id="Adv_16">
-				</div>
+				<div class="jg2" id="Adv_16"></div>
 				<ul class="jg3" id="Adv_17">
 				</ul>
 			</div>
 		</div>
-          		<!--banner2-->
-        <div class="banner-box2">
-            <div class="bd"> 
-                <ul id="Adv_18">          	    
-                </ul>
-            </div>
-            <div class="hd"><ul></ul></div>
-        </div>  
+		<!--banner2-->
+		<div class="banner-box2">
+			<div class="bd">
+				<ul id="Adv_18">
+				</ul>
+			</div>
+			<div class="hd">
+				<ul></ul>
+			</div>
+		</div>
 		<!--其他-->
 		<div class="column_06">
 			<div class="column_tt">
 				<div class="column_h1">
-					<b>其他</b> <span>Other</span>
+					<b>养生酒/其它</b>
 				</div>
 				<ul class="more">
 					<li><a href="javascript:void(0);">醒酒器</a></li>
@@ -808,8 +826,7 @@
 						<li><a href="javascript:void(0);">新潮</a></li>
 					</ul>
 				</div>
-	            <div class="jg2" id="Adv_19">
-				</div>
+				<div class="jg2" id="Adv_19"></div>
 				<ul class="jg3" id="Adv_20">
 				</ul>
 			</div>
@@ -818,28 +835,66 @@
 	<!--脚部-->
 	<jsp:include page="frontDesk/foot.jsp" />
 	<div class="menu_l" id="menu_l">
-<style>
-.list00 li.bg_wg{background:url("content/static/images/menu_bg.png")/*tpa=http://y1.ifengimg.com/314bd925cdd17196/2014/1014/menu_bg.gif*/ no-repeat -67px 0;}
-.list00 li.bg_pm{background:url("content/static/images/menu_bg.png")/*tpa=http://y1.ifengimg.com/314bd925cdd17196/2014/1014/menu_bg.gif*/ no-repeat -67px -40px;}
-.list00 li.bg_pz{background:url("content/static/images/menu_bg.png")/*tpa=http://y1.ifengimg.com/314bd925cdd17196/2014/1014/menu_bg.gif*/ no-repeat -67px -80px;}
-.list00 li.bg_xt{background:url("content/static/images/menu_bg.png")/*tpa=http://y1.ifengimg.com/314bd925cdd17196/2014/1014/menu_bg.gif*/ no-repeat -67px -120px;}
-.list00 li.bg_pz2{background:url("content/static/images/menu_bg.png")/*tpa=http://y1.ifengimg.com/314bd925cdd17196/2014/1014/menu_bg.gif*/ no-repeat -67px -160px;}
-.list00 li.bg_xh{background:url("content/static/images/menu_bg.png")/*tpa=http://y1.ifengimg.com/314bd925cdd17196/2014/1014/menu_bg.gif*/ no-repeat -67px -200px;}
-.list00 li.bg_sr{background:url("content/static/images/menu_bg.png")/*tpa=http://y1.ifengimg.com/314bd925cdd17196/2014/1014/menu_bg.gif*/ no-repeat -67px -239px;}
-.list00 li.bg_sr,.list00 li.bg_sr a{height:40px; line-height:40px;}
+		<style>
+.list00 li.bg_wg {
+	background: url("content/static/images/menu_bg.png")
+		/*tpa=http://y1.ifengimg.com/314bd925cdd17196/2014/1014/menu_bg.gif*/
+		 no-repeat -67px 0;
+}
+
+.list00 li.bg_pm {
+	background: url("content/static/images/menu_bg.png")
+		/*tpa=http://y1.ifengimg.com/314bd925cdd17196/2014/1014/menu_bg.gif*/
+		 no-repeat -67px -40px;
+}
+
+.list00 li.bg_pz {
+	background: url("content/static/images/menu_bg.png")
+		/*tpa=http://y1.ifengimg.com/314bd925cdd17196/2014/1014/menu_bg.gif*/
+		 no-repeat -67px -80px;
+}
+
+.list00 li.bg_xt {
+	background: url("content/static/images/menu_bg.png")
+		/*tpa=http://y1.ifengimg.com/314bd925cdd17196/2014/1014/menu_bg.gif*/
+		 no-repeat -67px -120px;
+}
+
+.list00 li.bg_pz2 {
+	background: url("content/static/images/menu_bg.png")
+		/*tpa=http://y1.ifengimg.com/314bd925cdd17196/2014/1014/menu_bg.gif*/
+		 no-repeat -67px -160px;
+}
+
+.list00 li.bg_xh {
+	background: url("content/static/images/menu_bg.png")
+		/*tpa=http://y1.ifengimg.com/314bd925cdd17196/2014/1014/menu_bg.gif*/
+		 no-repeat -67px -200px;
+}
+
+.list00 li.bg_sr {
+	background: url("content/static/images/menu_bg.png")
+		/*tpa=http://y1.ifengimg.com/314bd925cdd17196/2014/1014/menu_bg.gif*/
+		 no-repeat -67px -239px;
+}
+
+.list00 li.bg_sr,.list00 li.bg_sr a {
+	height: 40px;
+	line-height: 40px;
+}
 </style>
-<div id="fixedTopDiv">
-  <ul class="list00"  id="scrollNavTab">
-    <li class="bg_wg"><a>世界名庄</a></li>
-    <li class="bg_pm"><a >红酒馆</a></li>
-    <li class="bg_pz"><a>白酒馆</a></li>
-    <li class="bg_xt"><a>洋酒馆</a></li>
-    <li class="bg_pz2"><a>啤酒馆</a></li>
-    <li class="bg_xh"><a>其他</a></li>
-    <li onClick="location.href='index'"  class="bg_sr"><a>返回顶部</a></li>
-  </ul>
-</div>
-<script>
+		<div id="fixedTopDiv">
+			<ul class="list00" id="scrollNavTab">
+				<li class="bg_wg"><a>世界名庄</a></li>
+				<li class="bg_pm"><a>红酒馆</a></li>
+				<li class="bg_pz"><a>白酒馆</a></li>
+				<li class="bg_xt"><a>洋酒馆</a></li>
+				<li class="bg_pz2"><a>啤酒馆</a></li>
+				<li class="bg_xh"><a>其他</a></li>
+				<li onClick="location.href='index'" class="bg_sr"><a>返回顶部</a></li>
+			</ul>
+		</div>
+		<script>
 //20141009 李震庸
 $(function () {
 	/*$(".list00 li a").hover(function () {
@@ -863,8 +918,8 @@ $(function () {
 );
 
 </script>
- 	
-<script>
+
+		<script>
 	//20141009 李震庸
 	jQuery(document).ready(function ($){
 		//增加一个当前样式for滚轮滚动js用
@@ -948,15 +1003,24 @@ $(function () {
 		window.onscroll=scrollFix; 
 		window.onresize=scrollFix; 
 	});
-</script>  
-</div>
-		<div id="waidiv" style="width:100px; position:fixed; z-index:999; top:100px; right:130px;" >
-	<div id="xx" onClick="gb()" style="position:fixed; top:98px; z-index:9999; right:136px; display:none;" ><a href="javascrpt:;" ><img src="content/static/images/xx.png"/></a></div>
-    	<img class="overimg" src="content/static/images/wzxt.png" width="46" style="margin-left:25px;"  />
-        <div style="color:#901531; text-align:center;" >下载APP<br/>首单立减8元</div>
-    <img class="wxxs" style="position:fixed; top:190px; right:131px; z-index:999999;" src="content/static/images/wx.jpg" width="100" />
-    </div>
-    <script>
+</script>
+	</div>
+	<div id="waidiv"
+		style="width: 100px; position: fixed; z-index: 999; top: 100px; right: 130px;">
+		<div id="xx" onClick="gb()"
+			style="position: fixed; top: 98px; z-index: 9999; right: 136px; display: none;">
+			<a href="javascrpt:;"><img src="content/static/images/xx.png" /></a>
+		</div>
+		<img class="overimg" src="content/static/images/wzxt.png" width="46"
+			style="margin-left: 25px;" />
+		<div style="color: #901531; text-align: center;">
+			下载APP<br />首单立减8元
+		</div>
+		<img class="wxxs"
+			style="position: fixed; top: 190px; right: 131px; z-index: 999999;"
+			src="content/static/images/wx.jpg" width="100" />
+	</div>
+	<script>
       $("#waidiv").hover(function(){
 		  $(".wxxs").css("display","block");
 		  $("#xx").css("display","block");

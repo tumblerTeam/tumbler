@@ -70,7 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="col-md-6 column">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">操作</h3>
+				<h3 class="panel-title">当前分类：<font color="red">${shopCategory.category }</font></h3>
 			</div>
 			<div class="list-group-item">
 				<p class="list-group-item-text">

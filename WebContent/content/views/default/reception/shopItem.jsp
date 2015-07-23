@@ -22,10 +22,16 @@
 	href="content/static/css/right.css" />
 <link rel="stylesheet" type="text/css"
 	href="content/static/css/shop.css" />
+<link rel="stylesheet" type="text/css"
+	href="content/static/css/tpfd2.css" />
+<link type="text/css" rel="stylesheet" href="content/static/css/aa.css"
+	source="widget" />
 <script type="text/javascript"
 	src="content/static/js/tumbler/jquery.imagezoom.min.js"></script>
 <script type="text/javascript" src="content/static/js/tumbler/custom.js"></script>
 <script src="content/static/js/tumbler/jquery.fly.min.js"></script>
+<script src="content/static/js/tumbler/spfd.js"></script>
+<script src="content/static/js/tumbler/jquery.jqzoom.js"></script>
 <script>
 	window.onload = function() {
 		var fen = document.getElementById("fen");
@@ -117,27 +123,26 @@
 	border: 1px solid #CDCDCD;
 }
 
-div.zoomDiv {
-	z-index: 999;
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	width: 200px;
-	height: 200px;
-	background: #ffffff;
-	border: 1px solid #CCCCCC;
-	display: none;
-	text-align: center;
-	overflow: hidden;
-}
+/* div.zoomDiv { */
+/* 	z-index: 999; */
+/* 	top: 0px; */
+/* 	left: 0px; */
+/* 	width: 200px; */
+/* 	height: 200px; */
+/* 	background: #ffffff; */
+/* 	border: 1px solid #CCCCCC; */
+/* 	display: none; */
+/* 	text-align: center; */
+/* 	overflow: hidden; */
+/* } */
 
-div.zoomMask {
-	position: absolute;
-	background: url("content/static/images/mask.png") repeat scroll 0 0
-		transparent;
-	cursor: move;
-	z-index: 1;
-}
+/* div.zoomMask { */
+/* 	position: absolute; */
+/* 	background: url("content/static/images/mask.png") repeat scroll 0 0 */
+/* 		transparent; */
+/* 	cursor: move; */
+/* 	z-index: 1; */
+/* } */
 </style>
 
 <style type="text/css">
@@ -299,64 +304,63 @@ div.zoomMask {
 	</script>
 	<!--商品详情-->
 	<div class="content">
-		<div class="shop_main">
-			<div class="preview">
+		<div class="shop_left">
+			<div class="lanrenzhijia">
 				<!--商品图预览-->
-				<div class="shop_left">
-					<div class="shop_box">
-						<div class="tb-booth tb-pic tb-s310">
-							<a href="userImg/${shopCommoidty.shopCommImages[0].imagePath }"><img
-								src="userImg/${shopCommoidty.shopCommImages[0].imagePath }"
-								rel="userImg/${shopCommoidty.shopCommImages[0].imagePath }"
-								class="jqzoom" /></a>
-						</div>
-						<ul class="tb-thumb" id="thumblist">
+				<div id="preview" class="spec-preview">
+					<span class="jqzoom"><img style="width: 400px; height: 310px;"
+						jqimg="../${shopCommoidty.shopCommImages[0].imagePath }"					
+						src="../${shopCommoidty.shopCommImages[0].imagePath }" /></span>
+				</div>
+				<div class="spec-scroll">
+					<a class="prev">&lt;</a> <a class="next">&gt;</a>
+					<div class="items">
+						<ul>
 							<c:forEach items="${shopCommoidty.shopCommImages }"
 								var="imageCommo" varStatus="loop">
-								<c:if test="${loop.index == 0 }">
-									<li class="tb-selected">
-								</c:if>
-								<c:if test="${loop.index != 0 }">
-									<li>
-								</c:if>
-								<div class="tb-pic tb-s40">
-									<a href="javascript:void(0);"> <img
-										src="userImg/${imageCommo.imagePath }" /></a>
-								</div>
-								</li>
+								<li><img style="width: 40px; height: 40px;"
+										src="../${imageCommo.imagePath }"
+									onmousemove="preview(this);" /></li>
 							</c:forEach>
 						</ul>
 					</div>
-					<script type="text/javascript">
-						$(document).ready(
-								function() {
+				</div>
+			</div>
+			</div>
+			<!-- 缩略图begin -->
+			<!-- 缩略图end -->
+			<script type="text/javascript">
+				$(document).ready(
+						function() {
 
-									$(".jqzoom").imagezoom();
+							$(".jqzoom").imagezoom();
 
-									$("#thumblist li a").click(
-											function() {
-												$(this).parents("li").addClass(
-														"tb-selected")
-														.siblings()
-														.removeClass(
-																"tb-selected");
-												$(".jqzoom").attr(
+							$("#thumblist li a").click(
+									function() {
+										$(this).parents("li").addClass(
+												"tb-selected").siblings()
+												.removeClass("tb-selected");
+										$(".jqzoom")
+												.attr(
 														'src',
 														$(this).find("img")
 																.attr("mid"));
-												$(".jqzoom").attr(
+										$(".jqzoom")
+												.attr(
 														'rel',
 														$(this).find("img")
 																.attr("big"));
-											});
+									});
 
-								});
-					</script>
+						});
+			</script>
 
 
 
-				</div>
-				<!--商品购买-->
+		
+		<!--商品购买-->
+		<div class="shop_main">
+			<div class="preview">
 				<div class="shop_right">
 					<div class="shop_show">
 						<div class="name">
@@ -450,61 +454,80 @@ div.zoomMask {
 				function buyCat() {
 					var commID = $('#commID').val();
 					var buyAmount = $('#buyAmount').val();
-					jQuery.ajax({
-						type : 'GET',
-						contentType : 'application/json',
-						url : 'toJsonFmatUtil/addBuyCar?shopCommId=' + commID
-								+ '&buyAmount=' + buyAmount,
-						dataType : 'json',
-						success : function(data) {
-							if (data.message == 'success') {
-								alert("添加成功");
-								jQuery.ajax({
-									type : 'GET',
-									contentType : 'application/json',
-									url : 'toJsonFmatUtil/getBuyCatNum',
-									dataType : 'json',
-									success : function(data) {
-										if (data.success == 'true') {
-											if(data.buyCar != ''){
-												$('#buyCatNum').html("购物车(" + data.num + ")");
-												alert(data.buyCar.carCommodities);
-//						 						$.each(data.buyCars,function(i, buyCar) {
-													
-//						 						});
-											}
-											$('#buyCatNum').html("购物车(" + data.num + ")");
+					jQuery
+							.ajax({
+								type : 'GET',
+								contentType : 'application/json',
+								url : 'toJsonFmatUtil/addBuyCar?shopCommId='
+										+ commID + '&buyAmount=' + buyAmount,
+								dataType : 'json',
+								success : function(data) {
+									if (data.message == 'success') {
+										alert("添加成功");
+										jQuery
+												.ajax({
+													type : 'GET',
+													contentType : 'application/json',
+													url : 'toJsonFmatUtil/getBuyCatNum',
+													dataType : 'json',
+													success : function(data) {
+														if (data.success == 'true') {
+															if (data.buyCar != '') {
+																$('#buyCatNum')
+																		.html(
+																				"购物车("
+																						+ data.num
+																						+ ")");
+																alert(data.buyCar.carCommodities);
+																//						 						$.each(data.buyCars,function(i, buyCar) {
+
+																//						 						});
+															}
+															$('#buyCatNum')
+																	.html(
+																			"购物车("
+																					+ data.num
+																					+ ")");
+														}
+													}
+												});
+									} else if (data.message == 'existed') {
+										alert("再次添加成功");
+										jQuery
+												.ajax({
+													type : 'GET',
+													contentType : 'application/json',
+													url : 'toJsonFmatUtil/getBuyCatNum',
+													dataType : 'json',
+													success : function(data) {
+														if (data.success == 'true') {
+															if (data.buyCar != '') {
+																$('#buyCatNum')
+																		.html(
+																				"购物车("
+																						+ data.num
+																						+ ")");
+																alert(data.buyCar.carCommodities);
+																//						 						$.each(data.buyCars,function(i, buyCar) {
+
+																//						 						});
+															}
+															$('#buyCatNum')
+																	.html(
+																			"购物车("
+																					+ data.num
+																					+ ")");
+														}
+													}
+												});
+									} else if (data.message == "nouser") {
+										if (confirm('您还没有登录哦！')) {
+											var url = "user/regist";
+											window.location = url;
 										}
 									}
-								});
-							} else if (data.message == 'existed') {
-								alert("再次添加成功");
-								jQuery.ajax({
-									type : 'GET',
-									contentType : 'application/json',
-									url : 'toJsonFmatUtil/getBuyCatNum',
-									dataType : 'json',
-									success : function(data) {
-										if (data.success == 'true') {
-											if(data.buyCar != ''){
-												$('#buyCatNum').html("购物车(" + data.num + ")");
-												alert(data.buyCar.carCommodities);
-//						 						$.each(data.buyCars,function(i, buyCar) {
-													
-//						 						});
-											}
-											$('#buyCatNum').html("购物车(" + data.num + ")");
-										}
-									}
-								});
-							} else if (data.message == "nouser") {
-								if (confirm('您还没有登录哦！')) {
-									var url = "user/regist";
-									window.location = url;
 								}
-							}
-						}
-					});
+							});
 				}
 			</script>
 			<!--右侧商铺-->
@@ -585,54 +608,70 @@ div.zoomMask {
 									</div>
 								</c:if>
 							</c:forEach>
-							<c:if test="${shopCommoidty.probablyWeight != null && shopCommoidty.probablyWeight != ''}">
+							<c:if
+								test="${shopCommoidty.probablyWeight != null && shopCommoidty.probablyWeight != ''}">
 								<li>重量： ${shopCommoidty.probablyWeight }kg</li>
 							</c:if>
 							<c:if test="${shopCommoidty.commAttribute!=null}">
-								<c:if test="${shopCommoidty.commAttribute.alcoholDegree != null}">
+								<c:if
+									test="${shopCommoidty.commAttribute.alcoholDegree != null}">
 									<li>度数：${shopCommoidty.commAttribute.alcoholDegree}%</li>
 								</c:if>
 								<li>年份：${shopCommoidty.commAttribute.particularYear}年</li>
-								<c:if test="${shopCommoidty.commAttribute.deadline != null && shopCommoidty.commAttribute.deadline !=''}">
+								<c:if
+									test="${shopCommoidty.commAttribute.deadline != null && shopCommoidty.commAttribute.deadline !=''}">
 									<li>保质期：${shopCommoidty.commAttribute.deadline}天</li>
 								</c:if>
-								<c:if test="${shopCommoidty.commAttribute.stockWay != null && shopCommoidty.commAttribute.stockWay !=''}">
+								<c:if
+									test="${shopCommoidty.commAttribute.stockWay != null && shopCommoidty.commAttribute.stockWay !=''}">
 									<li>储藏方法：${shopCommoidty.commAttribute.stockWay}</li>
 								</c:if>
-								<c:if test="${shopCommoidty.commAttribute.foodAdditive != null && shopCommoidty.commAttribute.foodAdditive !=''}">
+								<c:if
+									test="${shopCommoidty.commAttribute.foodAdditive != null && shopCommoidty.commAttribute.foodAdditive !=''}">
 									<li>食品添加剂：${shopCommoidty.commAttribute.foodAdditive}</li>
 								</c:if>
-								<c:if test="${shopCommoidty.commAttribute.productPlace != null && shopCommoidty.commAttribute.productPlace != ''}">
+								<c:if
+									test="${shopCommoidty.commAttribute.productPlace != null && shopCommoidty.commAttribute.productPlace != ''}">
 									<li>产地：${shopCommoidty.commAttribute.productPlace}</li>
 								</c:if>
-								<c:if test="${shopCommoidty.commAttribute.productProvince != null && shopCommoidty.commAttribute.productProvince != ''}">
+								<c:if
+									test="${shopCommoidty.commAttribute.productProvince != null && shopCommoidty.commAttribute.productProvince != ''}">
 									<li>省份：${shopCommoidty.commAttribute.productProvince}</li>
 								</c:if>
-								<c:if test="${shopCommoidty.commAttribute.packManner != null && shopCommoidty.commAttribute.packManner !=''}">
+								<c:if
+									test="${shopCommoidty.commAttribute.packManner != null && shopCommoidty.commAttribute.packManner !=''}">
 									<li>包装：${shopCommoidty.commAttribute.packManner}</li>
 								</c:if>
-								<c:if test="${shopCommoidty.commAttribute.packManner != null && shopCommoidty.commAttribute.packManner !=''}">
+								<c:if
+									test="${shopCommoidty.commAttribute.packManner != null && shopCommoidty.commAttribute.packManner !=''}">
 									<li>配料：${shopCommoidty.commAttribute.packManner}</li>
 								</c:if>
-								<c:if test="${shopCommoidty.commAttribute.soberTime != null && shopCommoidty.commAttribute.soberTime !=''}">
+								<c:if
+									test="${shopCommoidty.commAttribute.soberTime != null && shopCommoidty.commAttribute.soberTime !=''}">
 									<li>醒酒时间：${shopCommoidty.commAttribute.soberTime}h</li>
 								</c:if>
-								<c:if test="${shopCommoidty.commAttribute.drinkTemperature != null && shopCommoidty.commAttribute.drinkTemperature != ''}">
+								<c:if
+									test="${shopCommoidty.commAttribute.drinkTemperature != null && shopCommoidty.commAttribute.drinkTemperature != ''}">
 									<li>饮用温度：${shopCommoidty.commAttribute.drinkTemperature}℃</li>
 								</c:if>
-								<c:if test="${shopCommoidty.commAttribute.drinkTemperature != null && shopCommoidty.commAttribute.drinkTemperature != ''}">
+								<c:if
+									test="${shopCommoidty.commAttribute.drinkTemperature != null && shopCommoidty.commAttribute.drinkTemperature != ''}">
 									<li>生产许可编号：${shopCommoidty.commAttribute.drinkTemperature}</li>
 								</c:if>
-								<c:if test="${shopCommoidty.commAttribute.productStddNum != null && shopCommoidty.commAttribute.productStddNum !=''}">
+								<c:if
+									test="${shopCommoidty.commAttribute.productStddNum != null && shopCommoidty.commAttribute.productStddNum !=''}">
 									<li>生产标准号：${shopCommoidty.commAttribute.productStddNum}</li>
 								</c:if>
-								<c:if test="${shopCommoidty.commAttribute.productStddNum != null && shopCommoidty.commAttribute.productStddNum !=''}">
+								<c:if
+									test="${shopCommoidty.commAttribute.productStddNum != null && shopCommoidty.commAttribute.productStddNum !=''}">
 									<li>生产厂名：${shopCommoidty.commAttribute.productStddNum}</li>
 								</c:if>
-								<c:if test="${shopCommoidty.commAttribute.productFactoryAddress != null && shopCommoidty.commAttribute.productFactoryAddress != ''}">
+								<c:if
+									test="${shopCommoidty.commAttribute.productFactoryAddress != null && shopCommoidty.commAttribute.productFactoryAddress != ''}">
 									<li>生产工厂地址：${shopCommoidty.commAttribute.productFactoryAddress}</li>
 								</c:if>
-								<c:if test="${shopCommoidty.commAttribute.productTime != null && shopCommoidty.commAttribute.productTime != ''}">
+								<c:if
+									test="${shopCommoidty.commAttribute.productTime != null && shopCommoidty.commAttribute.productTime != ''}">
 									<li>生产时期：${shopCommoidty.commAttribute.productTime}</li>
 								</c:if>
 							</c:if>
@@ -640,8 +679,8 @@ div.zoomMask {
 					</div>
 
 					<div class="shop_banner">
-<!-- 						<img src="content/static/img/shop/1.jpg" /> <img -->
-<!-- 							src="content/static/img/shop/2.jpg" /> -->
+						<!-- 						<img src="content/static/img/shop/1.jpg" /> <img -->
+						<!-- 							src="content/static/img/shop/2.jpg" /> -->
 						${shopCommoidty.describes}
 					</div>
 					<div class="description"></div>
@@ -813,6 +852,7 @@ div.zoomMask {
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 	<jsp:include page="../frontDesk/foot.jsp" />
 </body>

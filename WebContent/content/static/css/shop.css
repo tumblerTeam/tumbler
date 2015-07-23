@@ -26,7 +26,7 @@
 }
 /*商品购买*/
 .preview{
-	width:950px;
+	width:550px;
 	height:500px;
 	margin:0px;
 	float:left;
@@ -34,10 +34,9 @@
 /*左侧商品图片*/
 .shop_left{
 	width:400px;
-	height:350px;
-	
+	height:auto;
 	float:left;
-	float:left;
+	margin-left:180px; margin-top:50px;
 }
 
 /*商品购买项*/

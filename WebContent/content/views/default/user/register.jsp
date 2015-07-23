@@ -238,7 +238,7 @@
 					<div class="login-form">
 						<div class="login-box">
 							<div class="mt">
-								<h1 style="margin-top: 20px; margin-left: 1px;">不倒翁会员</h1>
+								<h1 style="margin-top: 20px; margin-left: 1px;">不倒翁会员&nbsp;&nbsp;<font style="color: red;">${message }</font></h1>
 
 							</div>
 							<div class="msg-wrap">
@@ -324,7 +324,7 @@
 				<div class="login-form">
 					<div class="login-box">
 						<div class="mt">
-							<h1 style="margin-top: 20px; margin-left: 1px;">会员注册</h1>
+							<h1 style="margin-top: 20px; margin-left: 1px;">会员注册&nbsp;&nbsp;<font style="color: red;">${message }</font></h1>
 
 						</div>
 						<div class="msg-wrap">

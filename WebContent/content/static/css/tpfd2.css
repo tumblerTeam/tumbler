@@ -1,0 +1,138 @@
+@charset "utf-8";
+/* 代码整理：懒人之家 www.lanrenzhijia.com */
+*{ margin:0; padding:0; list-style:none;}
+img{ border:0;}
+
+.lanrenzhijia{ width:352px; height:auto; margin:0 auto; overflow:hidden;}
+.jqzoom{float:left;border:none;position:relative;padding:0px;cursor:pointer;margin:0px;display:block;}
+.jqzoom img{ background:url(http://www.lanrenzhijia.com/demo/images/loading.gif) no-repeat center center;}
+.zoomdiv{z-index:100;position:absolute;top:0px;left:0px;width:350px;height:350px;background:#ffffff;border:1px solid #CCCCCC;display:none;text-align:center;overflow:hidden;}
+.jqZoomPup{z-index:10;visibility:hidden;position:absolute;top:0px;left:0px;width:20px;height:20px;border:1px solid #aaa;background:#ffffff /*url(../images/zoom.png) 50% center no-repeat*/;opacity: 0.5;-moz-opacity: 0.5;-khtml-opacity: 0.5;filter: alpha(Opacity=50);}
+/*图片小图预览列表*/
+.spec-preview{width:400px;height:310px;border:1px solid #DFDFDF;}
+.spec-scroll{clear:both;margin-top:5px;width:352px;}
+.spec-scroll .prev{float:left;margin-right:4px;}
+.spec-scroll .next{float:right;}
+.spec-scroll .prev,.spec-scroll .next{display:block;font-family:"宋体";text-align:center;width:10px;height:54px; line-height:54px;border:1px solid #CCC;background:#EBEBEB;cursor:pointer;text-decoration:none;}
+.spec-scroll .items{float:left;position:relative;width:322px;height:56px;overflow:hidden;}
+.spec-scroll .items ul{position:absolute;width:999999px;height:56px;}
+.spec-scroll .items ul li{float:left;width:64px;text-align:center;}
+.spec-scroll .items ul li img{border:1px solid #CCC;padding:2px;width:50px;height:50px;}
+.spec-scroll .items ul li img:hover{border:2px solid #FF6600;padding:1px;}
+/* box */
+.shop_box {
+	width: 399px;
+	margin: 20px auto;
+}
+.tb-pic a {
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+}
+.tb-pic a img {
+	vertical-align: middle;
+}
+.tb-pic a {
+*display:block;
+*font-family:Arial;
+*line-height:1;
+}
+.tb-thumb {
+	margin: 10px 0 0;
+	overflow: hidden;
+}
+.tb-thumb li {
+	background: none repeat scroll 0 0 transparent;
+	float: left;
+	height: 42px;
+	margin: 0 6px 0 0;
+	overflow: hidden;
+	padding: 1px;
+}
+.tb-s310, .tb-s310 a {
+	height: 310px;
+	width: 400px;
+}
+.tb-s310, .tb-s310 img {
+	max-height: 450px;
+	max-width: 450px;
+}
+.tb-s310 a {
+*font-size:271px;
+}
+.tb-s40 a {
+*font-size:35px;
+}
+.tb-s40, .tb-s40 a {
+	height: 40px;
+	width: 40px;
+}
+.tb-booth {
+	border: 1px solid #CDCDCD;
+	position: relative;
+	z-index: 1;
+}
+.tb-thumb .tb-selected div {
+	background-color: #FFFFFF;
+	border: medium none;
+}
+.tb-thumb li div {
+	border: 1px solid #CDCDCD;
+}
+/* div.zoomDiv { */
+/* 	z-index: 999; */
+/* 	position: absolute; */
+/* 	top: 0px; */
+/* 	left: 0px; */
+/* 	width: 200px; */
+/* 	height: 200px; */
+/* 	background: #ffffff; */
+/* 	border: 1px solid #CCCCCC; */
+/* 	display: none; */
+/* 	text-align: center; */
+/* 	overflow: hidden; */
+/* } */
+/* div.zoomMask { */
+/* 	position: absolute; */
+/* 	background: url("images/mask.png") repeat scroll 0 0 transparent; */
+/* 	cursor: move; */
+/* 	z-index: 1; */
+/* } */
+.m-sidebar {
+	z-index: 2000;
+	width: 100px;
+	height: 30px;
+	margin-left: 310px;
+	margin-top: -52px;
+}
+.cart {
+	text-align: left;
+	line-height: 20px;
+	margin-top: -28px;
+}
+.u-flyer {
+	display: block;
+	width: 50px;
+	height: 50px;
+	border-radius: 50px;
+	position: fixed;
+	z-index: 9999;
+}
+.cart i {
+	width: 35px;
+	height: 35px;
+	display: block;
+}
+#msg {
+	position: fixed;
+	top: 82px;
+	right: 0px;
+	z-index: 10000;
+	width: 100px;
+	height: 52px;
+	line-height: 52px;
+	font-size: 15px;
+	text-align: center;
+	color: #fff;
+	background: url(images/cart_03.jpg) #901531 no-repeat;
+}

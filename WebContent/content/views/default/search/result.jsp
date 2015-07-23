@@ -157,6 +157,7 @@
 <!--更多分类-->
 <script type="text/ecmascript">
 	
+	
 var boolean=true;
 	function fddd(){
 	var gd=document.getElementsByClassName("disdiv");
@@ -204,8 +205,10 @@ var boolean=true;
 
 
 
+
 </script>
 <script type="text/ecmascript">
+	
 	
 	
 	function f6(){
@@ -264,6 +267,7 @@ var boolean=true;
 		pp2.style.borderColor="#ccc";
 		pp2.style.backgroundPosition="2px 2px";
 			}
+
 
 
 </script>
@@ -621,10 +625,10 @@ var boolean=true;
 		<input id="params" name="params" type="hidden" value="${params }" />
 		<input id="orderByPice" name="orderByPice" type="hidden"
 			value="${orderByPice }" /> <input id="haoping" name="haoping"
-			type="hidden" value="${haoping }" />
-			<input id="id" name="id" type="hidden" value="${id }" />
-			<input id="cateid" name="cateid" type="hidden" value="${cateid }" />
-		<input id="page" name="page" type="hidden" value="${page }" />
+			type="hidden" value="${haoping }" /> <input id="id" name="id"
+			type="hidden" value="${id }" /> <input id="cateid" name="cateid"
+			type="hidden" value="${cateid }" /> <input id="page" name="page"
+			type="hidden" value="${page }" />
 	</form>
 	<script type="text/javascript">
 		function cate2Click(id) {
@@ -807,34 +811,30 @@ var boolean=true;
 				<ul>
 					<c:forEach items="${list }" var="commShop">
 						<a
-							href="proscenium/shopItem?commID=${commShop.commCode }&category=${commShop.shopCategory.categoryID }&shopID=${commShop.belongTo.id }&commoName=${commShop.commoidtyName }">
+							href="search/shopItem?commID=${commShop.commCode }&category=${commShop.shopCategory.categoryID }&shopID=${commShop.belongTo.id }&commoName=${commShop.commoidtyName }">
 							<li>
 								<div class="pro1" style="border-right: none;">
+									<img src="../${commShop.shopCommImages[0].imagePath }"
+										width="238px" height="220px;" />
 									<div class="sheng">
-										<img src="${commShop.shopCommImages[0].imagePath }" />
-										<div class="cover">
-											<!--模糊部分-->
-											<div class="mask">
-												<div class="name">${commShop.commoidtyName }</div>
-												<div class="price1">
-													￥
-													<c:if test="${!commShop.isSpecial }">
-														<fmt:formatNumber value="${commShop.unitPrice}"
-															pattern="##.##" minFractionDigits="2">
-														</fmt:formatNumber>
-													</c:if>
-													<c:if test="${commShop.isSpecial }">
-														<fmt:formatNumber
-															value="${commShop.unitPrice * commShop.special}"
-															pattern="##.##" minFractionDigits="2">
-														</fmt:formatNumber>
-													</c:if>
-													/
-												</div>
-												<div class="price2">￥${commShop.unitPrice}</div>
-												<div class="time">${fn:split(fn:substring(commShop.commsPecs.commSpec,fn:indexOf(commShop.commsPecs.commSpec,',年份'),fn:indexOf(commShop.commsPecs.commSpec,'年,')),'-')[1]}年</div>
-											</div>
+										<div class="name">${commShop.commoidtyName }</div>
+										<div class="price1">
+											￥
+											<c:if test="${!commShop.isSpecial }">
+												<fmt:formatNumber value="${commShop.unitPrice}"
+													pattern="##.##" minFractionDigits="2">
+												</fmt:formatNumber>
+											</c:if>
+											<c:if test="${commShop.isSpecial }">
+												<fmt:formatNumber
+													value="${commShop.unitPrice * commShop.special}"
+													pattern="##.##" minFractionDigits="2">
+												</fmt:formatNumber>
+											</c:if>
+											/
 										</div>
+										<div class="price2">￥${commShop.unitPrice}</div>
+										<div class="time">${fn:split(fn:substring(commShop.commsPecs.commSpec,fn:indexOf(commShop.commsPecs.commSpec,',年份'),fn:indexOf(commShop.commsPecs.commSpec,'年,')),'-')[1]}年</div>
 									</div>
 								</div>
 						</li>

@@ -45,36 +45,40 @@
                        	     $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 225px;border-bottom:1px #ccc dashed;background: url("+item.imagePath+") center center;\"></div></a>");
                          }else if(item.adverDistribution.position=='团购强力推荐A2'){
                        	     $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 225px;background: url("+item.imagePath+") center center;\"></div></a>");
-                         }else if(item.adverDistribution.position=='团购推荐A1'){
+                         }else if(item.adverDistribution.position=='团购精选A1'){
                         	 $("#Adv_2").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
-                         }else if(item.adverDistribution.position=='团购推荐A2'){
+                         }else if(item.adverDistribution.position=='团购主推A'){
                         	 $("#Adv_3").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
-                         }else if(item.adverDistribution.position=='团购单品A4'){
-                        	 $("#Adv_4").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"  width=\"238px\"/></a>");
-                         }else if(item.adverDistribution.position=='团购单品A5'){
-                        	 $("#Adv_5").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"  width=\"238px\"/></a>");
-                         }else if(item.adverDistribution.position=='团购单品A1'){
-                        	 $("#Adv_6").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"  width=\"238px\"/></a>");
-                         }else if(item.adverDistribution.position=='团购单品A2'){
-                        	 $("#Adv_7").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"  width=\"238px\"/></a>");
-                         }else if(item.adverDistribution.position=='团购单品A3'){
-                        	 $("#Adv_8").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"  width=\"238px\"/></a>");
-                         }else if(item.adverDistribution.position=='团购推荐A3'){
-                        	 $("#Adv_9").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" height=\"202px\"  width=\"478px\"/></a>");
-                         }else if(item.adverDistribution.position=='品牌展示滚动A1'){
-                        	 $("#Adv_10").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a>");
-                         }else if(item.adverDistribution.position=='品牌展示滚动A2'){
-                        	 $("#Adv_11").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a>");
-                         }else if(item.adverDistribution.position=='品牌展示滚动A3'){
+                         }else if(item.adverDistribution.position=='团购精选A2'){
+                        	 $("#Adv_4").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+                         }else if(item.adverDistribution.position=='团购精选A3'){
+                        	 $("#Adv_5").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+                         }else if(item.adverDistribution.position=='团购精选A4'){
+                        	 $("#Adv_6").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+                         }else if(item.adverDistribution.position=='团购精选A5'){
+                        	 $("#Adv_7").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+                         }else if(item.adverDistribution.position=='团购精选A6'){
+                        	 $("#Adv_8").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+                         }else if(item.adverDistribution.position=='团购精选A7'){
+                        	 $("#Adv_9").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+                         }else if(item.adverDistribution.position=='团购精选A8'){
+                        	 $("#Adv_10").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+                         }else if(item.adverDistribution.position=='团购主推B'){
+                        	 $("#Adv_11").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+                         }else if(item.adverDistribution.position=='品牌展示A1'){
                         	 $("#Adv_12").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a>");
-                         }else if(item.adverDistribution.position=='品牌展示滚动A4'){
+                         }else if(item.adverDistribution.position=='品牌展示A2'){
                         	 $("#Adv_13").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a>");
-                         }else if(item.adverDistribution.position=='品牌展示滚动A5'){
+                         }else if(item.adverDistribution.position=='品牌展示A3'){
                         	 $("#Adv_14").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a>");
-                         }else if(item.adverDistribution.position=='品牌展示滚动A6'){
+                         }else if(item.adverDistribution.position=='品牌展示A4'){
                         	 $("#Adv_15").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a>");
-                         }else if(item.adverDistribution.position=='品牌展示滚动A7'){
+                         }else if(item.adverDistribution.position=='品牌展示A5'){
                         	 $("#Adv_16").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a>");
+                         }else if(item.adverDistribution.position=='品牌展示A6'){
+                        	 $("#Adv_17").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a>");
+                         }else if(item.adverDistribution.position=='品牌展示A7'){
+                        	 $("#Adv_18").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\"/></a>");
                          }
         			   });//动态生成广告
         			   if(window.screen.width<=1680){
@@ -157,34 +161,47 @@
 <!--商城精选-->
 <div class="main_box">
 	<div class="mall">
-    	<div class="title"><b>团购精选</b> Hotsale of Selected</font></div>
+    	<div class="title"><b>团购精选</b> Hotsale of Selected</div>
 		<div class="mall_box">
-            <div class="ad" id="Adv_2" ></div>
-            <div class="ad" id="Adv_3" ></div>
-            <div class="pro" id="Adv_4">
-           </div>
-           <div class="pro" id="Adv_5">
-           </div>
-           <div class="pro1" id="Adv_6">
-          </div>
-           <div class="pro1" id="Adv_7">
-          </div>
-           <div class="pro1" id="Adv_8">
-          </div>
-            <div class="ad1" id="Adv_9"></div>  
-      </div>
+		      <div class="tgbox_left">
+		        <div class="tgbox_a"  id="Adv_2" >
+              	</div>
+                <div class="tgbox_b" id="Adv_3">
+                </div>
+            </div>
+            <div class="tgbox_center">
+                    <div class="tgbox_c" id="Adv_4">
+                    </div>
+                	<div class="tgbox_d" id="Adv_5">
+                    </div>
+                	<div class="tgbox_e" id="Adv_6">
+                    </div>
+            </div>
+            <div class="tgbox_right">
+                	<div class="tgbox_f" id="Adv_7">
+                    </div>
+                	<div class="tgbox_g" id="Adv_8">
+                    </div>
+                	<div class="tgbox_h" id="Adv_9">
+                    </div>
+                    <div class="tgbox_l" id="Adv_10">
+                    </div>
+                    <div class="tgbox_j" id="Adv_11">
+                    </div>
+            </div>	 
+        </div>
       
       
       
       
        <div class="logo_box" >
-       		<div class="logo_img" style="margin-left:5px; border-left:none;" id="Adv_10"></div>
-            <div class="logo_img" id="Adv_11"></div>
-            <div class="logo_img" id="Adv_12"></div>
+       		<div class="logo_img" style="margin-left:5px; border-left:none;" id="Adv_12"></div>
             <div class="logo_img" id="Adv_13"></div>
             <div class="logo_img" id="Adv_14"></div>
             <div class="logo_img" id="Adv_15"></div>
-            <div class="logo_img" style="border-right:none;" id="Adv_16"></div> 
+            <div class="logo_img" id="Adv_16"></div>
+            <div class="logo_img" id="Adv_17"></div>
+            <div class="logo_img" style="border-right:none;" id="Adv_18"></div> 
        </div>
       <!--团购-->
       <h2 class="tg_tt">每日团购</h2>
@@ -228,7 +245,7 @@
                         参考价 ¥208
                     </p>
                     <a class="tg_btn" href="#">
-                    	<img src="content/static/images/sc.png" />
+                    	<img src="images/sc.png" />
                     </a>
                 </div>	
       		</li>
@@ -271,7 +288,7 @@
                         参考价 ¥208
                     </p>
                     <a class="tg_btn" href="#">
-                    	<img src="content/static/images/sc.png" />
+                    	<img src="images/sc.png" />
                     </a>
                 </div>	
       		</li>

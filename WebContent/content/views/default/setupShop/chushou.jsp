@@ -80,7 +80,7 @@ function setTab(name,m,n){
 	               			<li style="width:362px;">
 	               			<input type="checkbox" name="checkbox" value="${c.commCode }" />
 	               			<img src="" width="50px;" />
-	                            <div class="l1"><a href="#">${c.commoidtyName } <br /></a></div>
+	                            <div class="l1"><a href="search/shopItem?commID=${c.commCode }&category=${c.shopCategory.categoryID }&shopID=${c.belongTo.id }&commoName=${c.commoidtyName }">${c.commoidtyName } <br /></a></div>
 	               			</li>
 	               			<li  style="text-align:center; line-height:100px;">${c.unitPrice}</li>
 	                        <li>

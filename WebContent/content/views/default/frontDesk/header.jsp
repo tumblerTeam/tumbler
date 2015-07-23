@@ -114,11 +114,10 @@
 			</div>
 		</div>
 
-		<div class="wx">
-			<img src="content/static/images/cc.png" /><span class="span1">进入购物车</span>
-			<span class="span2"> ></span>
-
-		</div>
+<!-- 		<div class="wx"> -->
+<!-- 			<img src="content/static/images/cc.png" /><span class="span1">进入购物车</span> -->
+<!-- 			<span class="span2"> ></span> -->
+<!-- 		</div> -->
 	</div>
 </div>
 <!--导航内容-->

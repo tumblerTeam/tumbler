@@ -45,12 +45,30 @@
                        	     $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 225px;border-bottom:1px #ccc dashed;background: url("+item.imagePath+") center center;\"></div></a>");
                          }else if(item.adverDistribution.position=='地方名酒强力推荐A2'){
                        	     $("#csdiv").append("<a href=\""+item.link+"\"><div style=\"width: 100%; height: 225px;background: url("+item.imagePath+") center center;\"></div></a>");
+                         }else if(item.adverDistribution.position=='地方名酒单品A1'){
+                       	     $("#Adv_2").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+                         }else if(item.adverDistribution.position=='地方名酒单品A2'){
+                       	     $("#Adv_3").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+                         }else if(item.adverDistribution.position=='地方名酒推荐A'){
+                       	     $("#Adv_4").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+                         }else if(item.adverDistribution.position=='地方名酒单品A3'){
+                       	     $("#Adv_5").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+                         }else if(item.adverDistribution.position=='地方名酒单品A4'){
+                       	     $("#Adv_6").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+                         }else if(item.adverDistribution.position=='地方名酒单品A5'){
+                       	     $("#Adv_7").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+                         }else if(item.adverDistribution.position=='地方名酒单品A6'){
+                       	     $("#Adv_8").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+                         }else if(item.adverDistribution.position=='地方名酒单品A7'){
+                       	     $("#Adv_9").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
+                         }else if(item.adverDistribution.position=='地方名酒单品A8'){
+                       	     $("#Adv_10").append("<a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a>");
                          }else if(item.adverDistribution.position=='地方名酒名庄单品A'){
-                       	     $("#Adv_5").append("<div class=\"bander_class\" style=\"border-top:none; border-left:none;\"><a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a></div>");
+                       	     $("#Adv_11").append("<div class=\"bander_class\" style=\"border-top:none; border-left:none;\"><a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a></div>");
                          }else if(item.adverDistribution.position=='地方名酒名庄单品B'){
-                       	     $("#Adv_6").append("<div class=\"bander_class\" style=\"border-top:none; border-left:none;\"><a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a></div>");
+                       	     $("#Adv_12").append("<div class=\"bander_class\" style=\"border-top:none; border-left:none;\"><a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a></div>");
                          }else if(item.adverDistribution.position=='地方名酒名庄单品C'){
-                       	     $("#Adv_7").append("<div class=\"bander_class\" style=\"border-top:none; border-left:none;\"><a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a></div>");
+                       	     $("#Adv_13").append("<div class=\"bander_class\" style=\"border-top:none; border-left:none;\"><a href=\""+item.link+"\"><img src=\""+item.imagePath+"\" /></a></div>");
                          }
         			   });//动态生成广告
         				   if(window.screen.width<=1680){
@@ -134,7 +152,30 @@
 <div class="main_box">
 <div class="content" >
   <div class="title"><b>地方名酒</b><font> Chateau Sale</font></div>
-    <div class="box"  id="Adv_5">
+    <div class="boxx">
+  		<div class="left">
+        	<ul>
+            	<li id="Adv_2"></li>
+                <li id="Adv_3"></li>
+                <li id="Adv_4"></li>
+                <li id="Adv_5"></li>
+            </ul>
+        </div>
+        <div class="center" id="Adv_6"></div>
+        <div class="right">
+        	<ul>
+            	<li id="Adv_7">
+                </li>
+               <li id="Adv_8">
+                </li>
+                <li id="Adv_9">
+                </li>
+                <li id="Adv_10">
+                </li>
+            </ul>
+        </div>
+  </div>
+    <div class="box"  id="Adv_11">
 	<a href="javascript:void(0)"><div class="bander">
     	<img src="content/static/images/yili.jpg"/>
         <div class="bander_zi">男人的故事，就是一瓶酒。几分豪气，几分义气，时间珍酿，情义自然真切。一瓶酒，品味一生。岁月如酒醇香，情义地久天长，52度伊力老窖。小酌天地方圆，尽享精致人生；大隐浮华喧市，智品世间百态；心自远，天地宽。小老窖，大智慧，46度伊力老窖。 </div>
@@ -142,15 +183,15 @@
     </a>
     
   </div>     
-   <div class="box"  id="Adv_6">
+   <div class="box"  id="Adv_12">
 	<div class="bander">
-    	<a href="#"><img src="content/static/images/wu.jpg"></a>
+    	<a href="#"><img src="content/static/images/wu.jpg"/></a>
         <div class="bander_zi">四川酿酒自古兴盛，酿酒的原料、水性、土质和气候条件得天独厚。临邛酒早在汉代即远近驰名；西川郫筒酒，工艺独特，享誉四方；宋代宜宾的荔枝酒，颇负盛名。并创造出许多酒的传说和活动。汉代文君酒当垆、相如涤器，传为千古美谈；宋代诗人黄庭坚在宜宾凿池流觞，至今遗址犹存。四川名酒荟萃，五粮液、泸州老窖特曲、剑南春、郎酒、全兴大曲、沱牌曲酒被评为全国名酒，人称“六朵金花”。</div>
     </div>
   </div>
-    <div class="box" id="Adv_7">
+    <div class="box" id="Adv_13">
 	<div class="bander">
-    	<img src="content/static/images/yili.jpg">
+    	<img src="content/static/images/yili.jpg"/>
         <div class="bander_zi">男人的故事，就是一瓶酒。几分豪气，几分义气，时间珍酿，情义自然真切。一瓶酒，品味一生。岁月如酒醇香，情义地久天长，52度伊力老窖。小酌天地方圆，尽享精致人生；大隐浮华喧市，智品世间百态；心自远，天地宽。小老窖，大智慧，46度伊力老窖。 </div>
     </div>
     </div>

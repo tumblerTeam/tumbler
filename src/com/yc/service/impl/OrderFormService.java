@@ -49,38 +49,37 @@ public class OrderFormService extends GenericService<OrderForm> implements IOrde
 	public List<OrderForm> getOrderByOrderGroup(Integer id) {
 		return orderFormDao.getBy("orderGroup.orderGroupID", id);
 	}
-	
+
 	@Override
 	public List<OrderForm> getAllByOrderStatus(String orderStatus) {
-		String hql = " from OrderForm c where c.orderstatus = '"+orderStatus+"'";
+		String hql = " from OrderForm c where c.orderstatus = '" + orderStatus + "'";
 		return orderFormDao.find(hql, null, null);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<OrderForm> getOrderFormByParameters(Map<String, Object> map) {
-		StringBuffer hql = new StringBuffer("select DISTINCT o.* from OrderForm o left join User u on o.user_id = u.id left join Commodity com on o.orderFormID = com.orderform_id"
-				+ " left join Shop shop on shop.id = com.seller_name where 1=1 ");
-		if (map.get("orderstatus") !=null) {
-			hql.append(" and o.orderstatus = '"+map.get("orderstatus")+"'");
+		StringBuffer hql = new StringBuffer("select DISTINCT o.* from OrderForm o left join User u on o.user_id = u.id left join Commodity com on o.orderFormID = com.orderform_id" + " left join Shop shop on shop.id = com.seller_name where 1=1 ");
+		if (map.get("orderstatus") != null) {
+			hql.append(" and o.orderstatus = '" + map.get("orderstatus") + "'");
 		}
-		if (map.get("orderID") !=null) {
-			hql.append(" and o.orderFormID = '"+map.get("orderID")+"'");
+		if (map.get("orderID") != null) {
+			hql.append(" and o.orderFormID = '" + map.get("orderID") + "'");
 		}
-		if (map.get("shopName") !=null) {
-			hql.append(" and shop.shopName like '%"+map.get("shopName")+"%'");
+		if (map.get("shopName") != null) {
+			hql.append(" and shop.shopName like '%" + map.get("shopName") + "%'");
 		}
-		if (map.get("orderDate") !=null) {
-			hql.append(" and o.orderDate like '%"+map.get("orderDate")+"%'");
+		if (map.get("orderDate") != null) {
+			hql.append(" and o.orderDate like '%" + map.get("orderDate") + "%'");
 		}
-		if (map.get("paymentDate") !=null) {
-			hql.append(" and o.paymentDate like '%"+map.get("paymentDate")+"%'");
+		if (map.get("paymentDate") != null) {
+			hql.append(" and o.paymentDate like '%" + map.get("paymentDate") + "%'");
 		}
-		if (map.get("tpek") !=null) {
-			hql.append(" and com.tpek = '"+map.get("tpek")+"'");
+		if (map.get("tpek") != null) {
+			hql.append(" and com.tpek = '" + map.get("tpek") + "'");
 		}
-		if (map.get("orderUser") !=null) {
-			hql.append(" and u.userName like '%"+map.get("orderUser")+"%'");
+		if (map.get("orderUser") != null) {
+			hql.append(" and u.userName like '%" + map.get("orderUser") + "%'");
 		}
 		hql.append(" order by o.orderFormID desc");
 		return orderFormDao.getEntityManager().createNativeQuery(hql.toString(), OrderForm.class).getResultList();
@@ -88,139 +87,139 @@ public class OrderFormService extends GenericService<OrderForm> implements IOrde
 
 	@Override
 	public List<OrderForm> getAllByParams(Map<String, Object> map, Integer userID) {
-		StringBuffer hql = new StringBuffer("select DISTINCT o.* from OrderForm o where o.user_id = "+userID);
+		StringBuffer hql = new StringBuffer("select DISTINCT o.* from OrderForm o where o.user_id = " + userID);
 		if (map.get("orderStatus") != null) {
 			if (map.get("orderStatus").equals("wanjie")) {
-				hql.append(" and o.orderstatus in('"+OrderStatus.completionTransaction+"')");
-			}else if(map.get("orderStatus").equals("tuikuan")){
-				hql.append(" and o.orderstatus in ('"+OrderStatus.ApplicationForRefund+"','"+OrderStatus.refundOrderForm+"','"+OrderStatus.refundSuccess+"','"+OrderStatus.refundFailed+"')");
-			}else {
-				hql.append(" and o.orderstatus in ('"+OrderStatus.valueOf(map.get("orderStatus").toString())+"')");
+				hql.append(" and o.orderstatus in('" + OrderStatus.completionTransaction + "')");
+			} else if (map.get("orderStatus").equals("tuikuan")) {
+				hql.append(" and o.orderstatus in ('" + OrderStatus.ApplicationForRefund + "','" + OrderStatus.refundOrderForm + "','" + OrderStatus.refundSuccess + "','" + OrderStatus.refundFailed + "')");
+			} else {
+				hql.append(" and o.orderstatus in ('" + OrderStatus.valueOf(map.get("orderStatus").toString()) + "')");
 			}
 		}
 		if (map.get("orderDate") != null) {
 			if (map.get("orderDate").equals("volvo")) {
 				List<String> dates = CalendarDays(5);
-				 StringBuilder takeDates = new StringBuilder();
-			        for (String date : dates) {
-			            if (takeDates.length() > 0) {
-			                takeDates.append(",");
-			            }
-			            takeDates.append("'");
-			            takeDates.append(date);
-			            takeDates.append("'");
-			        }
-				hql.append(" and o.orderDate in ("+takeDates.toString()+")"); 
-			}else if(map.get("orderDate").equals("saab")){
+				StringBuilder takeDates = new StringBuilder();
+				for (String date : dates) {
+					if (takeDates.length() > 0) {
+						takeDates.append(",");
+					}
+					takeDates.append("'");
+					takeDates.append(date);
+					takeDates.append("'");
+				}
+				hql.append(" and o.orderDate in (" + takeDates.toString() + ")");
+			} else if (map.get("orderDate").equals("saab")) {
 				Calendar cal = Calendar.getInstance();
 				Date d1 = new Date();
 				cal.add(Calendar.MONTH, -1);
 				Date d2 = cal.getTime();
-				long daterange = d1.getTime() - d2.getTime();     
-			    long time = 1000*3600*24;
-			    List<String> dates = CalendarDays(Integer.parseInt(String.valueOf(daterange/time)));
-				 StringBuilder takeDates = new StringBuilder();
-			        for (String date : dates) {
-			            if (takeDates.length() > 0) {
-			                takeDates.append(",");
-			            }
-			            takeDates.append("'");
-			            takeDates.append(date);
-			            takeDates.append("'");
-			        }
-			  hql.append(" and o.orderDate in ("+takeDates.toString()+")"); 
-			}else if(map.get("orderDate").equals("fiat")){
+				long daterange = d1.getTime() - d2.getTime();
+				long time = 1000 * 3600 * 24;
+				List<String> dates = CalendarDays(Integer.parseInt(String.valueOf(daterange / time)));
+				StringBuilder takeDates = new StringBuilder();
+				for (String date : dates) {
+					if (takeDates.length() > 0) {
+						takeDates.append(",");
+					}
+					takeDates.append("'");
+					takeDates.append(date);
+					takeDates.append("'");
+				}
+				hql.append(" and o.orderDate in (" + takeDates.toString() + ")");
+			} else if (map.get("orderDate").equals("fiat")) {
 				Calendar cal = Calendar.getInstance();
 				Date d1 = new Date();
 				cal.add(Calendar.MONTH, -3);
 				Date d2 = cal.getTime();
 				cal.setTime(new Date(d2.getTime() - 24 * 60 * 60 * 1000));
 				d2 = cal.getTime();
-				long daterange = d1.getTime() - d2.getTime();     
-			    long time = 1000*3600*24;
-			    List<String> dates = CalendarDays(Integer.parseInt(String.valueOf(daterange/time)));
-				 StringBuilder takeDates = new StringBuilder();
-			        for (String date : dates) {
-			            if (takeDates.length() > 0) {
-			                takeDates.append(",");
-			            }
-			            takeDates.append("'");
-			            takeDates.append(date);
-			            takeDates.append("'");
-			        }
-			   hql.append(" and o.orderDate in ("+takeDates.toString()+")"); 
+				long daterange = d1.getTime() - d2.getTime();
+				long time = 1000 * 3600 * 24;
+				List<String> dates = CalendarDays(Integer.parseInt(String.valueOf(daterange / time)));
+				StringBuilder takeDates = new StringBuilder();
+				for (String date : dates) {
+					if (takeDates.length() > 0) {
+						takeDates.append(",");
+					}
+					takeDates.append("'");
+					takeDates.append(date);
+					takeDates.append("'");
+				}
+				hql.append(" and o.orderDate in (" + takeDates.toString() + ")");
 			}
 		}
 		orderFormDao.getEntityManager().clear();
 		Query query = orderFormDao.getEntityManager().createNativeQuery(hql.toString(), OrderForm.class);
 		@SuppressWarnings("unchecked")
-		List<OrderForm> list =  query.getResultList();
+		List<OrderForm> list = query.getResultList();
 		return list;
 	}
-	
+
 	private List<String> CalendarDays(int day) {
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        List<String> weekDays = new ArrayList<String>();
-        for (int i = 0; i < day; i++) {
-            weekDays.add(format.format(cal.getTime()));
-            cal.add(Calendar.DATE, -1);
-        }
-        return weekDays;
-    }
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		List<String> weekDays = new ArrayList<String>();
+		for (int i = 0; i < day; i++) {
+			weekDays.add(format.format(cal.getTime()));
+			cal.add(Calendar.DATE, -1);
+		}
+		return weekDays;
+	}
 
 	@Override
 	public List<OrderForm> getShopOrderByShop(Integer shopID) {
-		StringBuffer hql = new StringBuffer("select DISTINCT o.* from OrderForm o right join Commodity com on com.orderform_id = o.orderFormID  where com.seller_name = "+shopID);
+		StringBuffer hql = new StringBuffer("select DISTINCT o.* from OrderForm o right join Commodity com on com.orderform_id = o.orderFormID  where com.seller_name = " + shopID);
 		Calendar cal = Calendar.getInstance();
 		Date d1 = new Date();
 		cal.add(Calendar.MONTH, -3);
 		Date d2 = cal.getTime();
 		cal.setTime(new Date(d2.getTime() - 24 * 60 * 60 * 1000));
 		d2 = cal.getTime();
-		long daterange = d1.getTime() - d2.getTime();     
-	    long time = 1000*3600*24;
-	    List<String> dates = CalendarDays(Integer.parseInt(String.valueOf(daterange/time)));
-		 StringBuilder takeDates = new StringBuilder();
-	        for (String date : dates) {
-	            if (takeDates.length() > 0) {
-	                takeDates.append(",");
-	            }
-	            takeDates.append("'");
-	            takeDates.append(date);
-	            takeDates.append("'");
-	        }
-	    hql.append(" and o.orderDate in ("+takeDates.toString()+")"); 
-	    orderFormDao.getEntityManager().clear();
+		long daterange = d1.getTime() - d2.getTime();
+		long time = 1000 * 3600 * 24;
+		List<String> dates = CalendarDays(Integer.parseInt(String.valueOf(daterange / time)));
+		StringBuilder takeDates = new StringBuilder();
+		for (String date : dates) {
+			if (takeDates.length() > 0) {
+				takeDates.append(",");
+			}
+			takeDates.append("'");
+			takeDates.append(date);
+			takeDates.append("'");
+		}
+		hql.append(" and o.orderDate in (" + takeDates.toString() + ")");
+		orderFormDao.getEntityManager().clear();
 		Query query = orderFormDao.getEntityManager().createNativeQuery(hql.toString(), OrderForm.class);
 		@SuppressWarnings("unchecked")
-		List<OrderForm> list =  query.getResultList();
+		List<OrderForm> list = query.getResultList();
 		return list;
 	}
-	
+
 	@Override
 	public Integer getShopOrderByStatusAndShop(String status, Integer shop_id) {
-		StringBuffer hql = new StringBuffer("select COUNT(DISTINCT orderFormID) from OrderForm o right join Commodity com on com.orderform_id = o.orderFormID  where o.orderstatus in(" + status + ") and com.seller_name = "+shop_id);
-		Query query =  orderFormDao.getEntityManager().createNativeQuery(hql.toString());
+		StringBuffer hql = new StringBuffer("select COUNT(DISTINCT orderFormID) from OrderForm o right join Commodity com on com.orderform_id = o.orderFormID  where o.orderstatus in(" + status + ") and com.seller_name = " + shop_id);
+		Query query = orderFormDao.getEntityManager().createNativeQuery(hql.toString());
 		return Integer.parseInt(query.getSingleResult().toString());
 	}
 
 	@Override
 	public List<OrderForm> getShopOrderByParam(Map<String, Object> map, Integer shopID) throws ParseException {
-		StringBuffer hql = new StringBuffer("select DISTINCT o.* from OrderForm o right join Commodity com on com.orderform_id = o.orderFormID  where com.seller_name = "+shopID);
+		StringBuffer hql = new StringBuffer("select DISTINCT o.* from OrderForm o right join Commodity com on com.orderform_id = o.orderFormID  where com.seller_name = " + shopID);
 		if (map.get("nameOfGoods") != null) {
-			hql.append(" and com.nameOfGoods like '%"+map.get("nameOfGoods")+"%'");
+			hql.append(" and com.nameOfGoods like '%" + map.get("nameOfGoods") + "%'");
 		}
 		if (map.get("orderUserName") != null) {
-			hql.append(" and o.user_id in (select id from User u where u.userName like '%"+map.get("orderUserName")+"%')");
+			hql.append(" and o.user_id in (select id from User u where u.userName like '%" + map.get("orderUserName") + "%')");
 		}
 		if (map.get("orderFormID") != null) {
 			hql.append(" and o.orderFormID = " + map.get("orderFormID"));
 		}
 		if (map.get("orderStatusFrom") != null) {
 			if (map.get("orderStatusFrom").equals("all")) {
-				
-			}else {
+
+			} else {
 				hql.append(" and o.orderstatus = '" + map.get("orderStatusFrom") + "'");
 			}
 		}
@@ -231,19 +230,19 @@ public class OrderFormService extends GenericService<OrderForm> implements IOrde
 			Date dd = sdf.parse(map.get("paymentDateLeft").toString());
 			cal.setTime(new Date(dd.getTime() - 24 * 60 * 60 * 1000));
 			Date d2 = cal.getTime();
-			long daterange = d1.getTime() - d2.getTime();     
-		    long time = 1000*3600*24;
-		    List<String> dates = CalendarDays(Integer.parseInt(String.valueOf(daterange/time)));
-			 StringBuilder takeDates = new StringBuilder();
-		        for (String date : dates) {
-		            if (takeDates.length() > 0) {
-		                takeDates.append(",");
-		            }
-		            takeDates.append("'");
-		            takeDates.append(date);
-		            takeDates.append("'");
-		        }
-		    hql.append(" and o.orderDate in ("+takeDates.toString()+")"); 
+			long daterange = d1.getTime() - d2.getTime();
+			long time = 1000 * 3600 * 24;
+			List<String> dates = CalendarDays(Integer.parseInt(String.valueOf(daterange / time)));
+			StringBuilder takeDates = new StringBuilder();
+			for (String date : dates) {
+				if (takeDates.length() > 0) {
+					takeDates.append(",");
+				}
+				takeDates.append("'");
+				takeDates.append(date);
+				takeDates.append("'");
+			}
+			hql.append(" and o.orderDate in (" + takeDates.toString() + ")");
 		}
 		if (map.get("paymentDateLeft") != null && !map.get("paymentDateLeft").equals("") && map.get("paymentDateRight") != null && !map.get("paymentDateRight").equals("")) {
 			Calendar cal = Calendar.getInstance();
@@ -252,37 +251,35 @@ public class OrderFormService extends GenericService<OrderForm> implements IOrde
 			Date dd = sdf.parse(map.get("paymentDateLeft").toString());
 			cal.setTime(new Date(dd.getTime() - 24 * 60 * 60 * 1000));
 			Date d2 = cal.getTime();
-			long daterange = d1.getTime() - d2.getTime(); 
-			if (daterange>0) {
-				long time = 1000*3600*24;
-			    List<String> dates = CalendarDays(Integer.parseInt(String.valueOf(daterange/time)));
-				 StringBuilder takeDates = new StringBuilder();
-			        for (String date : dates) {
-			            if (takeDates.length() > 0) {
-			                takeDates.append(",");
-			            }
-			            takeDates.append("'");
-			            takeDates.append(date);
-			            takeDates.append("'");
-			        }
-			    hql.append(" and o.orderDate in ("+takeDates.toString()+")"); 
+			long daterange = d1.getTime() - d2.getTime();
+			if (daterange > 0) {
+				long time = 1000 * 3600 * 24;
+				List<String> dates = CalendarDays(Integer.parseInt(String.valueOf(daterange / time)));
+				StringBuilder takeDates = new StringBuilder();
+				for (String date : dates) {
+					if (takeDates.length() > 0) {
+						takeDates.append(",");
+					}
+					takeDates.append("'");
+					takeDates.append(date);
+					takeDates.append("'");
+				}
+				hql.append(" and o.orderDate in (" + takeDates.toString() + ")");
 			}
 		}
 		orderFormDao.getEntityManager().clear();
 		Query query = orderFormDao.getEntityManager().createNativeQuery(hql.toString(), OrderForm.class);
 		@SuppressWarnings("unchecked")
-		List<OrderForm> list =  query.getResultList();
+		List<OrderForm> list = query.getResultList();
 		return list;
 	}
-	
+
 	@Override
 	public List<OrderForm> getAllByStatus() {
-		StringBuffer hql = new StringBuffer("select orders.* from OrderForm orders join Commodity comm "
-				+ " on comm.orderform_id = orders.orderFormID where orders.orderstatus not in"
-				+ " ('completionTransaction','closeTransaction')");
+		StringBuffer hql = new StringBuffer("select orders.* from OrderForm orders join Commodity comm " + " on comm.orderform_id = orders.orderFormID where orders.orderstatus not in" + " ('completionTransaction','closeTransaction')");
 		Query query = orderFormDao.getEntityManager().createNativeQuery(hql.toString(), OrderForm.class);
 		@SuppressWarnings("unchecked")
-		List<OrderForm> list =  query.getResultList();
+		List<OrderForm> list = query.getResultList();
 		return list;
 	}
 
@@ -292,76 +289,84 @@ public class OrderFormService extends GenericService<OrderForm> implements IOrde
 	}
 
 	@Override
-	public List<OrderForm> getAllRefundByStatus(Map<String, Object> map,
-			Integer shopID) {
-		StringBuffer hql = new StringBuffer("select DISTINCT o.* from OrderForm o right join Commodity com on com.orderform_id = o.orderFormID  where com.seller_name = "+shopID);
-		
+	public List<OrderForm> getAllRefundByStatus(Map<String, Object> map, Integer shopID) {
+		StringBuffer hql = new StringBuffer("select DISTINCT o.* from OrderForm o right join Commodity com on com.orderform_id = o.orderFormID  where com.seller_name = " + shopID);
+
 		if (map.get("orderStatusRefunding") != null) {
 			hql.append(" and o.orderstatus = '" + map.get("orderStatusRefunding") + "'");
-		}if (map.get("orderStatusRefundSuccess") != null) {
+		}
+		if (map.get("orderStatusRefundSuccess") != null) {
 			hql.append(" or o.orderstatus = '" + map.get("orderStatusRefundSuccess") + "'");
-		}if (map.get("orderStatusRefundfail") != null) {
+		}
+		if (map.get("orderStatusRefundfail") != null) {
 			hql.append(" or o.orderstatus = '" + map.get("orderStatusRefundfail") + "'");
-		}if (map.get("ApplicationForRefund") != null) {
+		}
+		if (map.get("ApplicationForRefund") != null) {
 			hql.append(" or o.orderstatus = '" + map.get("ApplicationForRefund") + "'");
 		}
 		orderFormDao.getEntityManager().clear();
-		Query query =  orderFormDao.getEntityManager().createNativeQuery(hql.toString(), OrderForm.class);
+		Query query = orderFormDao.getEntityManager().createNativeQuery(hql.toString(), OrderForm.class);
 		@SuppressWarnings("unchecked")
-		List<OrderForm> list =  query.getResultList();
+		List<OrderForm> list = query.getResultList();
 		return list;
 	}
 
 	@Override
-	public List<OrderForm> getAllRefundByStatusUID(Map<String, Object> map,
-			Integer userID) {
-		StringBuffer hql = new StringBuffer("select DISTINCT o.* from OrderForm o right join Commodity com on com.orderform_id = o.orderFormID  where o.user_id = "+userID);
+	public List<OrderForm> getAllRefundByStatusUID(Map<String, Object> map, Integer userID) {
+		StringBuffer hql = new StringBuffer("select DISTINCT o.* from OrderForm o right join Commodity com on com.orderform_id = o.orderFormID  where o.user_id = " + userID);
 		if (map.get("orderStatusRefunding") != null) {
 			hql.append(" and o.orderstatus = '" + map.get("orderStatusRefunding") + "'");
-		}if (map.get("orderStatusRefundSuccess") != null) {
+		}
+		if (map.get("orderStatusRefundSuccess") != null) {
 			hql.append(" or o.orderstatus = '" + map.get("orderStatusRefundSuccess") + "'");
-		}if (map.get("orderStatusRefundfail") != null) {
+		}
+		if (map.get("orderStatusRefundfail") != null) {
 			hql.append(" or o.orderstatus = '" + map.get("orderStatusRefundfail") + "'");
 		}
-		Query query =  orderFormDao.getEntityManager().createNativeQuery(hql.toString(), OrderForm.class);
+		Query query = orderFormDao.getEntityManager().createNativeQuery(hql.toString(), OrderForm.class);
 		@SuppressWarnings("unchecked")
-		List<OrderForm> list =  query.getResultList();
+		List<OrderForm> list = query.getResultList();
 		return list;
 	}
-	
-	/* (non-Javadoc)
-	 * 查询最新订单信息
+
+	/*
+	 * (non-Javadoc) 查询最新订单信息
+	 * 
 	 * @see com.yc.service.IOrderFormService#searchNewst()
 	 */
 	@Override
 	public OrderForm searchNewst() {
-		StringBuffer hql=new StringBuffer("SELECT * FROM orderform ORDER BY orderform.orderFormID DESC LIMIT 1");
-		Query query =  orderFormDao.getEntityManager().createNativeQuery(hql.toString(), OrderForm.class);
-		OrderForm newstOrderForm=(OrderForm) query.getSingleResult();
-		return newstOrderForm;
+		StringBuffer hql = new StringBuffer("SELECT * FROM orderform ORDER BY orderform.orderFormID DESC LIMIT 1");
+		Query query = orderFormDao.getEntityManager().createNativeQuery(hql.toString(), OrderForm.class);
+		if (query.getResultList().size() == 0) {
+			return null;
+		} else {
+			OrderForm newstOrderForm = (OrderForm) query.getSingleResult();
+			return newstOrderForm;
+		}
 	}
 
 	@Override
-	public List<OrderForm> getAllByOrderStatusAndShopId(String orderStatus,
-			Integer shopId) {
-		//StringBuffer hql = new StringBuffer("select DISTINCT o.* from OrderForm o right join Commodity com on com.orderform_id = o.orderFormID  where com.seller_name = "+shopId);
-		String hql = " from OrderForm o where o.orderstatus = '"+orderStatus+"'"+" and o.orderUser.shop.id="+shopId;
+	public List<OrderForm> getAllByOrderStatusAndShopId(String orderStatus, Integer shopId) {
+		// StringBuffer hql = new
+		// StringBuffer("select DISTINCT o.* from OrderForm o right join Commodity com on com.orderform_id = o.orderFormID  where com.seller_name = "+shopId);
+		String hql = " from OrderForm o where o.orderstatus = '" + orderStatus + "'" + " and o.orderUser.shop.id=" + shopId;
 		System.out.println("到了所有订单查询通过店铺ID！！！！！！！！");
 		return orderFormDao.find(hql, null, null);
 	}
-	
+
 	@Override
 	public List<OrderForm> getShopOrderByParamAndShopId(Map<String, Object> map, Integer shopID) throws ParseException {
-		StringBuffer hql = new StringBuffer("select DISTINCT o.* from OrderForm o right join Commodity com on com.orderform_id = o.orderFormID  where com.seller_name = "+shopID);
+		StringBuffer hql = new StringBuffer("select DISTINCT o.* from OrderForm o right join Commodity com on com.orderform_id = o.orderFormID  where com.seller_name = " + shopID);
 		if (map.get("nameOfGoods") != null) {
-			hql.append(" and com.nameOfGoods like '%"+map.get("nameOfGoods")+"%'");
+			hql.append(" and com.nameOfGoods like '%" + map.get("nameOfGoods") + "%'");
 		}
 		if (map.get("orderUserName") != null) {
-			hql.append(" and o.user_id in (select id from User u where u.userName like '%"+map.get("orderUserName")+"%')");
+			hql.append(" and o.user_id in (select id from User u where u.userName like '%" + map.get("orderUserName") + "%')");
 		}
-//		if (map.get("orderFormID") != null) {
-//			hql.append(" and o.orderFormID = " + map.get("orderFormID"));
-//		}
+		// if (map.get("orderFormID") != null) {
+		// hql.append(" and o.orderFormID = " + map.get("orderFormID"));
+		// }
 		if (map.get("orderStatusFrom") != null) {
 			hql.append(" and o.orderstatus = '%" + map.get("orderStatusFrom") + "%'");
 		}
@@ -372,19 +377,19 @@ public class OrderFormService extends GenericService<OrderForm> implements IOrde
 			Date dd = sdf.parse(map.get("paymentDateLeft").toString());
 			cal.setTime(new Date(dd.getTime() - 24 * 60 * 60 * 1000));
 			Date d2 = cal.getTime();
-			long daterange = d1.getTime() - d2.getTime();     
-		    long time = 1000*3600*24;
-		    List<String> dates = CalendarDays(Integer.parseInt(String.valueOf(daterange/time)));
-			 StringBuilder takeDates = new StringBuilder();
-		        for (String date : dates) {
-		            if (takeDates.length() > 0) {
-		                takeDates.append(",");
-		            }
-		            takeDates.append("'");
-		            takeDates.append(date);
-		            takeDates.append("'");
-		        }
-		    hql.append(" and o.orderDate in ("+takeDates.toString()+")"); 
+			long daterange = d1.getTime() - d2.getTime();
+			long time = 1000 * 3600 * 24;
+			List<String> dates = CalendarDays(Integer.parseInt(String.valueOf(daterange / time)));
+			StringBuilder takeDates = new StringBuilder();
+			for (String date : dates) {
+				if (takeDates.length() > 0) {
+					takeDates.append(",");
+				}
+				takeDates.append("'");
+				takeDates.append(date);
+				takeDates.append("'");
+			}
+			hql.append(" and o.orderDate in (" + takeDates.toString() + ")");
 		}
 		if (map.get("paymentDateLeft") != null && !map.get("paymentDateLeft").equals("") && map.get("paymentDateRight") != null && !map.get("paymentDateRight").equals("")) {
 			Calendar cal = Calendar.getInstance();
@@ -393,28 +398,27 @@ public class OrderFormService extends GenericService<OrderForm> implements IOrde
 			Date dd = sdf.parse(map.get("paymentDateLeft").toString());
 			cal.setTime(new Date(dd.getTime() - 24 * 60 * 60 * 1000));
 			Date d2 = cal.getTime();
-			long daterange = d1.getTime() - d2.getTime(); 
-			if (daterange>0) {
-				long time = 1000*3600*24;
-			    List<String> dates = CalendarDays(Integer.parseInt(String.valueOf(daterange/time)));
-				 StringBuilder takeDates = new StringBuilder();
-			        for (String date : dates) {
-			            if (takeDates.length() > 0) {
-			                takeDates.append(",");
-			            }
-			            takeDates.append("'");
-			            takeDates.append(date);
-			            takeDates.append("'");
-			        }
-			    hql.append(" and o.orderDate in ("+takeDates.toString()+")"); 
+			long daterange = d1.getTime() - d2.getTime();
+			if (daterange > 0) {
+				long time = 1000 * 3600 * 24;
+				List<String> dates = CalendarDays(Integer.parseInt(String.valueOf(daterange / time)));
+				StringBuilder takeDates = new StringBuilder();
+				for (String date : dates) {
+					if (takeDates.length() > 0) {
+						takeDates.append(",");
+					}
+					takeDates.append("'");
+					takeDates.append(date);
+					takeDates.append("'");
+				}
+				hql.append(" and o.orderDate in (" + takeDates.toString() + ")");
 			}
 		}
 		orderFormDao.getEntityManager().clear();
 		Query query = orderFormDao.getEntityManager().createNativeQuery(hql.toString(), OrderForm.class);
 		@SuppressWarnings("unchecked")
-		List<OrderForm> list =  query.getResultList();
+		List<OrderForm> list = query.getResultList();
 		return list;
 	}
-
 
 }

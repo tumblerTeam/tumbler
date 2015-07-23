@@ -512,7 +512,14 @@ public class ShopOneController {
 	    			
 					commImage.setImagePath("images/"+shop.getId()+"/"+commodity.getCommCode()+"/"+name2);
 					commImage.setShopCommoidty(commodity);
-					shopCommImageService.save(commImage);
+					commImage = shopCommImageService.save(commImage);
+					List<ShopCommImage> list = commodity.getShopCommImages();
+					if(list == null){
+						list = new ArrayList<ShopCommImage>();
+					}
+					list.add(commImage);
+					commodity.setShopCommImages(list);
+					shopCommodityService.update(commodity);
 				}
 			}
 			return "setupShop/publishComm";
@@ -544,9 +551,7 @@ public class ShopOneController {
             	
     			String name2 = file.getOriginalFilename();
     			// 得到要上传文件的后缀名
-    			endType = name2.substring(name2.lastIndexOf("."),name2.length());
-                // 转存文件  
-				file.transferTo(new File(uploadDir,fname+endType));
+				file.transferTo(new File(uploadDir,name2));
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();  
@@ -1875,81 +1880,5 @@ public class ShopOneController {
 	//填写开店信息：
 
 	// 购物Item
-	@RequestMapping(value = "shopItem", method = RequestMethod.GET)
-	public ModelAndView shopItem(Integer commID, Integer category, Integer shopID, String commoName, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ModelMap mode = new ModelMap();
-		ShopCategory cate = shopCategService.findById(category);
-		List<ShopReviews> reviewslist = shopReviewsService.getAllBycommCode(commID);
-		Integer hao = 0;
-		Integer zhong = 0;
-		Integer cha = 0;
-		for (int i = 0; i < reviewslist.size(); i++) {
-			if (reviewslist.get(i).getReviewsRank() == ReviewsRank.good) {
-				hao = hao + 1;
-			}
-			if (reviewslist.get(i).getReviewsRank() == ReviewsRank.better) {
-				zhong = zhong + 1;
-			}
-			if (reviewslist.get(i).getReviewsRank() == ReviewsRank.bad) {
-				cha = cha + 1;
-			}
-		}
-		mode.put("reviewslist", reviewslist);
-		mode.put("hao", hao);
-		mode.put("zhong", zhong);
-		mode.put("cha", cha);
-		List<ShopCategory> shopcates = new ArrayList<ShopCategory>();
-		shopcates.add(cate);
-		mode.put("specifications", cate.getSpecifications());
-		String strs = "";
-		while (cate.getParentLevel() != null) {
-			cate = shopCategService.findById(cate.getParentLevel().getCategoryID());
-			if (cate != null) {
-				shopcates.add(cate);	
-			}
-		}
-		for (int i = shopcates.size() - 1; i >= 0; i--) {
-			strs = strs + shopcates.get(i).getCategoryID() + "-" + shopcates.get(i).getCategory() + "|";
-		}
-		List<ShopCategory> shopcategories = shopCategService.getAll();
-		mode.put("shopCategories", shopcategories);
-		mode.put("nvabar", strs.substring(0, strs.length() - 1));
-		ShopCommodity shopCommoidty = shopCommService.findById(commID);
-		Map<String, List<String>> map = new HashMap<String, List<String>>();
-		List<String> specStrs = null;
-		mode.put("shopCommoidty", shopCommoidty);
-		ShopCommoditySpecs shopSpecs = shopCommoidty.getCommsPecs();
-		if (shopSpecs != null) {
-			String spec = shopSpecs.getCommSpec();
-			if(spec != null && !spec.equals("")){
-				String[] specs = {};
-				if(spec != null){
-					specs = spec.split(",");
-				}
-				if (specs.length > 0) {
-					for (int i = 0; i < specs.length; i++) {
-						if (!specs[i].equals("")) {
-							if (map.containsKey(specs[i].split("-")[0])) {
-								specStrs = map.get(specs[i].split("-")[0]);
-								if (!specStrs.contains(specs[i].split("-")[1])) {
-									specStrs.add(specs[i].split("-")[1]);
-								}
-							} else {
-								specStrs = new ArrayList<String>();
-								specStrs.add(specs[i].split("-")[1]);
-								map.put(specs[i].split("-")[0], specStrs);
-							}
-						}
-					}
-				}
-			}
-		}
-		List<ShopCategory> list = shopCategService.getAllByParent();
-		mode.put("categories", list);
-		mode.put("map", map);
-		AppUser user = (AppUser) request.getSession().getAttribute("loginUser");
-		mode.put("user", user);
-		return new ModelAndView("reception/shopItem", mode);
-	}
 
 }

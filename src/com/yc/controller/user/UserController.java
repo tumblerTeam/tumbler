@@ -93,6 +93,9 @@ public class UserController {
 				if (page.equals("")) {
 					return "redirect:/index";
 				} else {
+					if(page.contains("user/regist")){
+						return "redirect:/index";
+					}
 					return "redirect:" + page;
 				}
 			} else {
